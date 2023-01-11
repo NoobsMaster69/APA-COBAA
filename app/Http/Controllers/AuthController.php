@@ -29,11 +29,12 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (!\Auth::attempt([
-            'email' => $request->email,
+            'nip' => $request->nip,
             'password' => $request->password
         ])) {
-            throw new \Exception('Wrong email or password.');
+            throw new \Exception('Email atau Password Salah.');
         }
+        dd('gagal bang');
     }
 
     /**

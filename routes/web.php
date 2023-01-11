@@ -21,11 +21,30 @@ use App\Http\Controllers\BahanMasukController;
 Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
 Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
 
-Route::middleware('loggedin')->group(function () {
-    Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
-    Route::post('login', [AuthController::class, 'login'])->name('login.check');
+// Route::middleware('loggedin')->group(function () {
+//     Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
+//     Route::post('login', [AuthController::class, 'login'])->name('login.check');
+//     Route::get('register', [AuthController::class, 'registerView'])->name('register.index');
+//     Route::post('register', [AuthController::class, 'register'])->name('register.store');
+// });
+
+// yang ini soalnya buat route yang bisa diakses tanpa login
+Route::middleware('guest')->group(function () {
+    // Register
     Route::get('register', [AuthController::class, 'registerView'])->name('register.index');
     Route::post('register', [AuthController::class, 'register'])->name('register.store');
+    // Login
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/', [AuthController::class, 'logout'])->name('logout');
+    Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
+    // Route::post('login', [AuthController::class, 'login'])->name('login.check');
+    Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
+
+    // login dengan google
+    Route::controller(GoogleController::class)->group(function () {
+        Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+        Route::get('auth/google/callback', 'handleGoogleCallback');
+    });
 });
 
 Route::middleware('auth')->group(function () {

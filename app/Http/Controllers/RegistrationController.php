@@ -115,7 +115,6 @@ class RegistrationController extends Controller
         $credentials = $request->only('nip', 'password');
 
         // pesan error jika email dan password tidak sesuai dengan data di database
-
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
 

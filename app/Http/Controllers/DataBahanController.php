@@ -20,7 +20,7 @@ class DataBahanController extends Controller
             ->get();
 
         // mengirim tittle dan judul ke view
-        return view('pages.databahan.index', ['dataBahan' => $dataBahan], ['tittle' => 'Data Bahan', 'judul' => 'Data Bahan', 'menu' => 'Bahan Baku', 'submenu' => 'Data Bahan']);
+        return view('pages.dataBahan.index', ['dataBahan' => $dataBahan]);
     }
 
 

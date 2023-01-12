@@ -79,17 +79,17 @@ class SideMenu
                 'icon' => 'box',
                 'title' => 'Bahan Baku',
                 'sub_menu' => [
-                    'data-bahan' => [
+                    'dataBahan' => [
                         'icon' => 'meh',
-                        'route_name' => 'data-bahan',
+                        'route_name' => 'dataBahan',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Data Bahan Baku '
+                        'title' => 'Data Bahan Baku'
                     ],
-                    'data-bahan-masuk' => [
+                    'bahanMasuk' => [
                         'icon' => 'meh',
-                        'route_name' => 'data-masuk',
+                        'route_name' => 'bahanMasuk',
                         'params' => [
                             'layout' => 'side-menu'
                         ],

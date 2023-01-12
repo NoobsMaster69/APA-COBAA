@@ -7,6 +7,8 @@ use App\Http\Controllers\DarkModeController;
 use App\Http\Controllers\ColorSchemeController;
 use App\Http\Controllers\DataBahanController;
 use App\Http\Controllers\BahanMasukController;
+use App\Http\Controllers\RegistrationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,21 +36,34 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [AuthController::class, 'registerView'])->name('register.index');
     Route::post('register', [AuthController::class, 'register'])->name('register.store');
     // Login
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/', [AuthController::class, 'logout'])->name('logout');
+    Route::get('logout', [RegistrationController::class, 'logout']);
+    Route::get('/', [RegistrationController::class, 'logout']);
     Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
     // Route::post('login', [AuthController::class, 'login'])->name('login.check');
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
-
-    // login dengan google
-    Route::controller(GoogleController::class)->group(function () {
-        Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
-        Route::get('auth/google/callback', 'handleGoogleCallback');
-    });
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    // Dashboard
+    Route::get('dashboard', function () {
+        return view('dashboard', ['tittle' => 'Dashboard', 'judul' => 'Dashboard', 'menu' => 'Dashboard', 'submenu' => 'Dashboard']);
+    });
+    // logout
+    Route::post('logout', [RegistrationController::class, 'logout'])->name('logout');
+    // mengarah ke setiap controller
+    Route::resource('dataBahan', DataBahanController::class);
+    Route::resource('bahanMasuk', BahanMasukController::class);
+    // Route::resource('bahanKeluar', BahanKeluarController::class);
+    // Route::resource('satuan', SatuanController::class);
+    // Route::resource('produkJadi', ProdukJadiController::class);
+    // Route::resource('resep', ResepController::class);
+    // Route::resource('sopir', SopirController::class);
+    // Route::resource('mobil', MobilController::class);
+    // Route::resource('jabatan', JabatanController::class);
+    // Route::resource('karyawan', KaryawanController::class);
+    // Route::resource('produkMasuk', ProdukMasukController::class);
+    // Route::resource('produkKeluar', ProdukKeluarController::class);
+    // END Route Projek Kita
     Route::get('/', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');
     Route::get('dashboard-overview-2-page', [PageController::class, 'dashboardOverview2'])->name('dashboard-overview-2');
     Route::get('dashboard-overview-3-page', [PageController::class, 'dashboardOverview3'])->name('dashboard-overview-3');
@@ -59,12 +74,12 @@ Route::middleware('auth')->group(function () {
     Route::get('post-page', [PageController::class, 'post'])->name('post');
     Route::get('calendar-page', [PageController::class, 'calendar'])->name('calendar');
 
-    // Data Bahan
-    Route::get('databahan', [DataBahanController::class, 'index'])->name('data-bahan');
+    // // Data Bahan
+    Route::get('databahan', [DataBahanController::class, 'index'])->name('dataBahan');
     Route::resource('dataBahan', DataBahanController::class);
 
-    // Data Bahan Masuk
-    Route::get('bahanmasuk', [BahanMasukController::class, 'index'])->name('data-masuk');
+    // // Data Bahan Masuk
+    Route::get('bahanmasuk', [BahanMasukController::class, 'index'])->name('bahanMasuk');
     Route::resource('bahanMasuk', BahanMasukController::class);
 
 

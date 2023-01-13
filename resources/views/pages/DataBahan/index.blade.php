@@ -71,18 +71,18 @@
                             <a class="flex items-center mr-3" href="javascript:;">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
-                            <form action="{{ route('dataBahan', $bahan->kd_bahan) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <!-- trigger modal -->
-                                <button type="button" class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
-                                    <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
-                                </button>
-                                <!-- BEGIN: Delete Confirmation Modal -->
-                                <div id="hapus{{ $bahan->kd_bahan }}" class="modal" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-body p-0">
+                            <!-- trigger modal -->
+                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
+                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
+                            </button>
+                            <!-- BEGIN: Delete Confirmation Modal -->
+                            <div id="hapus{{ $bahan->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <form action="{{ route('dataBahan.destroy', $bahan->kd_bahan) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
                                                     <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $bahan->nm_bahan }}?</div>
@@ -92,12 +92,12 @@
                                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
                                                     <button type="submit" class="btn btn-danger w-24">Delete</button>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- END: Delete Confirmation Modal -->
-                            </form>
+                            </div>
+                            <!-- END: Delete Confirmation Modal -->
                         </div>
                     </td>
                 </tr>
@@ -149,7 +149,6 @@
         </nav>
         <select class="w-20 form-select box mt-3 sm:mt-0">
             <option>10</option>
-            <option>25</option>
             <option>35</option>
             <option>50</option>
         </select>
@@ -166,4 +165,6 @@
     </div>
 </div>
 <!-- END: Notification Content -->
+
+
 @endsection

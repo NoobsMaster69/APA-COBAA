@@ -54,8 +54,9 @@ class DataBahanController extends Controller
 
         DataBahan::create($request->all());
 
+        Alert::success('Data Bahan', 'Berhasil Ditambahkan');
 
-        return redirect('/dataBahan')->with('status', 'Keren');
+        return redirect('/dataBahan');
     }
 
     public function show(DataBahan $dataBahan)
@@ -105,6 +106,8 @@ class DataBahanController extends Controller
 
         $dataBahan->update($request->all());
 
+        Alert::success('Data Bahan', 'Berhasil Diubah');
+
 
         return redirect('/dataBahan');
     }
@@ -113,6 +116,8 @@ class DataBahanController extends Controller
     {
 
         $dataBahan->delete('kd_bahan', $request->kd_bahan);
+
+        Alert::success('Data Bahan', 'Berhasil Dihapus');
 
         return redirect('/dataBahan');
     }

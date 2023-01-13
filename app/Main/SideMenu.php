@@ -106,6 +106,37 @@ class SideMenu
                 ]
                 //
             ],
+            'data' => [
+                'icon' => 'box',
+                'title' => 'Bahan Baku',
+                'sub_menu' => [
+                    'dataBahan' => [
+                        'icon' => 'meh',
+                        'route_name' => 'dataBahan',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Data Bahan Baku'
+                    ],
+                    'bahanMasuk' => [
+                        'icon' => 'meh',
+                        'route_name' => 'bahanMasuk',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Pembelian Bahan'
+                    ],
+                    'crud-create' => [
+                        'icon' => 'meh',
+                        'route_name' => 'crud-form',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Penjualan Bahan'
+                    ]
+                ]
+                //
+            ],
             'inbox' => [
                 'icon' => 'inbox',
                 'route_name' => 'inbox',

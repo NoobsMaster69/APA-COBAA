@@ -14,11 +14,5 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'backoffice',
-            'nip' => '20210120099',
-            'password' => bcrypt('password'),
-            'role' => 'backoffice'
-        ]);
     }
 }

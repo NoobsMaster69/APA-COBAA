@@ -87,9 +87,9 @@ class DataBahanController extends Controller
             'nm_bahan.max' => 'Nama Bahan maksimal 50 karakter',
             'kd_satuan.required' => 'Kode Satuan tidak boleh kosong',
             'harga_beli.required' => 'Harga Beli tidak boleh kosong',
-            'harga_beli.integer' => 'Harga Beli harus berupa angka',
+            'harga_beli.numeric' => 'Harga Beli harus berupa angka',
             'stok.required' => 'Stok tidak boleh kosong',
-            'stok.integer' => 'Stok harus berupa angka',
+            'stok.numeric' => 'Stok harus berupa angka',
             'ket.min' => 'Keterangan tidak boleh kosong',
             'ket.min' => 'Keterangan minimal 3 karakter',
         ];
@@ -99,8 +99,8 @@ class DataBahanController extends Controller
             'kd_bahan' => 'required',
             'nm_bahan' => 'required|min:3|max:50',
             'kd_satuan' => 'required',
-            'harga_beli' => 'required|integer',
-            'stok' => 'required|integer',
+            'harga_beli' => 'required|numeric',
+            'stok' => 'required|numeric',
             'ket' => 'required|min:3',
         ], $messages);
 

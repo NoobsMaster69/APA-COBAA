@@ -73,7 +73,7 @@
                             </a>
                             <!-- trigger modal -->
                             <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
-                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
+                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
                             <div id="hapus{{ $bahan->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
@@ -89,8 +89,8 @@
                                                     <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">
-                                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                                    <button type="submit" class="btn btn-danger w-24">Delete</button>
+                                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
+                                                    <button type="submit" class="btn btn-danger w-24">Hapus</button>
                                                 </div>
                                             </form>
                                         </div>

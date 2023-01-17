@@ -74,8 +74,35 @@ class SideMenu
             //         ]
             //     ]
             // ],
+            // Jabatan
+            'jabatan' => [
+                'icon' => 'inbox',
+                'route_name' => 'jabatanKaryawan',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Jabatan'
+            ],
+            // Data Karyawan
+            'karyawan' => [
+                'icon' => 'inbox',
+                'route_name' => 'dataKaryawan',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Data Karyawan'
+            ],
+            // Jabatan
+            'satuan' => [
+                'icon' => 'inbox',
+                'route_name' => 'satuanMassa',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Satuan Massa'
+            ],
             // Menu Bahan
-            'data' => [
+            'bahan' => [
                 'icon' => 'box',
                 'title' => 'Bahan Baku',
                 'sub_menu' => [
@@ -95,44 +122,109 @@ class SideMenu
                         ],
                         'title' => 'Pembelian Bahan'
                     ],
-                    'crud-create' => [
+                    'bahanKeluar' => [
                         'icon' => 'meh',
-                        'route_name' => 'crud-form',
+                        'route_name' => 'bahanKeluar',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Penjualan Bahan'
+                        'title' => 'Pemakaian Bahan'
                     ]
                 ]
                 //
             ],
-            'data' => [
+            // menu produk
+            'produk' => [
                 'icon' => 'box',
-                'title' => 'Bahan Baku',
+                'title' => 'Produk Jadi',
                 'sub_menu' => [
-                    'dataBahan' => [
+                    'produkJadi' => [
                         'icon' => 'meh',
-                        'route_name' => 'dataBahan',
+                        'route_name' => 'produkJadi',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Data Bahan Baku'
+                        'title' => 'Data Produk'
                     ],
-                    'bahanMasuk' => [
+                    'produkMasuk' => [
                         'icon' => 'meh',
-                        'route_name' => 'bahanMasuk',
+                        'route_name' => 'produkMasuk',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Pembelian Bahan'
+                        'title' => 'Pembuatan Produk'
                     ],
-                    'crud-create' => [
+                    'produkKeluar' => [
                         'icon' => 'meh',
-                        'route_name' => 'crud-form',
+                        'route_name' => 'produkKeluar',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Penjualan Bahan'
+                        'title' => 'Penjualan Produk'
+                    ]
+                ]
+                //
+            ],
+            // menu pengiriman
+            'pengiriman' => [
+                'icon' => 'box',
+                'title' => 'Pengiriman',
+                'sub_menu' => [
+                    'dataPengiriman' => [
+                        'icon' => 'meh',
+                        'route_name' => 'dataPengiriman',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Data Pengiriman'
+                    ],
+                    'sopir' => [
+                        'icon' => 'meh',
+                        'route_name' => 'tampil-sopir',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Sopir'
+                    ],
+                    'mobil' => [
+                        'icon' => 'meh',
+                        'route_name' => 'tampil-mobil',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Mobil'
+                    ]
+                ]
+                //
+            ],
+            // menu laporan
+            'laporan' => [
+                'icon' => 'box',
+                'title' => 'Laporan',
+                'sub_menu' => [
+                    'lapPermintaanBahan' => [
+                        'icon' => 'meh',
+                        'route_name' => 'lapPermintaanBahan',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Laporan Permintaan Bahan'
+                    ],
+                    'lapPermintaanProduk' => [
+                        'icon' => 'meh',
+                        'route_name' => 'lapPermintaanProduk',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Laporan Permintaan Produk'
+                    ],
+                    'lapPengirimanProduk' => [
+                        'icon' => 'meh',
+                        'route_name' => 'lapPengirimanProduk',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Laporan Pengiriman Produk'
                     ]
                 ]
                 //
@@ -143,7 +235,7 @@ class SideMenu
                 'params' => [
                     'layout' => 'side-menu'
                 ],
-                'title' => 'Data bahan'
+                'title' => 'Inbox'
             ],
             'file-manager' => [
                 'icon' => 'hard-drive',

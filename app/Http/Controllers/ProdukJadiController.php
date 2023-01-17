@@ -13,7 +13,7 @@ class ProdukJadiController extends Controller
 {
     public function index()
     {
-        $this->authorize('viewAny', ProdukJadi::class);
+        // $this->authorize('viewAny', ProdukJadi::class);
 
         // join tabel dengan tabel satuan
         $produkJadi = ProdukJadi::join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')
@@ -21,11 +21,7 @@ class ProdukJadiController extends Controller
             ->get();
 
         // mengirim tittle dan judul ke view
-        return view(
-            'produkJadi.index',
-            ['produkJadi' => $produkJadi],
-            ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']
-        );
+        return view('pages.produkJadi.index', ['produkJadi' => $produkJadi]);
     }
 
     public function create()

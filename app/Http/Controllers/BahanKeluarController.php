@@ -12,7 +12,7 @@ class BahanKeluarController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', bahanKeluar::class);
+        // $this->authorize('viewAny', bahanKeluar::class);
 
         // join table bahan keluar dan data bahan
         $bahanKeluar = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
@@ -21,21 +21,15 @@ class BahanKeluarController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'bahanKeluar.index',
+            'pages.bahanKeluar.index',
             ['bahanKeluar' => $bahanKeluar],
-            [
-                'tittle' => 'Pemakaian Bahan',
-                'judul' => 'Pemakaian Bahan',
-                'menu' => 'Bahan Baku',
-                'submenu' => 'Pemakaian Bahan'
-            ]
         );
     }
 
 
     public function create()
     {
-        $this->authorize('create', bahanKeluar::class);
+        // $this->authorize('create', bahanKeluar::class);
 
         // join dengan tabel satuan
         $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
@@ -43,14 +37,8 @@ class BahanKeluarController extends Controller
             ->get();
 
         return view(
-            'bahanKeluar.create',
+            'pages.bahanKeluar.create',
             ['dataBahan' => $dataBahan],
-            [
-                'tittle' => 'Pemakaian Bahan',
-                'judul' => 'Pemakaian Bahan',
-                'menu' => 'Bahan Baku',
-                'submenu' => 'Pemakaian Bahan'
-            ]
         );
     }
 

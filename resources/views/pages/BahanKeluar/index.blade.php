@@ -1,14 +1,14 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Pembuatan Bahan - Bread Smile</title>
+<title>Data Pemakaian Bahan - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Pembuatan Bahan</h2>
+<h2 class="intro-y text-lg font-medium mt-10">Data Pemakaian Bahan</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{route ('bahanMasuk.create') }}">
+        <a href="{{route ('bahanKeluar.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah</button>
         </a>
         <div class="dropdown">
@@ -52,7 +52,7 @@
                 <tr>
                     <th class="whitespace-nowrap">KODE BAHAN</th>
                     <th class="whitespace-nowrap">NAMA BAHAN</th>
-                    <th class="text-center whitespace-nowrap">TANGGAL MASUK </th>
+                    <th class="text-center whitespace-nowrap">TANGGAL KELUAR</th>
                     <th class="text-center whitespace-nowrap">HARGA BELI</th>
                     <th class="text-center whitespace-nowrap">JUMLAH</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
@@ -61,13 +61,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($bahanMasuk as $masuk)
+                @foreach ($bahanKeluar as $keluar)
                 <tr class="intro-x">
-                    <td class="whitespace-nowrap">{{ $masuk->kd_bahan }}</td>
-                    <td class="whitespace-nowrap">{{ $masuk->nm_bahan }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->tgl_masuk }}</td>
-                    <td class="text-center whitespace-nowrap">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
+                    <td class="whitespace-nowrap">{{ $keluar->kd_bahan }}</td>
+                    <td class="whitespace-nowrap">{{ $keluar->nm_bahan }}</td>
+                    <td class="text-center whitespace-nowrap">{{ $keluar->tgl_keluar }}</td>
+                    <td class="text-center whitespace-nowrap">{{ 'Rp. ' . number_format($keluar->harga_beli) }}</td>
+                    <td class="text-center whitespace-nowrap">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
                     <td class="text-center whitespace-nowrap">{{ $bahan->ket }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
@@ -75,21 +75,21 @@
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
+                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $keluar->kd_bahan }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
-                            <div id="hapus{{ $bahan->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div id="hapus{{ $keluar->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $bahan->kd_bahan) }}" method="POST">
+                                            <form action="{{ route('dataBahan.destroy', $keluar->kd_bahan) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $bahan->nm_bahan }}?</div>
-                                                    <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
+                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $keluar->nm_bahan }}?</div>
+                                                    <div class="text-slate-500 mt-2">Data yang dzihapus tidak dapat dikembalikan!</div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">
                                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>

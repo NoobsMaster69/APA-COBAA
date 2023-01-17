@@ -47,7 +47,7 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register.store');
     // Login
     Route::get('logout', [RegistrationController::class, 'logout']);
-    Route::get('/', [RegistrationController::class, 'logout']);
+    Route::get('/', [RegistrationController::class, 'login']);
     Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
     // Route::post('login', [AuthController::class, 'login'])->name('login.check');
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
@@ -55,9 +55,9 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     // Dashboard
-    Route::get('dashboard', function () {
-        return view('dashboard', ['tittle' => 'Dashboard', 'judul' => 'Dashboard', 'menu' => 'Dashboard', 'submenu' => 'Dashboard']);
-    });
+    Route::get('/', function () {
+        return view('pages.dashboard.index');
+    })->name('/');
     // logout
     Route::post('logout', [RegistrationController::class, 'logout'])->name('logout');
     // mengarah ke setiap controller
@@ -109,9 +109,9 @@ Route::middleware('auth')->group(function () {
     // Laporan Pengiriman Produk
     Route::get('lappengirimanproduk', [PengirimanProdukController::class, 'index'])->name('lapPengirimanProduk');
     Route::resource('PengirimanProduk', PengirimanProdukController::class);
-
     // END Route Projek Kita
-    Route::get('/', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');
+
+    Route::get('dashboard-overview-1-page', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');
     Route::get('dashboard-overview-2-page', [PageController::class, 'dashboardOverview2'])->name('dashboard-overview-2');
     Route::get('dashboard-overview-3-page', [PageController::class, 'dashboardOverview3'])->name('dashboard-overview-3');
     Route::get('inbox-page', [PageController::class, 'inbox'])->name('inbox');

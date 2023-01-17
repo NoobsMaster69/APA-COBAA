@@ -1,16 +1,16 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Pembelian Bahan - Bread Smile</title>
+<title>Tambah Pemakaian Bahan - Bread Smile</title>
 @endsection
 
 @section('subcontent')
 <div class="intro-y box p-5 mt-5">
     <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
         <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
-            <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Informasi Pembelian Bahan
+            <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Informasi Pemakaian Bahan
         </div>
-        <form action="{{ route('bahanMasuk.store') }}" method="POST">
+        <form action="{{ route('bahanKeluar.store') }}" method="POST">
             @csrf
             <div class="mt-5">
                 <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">

@@ -13,7 +13,7 @@
         <!-- BEGIN: Form Layout -->
         <form class="" action="{{ route('dataBahan.store') }}" method="POST">
             @csrf
-            <div class="intro-y box p-5">
+            <div class="mt-3">
                 <label for="kd_bahan" class="form-label"> Kode Bahan </label>
                 <input id="kd_bahan" name="kd_bahan" type="text" value="{{ $kode_otomatis }}" readonly class="form-control w-full">
             </div>
@@ -44,12 +44,12 @@
                         </select>
                     </div>
                 </div>
-                '<div class="input-form mt-3">
+                <div class="input-form mt-3">
                     <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
                         Keterangan
                     </label>
                     <textarea name="ket" id="ket" class="form-control" placeholder="Masukkan Keterangan" required>{{ old('ket') }}</textarea>
-                </div>'
+                </div>
             </div>
             <div class="text-right mt-5">
                 <a href="/databahan" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>

@@ -19,17 +19,17 @@ class ProdukMasukController extends Controller
     public function index()
     {
 
-        $this->authorize('viewAny', ProdukMasuk::class);
+        // $this->authorize('viewAny', ProdukMasuk::class);
 
         // join table produkMasuk dengan produkJadi
-        $produkMasuk = ProdukMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->join('resep', 'produkMasuk.kd_resep', '=', 'resep.kd_resep')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name', 'resep.bahan')
+        $produkMasuk = ProdukMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->join('resep', 'produkMasuk.kd_resep', '=', 'resep.kd_resep')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name', 'resep.kd_resep')
             ->get();
 
         // ambil nama karyawan dari session
         $nama = session('name');
         // mengirim tittle dan judul ke view
         return view(
-            'produkMasuk.index',
+            'pages.produkMasuk.index',
             ['produkMasuk' => $produkMasuk, 'nama' => $nama],
             [
                 'tittle' => 'Pembuatan Produk',
@@ -47,14 +47,14 @@ class ProdukMasukController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', ProdukMasuk::class);
+        // $this->authorize('create', ProdukMasuk::class);
         // join dengan tabel satuan
         $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
             ->select('produkJadi.*', 'satuan.nm_satuan')
             ->get();
 
         return view(
-            'produkMasuk.create',
+            'pages.produkMasuk.create',
             ['produkJadi' => $produkJadi],
             [
                 'tittle' => 'Tambah Data',
@@ -73,7 +73,7 @@ class ProdukMasukController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', ProdukMasuk::class);
+        // $this->authorize('create', ProdukMasuk::class);
 
 
         // mengubah nama validasi
@@ -173,7 +173,7 @@ class ProdukMasukController extends Controller
      */
     public function destroy(ProdukMasuk $produkMasuk)
     {
-        $this->authorize('delete', $produkMasuk);
+        // $this->authorize('delete', $produkMasuk);
 
         // update stok produk jadi
         $stok = ProdukJadi::where('kd_produk', $produkMasuk->kd_produk)->first();
@@ -182,7 +182,7 @@ class ProdukMasukController extends Controller
 
         $produkMasuk->delete();
         Alert::success('Data Pembuatan Produk', 'Berhasil Dihapus!');
-        return redirect('produkMasuk');
+        return redirect('pages.produkMasuk');
     }
 }
 

@@ -59,7 +59,7 @@ class BahanMasukController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('create', BahanMasuk::class);
+        // $this->authorize('create', BahanMasuk::class);
 
         // stok bahan bertambah
         $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
@@ -90,18 +90,21 @@ class BahanMasukController extends Controller
             'ket' => 'required',
         ], $messages);
 
+        // mengubah format tgl_masuk dari text ke date
+        $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
+
         BahanMasuk::create([
             'kd_bahan' => $request->kd_bahan,
             'nm_bahan' => $request->nm_bahan,
-            'tgl_masuk' => $request->tgl_masuk,
+            'tgl_masuk' => $tgl_masuk,
             'jumlah' => $request->jumlah,
             'total' => $total,
             'ket' => $request->ket,
         ]);
 
 
-        // Alert::success('Data Pembelian', 'Berhasil Ditambahkan!');
-        return redirect('pages.bahanMasuk');
+        Alert::success('Data Pembelian', 'Berhasil Ditambahkan!');
+        return redirect('bahanmasuk');
     }
 
 
@@ -137,7 +140,7 @@ class BahanMasukController extends Controller
 
     public function update(Request $request, bahanMasuk $bahanMasuk)
     {
-        $this->authorize('update', $bahanMasuk);
+        // $this->authorize('update', $bahanMasuk);
 
         // cek apakah bahannya di ubah
         if ($request->has('kd_bahan')) {

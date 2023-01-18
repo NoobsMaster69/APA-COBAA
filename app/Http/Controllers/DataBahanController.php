@@ -49,13 +49,30 @@ class DataBahanController extends Controller
 
     public function store(Request $request)
     {
+        // mengubah nama validasi
+        $messages = [
+            'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
+            'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
+            'nm_bahan.min' => 'Nama Bahan minimal 3 karakter',
+            'nm_bahan.max' => 'Nama Bahan maksimal 50 karakter',
+            'kd_satuan.required' => 'Kode Satuan tidak boleh kosong',
+            'harga_beli.required' => 'Harga Beli tidak boleh kosong',
+            'harga_beli.numeric' => 'Harga Beli harus berupa angka',
+            'stok.required' => 'Stok tidak boleh kosong',
+            'stok.numeric' => 'Stok harus berupa angka',
+            'ket.required' => 'Keterangan tidak boleh kosong',
+            'ket.min' => 'Keterangan tidak boleh kosong',
+            'ket.min' => 'Keterangan minimal 3 karakter',
+        ];
+
         $request->validate([
             'kd_bahan' => 'required|min:3|max:10',
             'nm_bahan' => 'required|min:3|max:50',
+            'kd_satuan' => 'required',
             'harga_beli' => 'required',
             'stok' => 'required|numeric',
             'ket' => 'required|min:3',
-        ]);
+        ], $messages);
 
         DataBahan::create($request->all());
 
@@ -76,7 +93,7 @@ class DataBahanController extends Controller
 
         $satuan = Satuan::all();
         return view(
-            'DataBahan.edit',
+            'pages.DataBahan.edit',
             compact('dataBahan', 'satuan'),
             ['tittle' => 'Edit Data', 'judul' => 'Edit Data Bahan', 'menu' => 'Data Bahan', 'submenu' => 'Edit Data']
         );

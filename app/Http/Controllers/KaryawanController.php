@@ -20,7 +20,7 @@ class KaryawanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'karyawan.index',
+            'pages.karyawan.index',
             [
                 'karyawan' => $karyawan,
                 'tittle' => 'Data Karyawan',

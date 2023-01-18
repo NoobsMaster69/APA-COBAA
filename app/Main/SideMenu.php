@@ -56,7 +56,7 @@ class SideMenu
             ],
             // Jabatan
             'jabatan' => [
-                'icon' => 'inbox',
+                'icon' => 'users',
                 'route_name' => 'jabatanKaryawan',
                 'params' => [
                     'layout' => 'side-menu'
@@ -65,7 +65,7 @@ class SideMenu
             ],
             // Data Karyawan
             'karyawan' => [
-                'icon' => 'inbox',
+                'icon' => 'folder',
                 'route_name' => 'dataKaryawan',
                 'params' => [
                     'layout' => 'side-menu'

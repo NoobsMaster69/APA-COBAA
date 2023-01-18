@@ -71,7 +71,7 @@ class DataBahanController extends Controller
 
         $satuan = Satuan::all();
         return view(
-            'DataBahan.edit',
+            'pages.DataBahan.edit',
             compact('dataBahan', 'satuan'),
             ['tittle' => 'Edit Data', 'judul' => 'Edit Data Bahan', 'menu' => 'Data Bahan', 'submenu' => 'Edit Data']
         );

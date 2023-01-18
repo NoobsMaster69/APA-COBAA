@@ -61,16 +61,16 @@ class SatuanController extends Controller
 
     public function edit(Satuan $satuan)
     {
-        return view(
-            'pages.satuan.edit',
-            compact('satuan'),
-            [
-                'tittle' => 'Edit Data Satuan',
-                'judul' => 'Edit Data Satuan',
-                'menu' => 'Data Satuan',
-                'submenu' => 'Edit Data Satuan'
-            ]
-        );
+        // return view(
+        //     'pages.satuan.edit',
+        //     compact('satuan'),
+        //     [
+        //         'tittle' => 'Edit Data Satuan',
+        //         'judul' => 'Edit Data Satuan',
+        //         'menu' => 'Data Satuan',
+        //         'submenu' => 'Edit Data Satuan'
+        //     ]
+        // );
     }
 
     public function update(Request $request, Satuan $satuan)

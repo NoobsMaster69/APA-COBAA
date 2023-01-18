@@ -13,9 +13,9 @@ class JabatanController extends Controller
     {
         // mengirim tittle dan judul ke view
         return view(
-            'jabatan.index',
+            'pages.jabatan.index',
             [
-                'jabatan' => Jabatan::all(),
+                'jabatan' => Jabatan::paginate(3),
                 'tittle' => 'Data Jabatan',
                 'judul' => 'Data Jabatan',
                 'menu' => 'Data Jabatan',
@@ -54,16 +54,6 @@ class JabatanController extends Controller
 
     public function edit(Jabatan $jabatan)
     {
-        return view(
-            'jabatan.edit',
-            compact('jabatan'),
-            [
-                'tittle' => 'Edit Data Jabatan',
-                'judul' => 'Edit Data Jabatan',
-                'menu' => 'Data Jabatan',
-                'submenu' => 'Edit Data Jabatan'
-            ]
-        );
     }
 
 

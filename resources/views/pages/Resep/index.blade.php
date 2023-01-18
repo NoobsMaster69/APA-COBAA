@@ -1,14 +1,14 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Pembelian Bahan - Bread Smile</title>
+<title>Data Karywan - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Pembelian Bahan</h2>
+<h2 class="intro-y text-lg font-medium mt-10">Data Resep</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{route ('bahanMasuk.create') }}">
+        <a href="{{ route('dataBahan.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah Data</button>
         </a>
         <div class="dropdown">
@@ -47,49 +47,41 @@
     </div>
     <!-- BEGIN: Data List -->
     <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <table class="table table-report table-fixed mt-2">
+        <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="text-center">KODE BAHAN</th>
-                    <th class="text-center">NAMA BAHAN</th>
-                    <th class="text-center">TANGGAL KELUAR </th>
-                    <th class="text-center">HARGA JUAL</th>
-                    <th class="text-center">JUMLAH</th>
-                    <th class="text-center">TOTAL</th>
-                    <!-- <th class="text-center ">KETERANGAN</th> -->
-                    <th class="text-center">AKSI</th>
+                    <th class="whitespace-nowrap">RESEP PRODUK</th>
+                    <th class="whitespace-nowrap">BAHAN-BAHAN</th>
+                    <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($bahanKeluar as $keluar)
+                @foreach ($buatResep as $resep)
                 <tr class="intro-x">
-                    <td class="text-center">{{ $keluar->kd_bahan }}</td>
-                    <td class="text-center">{{ $keluar->nm_bahan }}</td>
-                    <td class="text-center">{{ date('d F Y', strtotime($keluar->tgl_keluar)) }}</td>
-                    <td class="text-center">{{ 'Rp. ' . number_format($keluar->harga_beli) }}</td>
-                    <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
-                    <td class="text-center">{{ 'Rp. ' . number_format($keluar->total) }}</td>
-                    <!-- <td class="text-center">{{ $masuk->ket }}</td> -->
+                    <td class="whitespace-nowrap">{{ $resep->nm_resep }}</td>
+                    <td class="whitespace-nowrap">
+
+                    </td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-3" href="javascript:;">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $masuk->kd_bahan }}">
+                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $resep->kd_resep }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
-                            <div id="hapus{{ $masuk->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div id="hapus{{ $resep->kd_resep }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $masuk->kd_bahan) }}" method="POST">
+                                            <form action="{{ route('resep.destroy', $resep->kd_resep) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $masuk->nm_bahan }}?</div>
+                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $resep->nm_bahan }}?</div>
                                                     <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">
@@ -153,7 +145,6 @@
         </nav>
         <select class="w-20 form-select box mt-3 sm:mt-0">
             <option>10</option>
-            <option>25</option>
             <option>35</option>
             <option>50</option>
         </select>
@@ -170,4 +161,6 @@
     </div>
 </div>
 <!-- END: Notification Content -->
+
+
 @endsection

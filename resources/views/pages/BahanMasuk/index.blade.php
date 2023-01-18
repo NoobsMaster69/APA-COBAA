@@ -1,15 +1,15 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Pembuatan Bahan - Bread Smile</title>
+<title>Data Pembelian Bahan - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Pembuatan Bahan</h2>
+<h2 class="intro-y text-lg font-medium mt-10">Data Pembelian Bahan</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="{{route ('bahanMasuk.create') }}">
-            <button class="btn btn-primary shadow-md mr-2">Tambah</button>
+            <button class="btn btn-primary shadow-md mr-2">Tambah Data</button>
         </a>
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
@@ -47,7 +47,7 @@
     </div>
     <!-- BEGIN: Data List -->
     <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <table class="table table-report -mt-2">
+        <table class="table table-report table-fixed mt-2">
             <thead>
                 <tr>
                     <th class="whitespace-nowrap">KODE BAHAN</th>
@@ -56,19 +56,20 @@
                     <th class="text-center whitespace-nowrap">HARGA BELI</th>
                     <th class="text-center whitespace-nowrap">JUMLAH</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
-                    <th class="text-center whitespace-nowrap">KETERANGAN</th>
+                    <!-- <th class="text-center whitespace-nowrap">KETERANGAN</th> -->
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($bahanMasuk as $masuk)
                 <tr class="intro-x">
-                    <td class="whitespace-nowrap">{{ $masuk->kd_bahan }}</td>
-                    <td class="whitespace-nowrap">{{ $masuk->nm_bahan }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->tgl_masuk }}</td>
-                    <td class="text-center whitespace-nowrap">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->ket }}</td>
+                    <td class="text-center">{{ $masuk->kd_bahan }}</td>
+                    <td class="text-center">{{ $masuk->nm_bahan }}</td>
+                    <td class="text-center">{{ date('d F Y', strtotime($masuk->tgl_masuk)) }}</td>
+                    <td class="text-center">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
+                    <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
+                    <td class="text-center">{{ 'Rp. ' . number_format($masuk->total) }}</td>
+                    <!-- <td class="text-center">{{ $masuk->ket }}</td> -->
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-3" href="javascript:;">

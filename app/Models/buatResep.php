@@ -11,6 +11,8 @@ class buatResep extends Model
 
     protected $table = 'buatresep';
 
+    protected $primaryKey = 'id_buatResep';
+
     protected $fillable = [
         'kd_resep',
         'kd_bahan',

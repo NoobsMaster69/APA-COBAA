@@ -63,12 +63,12 @@
                 <tr class="intro-x">
                     <td class="text-center">{{ $bahan->kd_bahan }}</td>
                     <td class="text-center">{{ $bahan->nm_bahan }}</td>
-                    <td class="text-center ">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
-                    <td class="text-center ">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
-                    <td class="text-center ">{{ $bahan->ket }}</td>
+                    <td class="text-center">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
+                    <td class="text-center">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
+                    <td class="text-center">{{ $bahan->ket }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a href="{{ route('dataBahan.edit',$bahan->kd_bahan) }}" class="flex items-center mr-3" href="javascript:;">
+                            <a class="flex items-center mr-3" href="{{ route('dataBahan.edit', $bahan->kd_bahan) }}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
 

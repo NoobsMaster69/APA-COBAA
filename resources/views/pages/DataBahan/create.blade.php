@@ -6,14 +6,15 @@
 
 @section('subcontent')
 <div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Data Bahan </h2>
+    <h2 class="text-lg font-medium mr-auto">Null </h2>
 </div>
-<div class="intro-y box p-5 mt-5">
+<div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-6">
         <!-- BEGIN: Form Layout -->
+        <div class="intro-y box p-5">
         <form class="" action="{{ route('dataBahan.store') }}" method="POST">
             @csrf
-            <div class="intro-y box p-5">
+            <div class="mt-3">
                 <label for="kd_bahan" class="form-label"> Kode Bahan </label>
                 <input id="kd_bahan" name="kd_bahan" type="text" value="{{ $kode_otomatis }}" readonly class="form-control w-full">
             </div>
@@ -30,7 +31,7 @@
                 <div class="relative mt-1 rounded-md shadow-sm">
                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     </div>
-                    <input name="stok" id="stok" type="number" class="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}" required>
+                    <input name="stok" id="stok" type="number" class="block w-full rounded-md border-gray-300 pl-3 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}" required>
                     <div class="absolute inset-y-0 right-0 flex items-center">
                         <select name="kd_satuan" id="satuan" class="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             <option disabled hidden selected>-- Pilih Satuan --</option>
@@ -44,12 +45,12 @@
                         </select>
                     </div>
                 </div>
-                '<div class="input-form mt-3">
+                <div class="input-form mt-3">
                     <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
                         Keterangan
                     </label>
                     <textarea name="ket" id="ket" class="form-control" placeholder="Masukkan Keterangan" required>{{ old('ket') }}</textarea>
-                </div>'
+                </div>
             </div>
             <div class="text-right mt-5">
                 <a href="/databahan" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>

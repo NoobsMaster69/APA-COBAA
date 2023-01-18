@@ -95,7 +95,7 @@ class ProdukJadiController extends Controller
 
     public function edit(ProdukJadi $produkJadi)
     {
-        $this->authorize('update', $produkJadi);
+        // $this->authorize('update', $produkJadi);
 
         $produkJadi = DB::table('produkjadi')->join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')->select('produkjadi.*', 'satuan.nm_satuan')->where('kd_satuan', $produkJadi->kd_satuan)->first();
 
@@ -114,7 +114,7 @@ class ProdukJadiController extends Controller
 
     public function update(Request $request, ProdukJadi $produkJadi)
     {
-        $this->authorize('update', $produkJadi);
+        // $this->authorize('update', $produkJadi);
 
         // cek apakah user mengganti foto atau tidak
         if ($request->has('foto')) {

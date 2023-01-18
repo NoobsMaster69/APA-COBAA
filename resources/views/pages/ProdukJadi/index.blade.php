@@ -8,7 +8,7 @@
 <h2 class="intro-y text-lg font-medium mt-10">Data Pembuatan Bahan</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{route ('bahanMasuk.create') }}">
+        <a href="{{route ('produkJadi.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah</button>
         </a>
         <div class="dropdown">
@@ -50,24 +50,23 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">KODE BAHAN</th>
-                    <th class="whitespace-nowrap">NAMA BAHAN</th>
-                    <th class="text-center whitespace-nowrap">TANGGAL MASUK </th>
-                    <th class="text-center whitespace-nowrap">HARGA BELI</th>
-                    <th class="text-center whitespace-nowrap">JUMLAH</th>
-                    <th class="text-center whitespace-nowrap">TOTAL</th>
+                    <th class="whitespace-nowrap">GAMBAR PRODUK</th>
+                    <th class="whitespace-nowrap">KODE PRODUK</th>
+                    <th class="text-center whitespace-nowrap">NAMA PRODUK </th>
+                    <th class="text-center whitespace-nowrap">STOK </th>
+                    <th class="text-center whitespace-nowrap">HARGA JUAL</th>
                     <th class="text-center whitespace-nowrap">KETERANGAN</th>
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($bahanMasuk as $masuk)
+                @foreach ($produkJadi as $produk)
                 <tr class="intro-x">
-                    <td class="whitespace-nowrap">{{ $masuk->kd_bahan }}</td>
-                    <td class="whitespace-nowrap">{{ $masuk->nm_bahan }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->tgl_masuk }}</td>
-                    <td class="text-center whitespace-nowrap">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
+                    <td class="whitespace-nowrap">{{ $produk->kd_bahan }}</td>
+                    <td class="whitespace-nowrap">{{ $produk->nm_bahan }}</td>
+                    <td class="text-center whitespace-nowrap">{{ $produk->stok }} {{ $produk->nm_satuan }}</td>
+                    <td class="text-center whitespace-nowrap">Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}</td>
+                    <td class="text-center whitespace-nowrap">{{ $produk->ket }}</td>
                     <td class="text-center whitespace-nowrap">{{ $masuk->ket }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">

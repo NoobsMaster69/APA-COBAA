@@ -61,11 +61,11 @@
             <tbody>
                 @foreach ($dataBahan as $bahan)
                 <tr class="intro-x">
-                    <td class="whitespace-nowrap">{{ $bahan->kd_bahan }}</td>
-                    <td class="whitespace-nowrap">{{ $bahan->nm_bahan }}</td>
-                    <td class="text-center whitespace-nowrap">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $bahan->ket }}</td>
+                    <td class="text-center">{{ $bahan->kd_bahan }}</td>
+                    <td class="text-center">{{ $bahan->nm_bahan }}</td>
+                    <td class="text-center ">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
+                    <td class="text-center ">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
+                    <td class="text-center ">{{ $bahan->ket }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-3" href="javascript:;">

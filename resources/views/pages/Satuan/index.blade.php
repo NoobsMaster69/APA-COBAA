@@ -78,7 +78,7 @@
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin ingin menghapus {{ $sat->nm_sopir }} ?</div>
+                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin ingin menghapus {{ $sat->nm_satuan }} ?</div>
                                                     <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">

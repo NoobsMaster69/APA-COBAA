@@ -37,7 +37,12 @@ class DataBahanController extends Controller
         return view(
             'pages.databahan.create',
             ['kode_otomatis' => $kode_otomatis, 'satuan' => $satuan],
-            ['tittle' => 'Tambah Data', 'judul' => 'Tambah Data Bahan', 'menu' => 'Data Bahan', 'submenu' => 'Tambah Data']
+            [
+                'tittle' => 'Tambah Data',
+                'judul' => 'Tambah Data Bahan',
+                'menu' => 'Data Bahan',
+                'submenu' => 'Tambah Data'
+            ]
         );
     }
 

@@ -70,7 +70,7 @@
                     <label for="foto" class="form-label">
                         Foto
                     </label>
-                    <input name="foto" id="foto" type="file" class="form-control w-full @error('foto') border-danger @enderror" value="{{ old('foto', $sopir->foto) }}" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" required>
+                    <input name="foto" id="foto" type="file" class="form-control w-full @error('foto') border-danger @enderror" value="{{ old('foto', $sopir->foto) }}" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
                     <img src="{{ asset('images/'.$sopir->foto) }}" id="output">
                     @error('foto')
                         <div class="text-danger mt-1">

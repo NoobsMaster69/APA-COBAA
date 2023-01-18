@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sopir;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SopirController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // $this->authorize('viewAny', Sopir::class);
 
-        $sopir = Sopir::paginate(3);
+        $search = $request->search;
+
+        $sopir = Sopir::where('nm_sopir', 'LIKE', '%' . $search . '%')
+            ->orWhere('no_ktp', 'LIKE', '%' . $search . '%')
+            ->orWhere('jenis_kelamin', 'LIKE', '%' . $search . '%')
+            ->latest()->paginate(3)->withQueryString();
+
+        // $sopir = Sopir::paginate(3);
 
         // mengirim tittle dan judul ke view
         return view(

@@ -16,8 +16,8 @@
                 @csrf
                 <div class="mt-3">
                     <label for="kd_bahan" class="form-label font-medium"> Kode Bahan </label>
-                    <select name="kd_bahan" id="satuan" id="product-name" type="text" class="form-control w-full" placeholder="Kode Bahan" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
-                        <option value="0" hidden disabled selected>Pilih Kode Bahan</option>
+                    <select name="kd_bahan" id="satuan" id="product-name" type="text" class="form-control w-full @error('kd_bahan') border-danger @enderror" placeholder="Kode Bahan" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
+                        <option hidden disabled selected>Pilih Kode Bahan</option>
                         @php
                         $jsArray = "var prdName = new Array();\n";
                         @endphp
@@ -44,22 +44,27 @@
                         @endforeach
                     </select>
                 </div>
+                @error('kd_bahan')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
                 <div class="mt-3">
                     <label for="nm_bahan" class="form-label font-medium"> Nama Bahan </label>
-                    <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full @error('nm_bahan') border-danger @enderror" readonly>
+                    <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full" value="{{ old('nm_bahan') }}" readonly>
                 </div>
                 <div class=" mt-3">
                     <label for="harga_beli" class="form-label font-medium"> Harga Bahan </label>
-                    <input id="harga_beliTampil" type="text" class="form-control w-full" readonly>
+                    <input id="harga_beliTampil" type="text" class="form-control w-full" value="{{ old('harga_beliTampil') }}" readonly>
                     <input name="harga_beli" id="harga_beli" type="hidden" class="form-control w-full">
                 </div>
                 <div class="mt-3">
                     <label for="stok" class="form-label font-medium"> Stok Bahan </label>
-                    <input id="stok" type="text" class="form-control w-full" readonly>
+                    <input id="stok" type="text" class="form-control w-full" value="{{ old('stok') }}" readonly>
                 </div>
                 <div class=" mt-3">
                     <label for="jumlah" class="form-label font-medium"> Jumlah </label>
-                    <input name="jumlah" id="jumlah" type="number" class="form-control w-full @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                    <input name="jumlah" id="jumlah" type="number" class="form-control w-full" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
                 </div>
                 @error('jumlah')
                 <div class="text-danger mt-1">

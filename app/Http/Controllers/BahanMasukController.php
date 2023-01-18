@@ -60,22 +60,9 @@ class BahanMasukController extends Controller
     public function store(Request $request)
     {
         // $this->authorize('create', BahanMasuk::class);
-
-        // stok bahan bertambah
-        $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
-        $stok->stok = $stok->stok + $request->jumlah;
-        $stok->save();
-
-        // merubah harga_beli dan jumlah menjadi integer
-        $harga_beli = (int) $request->harga_beli;
-        $jumlah = (int) $request->jumlah;
-
-        // mencari total harga
-        $total = $harga_beli * $jumlah;
-
         // mengubah nama validasi
         $messages = [
-            'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
+            'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
             'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
             'tgl_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
             'jumlah.required' => 'Jumlah tidak boleh kosong',
@@ -89,6 +76,14 @@ class BahanMasukController extends Controller
             'jumlah' => 'required',
             'ket' => 'required',
         ], $messages);
+
+        // merubah harga_beli dan jumlah menjadi integer
+        $harga_beli = (int) $request->harga_beli;
+        $jumlah = (int) $request->jumlah;
+
+        // mencari total harga
+        $total = $harga_beli * $jumlah;
+
 
         // mengubah format tgl_masuk dari text ke date
         $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));

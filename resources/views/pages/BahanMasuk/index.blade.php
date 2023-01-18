@@ -56,7 +56,7 @@
                     <th class="text-center whitespace-nowrap">HARGA BELI</th>
                     <th class="text-center whitespace-nowrap">JUMLAH</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
-                    <!-- <th class="text-center whitespace-nowrap">KETERANGAN</th> -->
+                    <th class="text-center whitespace-nowrap">KETERANGAN</th>
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
@@ -69,22 +69,22 @@
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
                     <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->total) }}</td>
-                    <!-- <td class="text-center">{{ $masuk->ket }}</td> -->
+                     <td class="text-center">{{ $masuk->ket }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="javascript:;">
+                            <a href="{{ route('bahanMasuk.edit', $masuk->id_bahanMasuk) }}" class="flex items-center mr-3" href="javascript:;">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $masuk->kd_bahan }}">
+                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $masuk->tgl_masuk }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
-                            <div id="hapus{{ $masuk->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div id="hapus{{ $masuk->tgl_masuk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $masuk->kd_bahan) }}" method="POST">
+                                            <form action="{{ route('bahanMasuk.destroy', $masuk->id_bahanMasuk) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">

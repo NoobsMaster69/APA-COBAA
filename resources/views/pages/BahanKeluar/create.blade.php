@@ -8,7 +8,7 @@
 <h2 class="intro-y text-lg font-medium mt-10">Data Pembelian Bahan</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{route ('bahanMasuk.create') }}">
+        <a href="{{route ('bahanKeluar.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah Data</button>
         </a>
         <div class="dropdown">
@@ -69,22 +69,22 @@
                     <td class="text-center">{{ 'Rp. ' . number_format($keluar->harga_beli) }}</td>
                     <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($keluar->total) }}</td>
-                    <!-- <td class="text-center">{{ $masuk->ket }}</td> -->
+                    <!-- <td class="text-center">{{ $keluar->ket }}</td> -->
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-3" href="javascript:;">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $masuk->kd_bahan }}">
+                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $keluar->kd_bahan }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
-                            <div id="hapus{{ $masuk->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div id="hapus{{ $keluar->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $masuk->kd_bahan) }}" method="POST">
+                                            <form action="{{ route('dataBahan.destroy', $keluar->kd_bahan) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">

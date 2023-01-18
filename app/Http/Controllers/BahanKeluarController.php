@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bahanKeluar;
+use App\Models\BahanKeluar;
 use App\Models\DataBahan;
+
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -23,6 +24,12 @@ class BahanKeluarController extends Controller
         return view(
             'pages.bahanKeluar.index',
             ['bahanKeluar' => $bahanKeluar],
+            [
+                'tittle' => 'Pemakaian Bahan',
+                'judul' => 'Pemakaian Bahan',
+                'menu' => 'Bahan Baku',
+                'submenu' => 'Pemakaian Bahan'
+            ]
         );
     }
 
@@ -39,13 +46,19 @@ class BahanKeluarController extends Controller
         return view(
             'pages.bahanKeluar.create',
             ['dataBahan' => $dataBahan],
+            [
+                'tittle' => 'Pemakaian Bahan',
+                'judul' => 'Pemakaian Bahan',
+                'menu' => 'Bahan Baku',
+                'submenu' => 'Pemakaian Bahan'
+            ]
         );
     }
 
 
     public function store(Request $request)
     {
-        $this->authorize('create', bahanKeluar::class);
+        // $this->authorize('create', bahanKeluar::class);
 
         // stok bahan berkurang
         $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
@@ -98,7 +111,7 @@ class BahanKeluarController extends Controller
 
     public function edit(bahanKeluar $bahanKeluar)
     {
-        $this->authorize('update', $bahanKeluar);
+        // $this->authorize('update', $bahanKeluar);
 
         // join tabel satuan
         $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
@@ -107,7 +120,7 @@ class BahanKeluarController extends Controller
             ->first();
 
         return view(
-            'bahanKeluar.edit',
+            'pages.bahanKeluar.edit',
             compact('bahanKeluar', 'dataBahan'),
             [
                 'tittle' => 'Edit Data',
@@ -121,12 +134,12 @@ class BahanKeluarController extends Controller
 
     public function update(Request $request, bahanKeluar $bahanKeluar)
     {
-        $this->authorize('update', $bahanKeluar);
+        // $this->authorize('update', $bahanKeluar);
 
         // cek apakah bahannya di ubah
         if ($request->has('kd_bahan')) {
 
-            // mengembalikan stok bahan yg lama 
+            // mengembalikan stok bahan yg lama
             $stok = DataBahan::where('kd_bahan', $bahanKeluar->kd_bahan)->first();
             $stok->stok = $stok->stok + $bahanKeluar->jumlah;
             $stok->save();
@@ -186,7 +199,7 @@ class BahanKeluarController extends Controller
             // cek apakah jumlah diubah
             if ($request->has('jumlah')) {
 
-                // update stok bahan 
+                // update stok bahan
                 $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
                 $stok->stok = $stok->stok - $request->jumlah;
                 $stok->save();
@@ -218,7 +231,7 @@ class BahanKeluarController extends Controller
 
     public function destroy(bahanKeluar $bahanKeluar)
     {
-        $this->authorize('delete', $bahanKeluar);
+        // $this->authorize('delete', $bahanKeluar);
 
         // update stok bahan
         $stok = DataBahan::where('kd_bahan', $bahanKeluar->kd_bahan)->first();

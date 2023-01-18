@@ -18,7 +18,7 @@ return new class extends Migration
             $table->increments('id_bahanMasuk');
             $table->string('kd_bahan', 10);
             $table->string('nm_bahan', 50);
-            $table->date('tgl_masuk');
+            $table->string('tgl_masuk');
             $table->integer('jumlah');
             $table->string('ket');
             $table->double('total');

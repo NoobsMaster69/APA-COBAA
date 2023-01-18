@@ -116,7 +116,7 @@ class BahanMasukController extends Controller
 
     public function edit(bahanMasuk $bahanMasuk)
     {
-        $this->authorize('update', $bahanMasuk);
+        // $this->authorize('update', $bahanMasuk);
 
         // join tabel satuan
         $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
@@ -222,13 +222,13 @@ class BahanMasukController extends Controller
                 $bahanMasuk->update($input);
 
                 // Alert::success('Data Pembelian', 'Berhasil diubah!');
-                return redirect('bahanMasuk');
+                return redirect('pages.bahanMasuk');
             } else {
                 $input = $request->all();
                 $bahanMasuk->update($input);
 
                 // Alert::success('Data Pembelian', 'Berhasil diubah!');
-                return redirect('bahanMasuk');
+                return redirect('pages.bahanMasuk');
             }
         }
     }
@@ -236,7 +236,7 @@ class BahanMasukController extends Controller
 
     public function destroy(bahanMasuk $bahanMasuk)
     {
-        $this->authorize('delete', $bahanMasuk);
+        // $this->authorize('delete', $bahanMasuk);
 
         // update stok bahan
         $stok = DataBahan::where('kd_bahan', $bahanMasuk->kd_bahan)->first();
@@ -244,7 +244,7 @@ class BahanMasukController extends Controller
         $stok->save();
 
         $bahanMasuk->delete();
-        // Alert::success('Data Pembelian', 'Berhasil dihapus!');
+        Alert::success('Data Pembelian', 'Berhasil dihapus!');
         return redirect('bahanMasuk');
     }
 }

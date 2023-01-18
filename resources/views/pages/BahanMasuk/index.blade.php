@@ -56,7 +56,7 @@
                     <th class="text-center whitespace-nowrap">HARGA BELI</th>
                     <th class="text-center whitespace-nowrap">JUMLAH</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
-                    <th class="text-center whitespace-nowrap">KETERANGAN</th>
+                    <!-- <th class="text-center whitespace-nowrap">KETERANGAN</th> -->
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
@@ -69,7 +69,7 @@
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
                     <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->total) }}</td>
-                     <td class="text-center">{{ $masuk->ket }}</td>
+                    <!-- <td class="text-center">{{ $masuk->ket }}</td> -->
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a href="{{ route('bahanMasuk.edit', $masuk->id_bahanMasuk) }}" class="flex items-center mr-3" href="javascript:;">

@@ -23,34 +23,39 @@
                 <div class="mt-5">
                     <label for="nm_bahan" class="form-label"> Jumlah Bahan </label>
                     <input type="number" class="form-control @error('jumlah') is-invalid @enderror col-6" name="jumlah" id="jumlah" value="{{ old('jumlah', $bahanMasuk->jumlah) }}" required>
-                    @error('nm_bahan')
-                    <div class="text-danger mt-1">
-                        {{ $message }}
-                    </div>
-                    @enderror
                 </div>
+                @error('jumlah')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
                 <div class="mt-5">
                     <label for="tgl_masuk" class="form-label"> Tanggal Beli </label>
-                <div class="relative w-100 mx-flex">
-                    <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
-                        <i data-feather="calendar" class="w-4 h-4"></i>
+                    <div class="relative w-100 mx-flex">
+                        <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
+                            <i data-feather="calendar" class="w-4 h-4"></i>
+                        </div>
+                        <input type="text" name="tgl_masuk" id="tgl_masuk" class="datepicker form-control pl-12 @error('tgl_masuk') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_masuk', $bahanMasuk->tgl_masuk) }}">
                     </div>
-                    <input type="text" name="tgl_masuk" id="tgl_masuk" class="datepicker form-control pl-12" data-single-mode="true" value="{{ old('tgl_masuk', $bahanMasuk->tgl_masuk) }}">
                 </div>
+                @error('tgl_masuk')
+                <div class="text-danger mt-1">
+                    {{ $message }}
                 </div>
+                @enderror
                 <div class="mt-5">
                     <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
                         Keterangan
                     </label>
                     <textarea name="ket" id="ket" class="form-control @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket', $bahanMasuk->ket) }}</textarea>
-                    @error('ket')
-                    <div class="text-danger mt-1">
-                        {{ $message }}
-                    </div>
-                    @enderror
                 </div>
+                @error('ket')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
                 <div class="text-right mt-8">
-                    <a href="/databahan" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                    <a href="/bahanmasuk" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
                     <button type="submit" class="btn btn-primary w-24">Save</button>
                 </div>
             </form>

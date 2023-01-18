@@ -140,20 +140,6 @@ class BahanMasukController extends Controller
         // cek apakah bahannya di ubah
         if ($request->has('kd_bahan')) {
 
-            // mengembalikan stok bahan yg lama
-            $stok = DataBahan::where('kd_bahan', $bahanMasuk->kd_bahan)->first();
-            $stok->stok = $stok->stok - $bahanMasuk->jumlah;
-            $stok->save();
-
-            // update stok bahan baru
-            $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
-            $stok->stok = $stok->stok + $request->jumlah;
-            $stok->save();
-
-            // merubah harga_beli dan jumlah menjadi integer
-            $harga_beli = (int) $stok->harga_beli;
-            $jumlah = (int) $request->jumlah;
-
             // mengubah nama validasi
             $messages = [
                 'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
@@ -169,16 +155,34 @@ class BahanMasukController extends Controller
                 'tgl_masuk' => 'required',
                 'ket' => 'required|min:3',
             ], $messages);
+            // mengembalikan stok bahan yg lama
+            $stok = DataBahan::where('kd_bahan', $bahanMasuk->kd_bahan)->first();
+            $stok->stok = $stok->stok - $bahanMasuk->jumlah;
+            $stok->save();
+
+            // update stok bahan baru
+            $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
+            $stok->stok = $stok->stok + $request->jumlah;
+            $stok->save();
+
+            // merubah harga_beli dan jumlah menjadi integer
+            $harga_beli = (int) $stok->harga_beli;
+            $jumlah = (int) $request->jumlah;
 
             $input = $request->all();
+
+            // mengubah format tgl_masuk dari text ke date
+            $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
+
 
             // mencari total harga
             $total = $harga_beli * $jumlah;
             $input['total'] = $total;
-
+            $input['tgl_masuk'] = $tgl_masuk;
             $bahanMasuk->update($input);
 
-            // Alert::success('Data Pembelian', 'Berhasil diubah!');
+
+            Alert::success('Data Pembelian', 'Berhasil diubah!');
             return redirect('bahanMasuk');
         } else {
             // mengubah nama validasi
@@ -210,19 +214,27 @@ class BahanMasukController extends Controller
 
                 $input = $request->all();
 
+                // mengubah format tgl_masuk dari text ke date
+                $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
+
                 // mencari total harga
                 $total = $harga_beli * $jumlah;
                 $input['total'] = $total;
+                $input['tgl_masuk'] = $tgl_masuk;
 
                 $bahanMasuk->update($input);
 
-                // Alert::success('Data Pembelian', 'Berhasil diubah!');
+                Alert::success('Data Pembelian', 'Berhasil diubah!');
                 return redirect('pages.bahanMasuk');
             } else {
+                // mengubah format tgl_masuk dari text ke date
+                $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
+
                 $input = $request->all();
+                $input['tgl_masuk'] = $tgl_masuk;
                 $bahanMasuk->update($input);
 
-                // Alert::success('Data Pembelian', 'Berhasil diubah!');
+                Alert::success('Data Pembelian', 'Berhasil diubah!');
                 return redirect('pages.bahanMasuk');
             }
         }

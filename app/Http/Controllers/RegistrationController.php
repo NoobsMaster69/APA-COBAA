@@ -16,34 +16,23 @@ class RegistrationController extends Controller
 
         $karyawan = Karyawan::all();
 
-        return view(
-            'auth.register',
-            [
-                'tittle' => '',
-                'judul' => '',
-                'menu' => '',
-                'submenu' => ''
-            ],
-            compact('karyawan')
-        );
+        return view('register.main', [
+            'layout' => 'login'
+        ], compact('karyawan'));
     }
 
     public function store(Request $request)
     {
-        $karyawan = Karyawan::where('nip', $request->nip)->first();
-        $userNip = User::where('nip', $request->nip)->first();
-        $userPass = User::where('password', $request->password)->first();
         // mengubah nama validasi
         $messages = [
             'nip.required' => 'Nip tidak boleh kosong',
             'nip.unique' => 'Nip ini sudah memiliki akun, silahkan login!',
             'nm_karyawan.required' => 'Nama tidak boleh kosong',
-            'nm_karyawan.unique' => 'Nama sudah terdaftar',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Password minimal 8 karakter',
             'password.max' => 'Password maksimal 16 karakter',
             'rePassword.required' => 'Konfirmasi Password tidak boleh kosong',
-            'rePassword.same' => 'Konfirmasi Password tidak sama'
+            'rePassword.same' => 'Konfirmasi Password tidak valid'
         ];
 
         $request->validate([
@@ -52,6 +41,9 @@ class RegistrationController extends Controller
             'password' => 'required|min:8|max:16',
             'rePassword' => 'required|same:password',
         ], $messages);
+        $karyawan = Karyawan::where('nip', $request->nip)->first();
+        $userNip = User::where('nip', $request->nip)->first();
+        $userPass = User::where('password', $request->password)->first();
 
         if (!empty($karyawan) || $karyawan == !null) {
 
@@ -95,9 +87,9 @@ class RegistrationController extends Controller
 
     public function login()
     {
-        return view(
-            'auth.login'
-        );
+        return view('login.main', [
+            'layout' => 'login'
+        ]);
     }
 
     public function loginStore(Request $request)

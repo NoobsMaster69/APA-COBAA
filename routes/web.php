@@ -43,12 +43,13 @@ Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class
 // yang ini soalnya buat route yang bisa diakses tanpa login
 Route::middleware('guest')->group(function () {
     // Register
-    Route::get('register', [AuthController::class, 'registerView'])->name('register.index');
-    Route::post('register', [AuthController::class, 'register'])->name('register.store');
+    Route::get('register', [RegistrationController::class, 'index'])->name('register.index');
+    Route::post('register', [RegistrationController::class, 'store'])->name('register.store');
     // Login
     Route::get('logout', [RegistrationController::class, 'logout']);
-    Route::get('/', [RegistrationController::class, 'login']);
-    Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
+    Route::get('/', [RegistrationController::class, 'login'])->name('login.index');
+    Route::get('login', [RegistrationController::class, 'login'])->name('login.index');
+    // Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
     // Route::post('login', [AuthController::class, 'login'])->name('login.check');
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
 });

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id_buatResep');
             $table->string('kd_resep', 10);
             $table->string('kd_bahan', 10);
-            $table->integer('jumlah', 10);
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }

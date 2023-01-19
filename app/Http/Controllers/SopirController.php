@@ -19,7 +19,7 @@ class SopirController extends Controller
         $sopir = Sopir::where('nm_sopir', 'LIKE', '%' . $search . '%')
             ->orWhere('no_ktp', 'LIKE', '%' . $search . '%')
             ->orWhere('jenis_kelamin', 'LIKE', '%' . $search . '%')
-            ->latest()->paginate(3)->withQueryString();
+            ->oldest()->paginate(2)->withQueryString();
 
         // $sopir = Sopir::paginate(3);
 

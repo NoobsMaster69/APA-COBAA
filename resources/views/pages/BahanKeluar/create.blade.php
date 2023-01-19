@@ -1,173 +1,118 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Pembelian Bahan - Bread Smile</title>
+<title>Tambah Pemakaian Bahan - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Pembelian Bahan</h2>
+<div class="intro-y flex items-center mt-8">
+    <h2 class="text-lg font-medium mr-auto">Pemakaian Bahan </h2>
+</div>
 <div class="grid grid-cols-12 gap-6 mt-5">
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{route ('bahanKeluar.create') }}">
-            <button class="btn btn-primary shadow-md mr-2">Tambah Data</button>
-        </a>
-        <div class="dropdown">
-            <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                <span class="w-5 h-5 flex items-center justify-center">
-                    <i class="w-4 h-4" data-feather="plus"></i>
-                </span>
-            </button>
-            <div class="dropdown-menu w-40">
-                <ul class="dropdown-content">
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="printer" class="w-4 h-4 mr-2"></i> Print
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to PDF
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <div class="intro-y col-span-12 lg:col-span-8">
+        <!-- BEGIN: Form Layout -->
+        <div class="intro-y box px-10 py-5">
+            <form action="{{ route('bahanKeluar.store') }}" method="POST">
+                @csrf
+                <div class="mt-3">
+                    <label for="kd_bahan" class="form-label font-medium"> Kode Bahan </label>
+                    <select name="kd_bahan" id="satuan" id="product-name" type="text" class="form-control w-full @error('kd_bahan') border-danger @enderror" placeholder="Kode Bahan" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
+                        <option hidden disabled selected>Pilih Kode Bahan</option>
+                        @php
+                        $jsArray = "var prdName = new Array();\n";
+                        @endphp
+
+                        @foreach ($dataBahan as $bahan)
+                        @if (old('kd_bahan') == $bahan->kd_bahan)
+                        <option value="{{ $bahan->kd_bahan }}" selected>{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
+                        @else
+                        <option value="{{ $bahan->kd_bahan }}">{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
+                        @endif
+
+                        @php
+                        $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
+                        nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
+                        harga_beli : '" . addslashes($bahan['harga_beli']) . "',
+                        harga_beliTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
+                        stok : '" . addslashes($bahan['stok']) . "',
+                        nm_satuan : '" . addslashes($bahan['nm_satuan']) . "',
+                        nm_satuan2 : '" . addslashes($bahan['nm_satuan']) . "',
+
+                        };\n";
+                        @endphp
+
+                        @endforeach
+                    </select>
+                </div>
+                @error('kd_bahan')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="mt-3">
+                    <label for="nm_bahan" class="form-label font-medium"> Nama Bahan </label>
+                    <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full" readonly>
+                </div>
+                <div class=" mt-3">
+                    <label for="harga_beli" class="form-label font-medium"> Harga Bahan </label>
+                    <input id="harga_beliTampil" type="text" class="form-control w-full" readonly>
+                    <input name="harga_beli" id="harga_beli" type="hidden" class="form-control w-full">
+                </div>
+                <div class="mt-3">
+                    <label for="stok" class="form-label font-medium"> Stok Bahan </label>
+                    <input id="stok" type="text" class="form-control w-full" readonly>
+                </div>
+                <div class=" mt-3">
+                    <label for="jumlah" class="form-label font-medium"> Jumlah </label>
+                    <input name="jumlah" id="jumlah" type="number" class="form-control w-full" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                </div>
+                @error('jumlah')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="mt-3">
+                    <label for="tgl_keluar" class="form-label font-medium"> Tanggal Keluar </label>
+                    <input type="text" class="datepicker form-control @error('tgl_keluar') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_keluar') }}" name="tgl_keluar" id="tgl_keluar">
+                </div>
+                @error('tgl_keluar')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="mt-3">
+                    <label for="ket" class="form-label font-medium"> Keterangan </label>
+                    <textarea name="ket" id="ket" type="text" class="form-control w-full @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan" minlength="3">{{ old('ket') }}</textarea>
+                </div>
+                @error('ket')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+                <!-- END: Form Layout -->
+                <div class="text-right mt-5">
+                    <a href="/bahanmasuk" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                </div>
+            </form>
         </div>
-        <div class="hidden md:block mx-auto text-slate-500">Showing 1 to 10 of 150 entries</div>
-        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <div class="w-56 relative text-slate-500">
-                <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
-                <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
-            </div>
-        </div>
     </div>
-    <!-- BEGIN: Data List -->
-    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <table class="table table-report table-fixed mt-2">
-            <thead>
-                <tr>
-                    <th class="text-center">KODE BAHAN</th>
-                    <th class="text-center">NAMA BAHAN</th>
-                    <th class="text-center">TANGGAL KELUAR </th>
-                    <th class="text-center">HARGA JUAL</th>
-                    <th class="text-center">JUMLAH</th>
-                    <th class="text-center">TOTAL</th>
-                    <!-- <th class="text-center ">KETERANGAN</th> -->
-                    <th class="text-center">AKSI</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($bahanKeluar as $keluar)
-                <tr class="intro-x">
-                    <td class="text-center">{{ $keluar->kd_bahan }}</td>
-                    <td class="text-center">{{ $keluar->nm_bahan }}</td>
-                    <td class="text-center">{{ date('d F Y', strtotime($keluar->tgl_keluar)) }}</td>
-                    <td class="text-center">{{ 'Rp. ' . number_format($keluar->harga_beli) }}</td>
-                    <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
-                    <td class="text-center">{{ 'Rp. ' . number_format($keluar->total) }}</td>
-                    <!-- <td class="text-center">{{ $keluar->ket }}</td> -->
-                    <td class="table-report__action w-56">
-                        <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="javascript:;">
-                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
-                            </a>
-                            <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $keluar->kd_bahan }}">
-                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
-                            </button>
-                            <!-- BEGIN: Delete Confirmation Modal -->
-                            <div id="hapus{{ $keluar->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $keluar->kd_bahan) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <div class="p-5 text-center">
-                                                    <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $masuk->nm_bahan }}?</div>
-                                                    <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
-                                                </div>
-                                                <div class="px-5 pb-8 text-center">
-                                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
-                                                    <button type="submit" class="btn btn-danger w-24">Hapus</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END: Delete Confirmation Modal -->
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    <!-- END: Data List -->
-    <!-- BEGIN: Pagination -->
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <nav class="w-full sm:w-auto sm:mr-auto">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-right"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <select class="w-20 form-select box mt-3 sm:mt-0">
-            <option>10</option>
-            <option>25</option>
-            <option>35</option>
-            <option>50</option>
-        </select>
-    </div>
-    <!-- END: Pagination -->
+</div>
 </div>
 
-<!-- BEGIN: Notification Content -->
-<div id="success-notification-content" class="toastify-content hidden flex">
-    <i class="text-success" data-feather="check-circle"></i>
-    <div class="ml-4 mr-4">
-        <div class="font-medium">Data Berhasil Di simpan Saved!</div>
-        <div class="text-slate-500 mt-1">The message will be sent in 5 minutes.</div>
-    </div>
-</div>
-<!-- END: Notification Content -->
+
+
+<script type="text/javascript">
+    <?= $jsArray; ?>
+
+    function changeValue(x) {
+        document.getElementById('nm_bahan').value = prdName[x].nm_bahan;
+        document.getElementById('harga_beli').value = prdName[x].harga_beli;
+        document.getElementById('harga_beliTampil').value = prdName[x].harga_beliTampil;
+        document.getElementById('stok').value = prdName[x].stok;
+        document.getElementById('nm_satuan').value = prdName[x].nm_satuan;
+        document.getElementById('nm_satuan2').value = prdName[x].nm_satuan2;
+    }
+</script>
+<script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
 @endsection

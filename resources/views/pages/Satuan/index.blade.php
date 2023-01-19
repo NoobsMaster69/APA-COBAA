@@ -60,10 +60,10 @@
                     <td class="">{{ $sat->nm_satuan }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#editSatuan-{{ $sat->id_satuan }}">
+                            <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#editSatuan-{{ $sat->id_satuan }}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
-                            </a>
-                            
+                            </button>
+
                             <!-- trigger modal -->
                             <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $sat->id_satuan }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
@@ -104,11 +104,11 @@
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <div class="w-full sm:w-auto sm:mr-auto">
-                {{ $satuan->links() }}
+            {{ $satuan->links() }}
         </div>
     </div>
     <!-- END: Pagination -->
-    
+
 </div>
 
 <!-- BEGIN: Notification Content -->
@@ -126,7 +126,7 @@
 
 {{-- modal edit data --}}
 @foreach ($satuan as $st)
-    @include('pages.satuan.edit')
+@include('pages.satuan.edit')
 @endforeach
 
 @endsection

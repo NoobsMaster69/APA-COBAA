@@ -11,26 +11,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 class BahanMasukController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         // $this->authorize('viewAny', BahanMasuk::class);
 
-        // join table bahan masuk dan data bahan
+        $search = $request->search;
+        // menyatukan search dengan join tabel
         $bahanMasuk = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
             ->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.kd_satuan', 'dataBahan.harga_beli', 'satuan.nm_satuan')
-            ->get();
+            ->where('bahanMasuk.kd_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanMasuk.nm_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanMasuk.tgl_masuk', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanMasuk.jumlah', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanMasuk.ket', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(2)->withQueryString();
 
 
         // mengirim tittle dan judul ke view
         return view(
             'pages.bahanMasuk.index',
-            ['bahanMasuk' => $bahanMasuk],
-            [
-                'tittle' => 'Pembelian Bahan',
-                'judul' => 'Pembelian Bahan',
-                'menu' => 'Bahan Baku',
-                'submenu' => 'Pembelian Bahan'
-            ]
+            ['bahanMasuk' => $bahanMasuk]
         );
     }
 
@@ -76,6 +77,11 @@ class BahanMasukController extends Controller
             'jumlah' => 'required',
             'ket' => 'required',
         ], $messages);
+
+        // stok bahan bertambah
+        $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
+        $stok->stok = $stok->stok + $request->jumlah;
+        $stok->save();
 
         // merubah harga_beli dan jumlah menjadi integer
         $harga_beli = (int) $request->harga_beli;
@@ -142,18 +148,17 @@ class BahanMasukController extends Controller
 
             // mengubah nama validasi
             $messages = [
-                'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
-                'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
+                'jumlah.required' => 'Jumlah tidak boleh kosong',
                 'ket.required' => 'Keterangan tidak boleh kosong',
-                'ket.min' => 'Keterangan minimal 3 karakter',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
-                'jumlah' => 'required',
                 'tgl_masuk' => 'required',
-                'ket' => 'required|min:3',
+                'jumlah' => 'required',
+                'ket' => 'required',
             ], $messages);
             // mengembalikan stok bahan yg lama
             $stok = DataBahan::where('kd_bahan', $bahanMasuk->kd_bahan)->first();
@@ -183,25 +188,25 @@ class BahanMasukController extends Controller
 
 
             Alert::success('Data Pembelian', 'Berhasil diubah!');
-            return redirect('bahanMasuk');
+            return redirect('bahanmasuk');
         } else {
             // mengubah nama validasi
             $messages = [
-                'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
-                'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
+                'jumlah.required' => 'Jumlah tidak boleh kosong',
                 'ket.required' => 'Keterangan tidak boleh kosong',
-                'ket.min' => 'Keterangan minimal 3 karakter',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
-                'jumlah' => 'required',
                 'tgl_masuk' => 'required',
-                'ket' => 'required|min:3',
+                'jumlah' => 'required',
+                'ket' => 'required',
             ], $messages);
 
             if ($request->has('jumlah')) {
+
 
                 // update stok bahan
                 $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
@@ -225,7 +230,7 @@ class BahanMasukController extends Controller
                 $bahanMasuk->update($input);
 
                 Alert::success('Data Pembelian', 'Berhasil diubah!');
-                return redirect('pages.bahanMasuk');
+                return redirect('bahanmasuk');
             } else {
                 // mengubah format tgl_masuk dari text ke date
                 $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
@@ -235,7 +240,7 @@ class BahanMasukController extends Controller
                 $bahanMasuk->update($input);
 
                 Alert::success('Data Pembelian', 'Berhasil diubah!');
-                return redirect('pages.bahanMasuk');
+                return redirect('bahanmasuk');
             }
         }
     }
@@ -252,6 +257,6 @@ class BahanMasukController extends Controller
 
         $bahanMasuk->delete();
         Alert::success('Data Pembelian', 'Berhasil dihapus!');
-        return redirect('bahanMasuk');
+        return redirect('bahanmasuk');
     }
 }

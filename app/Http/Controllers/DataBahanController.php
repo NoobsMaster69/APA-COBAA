@@ -11,14 +11,20 @@ use RealRashid\SweetAlert\Facades\Alert;
 class DataBahanController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->search;
 
-        // join tabel dengan tabel satuan
+
+        // menyatukan search dengan join tabel
         $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
             ->select('databahan.*', 'satuan.nm_satuan')
-            ->get();
-
+            ->where('databahan.kd_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('databahan.nm_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
+            ->orWhere('databahan.harga_beli', 'LIKE', '%' . $search . '%')
+            ->orWhere('databahan.stok', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(2)->withQueryString();
         // mengirim tittle dan judul ke view
         return view('pages.dataBahan.index', ['dataBahan' => $dataBahan]);
     }
@@ -105,6 +111,7 @@ class DataBahanController extends Controller
         // mengubah nama validasi
         $messages = [
             'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
+            'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
             'nm_bahan.min' => 'Nama Bahan minimal 3 karakter',
             'nm_bahan.max' => 'Nama Bahan maksimal 50 karakter',
             'kd_satuan.required' => 'Kode Satuan tidak boleh kosong',
@@ -112,19 +119,20 @@ class DataBahanController extends Controller
             'harga_beli.numeric' => 'Harga Beli harus berupa angka',
             'stok.required' => 'Stok tidak boleh kosong',
             'stok.numeric' => 'Stok harus berupa angka',
+            'ket.required' => 'Keterangan tidak boleh kosong',
             'ket.min' => 'Keterangan tidak boleh kosong',
             'ket.min' => 'Keterangan minimal 3 karakter',
         ];
 
-
         $request->validate([
-            'kd_bahan' => 'required',
+            'kd_bahan' => 'required|min:3|max:10',
             'nm_bahan' => 'required|min:3|max:50',
             'kd_satuan' => 'required',
-            'harga_beli' => 'required|numeric',
+            'harga_beli' => 'required',
             'stok' => 'required|numeric',
             'ket' => 'required|min:3',
         ], $messages);
+
 
         $dataBahan->update($request->all());
 

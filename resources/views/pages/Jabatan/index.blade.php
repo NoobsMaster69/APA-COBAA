@@ -60,10 +60,10 @@
                     <td class="">{{ $jbtn->nm_jabatan }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#editJabatan-{{ $jbtn->id_jabatan }}">
+                            <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#editJabatan-{{ $jbtn->id_jabatan }}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
-                            </a>
-                            
+                            </button>
+
                             <!-- trigger modal -->
                             <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $jbtn->id_jabatan }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
@@ -104,11 +104,11 @@
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <div class="w-full sm:w-auto sm:mr-auto">
-                {{ $jabatan->links() }}
+            {{ $jabatan->links() }}
         </div>
     </div>
     <!-- END: Pagination -->
-    
+
 </div>
 
 <!-- BEGIN: Notification Content -->
@@ -126,7 +126,7 @@
 
 {{-- modal edit data --}}
 @foreach ($jabatan as $jb)
-    @include('pages.jabatan.edit')
+@include('pages.jabatan.edit')
 @endforeach
 
 @endsection

@@ -61,7 +61,7 @@
             <tbody>
                 @foreach ($mobil as $mbl)
                 <tr class="intro-x">
-                    <td class="text-center">{{ $mobil->firstItem() + $loop->index }}</td>
+                    <td class="text-center">{{ $loop->iteration + ($mobil->currentPage() - 1) * $mobil->perPage() }}</td>
                     <td class="text-center">{{ $mbl->kd_mobil }}</td>
                     <td class="text-center">{{ $mbl->merk }}</td>
                     <td class="text-center">{{ $mbl->plat_nomor }}</td>
@@ -111,11 +111,11 @@
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <div class="w-full sm:w-auto sm:mr-auto">
-                {{ $mobil->links() }}
+            {{ $mobil->links() }}
         </div>
     </div>
     <!-- END: Pagination -->
-    
+
 </div>
 
 <!-- BEGIN: Notification Content -->

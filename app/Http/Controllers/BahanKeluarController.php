@@ -11,14 +11,21 @@ use RealRashid\SweetAlert\Facades\Alert;
 class BahanKeluarController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         // $this->authorize('viewAny', bahanKeluar::class);
 
-        // join table bahan keluar dan data bahan
+        $search = $request->search;
+        // menyatukan search dengan join tabel
         $bahanKeluar = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
             ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.kd_satuan', 'dataBahan.harga_beli', 'satuan.nm_satuan')
-            ->get();
+            ->where('bahanKeluar.kd_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanKeluar.nm_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanKeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanKeluar.jumlah', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanKeluar.ket', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(2)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view(
@@ -59,17 +66,6 @@ class BahanKeluarController extends Controller
     public function store(Request $request)
     {
         // $this->authorize('create', bahanKeluar::class);
-
-        // stok bahan berkurang
-        $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
-        $stok->stok = $stok->stok - $request->jumlah;
-        $stok->save();
-        // merubah harga_beli dan jumlah menjadi integer
-        $harga_beli = (int) $request->harga_beli;
-        $jumlah = (int) $request->jumlah;
-
-        $total = $harga_beli * $jumlah;
-
         // mengubah nama validasi
         $messages = [
             'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
@@ -87,11 +83,25 @@ class BahanKeluarController extends Controller
             'ket' => 'required',
         ], $messages);
 
+        // stok bahan berkurang
+        $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
+        $stok->stok = $stok->stok - $request->jumlah;
+        $stok->save();
+        // merubah harga_beli dan jumlah menjadi integer
+        $harga_beli = (int) $request->harga_beli;
+        $jumlah = (int) $request->jumlah;
+
+        $total = $harga_beli * $jumlah;
+
+        // mengubah format tgl_masuk dari text ke date
+        $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));
+
+
         // insert data ke table bahan keluar
         BahanKeluar::create([
             'kd_bahan' => $request->kd_bahan,
             'nm_bahan' => $request->nm_bahan,
-            'tgl_keluar' => $request->tgl_keluar,
+            'tgl_keluar' => $tgl_keluar,
             'jumlah' => $request->jumlah,
             'total' => $total,
             'ket' => $request->ket,
@@ -138,6 +148,20 @@ class BahanKeluarController extends Controller
 
         // cek apakah bahannya di ubah
         if ($request->has('kd_bahan')) {
+            // mengubah nama validasi
+            $messages = [
+                'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
+                'tgl_keluar.required' => 'Tanggal Keluar tidak boleh kosong',
+                'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'ket.required' => 'Keterangan tidak boleh kosong',
+            ];
+
+            $request->validate([
+                'kd_bahan' => 'required',
+                'tgl_keluar' => 'required',
+                'jumlah' => 'required',
+                'ket' => 'required',
+            ], $messages);
 
             // mengembalikan stok bahan yg lama
             $stok = DataBahan::where('kd_bahan', $bahanKeluar->kd_bahan)->first();
@@ -153,47 +177,35 @@ class BahanKeluarController extends Controller
             $harga_beli = (int) $stok->harga_beli;
             $jumlah = (int) $request->jumlah;
 
-            // mengubah nama validasi
-            $messages = [
-                'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
-                'jumlah.required' => 'Jumlah tidak boleh kosong',
-                'tgl_keluar.required' => 'Tanggal Keluar tidak boleh kosong',
-                'ket.required' => 'Keterangan tidak boleh kosong',
-                'ket.min' => 'Keterangan minimal 3 karakter',
-            ];
-
-            $request->validate([
-                'kd_bahan' => 'required',
-                'jumlah' => 'required',
-                'tgl_keluar' => 'required',
-                'ket' => 'required|min:3',
-            ], $messages);
 
             $input = $request->all();
+
+            // mengubah format tgl_masuk dari text ke date
+            $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));
 
             // mencari total harga
             $total = $harga_beli * $jumlah;
             $input['total'] = $total;
+            $input['tgl_keluar'] = $tgl_keluar;
 
             $bahanKeluar->update($input);
 
             Alert::success('Data Pemakaian Bahan', 'Berhasil diubah!');
-            return redirect('bahanKeluar');
+            return redirect('bahankeluar');
         } else {
             // mengubah nama validasi
             $messages = [
-                'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
-                'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_keluar.required' => 'Tanggal Keluar tidak boleh kosong',
+                'jumlah.required' => 'Jumlah tidak boleh kosong',
                 'ket.required' => 'Keterangan tidak boleh kosong',
-                'ket.min' => 'Keterangan minimal 3 karakter',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
-                'jumlah' => 'required',
                 'tgl_keluar' => 'required',
-                'ket' => 'required|min:3',
+                'jumlah' => 'required',
+                'ket' => 'required',
             ], $messages);
 
             // cek apakah jumlah diubah
@@ -210,20 +222,28 @@ class BahanKeluarController extends Controller
 
                 $input = $request->all();
 
+                // mengubah format tgl_masuk dari text ke date
+                $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));
+
                 // mencari total harga
                 $total = $harga_beli * $jumlah;
                 $input['total'] = $total;
+                $input['tgl_keluar'] = $tgl_keluar;
 
                 $bahanKeluar->update($input);
 
                 Alert::success('Data Pemakaian Bahan', 'Berhasil diubah!');
-                return redirect('bahanKeluar');
+                return redirect('bahankeluar');
             } else {
                 $input = $request->all();
+                // mengubah format tgl_masuk dari text ke date
+                $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));
+                $input['tgl_keluar'] = $tgl_keluar;
+
                 $bahanKeluar->update($input);
 
                 Alert::success('Data Pemakaian Bahan', 'Berhasil diubah!');
-                return redirect('bahanKeluar');
+                return redirect('bahankeluar');
             }
         }
     }

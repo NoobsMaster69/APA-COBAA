@@ -13,7 +13,7 @@ class MobilController extends Controller
     {
         // $this->authorize('viewAny', Mobil::class);
 
-        $mobil = Mobil::paginate(3);
+        $mobil = Mobil::oldest()->paginate(2)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view(

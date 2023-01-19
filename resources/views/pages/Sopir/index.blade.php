@@ -64,7 +64,7 @@
             <tbody>
                 @foreach ($sopir as $spr)
                 <tr class="intro-x">
-                    <td class="text-center">{{ $loop->iteration }}</td>
+                    <td class="text-center">{{ $loop->iteration + ($sopir->currentPage() - 1) * $sopir->perPage() }}</td>
                     <td class="text-center">
                         <img src="{{ asset('images/'.$spr->foto) }}" height="100px">
                     </td>
@@ -117,11 +117,11 @@
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <div class="w-full sm:w-auto sm:mr-auto">
-                {{ $sopir->withQueryString()->links() }}
+            {{ $sopir->withQueryString()->links() }}
         </div>
     </div>
     <!-- END: Pagination -->
-    
+
 </div>
 
 <!-- BEGIN: Notification Content -->

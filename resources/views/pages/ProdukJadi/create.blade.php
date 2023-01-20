@@ -32,9 +32,9 @@
                     <div class="relative mt-1 rounded-md shadow-sm">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
-                        <input name="stok" id="stok" type="number" class="form-control block w-full @error('stok') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
+                        <input name="stok" id="stok" type="number" class="form-control block w-full @error('stok') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
                         <div class="absolute inset-y-0 right-0 flex items-center">
-                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md  @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md  @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm">
                                 <option disabled hidden selected>-- Pilih Satuan --</option>
                                 @foreach ($satuan as $sat)
                                 @if (old('kd_satuan') == $sat->id_satuan)
@@ -82,14 +82,14 @@
                     <div class="flex items-center justify-center w-full">
                         <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-50 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('foto') border-danger @enderror">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <div id="hilang">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6" id="hilang">
                                     <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
                                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
                                     <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
-                                <img src="" class="w-24 mt-4" id="output">
+                                <img src="" class="w-1/2 my-0 rounded-lg" id="output">
                             </div>
 
                             <input id="dropzone-file" type="file" class="hidden" name="foto" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
@@ -101,9 +101,6 @@
                         {{ $message }}
                     </div>
                     @enderror
-                </div>
-                <div class="intro-y flex items-center mt-8">
-
                 </div>
                 <div class="relative">
                     <div class="intro-y col-span-11 2xl:col-span-9">
@@ -118,6 +115,11 @@
     </div>
 </div>
 <!-- menghilangkan id hilang ketika file di upload -->
+<script>
+    document.getElementById('dropzone-file').addEventListener('change', function() {
+        document.getElementById('hilang').style.display = 'none';
+    });
+</script>
 
 @endsection
 

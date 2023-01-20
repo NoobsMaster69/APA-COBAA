@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Karyawan;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class KaryawanController extends Controller
@@ -157,9 +158,14 @@ class KaryawanController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Karyawan $karyawan)
     {
-        //
+        $karyawan = DB::table('karyawan')
+            ->join('jabatan', 'karyawan.kd_jabatan', '=', 'jabatan.id_jabatan')
+            ->select('karyawan.*', 'jabatan.nm_jabatan')
+            ->where('id_karyawan', $karyawan->id_karyawan)->first();
+
+        return view('pages.karyawan.detail', compact('karyawan'));
     }
 
 
@@ -169,7 +175,12 @@ class KaryawanController extends Controller
         // memisahkan nama depan dan nama belakang
         $dataNama = explode(' ', $karyawan->nm_karyawan);
         $namaDepan = $dataNama[0];
-        $namaBelakang = $dataNama[1];
+        // $namaBelakang = $dataNama[1];
+        if (!isset($dataNama[1])) {
+            $namaBelakang = " ";
+        } else {
+            $namaBelakang = $dataNama[1];
+        }
 
         // memisahkan tempat dan tanggal lahir
         $dataTtl = explode(', ', $karyawan->ttl);
@@ -207,7 +218,7 @@ class KaryawanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'karyawan.edit',
+            'pages.karyawan.edit',
             [
                 'dataKaryawan' => [
                     'namaDepan' => $namaDepan,

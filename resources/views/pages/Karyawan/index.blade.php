@@ -79,6 +79,11 @@
                     {{-- <td class="text-center">{{ $krywn->alamat }}</td> --}}
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
+
+                            <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#detail-{{ $krywn->id_karyawan }}">
+                                <i data-feather="eye" class="w-4 h-4 mr-1"></i> Detail
+                            </button>
+
                             <a class="flex items-center mr-3" href="{{ route('karyawan.edit', $krywn->id_karyawan) }}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
@@ -137,5 +142,8 @@
 </div>
 <!-- END: Notification Content -->
 
+@foreach ($karyawan as $kr)
+    @include('pages.karyawan.detail')
+@endforeach
 
 @endsection

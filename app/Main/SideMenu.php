@@ -118,6 +118,14 @@ class SideMenu
                 'icon' => 'box',
                 'title' => 'Produk Jadi',
                 'sub_menu' => [
+                    'resep' => [
+                        'icon' => 'meh',
+                        'route_name' => 'tampilResep',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Resep Produk'
+                    ],
                     'produkJadi' => [
                         'icon' => 'meh',
                         'route_name' => 'produkJadi',
@@ -126,14 +134,6 @@ class SideMenu
                         ],
                         'title' => 'Data Produk'
                     ],
-                    // 'resep' => [
-                    //     'icon' => 'meh',
-                    //     'route_name' => 'produkJadi',
-                    //     'params' => [
-                    //         'layout' => 'side-menu'
-                    //     ],
-                    //     'title' => 'Resep Produk'
-                    // ],
                     'produkMasuk' => [
                         'icon' => 'meh',
                         'route_name' => 'produkMasuk',

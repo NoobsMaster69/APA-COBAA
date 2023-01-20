@@ -1,12 +1,12 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Data Bahan - Bread Smile</title>
+<title>Tambah Data Resep - Bread Smile</title>
 @endsection
 
 @section('subcontent')
 <div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Tambah Data Bahan </h2>
+    <h2 class="text-lg font-medium mr-auto">Tambah Data Resep </h2>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
@@ -15,8 +15,8 @@
             <form class="" action="{{ route('dataBahan.store') }}" method="POST">
                 @csrf
                 <div class="mt-3">
-                    <label for="kd_bahan" class="form-label"> Kode Bahan </label>
-                    <input id="kd_bahan" name="kd_bahan" type="text" value="{{ $kode_otomatis }}" readonly class="form-control w-full">
+                    <label for="kd_resep" class="form-label"> Kode Resep </label>
+                    <input id="kd_resep" name="kd_resep" type="text" value="{{ $kode_otomatis }}" readonly class="form-control w-full">
                 </div>
                 <div class="mt-3">
                     <label for="nm_bahan" class="form-label"> Nama Bahan </label>

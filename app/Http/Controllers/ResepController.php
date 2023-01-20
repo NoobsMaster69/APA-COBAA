@@ -42,7 +42,7 @@ class ResepController extends Controller
             }
         }
 
-        return view('resep.index', ['buatResep' => $buatResep], ['tittle' => 'Data Resep', 'judul' => 'Data Resep', 'menu' => 'Resep', 'submenu' => 'Data Resep']);
+        return view('pages.resep.index', ['buatResep' => $buatResep], ['tittle' => 'Data Resep', 'judul' => 'Data Resep', 'menu' => 'Resep', 'submenu' => 'Data Resep']);
     }
 
     /**
@@ -65,9 +65,8 @@ class ResepController extends Controller
         $resep = Resep::all();
 
         return view(
-            'resep.create',
+            'pages.resep.create',
             ['dataBahan' => $dataBahan, 'produkJadi' => $produkJadi, 'resep' => $resep, 'kode_otomatis' => $kode_otomatis],
-            ['tittle' => 'Tambah Data', 'judul' => 'Tambah Data Resep', 'menu' => 'Resep', 'submenu' => 'Tambah Data']
         );
     }
 

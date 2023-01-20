@@ -69,10 +69,8 @@ module.exports = {
             },
         },
     },
-    plugins: [require("@tailwindcss/forms")],
-    variants: {
-        extend: {
-            boxShadow: ["dark"],
-        },
-    },
+    plugins: [
+        // ...
+        require('@tailwindcss/forms'),
+      ],
 };

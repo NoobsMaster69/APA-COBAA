@@ -8,7 +8,7 @@
 <h2 class="intro-y text-lg font-medium mt-10">Data Pembuatan Produk</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{route ('bahanMasuk.create') }}">
+        <a href="{{route ('produkMasuk.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah Data</button>
         </a>
         <div class="dropdown">
@@ -50,16 +50,17 @@
         <table class="table table-report mt-2 table-fixed">
             <thead>
                 <tr>
-                    <!-- <th class="whitespace-nowrap">KODE PRODUK</th> -->
+                    <th class="whitespace-nowrap">KODE PRODUK</th>
                     <th class="text-center whitespace-nowrap">RESEP</th>
                     <th class="whitespace-nowrap">NAMA PRODUK</th>
-                    <!-- <th class="text-center whitespace-nowrap">PENCATAT</th> -->
-                    <th class="text-center whitespace-nowrap">JUMLAH</th>
+                    <th class="text-center whitespace-nowrap">PENCATAT</th>
+                    <th class="text-center whitespace-nowrap">JUMLAH </th>
                     <th class="text-center whitespace-nowrap">TANGGAL PRODUKSI</th>
                     <th class="text-center whitespace-nowrap">TANGGAL EXPIRED</th>
+                    <th class="text-center whitespace-nowrap">HARGA JUAL</th>
                     <th class="text-center whitespace-nowrap">MODAL</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
-                    <!-- <th class="text-center whitespace-nowrap">KETERANGAN</th> -->
+                    <th class="text-center whitespace-nowrap">KETERANGAN</th>
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
@@ -67,8 +68,8 @@
                 @foreach ($produkMasuk as $masuk)
                 <tr class="intro-x">
                     <td class="whitespace-nowrap">{{ $masuk->kd_produk }}</td>
-                    <td class="text-center whitespace-nowrap">{{ $masuk->kd_resep }}</td>
-                    <td class="whitespace-nowrap">{{ $masuk->nm_produk }}</td>
+                    <td class="text-center whitespace-nowrap">{{ $masuk->nm_produk }}</td>
+                    <td class="whitespace-nowrap">{{ $masuk->bahan }}</td>
                     <td class="text-center whitespace-nowrap">{{ $masuk->name }}</td>
                     <td class="text-center whitespace-nowrap">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
                     <td class="text-center whitespace-nowrap">{{ date('d F Y',strtotime($masuk->tgl_produksi)) }}</td>
@@ -78,7 +79,7 @@
                     <td class="text-center whitespace-nowrap">{{ $masuk->ket }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="javascript:;">
+                            <a href="{{ route('produkMasuk.edit', $masuk->id_produkMasuk) }}" class="flex items-center mr-3" href="javascript:;">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <!-- trigger modal -->
@@ -90,7 +91,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $masuk->kd_produk) }}" method="POST">
+                                            <form action="{{ route('produkMasuk.destroy', $masuk->id_produkMasuk) }}"  method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">

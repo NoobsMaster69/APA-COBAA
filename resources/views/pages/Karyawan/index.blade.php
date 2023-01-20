@@ -1,15 +1,15 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Bahan - Bread Smile</title>
+<title>Data Karyawan - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Bahan</h2>
+<h2 class="intro-y text-lg font-medium mt-10">Data Karyawan</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="{{ route('dataBahan.create') }}">
-            <button class="btn btn-primary shadow-md mr-2">Tambah Bahan</button>
+        <a href="{{ route('karyawan.create') }}">
+            <button class="btn btn-primary shadow-md mr-2">Tambah Karyawan</button>
         </a>
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
@@ -53,45 +53,56 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap">NO.</th>
-                    <th class="text-center whitespace-nowrap">KODE BAHAN</th>
-                    <th class="text-center whitespace-nowrap">NAMA BAHAN</th>
-                    <th class="text-center whitespace-nowrap">HARGA BELI</th>
-                    <th class="text-center whitespace-nowrap">STOK</th>
-                    <th class="text-center whitespace-nowrap">KETERANGAN</th>
+                    <th class="text-center whitespace-nowrap">FOTO</th>
+                    <th class="text-center whitespace-nowrap">NIP</th>
+                    <th class="text-center whitespace-nowrap">NAMA</th>
+                    <th class="text-center whitespace-nowrap">JABATAN</th>
+                    <th class="text-center whitespace-nowrap">TTL</th>
+                    <th class="text-center whitespace-nowrap">NO TELEPON</th>
+                    {{-- <th class="text-center whitespace-nowrap">ALAMAT</th> --}}
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($dataBahan as $bahan)
+                @foreach ($karyawan as $krywn)
                 <tr class="intro-x">
                     <!-- agar nomer mengikuti pagination -->
-                    <td class="text-center">{{ $loop->iteration + ($dataBahan->currentPage() - 1) * $dataBahan->perPage() }}</td>
-                    <td class="text-center">{{ $bahan->kd_bahan }}</td>
-                    <td class="text-center">{{ $bahan->nm_bahan }}</td>
-                    <td class="text-center">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
-                    <td class="text-center">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
-                    <td class="text-center">{{ $bahan->ket }}</td>
+                    <td class="text-center">{{ $loop->iteration + ($karyawan->currentPage() - 1) * $karyawan->perPage() }}</td>
+                    <td class="text-center">
+                        <img src="{{ asset('images/'.$krywn->foto) }}" class="w-[50px]">
+                    </td>
+                    <td class="text-center">{{ $krywn->nip }}</td>
+                    <td class="text-center">{{ $krywn->nm_karyawan }}</td>
+                    <td class="text-center">{{ $krywn->nm_jabatan }}</td>
+                    <td class="text-center">{{ $krywn->ttl }}</td>
+                    <td class="text-center">{{ $krywn->no_telp }}</td>
+                    {{-- <td class="text-center">{{ $krywn->alamat }}</td> --}}
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="{{ route('dataBahan.edit', $bahan->kd_bahan) }}">
+
+                            <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#detail-{{ $krywn->id_karyawan }}">
+                                <i data-feather="eye" class="w-4 h-4 mr-1"></i> Detail
+                            </button>
+
+                            <a class="flex items-center mr-3" href="{{ route('karyawan.edit', $krywn->id_karyawan) }}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
 
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
+                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $krywn->id_karyawan }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
-                            <div id="hapus{{ $bahan->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div id="hapus{{ $krywn->id_karyawan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $bahan->kd_bahan) }}" method="POST">
+                                            <form action="{{ route('karyawan.destroy', $krywn->id_karyawan) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $bahan->nm_bahan }}?</div>
+                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus {{ $krywn->nm_karyawan }}?</div>
                                                     <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">
@@ -115,7 +126,7 @@
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <div class="w-full sm:w-auto sm:mr-auto">
-            {{ $dataBahan->withQueryString()->links() }}
+            {{ $karyawan->withQueryString()->links() }}
         </div>
     </div>
     <!-- END: Pagination -->
@@ -131,5 +142,8 @@
 </div>
 <!-- END: Notification Content -->
 
+@foreach ($karyawan as $kr)
+    @include('pages.karyawan.detail')
+@endforeach
 
 @endsection

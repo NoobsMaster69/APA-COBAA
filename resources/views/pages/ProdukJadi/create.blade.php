@@ -1,139 +1,127 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Pembelian Bahan - Bread Smile</title>
+<title>Tambah Data Produk - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<div class="intro-y box p-5 mt-5">
-    <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-        <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
-            <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Informasi Pembelian Bahan
+<div class="intro-y flex items-center mt-8">
+    <h2 class="text-lg font-medium mr-auto">Tambah Data Produk </h2>
+</div>
+<div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="intro-y col-span-12 lg:col-span-8">
+        <!-- BEGIN: Form Layout -->
+        <div class="intro-y box px-10 py-5">
+            <form action="{{ route('produkJadi.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mt-3">
+                    <label for="kd_bahan" class="form-label"> Kode Produk </label>
+                    <input type="text" class="form-control" id="kd_produk" name="kd_produk" value="{{ $kode_otomatis }}" readonly>
+                </div>
+                <div class="mt-3">
+                    <label for="nm_produk" class="form-label"> Nama Produk </label>
+                    <input type="text" class="form-control" name="nm_produk" id="nm_produk" value="{{ old('nm_produk') }}" placeholder="Masukkan Nama Produk">
+                    @error('nm_produk')
+                    <div class="text-danger mt-2 mx-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="mt-3">
+                    <label for="stok" class="form-label"> Stok </label>
+                    <div class="relative mt-1 rounded-md shadow-sm">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        </div>
+                        <input name="stok" id="stok" type="number" class="form-control block w-full @error('stok') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
+                        <div class="absolute inset-y-0 right-0 flex items-center">
+                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md  @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                <option disabled hidden selected>-- Pilih Satuan --</option>
+                                @foreach ($satuan as $sat)
+                                @if (old('kd_satuan') == $sat->id_satuan)
+                                <option value="{{ $sat->id_satuan }}" selected>{{ $sat->nm_satuan }}</option>
+                                @else
+                                <option value="{{$sat->id_satuan }}">{{ $sat->nm_satuan }}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @error('stok')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    @error('kd_satuan')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="mt-3">
+                        <label for="nm_produk" class="form-label"> Harga Jual Produk </label>
+                        <input type="number" class="form-control" name="harga_jual" id="harga_jual" value="{{ old('harga_jual') }}" placeholder="Masukkan Harga Jual">
+                        @error('harga_jual')
+                        <div class="text-danger mt-2 mx-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="input-form mt-3">
+                        <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
+                            Keterangan
+                        </label>
+                        <textarea name="ket" id="ket" class="form-control @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket') }}</textarea>
+                    </div>
+                    @error('ket')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="mt-5">
+                    <label for="foto" class="form-label"> Foto </label>
+                    <div class="flex items-center justify-center w-full">
+                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-50 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('foto') border-danger @enderror">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <div id="hilang">
+                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <img src="" class="w-24 mt-4" id="output">
+                            </div>
+
+                            <input id="dropzone-file" type="file" class="hidden" name="foto" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
+
+                        </label>
+                    </div>
+                    @error('foto')
+                    <div class="text-danger mt-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="intro-y flex items-center mt-8">
+
+                </div>
+                <div class="relative">
+                    <div class="intro-y col-span-11 2xl:col-span-9">
+                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                            <a href="/produkJadi" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <form action="{{ route('bahanMasuk.store') }}" method="POST">
-            @csrf
-            <div class="mt-5">
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <label for="kd_satuan" class="font-medium">Kode Bahan </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <select name="kd_satuan" id="satuan" id="product-name" type="text" class="form-control" placeholder="Kode Bahan" required autofocus onchange="changeValue(this.value)">
-                            <option value="0" hidden disabled selected>Pilih Kode Bahan</option>
-                            @php
-                            $jsArray = "var prdName = new Array();\n";
-                            @endphp
-
-                            @foreach ($dataBahan as $bahan)
-                            <option value="{{ $bahan->kd_bahan }}">{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
-
-                            @php
-                            $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
-                            nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
-                            harga_beli : '" . addslashes($bahan['harga_beli']) . "',
-                            harga_beliTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
-                            stok : '" . addslashes($bahan['stok']) . "',
-                            nm_satuan : '" . addslashes($bahan['nm_satuan']) . "',
-                            nm_satuan2 : '" . addslashes($bahan['nm_satuan']) . "',
-
-                            };\n";
-                            @endphp
-
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <label for="nm_bahan " class="font-medium">Nama Bahan </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <input type="text" class="form-control" name="nm_bahan" id="nm_bahan" readonly>
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Harga Bahan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <input type="text" class="form-control" id="harga_beliTampil" readonly>
-                        <input type="hidden" class="form-control" name="harga_beli" id="harga_beli">
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Stok Bahan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <input id="stok" type="text" class="form-control" readonly>
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Tanggal Masuk Bahan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative w-full mt-3 xl:mt-0 flex-1">
-                        <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
-                            <i data-feather="calendar" class="w-4 h-100"></i>
-                        </div>
-                        <input type="text" class="datepicker form-control pl-12" data-single-mode="true">
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Keterangan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <textarea name="ket" id="ket" class="form-control" placeholder="Type your comments" minlength="3"></textarea>
-                    </div>
-                </div>
-        </form>
     </div>
 </div>
-</div>
-<!-- END: Form Layout -->
-<div class="grid justify-items-start hover:justify-items-center md:flex-row gap-2 mt-5">
-    <button type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</button>
-    <button type="button" class="btn py-3 btn-primary w-full md:w-52">Save</button>
-</div>
+<!-- menghilangkan id hilang ketika file di upload -->
 
+@endsection
 
-
-<script type="text/javascript">
-    <?= $jsArray; ?>
-
-    function changeValue(x) {
-        document.getElementById('nm_bahan').value = prdName[x].nm_bahan;
-        document.getElementById('harga_beli').value = prdName[x].harga_beli;
-        document.getElementById('harga_beliTampil').value = prdName[x].harga_beliTampil;
-        document.getElementById('stok').value = prdName[x].stok;
-        document.getElementById('nm_satuan').value = prdName[x].nm_satuan;
-        document.getElementById('nm_satuan2').value = prdName[x].nm_satuan2;
-    }
-</script>
+@section('script')
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
+
 @endsection

@@ -16,6 +16,7 @@ class BahanMasukController extends Controller
         // $this->authorize('viewAny', BahanMasuk::class);
 
         $search = $request->search;
+
         // menyatukan search dengan join tabel
         $bahanMasuk = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
             ->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.kd_satuan', 'dataBahan.harga_beli', 'satuan.nm_satuan')

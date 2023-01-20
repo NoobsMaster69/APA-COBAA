@@ -11,12 +11,21 @@ use RealRashid\SweetAlert\Facades\Alert;
 class KaryawanController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        // join tabel dengan tabel jabatan
+        $search = $request->search;
+
+        // menyatukan search dengan join tabel
         $karyawan = Karyawan::join('jabatan', 'karyawan.kd_jabatan', '=', 'jabatan.id_jabatan')
             ->select('karyawan.*', 'jabatan.nm_jabatan')
-            ->get();
+            ->where('jabatan.nm_jabatan', 'LIKE', '%' . $search . '%')
+            ->orWhere('karyawan.nm_karyawan', 'LIKE', '%' . $search . '%')
+            ->orWhere('karyawan.nm_karyawan', 'LIKE', '%' . $search . '%')
+            ->orWhere('karyawan.nip', 'LIKE', '%' . $search . '%')
+            ->orWhere('karyawan.ttl', 'LIKE', '%' . $search . '%')
+            ->orWhere('karyawan.no_telp', 'LIKE', '%' . $search . '%')
+            ->orWhere('karyawan.jenis_kelamin', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(5)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view(
@@ -36,7 +45,7 @@ class KaryawanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'karyawan.create',
+            'pages.karyawan.create',
             [
                 'jabatan' => Jabatan::all(),
                 'tittle' => 'Tambah Data',

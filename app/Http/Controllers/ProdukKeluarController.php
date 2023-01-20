@@ -72,7 +72,7 @@ class ProdukKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', ProdukKeluar::class);
+        // $this->authorize('create', ProdukKeluar::class);
 
         // mengubah nama validasi
         $messages = [

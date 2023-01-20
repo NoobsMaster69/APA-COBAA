@@ -26,7 +26,7 @@ class ProdukJadiController extends Controller
 
     public function create()
     {
-        $this->authorize('create', ProdukJadi::class);
+        // $this->authorize('create', ProdukJadi::class);
 
         $kode = ProdukJadi::max('kd_produk');
         $kode = (int) substr($kode, 4, 4);
@@ -36,7 +36,7 @@ class ProdukJadiController extends Controller
         $satuan = Satuan::all();
 
         return view(
-            'produkJadi.create',
+            'pages.produkJadi.create',
             ['kode_otomatis' => $kode_otomatis, 'satuan' => $satuan],
             ['tittle' => 'Tambah Data', 'judul' => 'Tambah Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Tambah Data']
         );
@@ -44,7 +44,7 @@ class ProdukJadiController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('create', ProdukJadi::class);
+        // $this->authorize('create', ProdukJadi::class);
 
         // mengubah nama validasi
         $messages = [
@@ -101,7 +101,7 @@ class ProdukJadiController extends Controller
 
         $satuan = Satuan::all();
         return view(
-            'ProdukJadi.edit',
+            'pages.ProdukJadi.edit',
             compact('produkJadi', 'satuan'),
             [
                 'tittle' => 'Edit Data',
@@ -193,7 +193,7 @@ class ProdukJadiController extends Controller
 
     public function destroy(ProdukJadi $produkJadi)
     {
-        $this->authorize('delete', $produkJadi);
+        // $this->authorize('delete', $produkJadi);
 
         File::delete('images/' . $produkJadi->foto);
         $produkJadi->delete();

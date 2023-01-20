@@ -97,18 +97,14 @@ class ProdukJadiController extends Controller
     {
         // $this->authorize('update', $produkJadi);
 
-        $produkJadi = DB::table('produkjadi')->join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')->select('produkjadi.*', 'satuan.nm_satuan')->where('kd_satuan', $produkJadi->kd_satuan)->first();
+        $produkJadi = DB::table('produkjadi')->join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')->select('produkjadi.*', 'satuan.nm_satuan')->where('kd_produk', $produkJadi->kd_produk)->first();
+
+        // dd($produkJadi->foto);
 
         $satuan = Satuan::all();
         return view(
             'pages.ProdukJadi.edit',
             compact('produkJadi', 'satuan'),
-            [
-                'tittle' => 'Edit Data',
-                'judul' => 'Edit Data Produk',
-                'menu' => 'Data Produk',
-                'submenu' => 'Edit Data'
-            ]
         );
     }
 

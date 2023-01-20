@@ -2,10 +2,14 @@
 
 @section('head')
 <title>Registrasi - Bread Smile</title>
+<style type="text/tailwindcss">
+    * {
+        border: 1px solid red;
+    }
+</style>
 @endsection
 
 @section('content')
-@include('sweetalert::alert')
 <div class="container sm:px-10">
     <div class="block xl:grid grid-cols-2 gap-4">
         <!-- BEGIN: Register Info -->

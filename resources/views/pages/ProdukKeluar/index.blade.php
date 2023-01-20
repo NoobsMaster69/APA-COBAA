@@ -54,7 +54,8 @@
                     <!-- <th class="text-center whitespace-nowrap">RESEP</th> -->
                     <th class="whitespace-nowrap">NAMA PRODUK</th>
                     <!-- <th class="text-center whitespace-nowrap">PENCATAT</th> -->
-                    <th class="text-center whitespace-nowrap">JUMLAH</th>
+                    <th class="text-center whitespace-nowrap">PENCATAT</th>
+                    <th class="text-center whitespace-nowrap">JUMLAH </th>
                     <th class="text-center whitespace-nowrap">TANGGAL KELUAR</th>
                     <th class="text-center whitespace-nowrap">TANGGAL EXPIRED</th>
                     <th class="text-center whitespace-nowrap">HARGA JUAL</th>

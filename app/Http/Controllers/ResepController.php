@@ -42,7 +42,7 @@ class ResepController extends Controller
             }
         }
 
-        return view('resep.index', ['buatResep' => $buatResep], ['tittle' => 'Data Resep', 'judul' => 'Data Resep', 'menu' => 'Resep', 'submenu' => 'Data Resep']);
+        return view('pages.resep.index', ['buatResep' => $buatResep], ['tittle' => 'Data Resep', 'judul' => 'Data Resep', 'menu' => 'Resep', 'submenu' => 'Data Resep']);
     }
 
     /**

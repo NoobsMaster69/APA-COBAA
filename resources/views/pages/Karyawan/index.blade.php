@@ -1,12 +1,12 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Karyawan - Bread Smile</title>
+<title> {{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
 <div class="intro-y mt-10">
-    <h2 class="text-lg font-medium">Data Karyawan</h2>
+    <h2 class="text-lg font-medium">{{ $judul }}</h2>
     <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
         <li class="breadcrumb-item"><a href="/datakaryawan" class="text-slate-600">{{ $menu }}</a></li>
         <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
@@ -104,8 +104,10 @@
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus {{ $krywn->nm_karyawan }}?</div>
-                                                    <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
+                                                    <div id="exampleModalLabel" class="text-2xl mt-5">Apakah yakin akan menghapus <br> {{ $krywn->nm_karyawan }}?</div>
+                                                    <div class="mt-3">
+                                                        <span class="text-danger">*data yang dihapus tidak dapat dikembalikan!</span>
+                                                    </div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">
                                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>

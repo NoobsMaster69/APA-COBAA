@@ -9,13 +9,19 @@ use RealRashid\SweetAlert\Facades\Alert;
 class JabatanController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+
+        $search = $request->search;
+
+        $jabatan = Jabatan::where('nm_jabatan', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(10)->withQueryString();
+
         // mengirim tittle dan judul ke view
         return view(
             'pages.jabatan.index',
             [
-                'jabatan' => Jabatan::paginate(3),
+                'jabatan' => $jabatan,
                 'tittle' => 'Data Jabatan',
                 'judul' => 'Data Jabatan',
                 'menu' => 'Data Jabatan',

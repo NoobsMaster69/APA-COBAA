@@ -13,7 +13,7 @@
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                 <div class="col-span-12 sm:col-span-12">
                     <label for="satuan" class="form-label">Nama Satuan</label>
-                    <input id="satuan" type="text" name="nm_satuan" class="form-control" value="{{ $st->nm_satuan }}" placeholder="Silahkan masukkan" required autofocus>
+                    <input id="satuan" type="text" name="nm_satuan" class="form-control shadow-md" value="{{ $st->nm_satuan }}" required autofocus>
                 </div>
             </div>
             <!-- END: Modal Body -->

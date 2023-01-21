@@ -13,9 +13,12 @@ class SatuanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $satuan = Satuan::paginate(3);
+        $search = $request->search;
+
+        $satuan = Satuan::where('nm_satuan', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(10)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view(
@@ -24,7 +27,7 @@ class SatuanController extends Controller
                 'satuan' => $satuan,
                 'tittle' => 'Data Satuan',
                 'judul' => 'Data Satuan',
-                'menu' => 'Bahan Baku',
+                'menu' => 'Data Satuan',
                 'submenu' => 'Data Satuan'
             ]
         );
@@ -61,16 +64,6 @@ class SatuanController extends Controller
 
     public function edit(Satuan $satuan)
     {
-        // return view(
-        //     'pages.satuan.edit',
-        //     compact('satuan'),
-        //     [
-        //         'tittle' => 'Edit Data Satuan',
-        //         'judul' => 'Edit Data Satuan',
-        //         'menu' => 'Data Satuan',
-        //         'submenu' => 'Edit Data Satuan'
-        //     ]
-        // );
     }
 
     public function update(Request $request, Satuan $satuan)

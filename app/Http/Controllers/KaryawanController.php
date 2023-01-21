@@ -49,9 +49,9 @@ class KaryawanController extends Controller
             'pages.karyawan.create',
             [
                 'jabatan' => Jabatan::all(),
-                'tittle' => 'Tambah Data',
-                'judul' => 'Tambah Data Karyawan',
+                'tittle' => 'Tambah Data Karyawan',
                 'menu' => 'Data Karyawan',
+                'judul' => 'Tambah Data Karyawan',
                 'submenu' => 'Tambah Data'
             ]
         );

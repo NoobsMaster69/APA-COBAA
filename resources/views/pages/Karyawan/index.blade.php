@@ -5,7 +5,13 @@
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Karyawan</h2>
+<div class="intro-y mt-10">
+    <h2 class="text-lg font-medium">Data Karyawan</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/datakaryawan" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
+</div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="{{ route('karyawan.create') }}">
@@ -58,8 +64,6 @@
                     <th class="text-center whitespace-nowrap">NAMA</th>
                     <th class="text-center whitespace-nowrap">JABATAN</th>
                     <th class="text-center whitespace-nowrap">TTL</th>
-                    <th class="text-center whitespace-nowrap">NO TELEPON</th>
-                    {{-- <th class="text-center whitespace-nowrap">ALAMAT</th> --}}
                     <th class="text-center whitespace-nowrap">AKSI</th>
                 </tr>
             </thead>
@@ -69,29 +73,27 @@
                     <!-- agar nomer mengikuti pagination -->
                     <td class="text-center">{{ $loop->iteration + ($karyawan->currentPage() - 1) * $karyawan->perPage() }}</td>
                     <td class="text-center">
-                        <img src="{{ asset('images/'.$krywn->foto) }}" class="w-[50px]">
+                        <img src="{{ asset('images/'.$krywn->foto) }}" class="w-20">
                     </td>
                     <td class="text-center">{{ $krywn->nip }}</td>
                     <td class="text-center">{{ $krywn->nm_karyawan }}</td>
                     <td class="text-center">{{ $krywn->nm_jabatan }}</td>
                     <td class="text-center">{{ $krywn->ttl }}</td>
-                    <td class="text-center">{{ $krywn->no_telp }}</td>
-                    {{-- <td class="text-center">{{ $krywn->alamat }}</td> --}}
-                    <td class="table-report__action w-56">
+                    <td class="table-report__action">
                         <div class="flex justify-center items-center">
-
-                            <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#detail-{{ $krywn->id_karyawan }}">
-                                <i data-feather="eye" class="w-4 h-4 mr-1"></i> Detail
+                            <button class="flex items-center tooltip text-primary mr-2" data-theme="light" title="Detail" data-tw-toggle="modal" data-tw-target="#detail-{{ $krywn->id_karyawan }}">
+                                <i data-feather="eye" class="w-4 h-4"></i>
                             </button>
 
-                            <a class="flex items-center mr-3" href="{{ route('karyawan.edit', $krywn->id_karyawan) }}">
-                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+                            <a class="flex items-center mr-2 tooltip text-success" data-theme="light" title="Edit" href="{{ route('karyawan.edit', $krywn->id_karyawan) }}">
+                                <i data-feather="check-square" class="w-4 h-4"></i>
                             </a>
 
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $krywn->id_karyawan }}">
-                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
+                            <button class="flex items-center tooltip text-danger" data-theme="light" title="Hapus" data-tw-toggle="modal" data-tw-target="#hapus{{ $krywn->id_karyawan }}">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
                             </button>
+
                             <!-- BEGIN: Delete Confirmation Modal -->
                             <div id="hapus{{ $krywn->id_karyawan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">

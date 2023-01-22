@@ -67,6 +67,7 @@ class ProdukJadiController extends Controller
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.image' => 'File yang anda pilih bukan foto atau gambar',
             'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
         ];
 
         $request->validate([
@@ -76,7 +77,7 @@ class ProdukJadiController extends Controller
             'kd_satuan' => 'required',
             'harga_jual' => 'required|integer',
             'ket' => 'required|min:3',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
         ], $messages);
 
         $input = $request->all();
@@ -138,6 +139,7 @@ class ProdukJadiController extends Controller
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.image' => 'File yang anda pilih bukan foto atau gambar',
                 'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+                'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
             ];
 
             $rules = [
@@ -147,7 +149,7 @@ class ProdukJadiController extends Controller
                 'kd_satuan' => 'required',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp'
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
             ];
 
             $input = $request->validate($rules, $messages);

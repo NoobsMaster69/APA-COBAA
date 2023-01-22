@@ -35,6 +35,7 @@ import "./zoom";
 import "./notification";
 import "./tabulator";
 import "./calendar";
+import "cropperjs";
 
 /*
  |--------------------------------------------------------------------------

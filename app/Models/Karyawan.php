@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// relasi dengan user
+use App\Models\User;
 
 class Karyawan extends Model
 {

@@ -45,6 +45,7 @@ class RegistrationController extends Controller
         $userNip = User::where('nip', $request->nip)->first();
         $userPass = User::where('password', $request->password)->first();
 
+
         if (!empty($karyawan) || $karyawan == !null) {
 
             // cek apakah user itu terdaftar pada tabel karyawan
@@ -53,6 +54,7 @@ class RegistrationController extends Controller
                 $nip = $karyawan->nip;
                 $name = $karyawan->nm_karyawan;
                 $role = $karyawan->role;
+                $id_karyawan = $karyawan->id_karyawan;
 
                 $input = $request->all();
 
@@ -62,7 +64,8 @@ class RegistrationController extends Controller
                     'name' => $name,
                     'nip' => $nip,
                     'password' => $input['password'],
-                    'role' => $role
+                    'role' => $role,
+                    'id_karyawan' => $id_karyawan,
                 ]);
 
                 Alert::success('Registrasi Berhasil', 'Silahkan Login!');
@@ -110,8 +113,9 @@ class RegistrationController extends Controller
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect(RouteServiceProvider::HOME)->with('success', 'Login Berhasil');
+            return redirect(RouteServiceProvider::HOME);
         }
+        Alert::error('Login Gagal', 'NIP atau Password yang anda masukkan salah!');
         return back()->withInput();
     }
 

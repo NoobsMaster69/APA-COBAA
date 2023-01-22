@@ -10,7 +10,7 @@
                     <div class="box">
                         <div class="flex items-start px-5 pt-5 pb-5 border-b border-slate-400">
                             <div class="w-full flex flex-col lg:flex-row items-center">
-                                <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110">
+                                <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-no-repeat bg-local bg-top zoom-in scale-110">
                                     <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full object-scale-down" src="{{ asset('images/'.$kr->foto) }}">
                                 </div>
                                 <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="text-center lg:text-left px-5 pb-5 pt-3">
-                            
+
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-3">
                                 <i data-feather="award" class="w-3 h-3 mr-2"></i> {{ $kr->nip }}
                             </div>
@@ -55,7 +55,7 @@
                             <div class="flex justify-center lg:justify-start text-slate-700 mt-2 pl-4">
                                 {{ $kr->alamat }}
                             </div>
-            
+
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             <div class="modal-footer mb-1">
                 <button type="button" data-tw-dismiss="modal" class="btn btn-primary">Back</button>
             </div>
-        </form>
+            </form>
             <!-- END: Modal Footer -->
         </div>
     </div>

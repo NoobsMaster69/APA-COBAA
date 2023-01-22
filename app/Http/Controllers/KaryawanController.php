@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Karyawan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -84,6 +86,7 @@ class KaryawanController extends Controller
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.images' => 'File yang anda pilih bukan foto atau gambar',
             'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
         ];
 
         $this->validate($request, [
@@ -100,7 +103,7 @@ class KaryawanController extends Controller
             'kecamatan' => 'required',
             'alamat_lengkap' => 'required',
             'role' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
         ], $messages);
 
         // cek apakah nama belakang diisi
@@ -276,6 +279,7 @@ class KaryawanController extends Controller
                 'nip.min' => 'NIP minimal 11 karakter',
                 'nip.max' => 'NIP maksimal 11 karakter',
                 'nip.unique' => 'NIP sudah terdaftar',
+                'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
             ];
 
             $rules = [
@@ -291,7 +295,7 @@ class KaryawanController extends Controller
                 'kecamatan' => 'required',
                 'alamat_lengkap' => 'required',
                 'role' => 'required',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp'
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
             ];
 
             if ($request->nip != $karyawan->nip) {
@@ -426,9 +430,17 @@ class KaryawanController extends Controller
 
     public function destroy(Karyawan $karyawan)
     {
-        File::delete('images/' . $karyawan->foto);
-        $karyawan->delete();
-        Alert::success('Data Karyawan', 'Berhasil dihapus!');
-        return redirect('karyawan');
+        if (Auth::user()->id_karyawan == $karyawan->id_karyawan) {
+            Alert::error('Gagal menghapus', 'Tidak dapat menghapus data diri sendiri!');
+            return redirect()->route('karyawan.index');
+        } else {
+            File::delete('images/' . $karyawan->foto);
+            $karyawan->delete();
+            // delete juga data user yang bersangkutan
+            $user = User::where('id_karyawan', $karyawan->id_karyawan)->first();
+            $user->delete();
+            Alert::success('Data Karyawan', 'Berhasil dihapus!');
+            return redirect()->route('karyawan.index');
+        }
     }
 }

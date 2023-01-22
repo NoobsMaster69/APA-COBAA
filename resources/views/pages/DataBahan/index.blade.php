@@ -1,11 +1,17 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Bahan - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Bahan</h2>
+<div class="intro-y mt-10">
+    <h2 class="text-lg font-medium">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/dataBahan" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
+</div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="{{ route('dataBahan.create') }}">
@@ -71,16 +77,18 @@
                     <td class="text-center">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
                     <td class="text-center">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
                     <td class="text-center">{{ $bahan->ket }}</td>
-                    <td class="table-report__action w-56">
+                    <td class="table-report__action">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="{{ route('dataBahan.edit', $bahan->kd_bahan) }}">
-                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+
+                            <a class="flex items-center mr-2 tooltip text-success" data-theme="light" title="Edit" href="{{ route('dataBahan.edit', $bahan->kd_bahan) }}">
+                                <i data-feather="check-square" class="w-4 h-4"></i>
                             </a>
 
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
-                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
+                            <button class="flex items-center tooltip text-danger" data-theme="light" title="Hapus" data-tw-toggle="modal" data-tw-target="#hapus{{ $bahan->kd_bahan }}">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
                             </button>
+
                             <!-- BEGIN: Delete Confirmation Modal -->
                             <div id="hapus{{ $bahan->kd_bahan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
                                 <div class="modal-dialog">
@@ -91,8 +99,10 @@
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin akan menghapus bahan {{ $bahan->nm_bahan }}?</div>
-                                                    <div class="text-slate-500 mt-2">Data yang dihapus tidak dapat dikembalikan!</div>
+                                                    <div id="exampleModalLabel" class="text-2xl mt-5">Apakah yakin akan menghapus bahan <br> {{ $bahan->nm_bahan }}?</div>
+                                                    < <div class="mt-3">
+                                                        <span class="text-danger">*data yang dihapus tidak dapat dikembalikan!</span>
+                                                    </div>
                                                 </div>
                                                 <div class="px-5 pb-8 text-center">
                                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
@@ -120,16 +130,6 @@
     </div>
     <!-- END: Pagination -->
 </div>
-
-<!-- BEGIN: Notification Content -->
-<div id="success-notification-content" class="toastify-content hidden flex">
-    <i class="text-success" data-feather="check-circle"></i>
-    <div class="ml-4 mr-4">
-        <div class="font-medium">Data Berhasil Di simpan Saved!</div>
-        <div class="text-slate-500 mt-1">The message will be sent in 5 minutes.</div>
-    </div>
-</div>
-<!-- END: Notification Content -->
 
 
 @endsection

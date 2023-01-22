@@ -1,12 +1,16 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Data Sopir - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Data Sopir</h2>
+<div class="intro-y mt-10 mb-6">
+    <h2 class="text-lg font-medium mr-auto">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/tampilsopir" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
@@ -14,31 +18,31 @@
         <div class="intro-y box px-10 py-5">
             <form class="" action="{{ route('sopir.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mt-3">
-                    <label for="kd_sopir" class="form-label"> Kode Sopir </label>
-                    <input id="kd_sopir" name="kd_sopir" type="text" value="{{ $kode_otomatis }}" readonly class="form-control w-full">
+                <input id="kd_sopir" name="kd_sopir" type="hidden" value="{{ $kode_otomatis }}">
+                <div class="bg-slate-100 -ml-1 w-full flex justify-center py-2 rounded-lg shadow-lg">
+                    <span class="text-slate-800 font-medium uppercase text-center">Kode Sopir - {{ $kode_otomatis }}</span>
                 </div>
-                <div class="mt-5">
+                <div class="mt-8">
                     <label for="no_ktp" class="form-label"> Nomor KTP </label>
-                    <input name="no_ktp" id="no_ktp" type="number" class="form-control w-full @error('no_ktp') border-danger @enderror" placeholder="Masukkan Nomor KTP" minlength="3" value="{{ old('no_ktp') }}" required>
+                    <input name="no_ktp" id="no_ktp" type="number" class="form-control w-full shadow-md @error('no_ktp') border-danger @enderror" placeholder="Masukkan Nomor KTP" minlength="3" value="{{ old('no_ktp') }}">
                     @error('no_ktp')
                         <div class="text-danger mt-1">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <div class="mt-5">
+                <div class="mt-6">
                     <label for="nm_sopir" class="form-label"> Nama Sopir </label>
-                    <input name="nm_sopir" id="nm_sopir" type="text" class="form-control w-full @error('nm_sopir') border-danger @enderror" placeholder="Masukkan Nama Sopir" value="{{ old('nm_sopir') }}" required>
+                    <input name="nm_sopir" id="nm_sopir" type="text" class="form-control w-full shadow-md @error('nm_sopir') border-danger @enderror" placeholder="Masukkan Nama Sopir" value="{{ old('nm_sopir') }}">
                     @error('nm_sopir')
                         <div class="text-danger mt-1">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <div class="mt-5">
+                <div class="mt-6">
                     <label for="jenis_kelamin" class="form-label"> Jenis Kelamin </label>
-                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-select form-select-md @error('jenis_kelamin') border-danger @enderror" required>
+                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-select form-select-md shadow-md @error('jenis_kelamin') border-danger @enderror">
                         <option disabled hidden selected>-- Silahkan Pilih --</option>
                         @if (old('jenis_kelamin') == "Laki-laki")
                             <option value="Laki-laki" selected>Laki-laki</option>
@@ -55,21 +59,21 @@
                         </div>
                     @enderror
                 </div>
-                <div class="mt-5">
+                <div class="mt-6">
                     <label for="alamat" class="form-label">
                         Alamat
                     </label>
-                    <textarea name="alamat" id="alamat" class="form-control @error('alamat') border-danger @enderror" placeholder="Masukkan Alamat" required>{{ old('alamat') }}</textarea>
+                    <textarea name="alamat" id="alamat" class="form-control w-full shadow-md @error('alamat') border-danger @enderror" placeholder="Masukkan Alamat">{{ old('alamat') }}</textarea>
                     @error('alamat')
                         <div class="text-danger mt-1">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <div class="mt-5">
+                <div class="mt-6">
                     <label for="foto" class="form-label"> Foto </label>
                     <div class="flex items-center justify-center w-full">
-                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-50 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('foto') border-danger @enderror">
+                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('foto') border-danger @enderror">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <img src="" class="my-0 rounded-lg w-32" id="output">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6" id="hilang">
@@ -93,8 +97,8 @@
                 </div>
 
                 <div class="relative">
-                    <div class="intro-y col-span-11 2xl:col-span-9">
-                        <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                    <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
+                        <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
                             <a href="/tampilsopir" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
                             <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
                         </div>

@@ -1,12 +1,16 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Data Bahan - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Tambah Data Bahan </h2>
+<div class="intro-y mt-10 mb-6">
+    <h2 class="text-lg font-medium mr-auto">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/dataBahan" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
@@ -14,36 +18,39 @@
         <div class="intro-y box px-10 py-5">
             <form class="" action="{{ route('dataBahan.store') }}" method="POST">
                 @csrf
-                <div class="mt-3">
-                    <label for="kd_bahan" class="form-label"> Kode Bahan </label>
-                    <input id="kd_bahan" name="kd_bahan" type="text" value="{{ $kode_otomatis }}" readonly class="form-control w-full">
+                <input id="kd_bahan" name="kd_bahan" type="hidden" value="{{ $kode_otomatis }}">
+                <div class="bg-slate-100 -ml-1 w-full flex justify-center py-2 rounded-lg shadow-lg">
+                    <span class="text-slate-800 font-medium uppercase text-center">Kode Bahan - {{ $kode_otomatis }}</span>
                 </div>
-                <div class="mt-3">
+                <div class="mt-8">
                     <label for="nm_bahan" class="form-label"> Nama Bahan </label>
-                    <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full @error('nm_bahan') border-danger @enderror" placeholder="Masukkan Nama Bahan" minlength="3" value="{{ old('nm_bahan') }}">
+                    <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full shadow-md @error('nm_bahan') border-danger @enderror" placeholder="Masukkan Nama Bahan" value="{{ old('nm_bahan') }}">
+                    @error('nm_bahan')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                @error('nm_bahan')
-                <div class="text-danger mt-1">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class=" mt-3">
+                
+                <div class="mt-6">
                     <label for="harga_beli" class="form-label"> Harga Beli </label>
-                    <input name="harga_beli" id="harga_beli" type="number" class="form-control w-full @error('harga_beli') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('harga_beli') }}">
+                    <input name="harga_beli" id="harga_beli" type="number" class="form-control w-full shadow-md @error('harga_beli') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('harga_beli') }}">
+                    @error('harga_beli')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                @error('harga_beli')
-                <div class="text-danger mt-1">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="mt-3">
+               
+                <div class="mt-6">
                     <label for="stok" class="form-label"> Stok </label>
-                    <div class="relative mt-1 rounded-md shadow-sm">
+                    <div class="relative rounded-md">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
-                        <input name="stok" id="stok" type="number" class="form-control block w-full @error('stok') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
+                        <input name="stok" id="stok" type="number" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
+                       
                         <div class="absolute inset-y-0 right-0 flex items-center">
-                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md  @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md shadow-md @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm">
                                 <option disabled hidden selected>-- Pilih Satuan --</option>
                                 @foreach ($satuan as $sat)
                                 @if (old('kd_satuan') == $sat->id_satuan)
@@ -55,60 +62,40 @@
                             </select>
                         </div>
                     </div>
-                    @error('stok')
-                    <div class="text-danger mt-1">
-                        {{ $message }}
+                    <div class="flex">
+                        @error('stok')
+                            <div class="text-danger mt-1 mr-1">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        @error('kd_satuan')
+                            <div class="text-danger mt-1">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                    @enderror
-                    @error('kd_satuan')
-                    <div class="text-danger mt-1">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    <div class="input-form mt-3">
-                        <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
-                            Keterangan
-                        </label>
-                        <textarea name="ket" id="ket" class="form-control @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket') }}</textarea>
-                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="ket" class="form-label">
+                        Keterangan
+                    </label>
+                    <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan" required>{{ old('ket') }}</textarea>
                     @error('ket')
-                    <div class="text-danger mt-1">
-                        {{ $message }}
-                    </div>
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
-                <div class="text-right mt-5">
-                    <a href="/databahan" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
-                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                <div class="relative">
+                    <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
+                        <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
+                            <a href="/dataBahan" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
+                        </div>
+                    </div>
                 </div>
             </form>
-
-
-            <!-- END: Form Layout -->
-            <!-- <div id="success-notification-content" class="toastify-content hidden flex">
-    <i class="text-success" data-feather="check-circle"></i>
-    <div class="ml-4 mr-4">
-        <div class="font-medium">Keren Kamu Bang Sukses !</div>
-        <div class="text-slate-500 mt-1">
-            Jembut
         </div>
-    </div>
-</div> -->
-            <!-- END: Success Notification Content -->
-            <!-- BEGIN: Failed Notification Content -->
-            <!-- <div id="failed-notification-content" class="toastify-content hidden flex">
-    <i class="text-danger" data-feather="x-circle"></i>
-    <div class="ml-4 mr-4">
-        <div class="font-medium">Tambah Data Gagal Anjing !</div>
-        <div class="text-slate-500 mt-1">
-            Isi dlu semua kontol.
-        </div>
-    </div>
-</div> -->
-            <!-- END: Failed Notification Content -->
-        </div>
-
-
     </div>
 </div>
 @endsection

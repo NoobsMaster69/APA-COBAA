@@ -136,15 +136,6 @@
     <!-- END: Pagination -->
 </div>
 
-<!-- BEGIN: Notification Content -->
-<div id="success-notification-content" class="toastify-content hidden flex">
-    <i class="text-success" data-feather="check-circle"></i>
-    <div class="ml-4 mr-4">
-        <div class="font-medium">Data Berhasil Di simpan Saved!</div>
-        <div class="text-slate-500 mt-1">The message will be sent in 5 minutes.</div>
-    </div>
-</div>
-<!-- END: Notification Content -->
 
 @foreach ($karyawan as $kr)
     @include('pages.karyawan.detail')

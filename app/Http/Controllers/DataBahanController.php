@@ -26,8 +26,15 @@ class DataBahanController extends Controller
             ->orWhere('databahan.harga_beli', 'LIKE', '%' . $search . '%')
             ->orWhere('databahan.stok', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate($paginate)->withQueryString();
+
         // mengirim tittle dan judul ke view
-        return view('pages.dataBahan.index', ['dataBahan' => $dataBahan]);
+        return view('pages.dataBahan.index', [
+            'dataBahan' => $dataBahan,
+            'tittle' => 'Data Bahan',
+            'judul' => 'Data Bahan',
+            'menu' => 'Data Bahan',
+            'submenu' => 'Data Bahan'
+        ]);
     }
 
 

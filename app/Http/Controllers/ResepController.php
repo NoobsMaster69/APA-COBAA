@@ -149,7 +149,7 @@ class ResepController extends Controller
 
 
         Alert::success('Data Resep', 'Berhasil ditambahakan!');
-        return redirect()->route('pages.resep.index');
+        return redirect()->route('dataResep');
     }
 
 

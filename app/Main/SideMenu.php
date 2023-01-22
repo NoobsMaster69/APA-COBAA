@@ -115,7 +115,7 @@ class SideMenu
             ],
             // menu produk
             'produk' => [
-                'icon' => 'box',
+                'icon' => 'package',
                 'title' => 'Produk',
                 'sub_menu' => [
                     'resep' => [
@@ -155,7 +155,7 @@ class SideMenu
             ],
             // menu pengiriman
             'pengiriman' => [
-                'icon' => 'box',
+                'icon' => 'truck',
                 'title' => 'Pengiriman',
                 'sub_menu' => [
                     'dataPengiriman' => [
@@ -187,7 +187,7 @@ class SideMenu
             ],
             // menu laporan
             'laporan' => [
-                'icon' => 'box',
+                'icon' => 'clipboard',
                 'title' => 'Laporan',
                 'sub_menu' => [
                     'lapPermintaanBahan' => [

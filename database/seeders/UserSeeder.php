@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
             'name' => 'backoffice',
             'nip' => '20210120099',
             'password' => bcrypt('password'),
-            'role' => 'backoffice'
+            'role' => 'backoffice',
+            'id_karyawan' => '0'
         ]);
     }
 }

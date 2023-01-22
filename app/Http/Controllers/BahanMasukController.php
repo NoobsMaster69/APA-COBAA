@@ -26,13 +26,19 @@ class BahanMasukController extends Controller
             ->orWhere('bahanMasuk.tgl_masuk', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.ket', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(2)->withQueryString();
+            ->oldest()->paginate(10)->withQueryString();
 
 
         // mengirim tittle dan judul ke view
         return view(
             'pages.bahanMasuk.index',
-            ['bahanMasuk' => $bahanMasuk]
+            [
+                'bahanMasuk' => $bahanMasuk,
+                'tittle' => 'Data Pembelian Bahan',
+                'judul' => 'Data Pembelian Bahan',
+                'menu' => 'Bahan Baku',
+                'submenu' => 'Data Pembelian Bahan'
+            ]
         );
     }
 

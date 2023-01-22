@@ -8,7 +8,7 @@
 <div class="intro-y mt-10">
     <h2 class="text-lg font-medium">{{ $judul }}</h2>
     <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
-        <li class="breadcrumb-item"><a href="/dataBahan" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item"><a class="text-slate-600">{{ $menu }}</a></li>
         <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
     </ol>
 </div>

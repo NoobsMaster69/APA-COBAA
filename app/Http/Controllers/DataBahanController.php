@@ -32,7 +32,7 @@ class DataBahanController extends Controller
             'dataBahan' => $dataBahan,
             'tittle' => 'Data Bahan',
             'judul' => 'Data Bahan',
-            'menu' => 'Data Bahan',
+            'menu' => 'Bahan Baku',
             'submenu' => 'Data Bahan'
         ]);
     }

@@ -40,8 +40,10 @@
         <div class="hidden md:block mx-auto text-slate-500">Showing 1 to 10 of 150 entries</div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
-                <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
-                <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                <form action="">
+                    <input type="text" class="form-control w-56 box pr-10" placeholder="Search..." autocomplete="off" name="search" value="{{ request('search') }}">
+                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                </form>
             </div>
         </div>
     </div>
@@ -63,7 +65,7 @@
                         <i data-feather="link" class="w-4 h-4 mr-2"></i> Harga: Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}
                     </div>
                     <div class="flex items-center mt-2">
-                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok: {{ $produk['stok']}}
+                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok: {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
                     </div>
                     <div class="flex items-center mt-2">
                         <i data-feather="clipboard" class="w-4 h-4 mr-2"></i> Keterangan: {{ $produk['ket'] }}
@@ -107,51 +109,13 @@
     @endforeach
     <!-- END: Users Layout -->
     <!-- BEGIN: Pagination -->
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <nav class="w-full sm:w-auto sm:mr-auto">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-right"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <select class="w-20 form-select box mt-3 sm:mt-0">
-            <option>10</option>
-            <option>25</option>
-            <option>35</option>
-            <option>50</option>
-        </select>
+    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mx-auto">
+        <div class="w-full sm:w-auto sm:mr-auto">
+            {{ $produkJadi->withQueryString()->links() }}
+        </div>
     </div>
-    @endsection
+    <!-- END: Pagination -->
+</div>
+
+
+@endsection

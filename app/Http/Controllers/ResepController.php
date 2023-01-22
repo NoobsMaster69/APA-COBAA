@@ -20,30 +20,39 @@ class ResepController extends Controller
      */
     public function index()
     {
-        // join dengan tabel produkJadi
-        $resep = Resep::join('produkJadi', 'resep.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('buatResep', 'resep.kd_resep', '=', 'buatResep.kd_resep')
-            ->join('dataBahan', 'buatResep.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('resep.*', 'produkJadi.nm_produk', 'buatResep.kd_bahan', 'buatResep.jumlah', 'dataBahan.nm_bahan', 'satuan.nm_satuan')
+        // $buatResep = Resep::join('buatresep', 'resep.kd_resep', '=', 'buatresep.kd_resep')
+        //     ->join('produkjadi', 'resep.kd_produk', '=', 'produkjadi.kd_produk')
+        //     ->select('resep.*', 'buatresep.*', 'produkjadi.*')
+        //     ->distinct()
+        //     ->get();
+        // // menampilkan semua kd_bahan berdasarkan kd_resep dengan join
+        // $dataBahan = BuatResep::join('databahan', 'buatresep.kd_bahan', '=', 'databahan.kd_bahan')
+        //     ->join('resep', 'buatresep.kd_resep', '=', 'resep.kd_resep')
+        //     ->join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
+        //     ->select('buatresep.id_buatResep', 'databahan.nm_bahan', 'resep.kd_resep', 'satuan.nm_satuan', 'buatResep.kd_bahan', 'buatResep.jumlah', 'buatResep.kd_resep')
+        //     ->groupBy('buatresep.id_buatResep', 'databahan.kd_bahan', 'databahan.nm_bahan', 'resep.kd_resep', 'satuan.nm_satuan', 'buatResep.kd_bahan', 'buatResep.jumlah', 'buatResep.kd_resep')
+        //     ->get();
+        $buatResep = Resep::join('buatresep', 'resep.kd_resep', '=', 'buatresep.kd_resep')
+            ->join('produkjadi', 'resep.kd_produk', '=', 'produkjadi.kd_produk')
+            ->select(DB::raw('DISTINCT resep.kd_resep', 'buatresep.kd_resep', 'produkjadi.*'))
             ->get();
 
-        // menyatukan kd bahan yang memiliki kd resep yang sama menggunakan array
-        $buatResep = BuatResep::join('dataBahan', 'buatResep.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('buatResep.*', 'dataBahan.nm_bahan', 'satuan.nm_satuan')
-            ->get()
-            ->groupBy('kd_resep');
+        $dataBahan = BuatResep::join('databahan', 'buatresep.kd_bahan', '=', 'databahan.kd_bahan')
+            ->join('resep', 'buatresep.kd_resep', '=', 'resep.kd_resep')
+            ->join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
+            ->select('buatresep.id_buatResep', 'databahan.nm_bahan', 'resep.kd_resep', 'satuan.nm_satuan', 'buatResep.kd_bahan', 'buatResep.jumlah')
+            ->groupBy('resep.kd_resep', 'buatresep.id_buatResep', 'databahan.kd_bahan', 'databahan.nm_bahan', 'satuan.nm_satuan', 'buatResep.kd_bahan', 'buatResep.jumlah')
+            ->get();
 
-        foreach ($buatResep as $resep) {
-            $resep->first()->kd_resep;
-            foreach ($resep as $item) {
-                dd($item->nm_bahan);
-            }
-        }
 
-        return view('pages.resep.index', ['buatResep' => $buatResep], ['tittle' => 'Data Resep', 'judul' => 'Data Resep', 'menu' => 'Resep', 'submenu' => 'Data Resep']);
+
+        return view('pages.resep.index', ['buatResep' => $buatResep], ['dataBahan' => $dataBahan]);
     }
+    // menampilkan satu kd_resep saja jika ada duplikasi
+    // $buatResep = $buatResep->unique('kd_resep');
+
+    // menampilkan kd_bahan berdasarkan kd_resep yang sama
+    // $dataBahan = $dataBahan->groupBy('kd_resep');
 
     /**
      * Show the form for creating a new resource.
@@ -78,6 +87,13 @@ class ResepController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'kd_produk.required' => 'Pilih produk terlebih dahulu!',
+        ];
+
+        $request->validate([
+            'kd_produk' => 'required',
+        ], $messages);
 
         if ($request->kd_produk == "0" || $request->kd_produk == null) {
             Alert::warning('Pilih produk', 'Untuk melanjutkan pembuatan resep!');
@@ -133,7 +149,7 @@ class ResepController extends Controller
 
 
         Alert::success('Data Resep', 'Berhasil ditambahakan!');
-        return redirect()->route('resep.index');
+        return redirect()->route('pages.resep.index');
     }
 
 

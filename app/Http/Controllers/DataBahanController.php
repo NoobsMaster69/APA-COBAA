@@ -14,6 +14,7 @@ class DataBahanController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
+        $paginate = $request->paginate;
 
 
         // menyatukan search dengan join tabel
@@ -24,7 +25,7 @@ class DataBahanController extends Controller
             ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('databahan.harga_beli', 'LIKE', '%' . $search . '%')
             ->orWhere('databahan.stok', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(2)->withQueryString();
+            ->oldest()->paginate($paginate)->withQueryString();
         // mengirim tittle dan judul ke view
         return view('pages.dataBahan.index', ['dataBahan' => $dataBahan]);
     }

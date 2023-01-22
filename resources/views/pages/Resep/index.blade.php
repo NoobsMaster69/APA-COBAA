@@ -58,9 +58,13 @@
             <tbody>
                 @foreach ($buatResep as $resep)
                 <tr class="intro-x">
-                    <td class="whitespace-nowrap">{{ $resep->nm_resep }}</td>
+                    <td class="whitespace-nowrap">[{{ $resep->kd_resep }}] {{ $resep->nm_produk }}</td>
                     <td class="whitespace-nowrap">
-
+                        <ul>
+                            @foreach ($dataBahan as $bahan)
+                            <li>{{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} {{ $bahan->nm_satuan }})</li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">

@@ -120,7 +120,7 @@ class SideMenu
                 'sub_menu' => [
                     'resep' => [
                         'icon' => 'meh',
-                        'route_name' => 'tampilResep',
+                        'route_name' => 'dataResep',
                         'params' => [
                             'layout' => 'side-menu'
                         ],

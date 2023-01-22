@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::get('produkkeluar', [ProdukKeluarController::class, 'index'])->name('produkKeluar');
     Route::resource('produkKeluar', ProdukKeluarController::class);
     // Resep
-    Route::get('tampilresep', [ResepController::class, 'index'])->name('tampilResep');
+    Route::get('dataresep', [ResepController::class, 'index'])->name('dataResep');
     Route::resource('resep', ResepController::class);
     // Satuan
     Route::get('satuanmassa', [SatuanController::class, 'index'])->name('satuanMassa');

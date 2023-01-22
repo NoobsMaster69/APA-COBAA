@@ -11,14 +11,21 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukJadiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // $this->authorize('viewAny', ProdukJadi::class);
 
-        // join tabel dengan tabel satuan
+        $search = $request->search;
+
+        // menyatukan search dengan join tabel
         $produkJadi = ProdukJadi::join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')
             ->select('produkjadi.*', 'satuan.nm_satuan')
-            ->get();
+            ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(2)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view('pages.produkJadi.index', ['produkJadi' => $produkJadi]);

@@ -1,3 +1,20 @@
+<!-- cara mengambil foto yang sedang login dari tabel karyawan dengan laravel -->
+@php
+use App\Models\Karyawan;
+
+$karyawan = Karyawan::where('nip', Auth::user()->nip)
+->join('jabatan', 'jabatan.id_jabatan', '=', 'karyawan.kd_jabatan')
+->select('karyawan.*', 'jabatan.nm_jabatan')
+->first();
+if ($karyawan == null) {
+$foto = asset('dist/images/user.png');
+$jabatan = 'Jabatan';
+} else {
+$foto = asset('images/'.$karyawan->foto);
+$jabatan = $karyawan->nm_jabatan;
+}
+$foto
+@endphp
 <!-- BEGIN: Top Bar -->
 <div class="top-bar-boxed h-[70px] z-[51] relative border-b border-white/[0.08] -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-12">
     <div class="h-full flex items-center">
@@ -65,7 +82,7 @@
                     @foreach (array_slice($fakers, 0, 4) as $faker)
                     <a href="" class="flex items-center mt-2">
                         <div class="w-8 h-8 image-fit">
-                            <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="{{ asset('dist/images/' . $faker['images'][0]) }}">
+                            <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="{{ $faker['products'][0]['category'] }}">
                         </div>
                         <div class="ml-3">{{ $faker['products'][0]['name'] }}</div>
                         <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">{{ $faker['products'][0]['category'] }}</div>
@@ -104,14 +121,15 @@
         <!-- END: Notifications -->
         <!-- BEGIN: Account Menu -->
         <div class="intro-x dropdown w-8 h-8">
-            <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                <img alt="Icewall Tailwind HTML Admin Template" src="{{ asset('dist/images/' . $fakers[9]['photos'][0]) }}">
+            <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg bg-no-repeat bg-local bg-top zoom-in" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                <img alt="User Profile" src="{{ $foto }}">
             </div>
             <div class="dropdown-menu w-56">
                 <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
                     <li class="p-2">
-                        <div class="font-medium">{{ $fakers[0]['users'][0]['name'] }}</div>
-                        <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">{{ $fakers[0]['jobs'][0] }}</div>
+                        <div class="font-medium">{{ auth()->user()->name }}</div>
+                        <!-- agar huruf depan role bisa kapital -->
+                        <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">{{ $jabatan }} | {{ auth()->user()->role }}</div>
                     </li>
                     <li>
                         <hr class="dropdown-divider border-white/[0.08]">

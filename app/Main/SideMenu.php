@@ -116,7 +116,7 @@ class SideMenu
             // menu produk
             'produk' => [
                 'icon' => 'box',
-                'title' => 'Produk Jadi',
+                'title' => 'Produk',
                 'sub_menu' => [
                     'resep' => [
                         'icon' => 'meh',

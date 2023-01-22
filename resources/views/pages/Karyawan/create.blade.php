@@ -250,6 +250,20 @@
         document.getElementById('hilang').style.display = 'none';
     });
 </script>
+<script>
+    // menggunakan library copperjs
+    var input = document.getElementById('dropzone-file');
+    var infoArea = document.getElementById('dropzone-file-label');
+
+    input.addEventListener('change', showFileName);
+
+    function showFileName(event) {
+        var input = event.srcElement;
+        var fileName = input.files[0].name;
+        infoArea.textContent = 'File name: ' + fileName;
+    }
+</script>
+
 
 @endsection
 

@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'nip',
         'password',
-        'role'
+        'role',
+        'id_karyawan',
     ];
 
     /**

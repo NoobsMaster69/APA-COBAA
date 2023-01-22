@@ -9,11 +9,16 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class MobilController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // $this->authorize('viewAny', Mobil::class);
 
-        $mobil = Mobil::oldest()->paginate(2)->withQueryString();
+        $search = $request->search;
+
+        $mobil = Mobil::where('kd_mobil', 'LIKE', '%' . $search . '%')
+            ->orWhere('plat_nomor', 'LIKE', '%' . $search . '%')
+            ->orWhere('merk', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(10)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view(
@@ -42,7 +47,7 @@ class MobilController extends Controller
             [
                 'kode_otomatis' => $kode_otomatis,
                 'tittle' => 'Tambah Data',
-                'judul' => 'Tambah Data Bahan',
+                'judul' => 'Tambah Data Mobil',
                 'menu' => 'Data Bahan',
                 'submenu' => 'Tambah Data'
             ]

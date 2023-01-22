@@ -100,7 +100,7 @@
                                                 <div class="p-5 text-center">
                                                     <i data-feather="trash-2" class="w-16 h-16 text-danger mx-auto mt-3"></i>
                                                     <div id="exampleModalLabel" class="text-2xl mt-5">Apakah yakin akan menghapus bahan <br> {{ $bahan->nm_bahan }}?</div>
-                                                    < <div class="mt-3">
+                                                    <div class="mt-3">
                                                         <span class="text-danger">*data yang dihapus tidak dapat dikembalikan!</span>
                                                     </div>
                                                 </div>

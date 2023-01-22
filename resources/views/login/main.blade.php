@@ -30,10 +30,18 @@
                 <div class="intro-x mt-8">
                     <form action="/login" method="POST">
                         @csrf
-                        <input name="nip" type="text" class="intro-x login__input form-control py-3 px-4 block" placeholder="NIP">
-                        <div id="error-email" class="login__input-error text-danger mt-2"></div>
-                        <input name="password" type="password" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password">
-                        <div id="error-password" class="login__input-error text-danger mt-2"></div>
+                        <input name="nip" type="text" class="intro-x login__input form-control py-3 px-4 block @error('nip') border-danger @enderror" placeholder="NIP" value="{{old('nip')}}">
+                        @error('nip')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        <input name="password" type="password" class="intro-x login__input form-control py-3 px-4 block mt-4 @error('password') border-danger @enderror" placeholder="Password">
+                        @error('password')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
                 </div>
                 <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
                     <div class="flex items-center mr-auto">

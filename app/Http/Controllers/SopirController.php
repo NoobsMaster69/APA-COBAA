@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
+use Intervention\Image\Facades\Image;
 
 class SopirController extends Controller
 {
@@ -95,8 +96,10 @@ class SopirController extends Controller
 
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(150, 150);
+            $image_resize->save(public_path($destinationPath . $profileImage));
             $input['foto'] = "$profileImage";
         }
 
@@ -173,8 +176,10 @@ class SopirController extends Controller
 
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
-                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-                $image->move($destinationPath, $profileImage);
+                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+                $image_resize = Image::make($image->getRealPath());
+                $image_resize->resize(150, 150);
+                $image_resize->save(public_path($destinationPath . $profileImage));
                 $input['foto'] = "$profileImage";
             }
 

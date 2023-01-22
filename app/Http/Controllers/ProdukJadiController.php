@@ -8,6 +8,7 @@ use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
+use Intervention\Image\Facades\Image;
 
 class ProdukJadiController extends Controller
 {
@@ -25,7 +26,7 @@ class ProdukJadiController extends Controller
             ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(2)->withQueryString();
+            ->oldest()->paginate(8)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view('pages.produkJadi.index', ['produkJadi' => $produkJadi]);
@@ -59,7 +60,7 @@ class ProdukJadiController extends Controller
             'nm_produk.required' => 'Nama Produk tidak boleh kosong',
             'stok.required' => 'Stok tidak boleh kosong',
             'stok.integer' => 'Stok harus berupa angka',
-            'kd_satuan.required' => 'Kode Satuan tidak boleh kosong',
+            'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
             'harga_jual.required' => 'Harga Jual tidak boleh kosong',
             'harga_jual.integer' => 'Harga Jual harus berupa angka',
             'ket.required' => 'Keterangan tidak boleh kosong',
@@ -84,8 +85,10 @@ class ProdukJadiController extends Controller
 
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(150, 150);
+            $image_resize->save(public_path($destinationPath . $profileImage));
             $input['foto'] = "$profileImage";
         }
 
@@ -154,12 +157,21 @@ class ProdukJadiController extends Controller
 
             $input = $request->validate($rules, $messages);
 
+            // if ($image = $request->file('foto')) {
+            //     $destinationPath = 'images/';
+            //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+            //     $image->move($destinationPath, $profileImage);
+            //     $input['foto'] = "$profileImage";
+            // }
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
-                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-                $image->move($destinationPath, $profileImage);
+                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+                $image_resize = Image::make($image->getRealPath());
+                $image_resize->resize(150, 150);
+                $image_resize->save(public_path($destinationPath . $profileImage));
                 $input['foto'] = "$profileImage";
             }
+
 
             $produkJadi->update($input);
 

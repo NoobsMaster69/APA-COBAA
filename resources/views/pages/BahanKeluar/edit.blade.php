@@ -55,7 +55,7 @@
                     @enderror
                 </div>
                 <div class="text-right mt-8">
-                    <a href="/bahankeluar" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                    <a href="/bahanKeluar" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
                     <button type="submit" class="btn btn-primary w-24">Save</button>
                 </div>
             </form>

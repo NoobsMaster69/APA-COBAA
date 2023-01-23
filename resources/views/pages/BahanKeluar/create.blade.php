@@ -91,7 +91,7 @@
                 @enderror
                 <!-- END: Form Layout -->
                 <div class="text-right mt-5">
-                    <a href="/bahanmasuk" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                    <a href="/bahanKeluar" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
                     <button type="submit" class="btn btn-primary w-24">Save</button>
                 </div>
             </form>

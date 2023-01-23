@@ -14,7 +14,7 @@ class ProdukJadiController extends Controller
 {
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', ProdukJadi::class);
+        $this->authorize('viewAny', ProdukJadi::class);
 
         $search = $request->search;
 
@@ -34,7 +34,7 @@ class ProdukJadiController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', ProdukJadi::class);
+        $this->authorize('create', ProdukJadi::class);
 
         $kode = ProdukJadi::max('kd_produk');
         $kode = (int) substr($kode, 4, 4);
@@ -52,7 +52,7 @@ class ProdukJadiController extends Controller
 
     public function store(Request $request)
     {
-        // $this->authorize('create', ProdukJadi::class);
+        $this->authorize('create', ProdukJadi::class);
 
         // mengubah nama validasi
         $messages = [
@@ -95,7 +95,7 @@ class ProdukJadiController extends Controller
         ProdukJadi::create($input);
 
         Alert::success('Data Produk', 'Berhasil Ditambahkan!');
-        return redirect('produkJadi');
+        return redirect('/produkJadi');
     }
 
     public function show(ProdukJadi $produkJadi)
@@ -106,7 +106,7 @@ class ProdukJadiController extends Controller
 
     public function edit(ProdukJadi $produkJadi)
     {
-        // $this->authorize('update', $produkJadi);
+        $this->authorize('update', $produkJadi);
 
         $produkJadi = DB::table('produkjadi')->join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')->select('produkjadi.*', 'satuan.nm_satuan')->where('kd_produk', $produkJadi->kd_produk)->first();
 
@@ -121,7 +121,7 @@ class ProdukJadiController extends Controller
 
     public function update(Request $request, ProdukJadi $produkJadi)
     {
-        // $this->authorize('update', $produkJadi);
+        $this->authorize('update', $produkJadi);
 
         // cek apakah user mengganti foto atau tidak
         if ($request->has('foto')) {
@@ -176,7 +176,7 @@ class ProdukJadiController extends Controller
             $produkJadi->update($input);
 
             Alert::success('Data Produk', 'Berhasil Diubah!');
-            return redirect('produkJadi');
+            return redirect('/produkJadi');
         } else {
             // mengubah nama validasi
             $messages = [
@@ -204,13 +204,13 @@ class ProdukJadiController extends Controller
 
             $produkJadi->update($input);
             Alert::success('Data Produk', 'Berhasil diubah!');
-            return redirect('produkJadi');
+            return redirect('/produkJadi');
         }
     }
 
     public function destroy(ProdukJadi $produkJadi)
     {
-        // $this->authorize('delete', $produkJadi);
+        $this->authorize('delete', $produkJadi);
 
         File::delete('images/' . $produkJadi->foto);
         $produkJadi->delete();

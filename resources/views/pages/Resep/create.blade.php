@@ -66,7 +66,7 @@
                 </div>
                 @enderror
                 <div class="text-right mt-5">
-                    <a href="/dataresep" type="button" class="btn btn-outline-secondary w-24 mr-1">Kembali</a>
+                    <a href="/resep" type="button" class="btn btn-outline-secondary w-24 mr-1">Kembali</a>
                     <button type="submit" class="btn btn-primary w-24">Simpan</button>
                 </div>
             </form>

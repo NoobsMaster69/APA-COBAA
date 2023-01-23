@@ -18,7 +18,7 @@ class ProdukKeluarController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', ProdukKeluar::class);
+        $this->authorize('viewAny', ProdukKeluar::class);
 
         // join table produkKeluar dengan produkJadi
         $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')->join('produkMasuk', 'produkKeluar.kd_produk', '=', 'produkMasuk.kd_produk')->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name', 'produkMasuk.tgl_expired')
@@ -46,7 +46,8 @@ class ProdukKeluarController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', ProdukKeluar::class);
+        $this->authorize('create', ProdukKeluar::class);
+
         // join dengan tabel satuan
         $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
             ->select('produkJadi.*', 'satuan.nm_satuan')
@@ -72,7 +73,7 @@ class ProdukKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', ProdukKeluar::class);
+        $this->authorize('create', ProdukKeluar::class);
 
         // mengubah nama validasi
         $messages = [
@@ -143,7 +144,7 @@ class ProdukKeluarController extends Controller
      */
     public function edit(ProdukKeluar $produkKeluar)
     {
-        //
+        $this->authorize('update', $produkKeluar);
     }
 
     /**
@@ -155,7 +156,7 @@ class ProdukKeluarController extends Controller
      */
     public function update(Request $request, ProdukKeluar $produkKeluar)
     {
-        //
+        $this->authorize('update', $produkKeluar);
     }
 
     /**
@@ -166,6 +167,6 @@ class ProdukKeluarController extends Controller
      */
     public function destroy(ProdukKeluar $produkKeluar)
     {
-        //
+        $this->authorize('delete', $produkKeluar);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Main;
 
+use Illuminate\Support\Facades\Auth;
+
 class SideMenu
 {
     /**
@@ -12,6 +14,27 @@ class SideMenu
      */
     public static function menu()
     {
+        // if (Auth::user()->can('gudang')) {
+        //     return [
+        //         'home' => [
+        //             'icon' => 'home',
+        //             'route_name' => '/',
+        //             'params' => [
+        //                 'layout' => 'side-menu'
+        //             ],
+        //             'title' => 'Dashboard'
+        //         ],
+        //         // Jabatan
+        //         'jabatan' => [
+        //             'icon' => 'users',
+        //             'route_name' => 'jabatanKaryawan',
+        //             'params' => [
+        //                 'layout' => 'side-menu'
+        //             ],
+        //             'title' => 'Jabatan'
+        //         ],
+        //     ];
+        // }
         return [
 
             // 'menu-layout' => [
@@ -46,177 +69,177 @@ class SideMenu
             //     ]
             // ],
             // Dashboard/home
-            'home' => [
-                'icon' => 'home',
-                'route_name' => '/',
-                'params' => [
-                    'layout' => 'side-menu'
-                ],
-                'title' => 'Dashboard'
-            ],
-            // Jabatan
-            'jabatan' => [
-                'icon' => 'users',
-                'route_name' => 'jabatanKaryawan',
-                'params' => [
-                    'layout' => 'side-menu'
-                ],
-                'title' => 'Jabatan'
-            ],
-            // Data Karyawan
-            'karyawan' => [
-                'icon' => 'folder',
-                'route_name' => 'dataKaryawan',
-                'params' => [
-                    'layout' => 'side-menu'
-                ],
-                'title' => 'Data Karyawan'
-            ],
-            // Jabatan
-            'satuan' => [
-                'icon' => 'inbox',
-                'route_name' => 'satuanMassa',
-                'params' => [
-                    'layout' => 'side-menu'
-                ],
-                'title' => 'Satuan Massa'
-            ],
-            // Menu Bahan
-            'bahan' => [
-                'icon' => 'box',
-                'title' => 'Bahan Baku',
-                'sub_menu' => [
-                    'dataBahan' => [
-                        'icon' => 'meh',
-                        'route_name' => 'dataBahan',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Data Bahan Baku'
-                    ],
-                    'bahanMasuk' => [
-                        'icon' => 'meh',
-                        'route_name' => 'bahanMasuk',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Pembelian Bahan'
-                    ],
-                    'bahanKeluar' => [
-                        'icon' => 'meh',
-                        'route_name' => 'bahanKeluar',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Pemakaian Bahan'
-                    ]
-                ]
-                //
-            ],
-            // menu produk
-            'produk' => [
-                'icon' => 'package',
-                'title' => 'Produk',
-                'sub_menu' => [
-                    'resep' => [
-                        'icon' => 'meh',
-                        'route_name' => 'dataResep',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Resep Produk'
-                    ],
-                    'produkJadi' => [
-                        'icon' => 'meh',
-                        'route_name' => 'produkJadi',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Data Produk'
-                    ],
-                    'produkMasuk' => [
-                        'icon' => 'meh',
-                        'route_name' => 'produkMasuk',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Pembuatan Produk'
-                    ],
-                    'produkKeluar' => [
-                        'icon' => 'meh',
-                        'route_name' => 'produkKeluar',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Penjualan Produk'
-                    ],
-                ]
-                //
-            ],
-            // menu pengiriman
-            'pengiriman' => [
-                'icon' => 'truck',
-                'title' => 'Pengiriman',
-                'sub_menu' => [
-                    'dataPengiriman' => [
-                        'icon' => 'meh',
-                        'route_name' => 'dataPengiriman',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Data Pengiriman'
-                    ],
-                    'sopir' => [
-                        'icon' => 'meh',
-                        'route_name' => 'tampil-sopir',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Sopir'
-                    ],
-                    'mobil' => [
-                        'icon' => 'meh',
-                        'route_name' => 'tampil-mobil',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Mobil'
-                    ]
-                ]
-                //
-            ],
-            // menu laporan
-            'laporan' => [
-                'icon' => 'clipboard',
-                'title' => 'Laporan',
-                'sub_menu' => [
-                    'lapPermintaanBahan' => [
-                        'icon' => 'meh',
-                        'route_name' => 'lapPermintaanBahan',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Laporan Permintaan Bahan'
-                    ],
-                    'lapPermintaanProduk' => [
-                        'icon' => 'meh',
-                        'route_name' => 'lapPermintaanProduk',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Laporan Permintaan Produk'
-                    ],
-                    'lapPengirimanProduk' => [
-                        'icon' => 'meh',
-                        'route_name' => 'lapPengirimanProduk',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Laporan Pengiriman Produk'
-                    ]
-                ]
-                //
-            ],
+            // 'home' => [
+            //     'icon' => 'home',
+            //     'route_name' => '/',
+            //     'params' => [
+            //         'layout' => 'side-menu'
+            //     ],
+            //     'title' => 'Dashboard'
+            // ],
+            // // Jabatan
+            // 'jabatan' => [
+            //     'icon' => 'users',
+            //     'route_name' => 'jabatanKaryawan',
+            //     'params' => [
+            //         'layout' => 'side-menu'
+            //     ],
+            //     'title' => 'Jabatan'
+            // ],
+            // // Data Karyawan
+            // 'karyawan' => [
+            //     'icon' => 'folder',
+            //     'route_name' => 'dataKaryawan',
+            //     'params' => [
+            //         'layout' => 'side-menu'
+            //     ],
+            //     'title' => 'Data Karyawan'
+            // ],
+            // // Jabatan
+            // 'satuan' => [
+            //     'icon' => 'inbox',
+            //     'route_name' => 'satuanMassa',
+            //     'params' => [
+            //         'layout' => 'side-menu'
+            //     ],
+            //     'title' => 'Satuan Massa'
+            // ],
+            // // Menu Bahan
+            // 'bahan' => [
+            //     'icon' => 'box',
+            //     'title' => 'Bahan Baku',
+            //     'sub_menu' => [
+            //         'dataBahan' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'dataBahan',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Data Bahan Baku'
+            //         ],
+            //         'bahanMasuk' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'bahanMasuk',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Pembelian Bahan'
+            //         ],
+            //         'bahanKeluar' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'bahanKeluar',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Pemakaian Bahan'
+            //         ]
+            //     ]
+            //     //
+            // ],
+            // // menu produk
+            // 'produk' => [
+            //     'icon' => 'package',
+            //     'title' => 'Produk',
+            //     'sub_menu' => [
+            //         'resep' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'dataResep',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Resep Produk'
+            //         ],
+            //         'produkJadi' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'produkJadi',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Data Produk'
+            //         ],
+            //         'produkMasuk' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'produkMasuk',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Pembuatan Produk'
+            //         ],
+            //         'produkKeluar' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'produkKeluar',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Penjualan Produk'
+            //         ],
+            //     ]
+            //     //
+            // ],
+            // // menu pengiriman
+            // 'pengiriman' => [
+            //     'icon' => 'truck',
+            //     'title' => 'Pengiriman',
+            //     'sub_menu' => [
+            //         'dataPengiriman' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'dataPengiriman',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Data Pengiriman'
+            //         ],
+            //         'sopir' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'tampil-sopir',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Sopir'
+            //         ],
+            //         'mobil' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'tampil-mobil',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Mobil'
+            //         ]
+            //     ]
+            //     //
+            // ],
+            // // menu laporan
+            // 'laporan' => [
+            //     'icon' => 'clipboard',
+            //     'title' => 'Laporan',
+            //     'sub_menu' => [
+            //         'lapPermintaanBahan' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'lapPermintaanBahan',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Laporan Permintaan Bahan'
+            //         ],
+            //         'lapPermintaanProduk' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'lapPermintaanProduk',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Laporan Permintaan Produk'
+            //         ],
+            //         'lapPengirimanProduk' => [
+            //             'icon' => 'meh',
+            //             'route_name' => 'lapPengirimanProduk',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Laporan Pengiriman Produk'
+            //         ]
+            //     ]
+            //     //
+            // ],
             // dasboard dari template
             'dashboard' => [
                 'icon' => 'home',

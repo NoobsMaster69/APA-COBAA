@@ -13,7 +13,7 @@ class SopirController extends Controller
 {
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', Sopir::class);
+        $this->authorize('viewAny', Sopir::class);
 
         $search = $request->search;
 
@@ -39,7 +39,7 @@ class SopirController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', Sopir::class);
+        $this->authorize('create', Sopir::class);
 
         $kode = Sopir::max('kd_sopir');
         $kode = (int) substr($kode, 4, 4);
@@ -60,7 +60,7 @@ class SopirController extends Controller
 
     public function store(Request $request)
     {
-        // $this->authorize('create', Sopir::class);
+        $this->authorize('create', Sopir::class);
 
 
         // mengubah nama validasi
@@ -116,7 +116,7 @@ class SopirController extends Controller
 
     public function edit(Sopir $sopir)
     {
-        // $this->authorize('update', $sopir);
+        $this->authorize('update', $sopir);
 
         return view(
             'pages.sopir.edit',
@@ -130,16 +130,17 @@ class SopirController extends Controller
         );
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Sopir $sopir)
     {
-        // $this->authorize('update', $sopir);
-        $sopir = Sopir::find($id);
+        $this->authorize('update', $sopir);
+
+        $sopir = Sopir::find($sopir->kd_sopir);
 
         // cek apakah user mengganti foto atau tidak
         if ($request->has('foto')) {
 
             // hapus foto lama
-            $sopir = Sopir::find($id);
+            $sopir = Sopir::find($sopir->kd_sopir);
             File::delete('images/' . $sopir->foto);
             // mengubah nama validasi
             $messages = [
@@ -211,7 +212,7 @@ class SopirController extends Controller
                 'alamat' => 'required|min:3',
             ];
 
-            $sopir = Sopir::find($id);
+            $sopir = Sopir::find($sopir->kd_sopir);
 
             if ($request->no_ktp != $sopir->no_ktp) {
                 $rules['no_ktp'] = 'required|min:16|max:16|unique:sopir,no_ktp|numeric';
@@ -227,7 +228,7 @@ class SopirController extends Controller
 
     public function destroy(Sopir $sopir)
     {
-        // $this->authorize('delete', $sopir);
+        $this->authorize('delete', $sopir);
 
         // menghapus foto berdasarkan id
         File::delete('images/' . $sopir->foto);

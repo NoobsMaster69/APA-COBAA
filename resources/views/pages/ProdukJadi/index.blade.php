@@ -8,9 +8,11 @@
 <h2 class="intro-y text-lg font-medium mt-10">Data Produk</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+        @can('create', App\Models\ProdukJadi::class)
         <a href="{{route ('produkJadi.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah Data</button>
         </a>
+        @endcan
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                 <span class="w-5 h-5 flex items-center justify-center">
@@ -76,12 +78,18 @@
                 <a class="flex items-center text-primary mr-auto" href="javascript:;">
                     <i data-feather="eye" class="w-4 h-4 mr-1"></i> Detail
                 </a>
+                @can('update', $produk)
                 <a href="{{ route('produkJadi.edit',$produk->kd_produk) }}" class="flex items-center mr-3">
                     <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                 </a>
+                @endcan
+               
+                @can('delete', $produk)
                 <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $produk->kd_produk }}">
                     <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
                 </button>
+                @endcan
+                
             </div>
         </div>
         <div id="hapus{{ $produk->kd_produk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">

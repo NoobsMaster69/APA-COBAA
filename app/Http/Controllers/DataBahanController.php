@@ -13,6 +13,8 @@ class DataBahanController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', DataBahan::class);
+
         $search = $request->search;
         $paginate = $request->paginate;
 
@@ -40,6 +42,8 @@ class DataBahanController extends Controller
 
     public function create()
     {
+        $this->authorize('create', DataBahan::class);
+
         $kode = DataBahan::max('kd_bahan');
         $kode = (int) substr($kode, 3, 3);
         $kode = $kode + 1;
@@ -63,6 +67,8 @@ class DataBahanController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', DataBahan::class);
+
         // mengubah nama validasi
         $messages = [
             'kd_bahan.required' => 'Kode Bahan tidak boleh kosong',
@@ -102,6 +108,7 @@ class DataBahanController extends Controller
 
     public function edit(DataBahan $dataBahan)
     {
+        $this->authorize('update', $dataBahan);
 
         $dataBahan = DB::table('databahan')->join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')->select('databahan.*', 'satuan.nm_satuan')->where('kd_satuan', $dataBahan->kd_satuan)->first();
 
@@ -115,6 +122,7 @@ class DataBahanController extends Controller
 
     public function update(Request $request, DataBahan $dataBahan)
     {
+        $this->authorize('update', $dataBahan);
 
         // mengubah nama validasi
         $messages = [
@@ -152,6 +160,7 @@ class DataBahanController extends Controller
 
     public function destroy(DataBahan $dataBahan, Request $request)
     {
+        $this->authorize('delete', $dataBahan);
 
         $dataBahan->delete('kd_bahan', $request->kd_bahan);
 

@@ -15,15 +15,20 @@ class SatuanController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Satuan::class);
+
         $search = $request->search;
 
         $satuan = Satuan::where('nm_satuan', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
 
+        foreach ($satuan as $sat);
+
         // mengirim tittle dan judul ke view
         return view(
             'pages.satuan.index',
             [
+                'sat' => $sat,
                 'satuan' => $satuan,
                 'tittle' => 'Data Satuan',
                 'judul' => 'Data Satuan',
@@ -35,6 +40,8 @@ class SatuanController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Satuan::class);
+
         // mengubah error ke bahasa indonesia
         $messages = [
             'required' => ':attribute tidak boleh kosong',
@@ -57,17 +64,10 @@ class SatuanController extends Controller
         return redirect('satuan');
     }
 
-    public function show(Satuan $satuan)
-    {
-        //
-    }
-
-    public function edit(Satuan $satuan)
-    {
-    }
-
     public function update(Request $request, Satuan $satuan)
     {
+        $this->authorize('update', $satuan);
+
         $request->validate([
             'nm_satuan' => 'required'
         ]);
@@ -79,6 +79,8 @@ class SatuanController extends Controller
 
     public function destroy(Satuan $satuan)
     {
+        $this->authorize('delete', $satuan);
+
         $satuan->delete();
         Alert::success('Data Satuan', 'Berhasil dihapus!');
         return redirect('satuan');

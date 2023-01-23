@@ -20,6 +20,8 @@ class ResepController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Resep::class);
+
         // $buatResep = Resep::join('buatresep', 'resep.kd_resep', '=', 'buatresep.kd_resep')
         //     ->join('produkjadi', 'resep.kd_produk', '=', 'produkjadi.kd_produk')
         //     ->select('resep.*', 'buatresep.*', 'produkjadi.*')
@@ -61,6 +63,8 @@ class ResepController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Resep::class);
+
         $kode_otomatis = Resep::max('kd_resep');
         $kode_otomatis = (int) substr($kode_otomatis, 3, 3);
         $kode_otomatis = $kode_otomatis + 1;
@@ -87,6 +91,8 @@ class ResepController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Resep::class);
+
         $messages = [
             'kd_produk.required' => 'Pilih produk terlebih dahulu!',
         ];
@@ -149,7 +155,7 @@ class ResepController extends Controller
 
 
         Alert::success('Data Resep', 'Berhasil ditambahakan!');
-        return redirect()->route('dataResep');
+        return redirect('/resep');
     }
 
 
@@ -195,9 +201,11 @@ class ResepController extends Controller
      */
     public function destroy(Resep $resep)
     {
+        $this->authorize('delete', $resep);
+
         // hapus data resep
         Resep::destroy($resep->kd_resep);
         Alert::success('Data Resep', 'Berhasil dihapus!');
-        return redirect('resep');
+        return redirect('/resep');
     }
 }

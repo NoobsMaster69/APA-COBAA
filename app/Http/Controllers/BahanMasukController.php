@@ -13,7 +13,7 @@ class BahanMasukController extends Controller
 
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', BahanMasuk::class);
+        $this->authorize('viewAny', BahanMasuk::class);
 
         $search = $request->search;
 
@@ -45,7 +45,7 @@ class BahanMasukController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', BahanMasuk::class);
+        $this->authorize('create', BahanMasuk::class);
 
         // join dengan tabel satuan
         $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
@@ -67,7 +67,8 @@ class BahanMasukController extends Controller
 
     public function store(Request $request)
     {
-        // $this->authorize('create', BahanMasuk::class);
+        $this->authorize('create', BahanMasuk::class);
+
         // mengubah nama validasi
         $messages = [
             'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
@@ -112,7 +113,7 @@ class BahanMasukController extends Controller
 
 
         Alert::success('Data Pembelian', 'Berhasil Ditambahkan!');
-        return redirect('bahanmasuk');
+        return redirect('/bahanMasuk');
     }
 
 
@@ -124,7 +125,7 @@ class BahanMasukController extends Controller
 
     public function edit(bahanMasuk $bahanMasuk)
     {
-        // $this->authorize('update', $bahanMasuk);
+        $this->authorize('update', $bahanMasuk);
 
         // join tabel satuan
         $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
@@ -148,7 +149,7 @@ class BahanMasukController extends Controller
 
     public function update(Request $request, bahanMasuk $bahanMasuk)
     {
-        // $this->authorize('update', $bahanMasuk);
+        $this->authorize('update', $bahanMasuk);
 
         // cek apakah bahannya di ubah
         if ($request->has('kd_bahan')) {
@@ -195,7 +196,7 @@ class BahanMasukController extends Controller
 
 
             Alert::success('Data Pembelian', 'Berhasil diubah!');
-            return redirect('bahanmasuk');
+            return redirect('/bahanMasuk');
         } else {
             // mengubah nama validasi
             $messages = [
@@ -237,7 +238,7 @@ class BahanMasukController extends Controller
                 $bahanMasuk->update($input);
 
                 Alert::success('Data Pembelian', 'Berhasil diubah!');
-                return redirect('bahanmasuk');
+                return redirect('/bahanmasuk');
             } else {
                 // mengubah format tgl_masuk dari text ke date
                 $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
@@ -247,7 +248,7 @@ class BahanMasukController extends Controller
                 $bahanMasuk->update($input);
 
                 Alert::success('Data Pembelian', 'Berhasil diubah!');
-                return redirect('bahanmasuk');
+                return redirect('/bahanMasuk');
             }
         }
     }
@@ -255,7 +256,7 @@ class BahanMasukController extends Controller
 
     public function destroy(bahanMasuk $bahanMasuk)
     {
-        // $this->authorize('delete', $bahanMasuk);
+        $this->authorize('delete', $bahanMasuk);
 
         // update stok bahan
         $stok = DataBahan::where('kd_bahan', $bahanMasuk->kd_bahan)->first();
@@ -264,6 +265,6 @@ class BahanMasukController extends Controller
 
         $bahanMasuk->delete();
         Alert::success('Data Pembelian', 'Berhasil dihapus!');
-        return redirect('bahanmasuk');
+        return redirect('/bahanMasuk');
     }
 }

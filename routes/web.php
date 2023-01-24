@@ -90,9 +90,12 @@ Route::middleware('auth')->group(function () {
     // Satuan
     // Route::get('satuanmassa', [SatuanController::class, 'index'])->name('satuanMassa');
     Route::resource('satuan', SatuanController::class);
-    // data pengiriman
-    // Route::get('datapengiriman', [SopirController::class, 'index'])->name('dataPengiriman');
-    Route::resource('pengiriman', PengirimanController::class);
+    // Pengiriman Produk
+    Route::get('pengirimanproduk', [PengirimanProdukController::class, 'index'])->name('pengirimanProduk');
+    Route::resource('pengirimanProduk', PengirimanProdukController::class);
+    // Produk Terkirim
+    Route::get('produkterkirim', [ProdukTerkirimController::class, 'index'])->name('produkTerkirim');
+    Route::resource('produkTerkirim', ProdukTerkirimController::class);
     // Sopir
     // Route::get('tampilsopir', [SopirController::class, 'index'])->name('tampil-sopir');
     Route::resource('sopir', SopirController::class);

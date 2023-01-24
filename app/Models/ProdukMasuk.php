@@ -15,12 +15,10 @@ class ProdukMasuk extends Model
 
     protected $fillable = [
         'kd_produk',
-        'kd_resep',
         'nip_karyawan',
         'jumlah',
         'tgl_produksi',
         'tgl_expired',
-        'modal',
         'total',
         'ket',
     ];

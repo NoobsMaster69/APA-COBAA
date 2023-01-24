@@ -27,8 +27,6 @@ class BahanMasukController extends Controller
             ->orWhere('bahanMasuk.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
-
-
         // mengirim tittle dan judul ke view
         return view(
             'pages.bahanMasuk.index',

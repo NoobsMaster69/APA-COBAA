@@ -1,11 +1,17 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Produk - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Produk</h2>
+<div class="intro-y mt-10">
+    <h2 class="text-lg font-medium">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
+</div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         @can('create', App\Models\ProdukJadi::class)
@@ -39,7 +45,7 @@
                 </ul>
             </div>
         </div>
-        <div class="hidden md:block mx-auto text-slate-500">Showing 1 to 10 of 150 entries</div>
+        <div class="hidden md:block mx-auto text-slate-500"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
                 <form action="">
@@ -51,7 +57,7 @@
     </div>
     <!-- BEGIN: Users Layout -->
     @foreach ($produkJadi as $produk)
-    <div class="intro-y col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3">
+    <div class="intro-y col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 shadow-md">
         <div class="box">
             <div class="p-5">
                 <div class="h-40 2xl:h-56 image-fit rounded-md overflow-hidden before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-black before:to-black/10">
@@ -64,29 +70,32 @@
                 </div>
                 <div class="text-slate-600 dark:text-slate-500 mt-5">
                     <div class="flex items-center">
-                        <i data-feather="link" class="w-4 h-4 mr-2"></i> Harga: Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}
+                        <i data-feather="link" class="w-4 h-4 mr-2"></i> Modal : Rp. {{ number_format($produk->modal, 0, ',', '.') }}
                     </div>
                     <div class="flex items-center mt-2">
-                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok: {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
+                        <i data-feather="link" class="w-4 h-4 mr-2"></i> Harga : Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}
                     </div>
                     <div class="flex items-center mt-2">
-                        <i data-feather="clipboard" class="w-4 h-4 mr-2"></i> Keterangan: {{ $produk['ket'] }}
+                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
+                    </div>
+                    <div class="flex items-center mt-2">
+                        <i data-feather="clipboard" class="w-4 h-4 mr-2"></i> Keterangan : {{ $produk['ket'] }}
                     </div>
                 </div>
             </div>
             <div class="flex justify-center lg:justify-end items-center p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                <button class="flex items-center text-primary mr-auto"  data-tw-toggle="modal" data-tw-target="#detail-{{ $produk->kd_produk }}">
-                    <i data-feather="eye" class="w-4 h-4 mr-1"></i> Detail
-                </a>
+                <button class="flex items-center tooltip text-primary ml-auto" data-theme="light" title="Detail" data-tw-toggle="modal" data-tw-target="#detail-{{ $produk->kd_produk }}">
+                    <i data-feather="eye" class="w-4 h-4 mr-1"></i>
+                </button>
                 @can('update', $produk)
-                <a href="{{ route('produkJadi.edit',$produk->kd_produk) }}" class="flex items-center mr-3">
-                    <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+                <a href="{{ route('produkJadi.edit',$produk->kd_produk) }}" data-theme="light" title="Edit" class="flex text-success items-center tooltip mx-3">
+                    <i data-feather="check-square" class="w-4 h-4 mr-1"></i>
                 </a>
                 @endcan
 
                 @can('delete', $produk)
-                <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $produk->kd_produk }}">
-                    <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
+                <button class="flex items-center tooltip text-danger mr-auto" data-theme="light" title="Hapus" data-tw-toggle="modal" data-tw-target="#hapus{{ $produk->kd_produk }}">
+                    <i data-feather="trash-2" class="w-4 h-4 mr-1"></i>
                 </button>
                 @endcan
 
@@ -126,7 +135,7 @@
 </div>
 
 @foreach ($produkJadi as $produk)
-    @include('pages.produkjadi.detail')
+@include('pages.produkjadi.detail')
 @endforeach
 
 @endsection

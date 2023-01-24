@@ -124,7 +124,8 @@
     </div>
     <!-- END: Pagination -->
 </div>
-@foreach ($produk as $produks )
+
+@foreach ($produkJadi as $produk)
     @include('pages.produkjadi.detail')
 @endforeach
 

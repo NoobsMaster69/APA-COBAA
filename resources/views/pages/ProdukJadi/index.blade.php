@@ -73,9 +73,9 @@
                 </div>
             </div>
             <div class="flex justify-center lg:justify-end items-center p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                <a class="flex items-center text-primary mr-auto" href="javascript:;">
+                <button class="flex items-center text-primary mr-auto"  data-tw-toggle="modal" data-tw-target="#detail-{{ $produk->kd_produk }}">
                     <i data-feather="eye" class="w-4 h-4 mr-1"></i> Detail
-                </a>
+                </button>
                 <a href="{{ route('produkJadi.edit',$produk->kd_produk) }}" class="flex items-center mr-3">
                     <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                 </a>
@@ -98,7 +98,7 @@
                             </div>
                             <div class="px-5 pb-8 text-center">
                                 <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
-                                <button type="submit" class="btn btn-danger w-24">Hapus</button>
+                                <button type="submit" class="inline-flex items-center rounded-md border border-transparent bg-red-600 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Hapus</button>
                             </div>
                         </form>
                     </div>
@@ -116,6 +116,8 @@
     </div>
     <!-- END: Pagination -->
 </div>
-
+@foreach ($produk as $produks )
+    @include('pages.produkjadi.detail')
+@endforeach
 
 @endsection

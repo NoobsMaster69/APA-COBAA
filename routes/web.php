@@ -19,6 +19,7 @@ use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SopirController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,6 +75,9 @@ Route::middleware('auth')->group(function () {
     // Produk Jadi
     Route::get('produkjadi', [ProdukJadiController::class, 'index'])->name('produkJadi');
     Route::resource('produkJadi', ProdukJadiController::class);
+    // Route::post(Uri: 'upload', [\App\Http\Controllers\ProdukJadiController::class]());
+    // Route::post('produkjadi', 'store')->name('upload');
+    // Route::delete('/hapus', 'destroy')->name('hapus');
     // Produk Masuk
     Route::get('produkmasuk', [ProdukMasukController::class, 'index'])->name('produkMasuk');
     Route::resource('produkMasuk', ProdukMasukController::class);

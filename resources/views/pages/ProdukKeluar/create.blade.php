@@ -18,24 +18,19 @@
                     <label for="kd_bahan" class="form-label font-medium"> Kode Produk </label>
                     <select name="kd_produk" class="form-select form-control @error('kd_produk') is-invalid @enderror" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
                         <option value="0" hidden disabled selected>Pilih Kode produk</option>
-
                         @php
                         $jsArray = "var prdName = new Array();\n";
                         @endphp
-
                         @foreach ($produkJadi as $produk)
                         <option value="{{ $produk->kd_produk }}">{{ $produk->kd_produk }} - {{ $produk->nm_produk }} </option>
-
                         @php
                         $jsArray .= "prdName['" . $produk['kd_produk'] . "']= {
                         nm_produk : '" . addslashes($produk['nm_produk']) . "',
                         stok : '" . addslashes($produk['stok']) . "',
                         nm_satuan : '" . addslashes($produk['nm_satuan']) . "',
                         nm_satuan2 : '" . addslashes($produk['nm_satuan']) . "',
-
                         };\n";
                         @endphp
-
                         @endforeach
                       </select>
                       @error('kd_produk')
@@ -66,7 +61,7 @@
                         @enderror
                       </div>
                       <div class="mt-3">
-                    <label for="tgl_keluar" class="form-label font-medium"> Tanggal Masuk </label>
+                    <label for="tgl_keluar" class="form-label font-medium"> Tanggal Keluar </label>
                     <input type="text" class="datepicker form-control @error('tgl_keluar') border-danger @enderror" data-single-mode="true" name="tgl_keluar" id="tgl_keluar" value="{{ old('tgl_keluar') }}">
                 </div>
                 @error('tgl_keluar')

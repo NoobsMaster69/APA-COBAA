@@ -14,10 +14,26 @@
 
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}" />
+    <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.css" >
+    <link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+/>
     <!-- END: CSS Assets-->
 </head>
 <!-- END: Head -->
 
 @yield('body')
+
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script>
+    // Register the plugin
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+
+    // ... FilePond initialisation code here
+</script>
+@yield('scripts')
+
 
 </html>

@@ -92,13 +92,13 @@ class ProdukKeluarController extends Controller
 
         $nip = auth()->user()->nip;
 
-        $resep = Resep::where('kd_produk', $request->kd_produk)->get();
-        if (empty($resep->first())) {
-            Alert::warning('Resep untuk Produk ini belum tersedia', 'Silahkan tambahkan resep terlebih dahulu!');
-            return redirect('resep');
-        } else {
-            $resep = $resep->first()->kd_resep;
-        }
+        // $resep = Resep::where('kd_produk', $request->kd_produk)->get();
+        // if (empty($resep->first())) {
+        //     Alert::warning('Resep untuk Produk ini belum tersedia', 'Silahkan tambahkan resep terlebih dahulu!');
+        //     return redirect('resep');
+        // } else {
+        //     $resep = $resep->first()->kd_resep;
+        // }
 
         // stok bahan bertambah
         $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
@@ -166,6 +166,5 @@ class ProdukKeluarController extends Controller
      */
     public function destroy(ProdukKeluar $produkKeluar)
     {
-        //
     }
 }

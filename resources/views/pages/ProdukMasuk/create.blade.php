@@ -1,139 +1,120 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Pembuatan Produk - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<div class="intro-y box p-5 mt-5">
-    <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-        <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
-            <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Informasi Pembelian Bahan
-        </div>
-        <form action="{{ route('bahanMasuk.store') }}" method="POST">
-            @csrf
-            <div class="mt-5">
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <label for="kd_satuan" class="font-medium">Kode Bahan </label>
-                            </div>
+<div class="intro-y mt-10 mb-6">
+    <h2 class="text-lg font-medium mr-auto">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/dataBahan" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
+</div>
+<div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="intro-y col-span-12 lg:col-span-8">
+        <!-- BEGIN: Form Layout -->
+        <div class="intro-y box px-10 py-5">
+            <form action="{{ route('produkMasuk.store') }}" method="POST">
+                @csrf
+                <div class="mt-6">
+                    <label for="kd_produk" class="form-label"> Kode Produk </label>
+                    <div class="relative rounded-md">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <select name="kd_satuan" id="satuan" id="product-name" type="text" class="form-control" placeholder="Kode Bahan" required autofocus onchange="changeValue(this.value)">
-                            <option value="0" hidden disabled selected>Pilih Kode Bahan</option>
+                        <select name="kd_produk" class="form-select form-control" class="form-control w-full shadow-md  @error('kd_produk')  is-invalid @enderror" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
+                            <option value="0" hidden disabled selected>Pilih Kode produk</option>
+
                             @php
                             $jsArray = "var prdName = new Array();\n";
                             @endphp
-
-                            @foreach ($dataBahan as $bahan)
-                            <option value="{{ $bahan->kd_bahan }}">{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
-
+                            @foreach ($produkJadi as $produk)
+                            <option value="{{ $produk->kd_produk }}">{{ $produk->kd_produk }} - {{ $produk->nm_produk }} </option>
                             @php
-                            $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
-                            nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
-                            harga_beli : '" . addslashes($bahan['harga_beli']) . "',
-                            harga_beliTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
-                            stok : '" . addslashes($bahan['stok']) . "',
-                            nm_satuan : '" . addslashes($bahan['nm_satuan']) . "',
-                            nm_satuan2 : '" . addslashes($bahan['nm_satuan']) . "',
-
+                            $jsArray .= "prdName['" . $produk['kd_produk'] . "']= {
+                            nm_produk : '" . addslashes($produk['nm_produk']) . "',
+                            stok : '" . addslashes($produk['stok']) . "',
+                            nm_satuan : '" . addslashes($produk['nm_satuan']) . "',
+                            nm_satuan2 : '" . addslashes($produk['nm_satuan']) . "',
                             };\n";
                             @endphp
-
                             @endforeach
                         </select>
-                    </div>
+                        @error('kd_produk')
+                        <div class="col-12 text-danger mt-2 mx-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        </div>
                 </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <label for="nm_bahan " class="font-medium">Nama Bahan </label>
-                            </div>
+                {{-- <div class="bg-slate-100 -ml-1 w-full flex justify-center py-2 rounded-lg shadow-lg">
+                    <span class="text-slate-800 font-medium uppercase text-center">Kode Bahan - {{ $kode_otomatis }}</span>
+                </div> --}}
+                <div class="mt-8">
+                    <label for="nm_produk" class="form-label"> Nama Produk </label>
+                    <input name="nm_produk" id="nm_produk" type="text" class="form-control w-full shadow-md @error('nm_produk') border-danger @enderror" placeholder="Masukkan Nama Bahan" value="{{ old('nm_produk') }}">
+                    @error('nm_produk')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="mt-6">
+                    <label for="stok" class="form-label"> Stok  </label>
+                    <input name="stok" id="stok" type="number" class="form-control w-full shadow-md @error('stok') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('stok') }}">
+                    @error('stok')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mt-6">
+                    <label for="jumlah" class="form-label"> Jumlah  </label>
+                    <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('jumlah') }}">
+                    <input type="text" class="form-control" id="nm_satuan2" readonly>
+                    @error('jumlah')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mt-6">
+                    <label for="ket" class="form-label">
+                        Keterangan
+                    </label>
+                    <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan" required>{{ old('ket') }}</textarea>
+                    @error('ket')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="relative">
+                    <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
+                        <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
+                            <a href="/dataBahan" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
                         </div>
                     </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <input type="text" class="form-control" name="nm_bahan" id="nm_bahan" readonly>
-                    </div>
                 </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Harga Bahan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <input type="text" class="form-control" id="harga_beliTampil" readonly>
-                        <input type="hidden" class="form-control" name="harga_beli" id="harga_beli">
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Stok Bahan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <input id="stok" type="text" class="form-control" readonly>
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Tanggal Masuk Bahan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative w-full mt-3 xl:mt-0 flex-1">
-                        <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
-                            <i data-feather="calendar" class="w-4 h-100"></i>
-                        </div>
-                        <input type="text" class="datepicker form-control pl-12" data-single-mode="true">
-                    </div>
-                </div>
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-64 xl:!mr-10">
-                        <div class="text-left">
-                            <div class="flex items-center">
-                                <div class="font-medium">Keterangan </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                        <textarea name="ket" id="ket" class="form-control" placeholder="Type your comments" minlength="3"></textarea>
-                    </div>
-                </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-</div>
-<!-- END: Form Layout -->
-<div class="grid justify-items-start hover:justify-items-center md:flex-row gap-2 mt-5">
-    <button type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</button>
-    <button type="button" class="btn py-3 btn-primary w-full md:w-52">Save</button>
-</div>
+@endsection
 
-
-
+@section('script')
+<script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
 <script type="text/javascript">
     <?= $jsArray; ?>
 
     function changeValue(x) {
-        document.getElementById('nm_bahan').value = prdName[x].nm_bahan;
-        document.getElementById('harga_beli').value = prdName[x].harga_beli;
-        document.getElementById('harga_beliTampil').value = prdName[x].harga_beliTampil;
-        document.getElementById('stok').value = prdName[x].stok;
-        document.getElementById('nm_satuan').value = prdName[x].nm_satuan;
-        document.getElementById('nm_satuan2').value = prdName[x].nm_satuan2;
+      document.getElementById('nm_produk').value = prdName[x].nm_produk;
+      document.getElementById('stok').value = prdName[x].stok;
+      document.getElementById('nm_satuan').value = prdName[x].nm_satuan;
+      document.getElementById('nm_satuan2').value = prdName[x].nm_satuan2;
     }
-</script>
-<script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
+  </script>
 @endsection

@@ -97,6 +97,17 @@ class ProdukJadiController extends Controller
         Alert::success('Data Produk', 'Berhasil Ditambahkan!');
         return redirect('produkJadi');
     }
+    // public function tmpUpload(Request $request)
+    // {
+    //     if ($image = $request->file('foto')) {
+    //         $destinationPath = 'images/';
+    //         $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+    //         $image_resize = Image::make($image->getRealPath());
+    //         $image_resize->resize(150, 150);
+    //         $image_resize->save(public_path($destinationPath . $profileImage));
+    //         $input['foto'] = "$profileImage";
+    //     }
+    // }
 
     public function show(ProdukJadi $produkJadi)
     {

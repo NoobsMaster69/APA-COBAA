@@ -133,7 +133,7 @@ class BahanKeluarController extends Controller
             'pages.bahanKeluar.edit',
             compact('bahanKeluar', 'dataBahan'),
             [
-                'tittle' => 'Edit Data',
+                'tittle' => 'Edit Data Pemakaian Bahan',
                 'judul' => 'Edit Data Pemakaian Bahan',
                 'menu' => 'Bahan Baku',
                 'submenu' => 'Edit Data'

@@ -29,7 +29,7 @@ class ProdukJadiController extends Controller
             ->oldest()->paginate(8)->withQueryString();
 
         // mengirim tittle dan judul ke view
-        return view('pages.produkJadi.index', ['produkJadi' => $produkJadi]);
+        return view('pages.produkJadi.index', ['produkJadi' => $produkJadi], ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']);
     }
 
     public function create()
@@ -63,6 +63,8 @@ class ProdukJadiController extends Controller
             'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
             'harga_jual.required' => 'Harga Jual tidak boleh kosong',
             'harga_jual.integer' => 'Harga Jual harus berupa angka',
+            'modal.required' => 'Modal tidak boleh kosong',
+            'modal.integer' => 'Modal harus berupa angka',
             'ket.required' => 'Keterangan tidak boleh kosong',
             'ket.min' => 'Keterangan minimal 3 karakter',
             'foto.required' => 'Foto tidak boleh kosong',
@@ -76,6 +78,7 @@ class ProdukJadiController extends Controller
             'nm_produk' => 'required',
             'stok' => 'required|integer',
             'kd_satuan' => 'required',
+            'modal' => 'required|integer',
             'harga_jual' => 'required|integer',
             'ket' => 'required|min:3',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
@@ -116,6 +119,7 @@ class ProdukJadiController extends Controller
         return view(
             'pages.ProdukJadi.edit',
             compact('produkJadi', 'satuan'),
+            ['tittle' => 'Edit Data', 'judul' => 'Edit Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Edit Data']
         );
     }
 
@@ -135,6 +139,8 @@ class ProdukJadiController extends Controller
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
                 'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
+                'modal.required' => 'Modal tidak boleh kosong',
+                'modal.integer' => 'Modal harus berupa angka',
                 'harga_jual.required' => 'Harga Jual tidak boleh kosong',
                 'harga_jual.integer' => 'Harga Jual harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
@@ -150,6 +156,7 @@ class ProdukJadiController extends Controller
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
                 'kd_satuan' => 'required',
+                'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
                 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
@@ -185,6 +192,8 @@ class ProdukJadiController extends Controller
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
                 'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
+                'modal.required' => 'Modal tidak boleh kosong',
+                'modal.integer' => 'Modal harus berupa angka',
                 'harga_jual.required' => 'Harga Jual tidak boleh kosong',
                 'harga_jual.integer' => 'Harga Jual harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
@@ -196,6 +205,7 @@ class ProdukJadiController extends Controller
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
                 'kd_satuan' => 'required',
+                'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
             ];

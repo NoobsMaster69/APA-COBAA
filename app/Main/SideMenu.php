@@ -158,13 +158,21 @@ class SideMenu
                 'icon' => 'truck',
                 'title' => 'Pengiriman',
                 'sub_menu' => [
-                    'dataPengiriman' => [
+                    'pengirimanProduk' => [
                         'icon' => 'meh',
-                        'route_name' => 'dataPengiriman',
+                        'route_name' => 'pengirimanProduk',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Data Pengiriman'
+                        'title' => 'Pengiriman Produk'
+                    ],
+                    'produkTerkirim' => [
+                        'icon' => 'meh',
+                        'route_name' => 'produkTerkirim',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'Produk Terkirim'
                     ],
                     'sopir' => [
                         'icon' => 'meh',

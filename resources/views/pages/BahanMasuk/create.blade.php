@@ -20,35 +20,35 @@
                 @csrf
                 <div class="mt-3">
                     <label for="kd_bahan" class="form-label"> Bahan </label>
-                    <select name="kd_bahan" type="text" data-placeholder="Silahkan pilih bahan" class="tom-select w-full shadow-md @error('kd_bahan') border-danger @enderror" required onchange="changeValue(this.value)">
+                    <select name="kd_bahan" type="text" data-placeholder="Silahkan pilih bahan" class="tom-select w-full shadow-md @error('kd_bahan') border-danger @enderror" required onchange="changeValue(this.value)" onclick="changeValue(this.value)">
                         <option hidden disabled selected>- Pilih Bahan -</option>
                         @php
                         $jsArray = "var prdName = new Array();\n";
                         @endphp
 
                         @foreach ($dataBahan as $bahan)
-                            <option value="{{ $bahan->kd_bahan }}">{{ $bahan->nm_bahan }} </option>
+                        <option value="{{ $bahan->kd_bahan }}">{{ $bahan->nm_bahan }} </option>
 
-                            @php
-                            $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
-                            nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
-                            harga : '" . addslashes($bahan['harga_beli']) . "',
-                            hargaTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
-                            stokTampil : '" . addslashes($bahan['stok']. " " . $bahan['nm_satuan']) . "',
-                            stok : '" . addslashes($bahan['stok']) . "',
+                        @php
+                        $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
+                        nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
+                        harga : '" . addslashes($bahan['harga_beli']) . "',
+                        hargaTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
+                        stokTampil : '" . addslashes($bahan['stok']. " " . $bahan['nm_satuan']) . "',
+                        stok : '" . addslashes($bahan['stok']) . "',
 
-                            };\n";
-                            @endphp
+                        };\n";
+                        @endphp
 
                         @endforeach
                     </select>
                     @error('kd_bahan')
-                        <div class="text-danger mt-1">
-                            {{ $message }}
-                        </div>
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
-                <div class="overflow-x-auto mt-6">
+                <div class="overflow-x-auto mt-6 shadow-md">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -68,38 +68,38 @@
                     <input name="stok" id="stok" type="hidden" value="{{ old('stok') }}">
                     <input name="nm_bahan" id="bahan" type="hidden" value="{{ old('nm_bahan') }}">
                     <input name="harga_beli" id="harga" type="hidden" value="{{ old('harga_beli') }}">
-                </div>                    
-                
+                </div>
+
                 <div class="grid grid-cols-12 gap-4 mt-6">
                     <div class="col-span-6">
                         <label for="jumlah" class="form-label"> Jumlah </label>
-                        <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('nm_bahan') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                        <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
                         @error('jumlah')
-                            <div class="text-danger mt-1">
-                                {{ $message }}
-                            </div>
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
-                    
+
                     <div class="col-span-6">
                         <label for="tgl_masuk" class="form-label"> Tanggal Beli </label>
                         <input type="text" class="datepicker form-control w-full shadow-md @error('tgl_masuk') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_masuk') }}" name="tgl_masuk" id="tgl_masuk">
                         @error('tgl_masuk')
-                            <div class="text-danger mt-1">
-                                {{ $message }}
-                            </div>
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
                 </div>
-                
-                
+
+
                 <div class="mt-6">
                     <label for="ket" class="form-label"> Keterangan </label>
                     <textarea name="ket" id="ket" type="text" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket') }}</textarea>
                     @error('ket')
-                        <div class="text-danger mt-1">
-                            {{ $message }}
-                        </div>
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
                 <div class="relative">

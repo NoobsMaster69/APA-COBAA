@@ -14,8 +14,8 @@
                         </button>
                         <div class="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
                             <div class="sm:col-span-4 lg:col-span-5">
-                                <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100">
-                                    <img src="{{ asset('images/'.$produk->foto) }}" alt="Foto Produk." class="object-cover object-center">
+                                <div class="overflow-hidden rounded-lg bg-gray-100 h-64 2xl:h-56 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10">
+                                    <img src=" {{ asset('images/'.$produk->foto) }}" alt="Foto Produk." class="object-cover object-center">
                                 </div>
                             </div>
                             <div class="sm:col-span-8 lg:col-span-7">
@@ -23,11 +23,14 @@
                                 <section aria-labelledby="information-heading" class="mt-3">
                                     <h3 id="information-heading" class="sr-only">Produk Informasi</h3>
                                     <div class="flex items-center">
-                                        <i data-feather="link" class="w-4 h-4 mr-2"></i> Harga: Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}
+                                        <i data-feather="link" class="w-4 h-4 mr-2"></i> Modal : Rp. {{ number_format($produk->modal, 0, ',', '.') }}
+                                    </div>
+                                    <div class="flex items-center mt-3">
+                                        <i data-feather="link" class="w-4 h-4 mr-2"></i> Harga : Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}
                                     </div>
                                     <div class="mt-3">
                                         <div class="flex items-center mt-2">
-                                            <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok: {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
+                                            <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
                                         </div>
                                     </div>
                                     <div class="mt-6">

@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,18 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\DataBahan' => 'App\Policies\DataBahanPolicy',
+        'App\Models\Satuan' => 'App\Policies\SatuanMassaPolicy',
+        'App\Models\BahanMasuk' => 'App\Policies\BahanMasukPolicy',
+        'App\Models\BahanKeluar' => 'App\Policies\BahanKeluarPolicy',
+        'App\Models\Mobil' => 'App\Policies\MobilPolicy',
+        'App\Models\Sopir' => 'App\Policies\SopirPolicy',
+        'App\Models\ProdukJadi' => 'App\Policies\ProdukJadiPolicy',
+        'App\Models\ProdukMasuk' => 'App\Policies\ProdukMasukPolicy',
+        'App\Models\ProdukKeluar' => 'App\Policies\ProdukKeluarPolicy',
+        'App\Models\Jabatan' => 'App\Policies\JabatanPolicy',
+        'App\Models\Karyawan' => 'App\Policies\KaryawanPolicy',
+        'App\Models\Resep' => 'App\Policies\ResepPolicy',
     ];
 
     /**
@@ -23,8 +35,23 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerPolicies();
 
-        //
+        Gate::define('backoffice', function (User $user) {
+            return $user->role == 'backoffice';
+        });
+
+        Gate::define('gudang', function (User $user) {
+            return $user->role == 'gudang';
+        });
+
+        Gate::define('produksi', function (User $user) {
+            return $user->role == 'produksi';
+        });
+
+        Gate::define('distribusi', function (User $user) {
+            return $user->role == 'distribusi';
+        });
     }
 }

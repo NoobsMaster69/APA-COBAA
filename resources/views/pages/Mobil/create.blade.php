@@ -54,7 +54,7 @@
                 <div class="relative">
                     <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
                         <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
-                            <a href="/tampilmobil" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <a href="/mobil" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
                             <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
                         </div>
                     </div>

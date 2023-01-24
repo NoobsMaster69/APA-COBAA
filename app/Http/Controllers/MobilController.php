@@ -11,7 +11,7 @@ class MobilController extends Controller
 {
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', Mobil::class);
+        $this->authorize('viewAny', Mobil::class);
 
         $search = $request->search;
 
@@ -35,8 +35,9 @@ class MobilController extends Controller
 
     public function create()
     {
-        // kode otomatis
+        $this->authorize('create', Mobil::class);
 
+        // kode otomatis
         $kode = Mobil::max('kd_mobil');
         $kode = (int) substr($kode, 4, 4);
         $kode = $kode + 1;
@@ -56,7 +57,7 @@ class MobilController extends Controller
 
     public function store(Request $request)
     {
-        // $this->authorize('create', Mobil::class);
+        $this->authorize('create', Mobil::class);
 
         // mengubah nama validasi
         $messages = [
@@ -88,7 +89,7 @@ class MobilController extends Controller
 
     public function edit(Mobil $mobil)
     {
-        // $this->authorize('update', $mobil);
+        $this->authorize('update', $mobil);
 
         return view(
             'pages.mobil.edit',
@@ -104,7 +105,7 @@ class MobilController extends Controller
 
     public function update(Request $request, Mobil $mobil)
     {
-        // $this->authorize('update', $mobil);
+        $this->authorize('update', $mobil);
 
         // mengubah nama validasi
         $messages = [
@@ -133,7 +134,7 @@ class MobilController extends Controller
 
     public function destroy(Mobil $mobil)
     {
-        // $this->authorize('delete', $mobil);
+        $this->authorize('delete', $mobil);
 
         Mobil::destroy($mobil->kd_mobil);
         Alert::success('Data Mobil', 'Berhasil dihapus!');

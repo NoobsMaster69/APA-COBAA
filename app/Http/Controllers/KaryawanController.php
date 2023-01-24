@@ -17,6 +17,8 @@ class KaryawanController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Karyawan::class);
+
         $search = $request->search;
 
         // menyatukan search dengan join tabel
@@ -46,6 +48,7 @@ class KaryawanController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Karyawan::class);
 
         // mengirim tittle dan judul ke view
         return view(
@@ -63,6 +66,8 @@ class KaryawanController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Karyawan::class);
+
         // mengubah nama validasi
         $messages = [
             'nip.required' => 'NIP tidak boleh kosong',
@@ -166,6 +171,8 @@ class KaryawanController extends Controller
 
     public function show(Karyawan $karyawan)
     {
+        $this->authorize('view', $karyawan);
+
         $karyawan = DB::table('karyawan')
             ->join('jabatan', 'karyawan.kd_jabatan', '=', 'jabatan.id_jabatan')
             ->select('karyawan.*', 'jabatan.nm_jabatan')
@@ -177,6 +184,7 @@ class KaryawanController extends Controller
 
     public function edit(Karyawan $karyawan)
     {
+        $this->authorize('update', $karyawan);
 
         // memisahkan nama depan dan nama belakang
         $dataNama = explode(' ', $karyawan->nm_karyawan);
@@ -251,6 +259,8 @@ class KaryawanController extends Controller
 
     public function update(Request $request, Karyawan $karyawan)
     {
+        $this->authorize('view', $karyawan);
+
         // cek apakah user mengganti foto atau tidak
         if ($request->has('foto')) {
 
@@ -435,6 +445,8 @@ class KaryawanController extends Controller
 
     public function destroy(Karyawan $karyawan)
     {
+        $this->authorize('delete', $karyawan);
+
         if (Auth::user()->id_karyawan == $karyawan->id_karyawan) {
             Alert::error('Gagal menghapus', 'Tidak dapat menghapus data diri sendiri!');
             return redirect()->route('karyawan.index');

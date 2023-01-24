@@ -8,13 +8,15 @@
 <div class="intro-y mt-10">
     <h2 class="text-lg font-medium">{{ $judul }}</h2>
     <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
-        <li class="breadcrumb-item"><a href="/satuanmassa" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item"><a href="/satuan" class="text-slate-600">{{ $menu }}</a></li>
         <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
     </ol>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+        @can('create', App\Models\Satuan::class)
         <button class="btn btn-primary shadow-md mr-2" data-tw-toggle="modal" data-tw-target="#tambahSatuan">Tambah Satuan</button>
+        @endcan
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                 <span class="w-5 h-5 flex items-center justify-center">
@@ -57,8 +59,10 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap">NO.</th>
-                    <th class="whitespace-nowrap">NAMA SATUAN</th>
+                    <th class="whitespace-nowrap ">NAMA SATUAN</th>
+                    @can('update', $sat)
                     <th class="whitespace-nowrap text-center">AKSI</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -66,8 +70,10 @@
                 <tr class="intro-x">
                     <td class="">{{ $satuan->firstItem() + $loop->index }}</td>
                     <td class="">{{ $sat->nm_satuan }}</td>
+                    @can('update', $sat)
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">
+                        
                             <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#editSatuan-{{ $sat->id_satuan }}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </button>
@@ -103,6 +109,7 @@
                             <!-- END: Delete Confirmation Modal -->
                         </div>
                     </td>
+                    @endcan
                 </tr>
                 @endforeach
             </tbody>

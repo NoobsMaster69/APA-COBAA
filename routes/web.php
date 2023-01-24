@@ -64,55 +64,55 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [RegistrationController::class, 'logout'])->name('logout');
     // mengarah ke setiap controller
     // Data Bahan
-    Route::get('databahan', [DataBahanController::class, 'index'])->name('dataBahan');
+    // Route::get('databahan', [DataBahanController::class, 'index'])->name('dataBahan');
     Route::resource('dataBahan', DataBahanController::class);
     // Data Bahan Masuk
-    Route::get('bahanmasuk', [BahanMasukController::class, 'index'])->name('bahanMasuk');
+    // Route::get('bahanmasuk', [BahanMasukController::class, 'index'])->name('bahanMasuk');
     Route::resource('bahanMasuk', BahanMasukController::class);
     // Data Bahan Keluar
-    Route::get('bahankeluar', [BahanKeluarController::class, 'index'])->name('bahanKeluar');
+    // Route::get('bahankeluar', [BahanKeluarController::class, 'index'])->name('bahanKeluar');
     Route::resource('bahanKeluar', BahanKeluarController::class);
     // Produk Jadi
-    Route::get('produkjadi', [ProdukJadiController::class, 'index'])->name('produkJadi');
+    // Route::get('produkjadi', [ProdukJadiController::class, 'index'])->name('produkJadi');
     Route::resource('produkJadi', ProdukJadiController::class);
     // Route::post(Uri: 'upload', [\App\Http\Controllers\ProdukJadiController::class]());
     // Route::post('produkjadi', 'store')->name('upload');
     // Route::delete('/hapus', 'destroy')->name('hapus');
     // Produk Masuk
-    Route::get('produkmasuk', [ProdukMasukController::class, 'index'])->name('produkMasuk');
+    // Route::get('produkmasuk', [ProdukMasukController::class, 'index'])->name('produkMasuk');
     Route::resource('produkMasuk', ProdukMasukController::class);
     // Produk Keluar
-    Route::get('produkkeluar', [ProdukKeluarController::class, 'index'])->name('produkKeluar');
+    // Route::get('produkkeluar', [ProdukKeluarController::class, 'index'])->name('produkKeluar');
     Route::resource('produkKeluar', ProdukKeluarController::class);
     // Resep
-    Route::get('dataresep', [ResepController::class, 'index'])->name('dataResep');
+    // Route::get('dataresep', [ResepController::class, 'index'])->name('dataResep');
     Route::resource('resep', ResepController::class);
     // Satuan
-    Route::get('satuanmassa', [SatuanController::class, 'index'])->name('satuanMassa');
+    // Route::get('satuanmassa', [SatuanController::class, 'index'])->name('satuanMassa');
     Route::resource('satuan', SatuanController::class);
     // data pengiriman
-    Route::get('datapengiriman', [SopirController::class, 'index'])->name('dataPengiriman');
+    // Route::get('datapengiriman', [SopirController::class, 'index'])->name('dataPengiriman');
     Route::resource('pengiriman', PengirimanController::class);
     // Sopir
-    Route::get('tampilsopir', [SopirController::class, 'index'])->name('tampil-sopir');
+    // Route::get('tampilsopir', [SopirController::class, 'index'])->name('tampil-sopir');
     Route::resource('sopir', SopirController::class);
     // Mobil
-    Route::get('tampilmobil', [MobilController::class, 'index'])->name('tampil-mobil');
+    // Route::get('tampilmobil', [MobilController::class, 'index'])->name('tampil-mobil');
     Route::resource('mobil', MobilController::class);
     // Jabatan
-    Route::get('jabatankaryawan', [JabatanController::class, 'index'])->name('jabatanKaryawan');
+    // Route::get('jabatankaryawan', [JabatanController::class, 'index'])->name('jabatanKaryawan');
     Route::resource('jabatan', JabatanController::class);
     // Karyawan
-    Route::get('datakaryawan', [KaryawanController::class, 'index'])->name('dataKaryawan');
+    // Route::get('datakaryawan', [KaryawanController::class, 'index'])->name('dataKaryawan');
     Route::resource('karyawan', KaryawanController::class);
     // Laporan Permintaan Bahan
-    Route::get('lappermintaanbahan', [PermintaanBahanController::class, 'index'])->name('lapPermintaanBahan');
+    // Route::get('lappermintaanbahan', [PermintaanBahanController::class, 'index'])->name('lapPermintaanBahan');
     Route::resource('PermintaanBahan', PermintaanBahanController::class);
     // Laporan Permintaan Produk
-    Route::get('lappermintaanproduk', [PermintaanProdukController::class, 'index'])->name('lapPermintaanProduk');
+    // Route::get('lappermintaanproduk', [PermintaanProdukController::class, 'index'])->name('lapPermintaanProduk');
     Route::resource('PermintaanProduk', PermintaanProdukController::class);
     // Laporan Pengiriman Produk
-    Route::get('lappengirimanproduk', [PengirimanProdukController::class, 'index'])->name('lapPengirimanProduk');
+    // Route::get('lappengirimanproduk', [PengirimanProdukController::class, 'index'])->name('lapPengirimanProduk');
     Route::resource('PengirimanProduk', PengirimanProdukController::class);
     // END Route Projek Kita
 

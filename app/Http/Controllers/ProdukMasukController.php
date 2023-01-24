@@ -19,7 +19,7 @@ class ProdukMasukController extends Controller
     public function index()
     {
 
-        // $this->authorize('viewAny', ProdukMasuk::class);
+        $this->authorize('viewAny', ProdukMasuk::class);
 
         // join table produkMasuk dengan produkJadi
         $produkMasuk = ProdukMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->join('resep', 'produkMasuk.kd_resep', '=', 'resep.kd_resep')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name', 'resep.kd_resep')
@@ -47,7 +47,8 @@ class ProdukMasukController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', ProdukMasuk::class);
+        $this->authorize('create', ProdukMasuk::class);
+
         // join dengan tabel satuan
         $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
             ->select('produkJadi.*', 'satuan.nm_satuan')
@@ -73,7 +74,7 @@ class ProdukMasukController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', ProdukMasuk::class);
+        $this->authorize('create', ProdukMasuk::class);
 
 
         // mengubah nama validasi
@@ -128,7 +129,7 @@ class ProdukMasukController extends Controller
 
 
         Alert::success('Data Pembuatan Produk', 'Berhasil Ditambahkan!');
-        return redirect('produkMasuk');
+        return redirect('/produkMasuk');
     }
 
     /**
@@ -150,7 +151,7 @@ class ProdukMasukController extends Controller
      */
     public function edit(ProdukMasuk $produkMasuk)
     {
-        //
+        $this->authorize('update', $produkMasuk);
     }
 
     /**
@@ -162,7 +163,7 @@ class ProdukMasukController extends Controller
      */
     public function update(Request $request, ProdukMasuk $produkMasuk)
     {
-        //
+        $this->authorize('update', $produkMasuk);
     }
 
     /**
@@ -173,7 +174,7 @@ class ProdukMasukController extends Controller
      */
     public function destroy(ProdukMasuk $produkMasuk)
     {
-        // $this->authorize('delete', $produkMasuk);
+        $this->authorize('delete', $produkMasuk);
 
         // update stok produk jadi
         $stok = ProdukJadi::where('kd_produk', $produkMasuk->kd_produk)->first();
@@ -182,7 +183,7 @@ class ProdukMasukController extends Controller
 
         $produkMasuk->delete();
         Alert::success('Data Pembuatan Produk', 'Berhasil Dihapus!');
-        return redirect('pages.produkMasuk');
+        return redirect('/produkMasuk');
     }
 }
 

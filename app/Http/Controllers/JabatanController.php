@@ -11,6 +11,7 @@ class JabatanController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Jabatan::class);
 
         $search = $request->search;
 
@@ -33,6 +34,8 @@ class JabatanController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Jabatan::class);
+
         // mengubah error ke bahasa indonesia
         $messages = [
             'required' => 'Nama Jabatan tidak boleh kosong',
@@ -65,6 +68,9 @@ class JabatanController extends Controller
 
     public function update(Request $request, Jabatan $jabatan)
     {
+        $this->authorize('update', $jabatan);
+
+
         // mengubah error ke bahasa indonesia
         $messages = [
             'required' => 'Nama Jabatan tidak boleh kosong',
@@ -83,6 +89,8 @@ class JabatanController extends Controller
 
     public function destroy(Jabatan $jabatan)
     {
+        $this->authorize('delete', $jabatan);
+
         $jabatan->delete();
         Alert::success('Data Jabatan', 'Berhasil dihapus!');
         return redirect('jabatan');

@@ -14,6 +14,249 @@
         <!-- BEGIN: Side Menu -->
         <nav class="side-nav">
             <ul>
+                <li>
+                    <a href="/" class="side-menu {{ Request::is('/') ? 'side-menu--active' : '' }}">
+                        <div class="side-menu__icon">
+                            <i data-feather="home"></i>
+                        </div>
+                        <div class="side-menu__title">
+                            Dashboard
+                        </div>
+                    </a>
+                </li>
+
+                <li class="side-nav__devider my-6"></li>
+
+                @can('backoffice')                   
+
+                    <li>
+                        <a href="/jabatan" class="side-menu {{ Request::is('jabatan*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="award"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Jabatan
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/karyawan" class="side-menu {{ Request::is('karyawan*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="users"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Karyawan
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/satuan" class="side-menu {{ Request::is('satuan*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Satuan Massa
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {{ Request::is('dataBahan*', 'bahanMasuk*', 'bahanKeluar*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="box"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Bahan Baku
+                                <div class="side-menu__sub-icon {{ Request::is('dataBahan*', 'bahanMasuk*', 'bahanKeluar*') ? 'transform rotate-180' : '' }}">
+                                    <i data-feather="chevron-down"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class=" {{ Request::is('dataBahan*', 'bahanMasuk*', 'bahanKeluar*') ? 'side-menu__sub-open' : '' }}">
+                            <li>
+                                <a href="/dataBahan" class="side-menu {{ Request::is('dataBahan*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="box"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Data Bahan
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/bahanMasuk" class="side-menu {{ Request::is('bahanMasuk*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="box"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Pembelian Bahan
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/bahanKeluar" class="side-menu {{ Request::is('bahanKeluar*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="box"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Pemakaian Bahan
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {{ Request::is('resep*', 'produkJadi*', 'produkMasuk*', 'produkKeluar*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="package"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Produk
+                                <div class="side-menu__sub-icon {{ Request::is('resep*', 'produkJadi*', 'produkMasuk*', 'produkKeluar*') ? 'transform rotate-180' : '' }}">
+                                    <i data-feather="chevron-down"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class=" {{ Request::is('resep*', 'produkJadi*', 'produkMasuk*', 'produkKeluar*') ? 'side-menu__sub-open' : '' }}">
+                            <li>
+                                <a href="/resep" class="side-menu {{ Request::is('resep*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="package"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Data Resep
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/produkJadi" class="side-menu {{ Request::is('produkJadi*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="package"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Data Produk
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/produkMasuk" class="side-menu {{ Request::is('produkMasuk*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="package"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Pembuatan Produk
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/produkKeluar" class="side-menu {{ Request::is('produkKeluar*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="package"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Penjualan Produk
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {{ Request::is('dataPengiriman*', 'sopir*', 'mobil*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="truck"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Pengiriman
+                                <div class="side-menu__sub-icon {{ Request::is('dataPengiriman*', 'sopir*', 'mobil*') ? 'transform rotate-180' : '' }}">
+                                    <i data-feather="chevron-down"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class=" {{ Request::is('dataPengiriman*', 'sopir*', 'mobil*') ? 'side-menu__sub-open' : '' }}">
+                            <li>
+                                <a href="/dataPengiriman" class="side-menu {{ Request::is('dataPengiriman*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="truck"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Data Pengiriman
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/sopir" class="side-menu {{ Request::is('sopir*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="truck"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Data Sopir
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/mobil" class="side-menu {{ Request::is('mobil*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="truck"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Data Mobil
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {{ Request::is('') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="clipboard"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Laporan
+                                <div class="side-menu__sub-icon {{ Request::is('') ? 'transform rotate-180' : '' }}">
+                                    <i data-feather="chevron-down"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class=" {{ Request::is('') ? 'side-menu__sub-open' : '' }}">
+                            <li>
+                                <a href="#" class="side-menu {{ Request::is('*') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="clipboard"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Laporan Permintaan Bahan
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="side-menu {{ Request::is('') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="clipboard"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Laporan Permintaan Produk
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="side-menu {{ Request::is('') ? 'side-menu--active' : '' }}">
+                                    <div class="side-menu__icon">
+                                        <i data-feather="clipboard"></i>
+                                    </div>
+                                    <div class="side-menu__title">
+                                        Laporan Pengiriman Produk
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+               
                 @foreach ($side_menu as $menuKey => $menu)
                 @if ($menu == 'devider')
                 <li class="side-nav__devider my-6"></li>
@@ -70,6 +313,164 @@
                 </li>
                 @endif
                 @endforeach
+
+                @endcan
+
+                @can('gudang')
+
+                    <li>
+                        <a href="/satuan" class="side-menu {{ Request::is('satuan*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Satuan Massa
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/dataBahan" class="side-menu {{ Request::is('dataBahan*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Bahan
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/bahanMasuk" class="side-menu {{ Request::is('bahanMasuk*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Pembelian Bahan
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/bahanKeluar" class="side-menu {{ Request::is('bahanKeluar*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Pemakaian Bahan
+                            </div>
+                        </a>
+                    </li>
+
+                @endcan
+
+                @can('produksi')
+
+                    <li>
+                        <a href="/satuan" class="side-menu {{ Request::is('satuan*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Satuan Massa
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/resep" class="side-menu {{ Request::is('resep*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Resep
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/produkJadi" class="side-menu {{ Request::is('produkJadi*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Produk
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/produkMasuk" class="side-menu {{ Request::is('produkMasuk*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Pembuatan Produk
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/produkKeluar" class="side-menu {{ Request::is('produkKeluar*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="inbox"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Penjualan Produk
+                            </div>
+                        </a>
+                    </li>
+
+                @endcan
+
+                @can('distribusi')
+
+                    <li>
+                        <a href="/produkJadi" class="side-menu {{ Request::is('produkJadi*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="clipboard"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Produk
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/dataPengiriman" class="side-menu {{ Request::is('dataPengiriman*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="clipboard"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Pengiriman
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/sopir" class="side-menu {{ Request::is('sopir*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="clipboard"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Sopir
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/mobil" class="side-menu {{ Request::is('mobil*') ? 'side-menu--active' : '' }}">
+                            <div class="side-menu__icon">
+                                <i data-feather="clipboard"></i>
+                            </div>
+                            <div class="side-menu__title">
+                                Data Mobil
+                            </div>
+                        </a>
+                    </li>
+
+                @endcan
+
             </ul>
         </nav>
         <!-- END: Side Menu -->

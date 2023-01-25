@@ -20,14 +20,18 @@
                 @csrf
                 <div class="mt-3">
                     <label for="kd_bahan" class="form-label"> Bahan </label>
-                    <select name="kd_bahan" type="text" data-placeholder="Silahkan pilih bahan" class="tom-select w-full shadow-md @error('kd_bahan') border-danger @enderror" required onchange="changeValue(this.value)" onclick="changeValue(this.value)">
+                    <select name="kd_bahan" type="text" data-placeholder="Silahkan pilih bahan" class="tom-select w-full form-control shadow-md @error('kd_bahan') border-danger @enderror font-medium" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
                         <option hidden disabled selected>- Pilih Bahan -</option>
                         @php
                         $jsArray = "var prdName = new Array();\n";
                         @endphp
 
                         @foreach ($dataBahan as $bahan)
-                        <option value="{{ $bahan->kd_bahan }}">{{ $bahan->nm_bahan }} </option>
+                        @if (old('kd_bahan') == $bahan->kd_bahan)
+                        <option value="{{ $bahan->kd_bahan }}" selected>{{ $bahan->kd_bahan }} - $bahan->nm_bahan }} </option>
+                        @else
+                        <option value="{{ $bahan->kd_bahan }}">{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
+                        @endif
 
                         @php
                         $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
@@ -72,7 +76,7 @@
 
                 <div class="grid grid-cols-12 gap-4 mt-6">
                     <div class="col-span-6">
-                        <label for="jumlah" class="form-label"> Jumlah </label>
+                        <label for="jumlah" class="form-label font-medium"> Jumlah </label>
                         <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
                         @error('jumlah')
                         <div class="text-danger mt-1">
@@ -82,7 +86,7 @@
                     </div>
 
                     <div class="col-span-6">
-                        <label for="tgl_masuk" class="form-label"> Tanggal Beli </label>
+                        <label for="tgl_masuk" class="form-label font-medium"> Tanggal Beli </label>
                         <input type="text" class="datepicker form-control w-full shadow-md @error('tgl_masuk') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_masuk') }}" name="tgl_masuk" id="tgl_masuk">
                         @error('tgl_masuk')
                         <div class="text-danger mt-1">
@@ -127,8 +131,6 @@
         document.getElementById('harga').value = prdName[x].harga;
         document.getElementById('bahan').value = prdName[x].nm_bahan;
         document.getElementById('stok').value = prdName[x].stok;
-
-
     }
 </script>
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>

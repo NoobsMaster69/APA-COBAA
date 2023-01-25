@@ -33,6 +33,18 @@ class KaryawanController extends Controller
             ->orWhere('karyawan.jenis_kelamin', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(5)->withQueryString();
 
+        // memecah format ttl menjadi tempat dan tanggal lahir
+        foreach ($karyawan as $k) {
+            $ttl = explode(',', $k->ttl);
+            $k->tempat_lahir = $ttl[0];
+            $k->tgl_lahir = $ttl[1];
+            // mengubah format tanggal lahir menjadi dd-mm-yyyy
+            $tgl_lahir = date('d F Y', strtotime($k->tgl_lahir));
+            $k->tgl_lahir = $tgl_lahir;
+            // menggambar format tempat dan tanggal lahir menjadi ttl
+            $k->ttl = $k->tempat_lahir . ', ' . $k->tgl_lahir;
+        }
+
         // mengirim tittle dan judul ke view
         return view(
             'pages.karyawan.index',
@@ -123,10 +135,12 @@ class KaryawanController extends Controller
             $nm_karyawan = $request->namaDepan;
         }
 
+        $tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
+
         // menggabungkan tempat dan tanggal lahir
         $ttl = [
             $request->tempat_lahir,
-            $request->tgl_lahir
+            $tgl_lahir
             // date('d F Y', strtotime($request->tgl_lahir))
         ];
         $ttl = implode(', ', $ttl);
@@ -328,10 +342,12 @@ class KaryawanController extends Controller
                 $input['nm_karyawan'] = $input['namaDepan'];
             }
 
+            $tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
+
             // menggabungkan tempat dan tanggal lahir
             $ttl = [
                 $input['tempat_lahir'],
-                $input['tgl_lahir']
+                $input['tgl_lahir'] = $tgl_lahir,
                 // date('d F Y', strtotime($input['tgl_lahir))
             ];
             $input['ttl'] = implode(', ', $ttl);
@@ -418,10 +434,12 @@ class KaryawanController extends Controller
                 $input['nm_karyawan'] = $input['namaDepan'];
             }
 
+            $tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
+
             // menggabungkan tempat dan tanggal lahir
             $ttl = [
                 $input['tempat_lahir'],
-                $input['tgl_lahir']
+                $input['tgl_lahir'] = $tgl_lahir,
                 // date('d F Y', strtotime($input['tgl_lahir))
             ];
             $input['ttl'] = implode(', ', $ttl);

@@ -1,12 +1,16 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Tambah Pemakaian Bahan - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Pemakaian Bahan </h2>
+<div class="intro-y mt-10 mb-6">
+    <h2 class="text-lg font-medium mr-auto">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/bahanKeluar" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
@@ -15,9 +19,9 @@
             <form action="{{ route('bahanKeluar.store') }}" method="POST">
                 @csrf
                 <div class="mt-3">
-                    <label for="kd_bahan" class="form-label font-medium"> Kode Bahan </label>
-                    <select name="kd_bahan" id="satuan" id="product-name" type="text" class="form-control w-full @error('kd_bahan') border-danger @enderror" placeholder="Kode Bahan" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
-                        <option hidden disabled selected>Pilih Kode Bahan</option>
+                    <label for="kd_bahan" class="form-label font-medium"> Bahan </label>
+                    <select name="kd_bahan" id="satuan" data-placeholder="Silahkan pilih bahan" type="text" class="tom-select form-control w-full @error('kd_bahan') border-danger @enderror" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
+                        <option hidden disabled selected>- Pilih Bahan -</option>
                         @php
                         $jsArray = "var prdName = new Array();\n";
                         @endphp
@@ -32,11 +36,10 @@
                         @php
                         $jsArray .= "prdName['" . $bahan['kd_bahan'] . "']= {
                         nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
-                        harga_beli : '" . addslashes($bahan['harga_beli']) . "',
-                        harga_beliTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
+                        harga : '" . addslashes($bahan['harga_beli']) . "',
+                        hargaTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
+                        stokTampil : '" . addslashes($bahan['stok']. " " . $bahan['nm_satuan']) . "',
                         stok : '" . addslashes($bahan['stok']) . "',
-                        nm_satuan : '" . addslashes($bahan['nm_satuan']) . "',
-                        nm_satuan2 : '" . addslashes($bahan['nm_satuan']) . "',
 
                         };\n";
                         @endphp
@@ -49,40 +52,50 @@
                     {{ $message }}
                 </div>
                 @enderror
-                <div class="mt-3">
-                    <label for="nm_bahan" class="form-label font-medium"> Nama Bahan </label>
-                    <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full" readonly>
+                <div class="overflow-x-auto mt-6 shadow-md">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">Nama Bahan</th>
+                                <th class="whitespace-nowrap">Stok</th>
+                                <th class="whitespace-nowrap">Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="tampilBahan"></td>
+                                <td id="tampilStok"></td>
+                                <td id="tampilHarga"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input name="stok" id="stok" type="hidden" value="{{ old('stok') }}">
+                    <input name="nm_bahan" id="bahan" type="hidden" value="{{ old('nm_bahan') }}">
+                    <input name="harga_beli" id="harga" type="hidden" value="{{ old('harga_beli') }}">
                 </div>
-                <div class=" mt-3">
-                    <label for="harga_beli" class="form-label font-medium"> Harga Bahan </label>
-                    <input id="harga_beliTampil" type="text" class="form-control w-full" readonly>
-                    <input name="harga_beli" id="harga_beli" type="hidden" class="form-control w-full">
+                <div class="grid grid-cols-12 gap-4 mt-6">
+                    <div class="col-span-6">
+                        <label for="jumlah" class="form-label font-medium"> Jumlah </label>
+                        <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                    </div>
+                    @error('jumlah')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="col-span-6">
+                        <label for="tgl_keluar" class="form-label font-medium"> Tanggal Keluar </label>
+                        <input type="text" class="datepicker form-control w-full shadow-md @error('tgl_keluar') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_keluar') }}" name="tgl_keluar" id="tgl_keluar">
+                    </div>
+                    @error('tgl_keluar')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-                <div class="mt-3">
-                    <label for="stok" class="form-label font-medium"> Stok Bahan </label>
-                    <input id="stok" type="text" class="form-control w-full" readonly>
-                </div>
-                <div class=" mt-3">
-                    <label for="jumlah" class="form-label font-medium"> Jumlah </label>
-                    <input name="jumlah" id="jumlah" type="number" class="form-control w-full" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
-                </div>
-                @error('jumlah')
-                <div class="text-danger mt-1">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="mt-3">
-                    <label for="tgl_keluar" class="form-label font-medium"> Tanggal Keluar </label>
-                    <input type="text" class="datepicker form-control @error('tgl_keluar') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_keluar') }}" name="tgl_keluar" id="tgl_keluar">
-                </div>
-                @error('tgl_keluar')
-                <div class="text-danger mt-1">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="mt-3">
+                <div class="mt-6">
                     <label for="ket" class="form-label font-medium"> Keterangan </label>
-                    <textarea name="ket" id="ket" type="text" class="form-control w-full @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan" minlength="3">{{ old('ket') }}</textarea>
+                    <textarea name="ket" id="ket" type="text" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan" minlength="3">{{ old('ket') }}</textarea>
                 </div>
                 @error('ket')
                 <div class="text-danger mt-1">
@@ -90,9 +103,13 @@
                 </div>
                 @enderror
                 <!-- END: Form Layout -->
-                <div class="text-right mt-5">
-                    <a href="/bahanKeluar" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
-                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                <div class="relative">
+                    <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
+                        <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
+                            <a href="/bahanKeluar" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -106,12 +123,12 @@
     <?= $jsArray; ?>
 
     function changeValue(x) {
-        document.getElementById('nm_bahan').value = prdName[x].nm_bahan;
-        document.getElementById('harga_beli').value = prdName[x].harga_beli;
-        document.getElementById('harga_beliTampil').value = prdName[x].harga_beliTampil;
+        document.getElementById('tampilBahan').innerHTML = prdName[x].nm_bahan;
+        document.getElementById('tampilHarga').innerHTML = prdName[x].hargaTampil;
+        document.getElementById('tampilStok').innerHTML = prdName[x].stokTampil;
+        document.getElementById('harga').value = prdName[x].harga;
+        document.getElementById('bahan').value = prdName[x].nm_bahan;
         document.getElementById('stok').value = prdName[x].stok;
-        document.getElementById('nm_satuan').value = prdName[x].nm_satuan;
-        document.getElementById('nm_satuan2').value = prdName[x].nm_satuan2;
     }
 </script>
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>

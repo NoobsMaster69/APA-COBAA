@@ -161,7 +161,10 @@ $foto
                         @if (Auth::check())
                         <form action="/logout" method="POST">
                             @csrf
-                            <a class="dropdown-item hover:bg-white/5"><i data-feather="toggle-right" class="w-4 h-4 mr-2"></i><button class="w-4 h-4 mr-2" style="border: none; background:none;" type="submit">Logout</button></a>
+                            <button type="submit" class="w-full h-full dropdown-item overflow-hidden hover:bg-white/5">
+                                <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i>
+                                Logout
+                            </button>
                         </form>
                         @endif
                     </li>

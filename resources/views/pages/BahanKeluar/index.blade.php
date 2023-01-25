@@ -1,11 +1,17 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Data Pemakaian Bahan - Bread Smile</title>
+<title>{{ $tittle }} - Bread Smile</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data Pemakaian Bahan</h2>
+<div class="intro-y mt-10">
+    <h2 class="text-lg font-medium">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
+</div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="{{route ('bahanKeluar.create') }}">
@@ -37,7 +43,7 @@
                 </ul>
             </div>
         </div>
-        <div class="hidden md:block mx-auto text-slate-500">Showing 1 to 10 of 150 entries</div>
+        <div class="hidden md:block mx-auto text-slate-500"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
                 <form action="">
@@ -75,14 +81,14 @@
                     <td class="text-center ">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
                     <td class="text-center ">{{ 'Rp. ' . number_format($keluar->total) }}</td>
                     <!-- <td class="text-center ">{{ $keluar->ket }}</td> -->
-                    <td class="table-report__action w-56">
+                    <td class="table-report__action">
                         <div class="flex justify-center items-center">
-                            <a href="{{ route('bahanKeluar.edit', $keluar->id_bahanKeluar) }}" class="flex items-center mr-3" href="javascript:;">
-                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+                            <a href="{{ route('bahanKeluar.edit', $keluar->id_bahanKeluar) }}" data-theme="light" title="Edit" class="flex tooltip text-success mr-2">
+                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i>
                             </a>
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $keluar->id_bahanKeluar }}">
-                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
+                            <button class="flex items-center tooltip text-danger" data-tw-toggle="modal" data-theme="light" title="Hapus" data-tw-target="#hapus{{ $keluar->id_bahanKeluar }}">
+                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i>
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
                             <div id="hapus{{ $keluar->id_bahanKeluar }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">

@@ -13,7 +13,7 @@
     </ol>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+    <div class="intro-y col-span-12 xl:col-span-6 lg:col-span-12 flex flex-wrap sm:col-span-12 md:col-span-12 sm:flex-nowrap items-center mt-2">
         <button class="btn btn-primary shadow-md mr-2" data-tw-toggle="modal" data-tw-target="#tambahJabatan">Tambah Jabatan</button>
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
@@ -51,8 +51,10 @@
             </div>
         </div>
     </div>
-    <!-- BEGIN: Data List -->
-    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+</div>
+<!-- BEGIN: Data List -->
+<div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="intro-y col-span-12 xl:col-span-6 lg:col-span-12 overflow-auto md:col-span-12 sm:col-span-12 lg:overflow-visible">
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
@@ -68,13 +70,13 @@
                     <td class="">{{ $jbtn->nm_jabatan }}</td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">
-                            <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#editJabatan-{{ $jbtn->id_jabatan }}">
-                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+                            <button class="flex items-center tooltip text-success mr-3" data-tw-toggle="modal" data-theme="light" title="Edit" data-tw-target="#editJabatan-{{ $jbtn->id_jabatan }}">
+                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i>
                             </button>
 
                             <!-- trigger modal -->
-                            <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#hapus{{ $jbtn->id_jabatan }}">
-                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus
+                            <button class="flex items-center tooltip text-danger" data-tw-toggle="modal" data-theme="light" title="Hapus" data-tw-target="#hapus{{ $jbtn->id_jabatan }}">
+                                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i>
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
                             <div id="hapus{{ $jbtn->id_jabatan }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">

@@ -81,11 +81,9 @@
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->total) }}</td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">
-
                             <a class="flex items-center mr-2 tooltip text-success" data-theme="light" title="Edit" href="{{ route('bahanMasuk.edit', $masuk->id_bahanMasuk) }}">
                                 <i data-feather="check-square" class="w-4 h-4"></i>
                             </a>
-
                             <!-- trigger modal -->
                             <button class="flex items-center tooltip text-danger" data-theme="light" title="Hapus" data-tw-toggle="modal" data-tw-target="#hapus{{ $masuk->id_bahanMasuk }}">
                                 <i data-feather="trash-2" class="w-4 h-4"></i>

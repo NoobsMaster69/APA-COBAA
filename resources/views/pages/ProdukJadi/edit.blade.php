@@ -39,7 +39,7 @@
                         <div class="absolute inset-y-0 right-0 flex items-center">
                             <select name="kd_satuan" id="kd_satuan" class="form-control h-full rounded-md  @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                 @foreach ($satuan as $sat)
-                                @if (old('kd_satuan', $produkJadi->kd_satuan) == $produkJadi->kd_satuan)
+                                @if (old('kd_satuan', $produkJadi->kd_satuan) == $sat->kd_satuan)
                                 <option value="{{ $sat->id_satuan }}" selected>{{ $sat->nm_satuan }}</option>
                                 @else
                                 <option value="{{ $sat->id_satuan }}">{{ $sat->nm_satuan }}</option>

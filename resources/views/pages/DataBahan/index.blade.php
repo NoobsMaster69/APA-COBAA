@@ -58,7 +58,7 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">NO.</th>
+                    <th class="text-center whitespace-nowrap">NO.</th>
                     <th class="text-center whitespace-nowrap">KODE BAHAN</th>
                     <th class="text-center whitespace-nowrap">NAMA BAHAN</th>
                     <th class="text-center whitespace-nowrap">HARGA BELI</th>

@@ -8,7 +8,7 @@ $karyawan = Karyawan::where('nip', Auth::user()->nip)
 ->first();
 if ($karyawan == null) {
 $foto = asset('dist/images/user.png');
-$jabatan = 'Jabatan';
+$jabatan = 'User';
 } else {
 $foto = asset('images/'.$karyawan->foto);
 $jabatan = $karyawan->nm_jabatan;

@@ -35,7 +35,7 @@ class BahanMasukController extends Controller
                 'tittle' => 'Data Pembelian Bahan',
                 'judul' => 'Data Pembelian Bahan',
                 'menu' => 'Bahan Baku',
-                'submenu' => 'Data Pembelian Bahan'
+                'submenu' => 'Pembelian Bahan'
             ]
         );
     }

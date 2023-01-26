@@ -78,9 +78,9 @@
                     <div class="flex items-center mt-2">
                         <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
                     </div>
-                    <div class="flex items-center mt-2">
+                    <!-- <div class="flex items-center mt-2">
                         <i data-feather="clipboard" class="w-4 h-4 mr-2"></i> Keterangan : {{ $produk['ket'] }}
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="flex justify-center lg:justify-end items-center p-5 border-t border-slate-200/60 dark:border-darkmode-400">

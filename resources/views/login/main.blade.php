@@ -30,7 +30,7 @@
                 <div class="intro-x mt-8">
                     <form action="/login" method="POST">
                         @csrf
-                        <input name="nip" type="text" class="intro-x login__input form-control py-3 px-4 block @error('nip') border-danger @enderror" placeholder="NIP" value="{{old('nip')}}">
+                        <input name="nip" type="text" class="intro-x login__input form-control py-3 px-4 block @error('nip') border-danger @enderror" placeholder="Username" value="{{old('nip')}}">
                         @error('nip')
                         <div class="text-danger mt-1">
                             {{ $message }}

@@ -68,7 +68,7 @@ class ProdukKeluarController extends Controller
             [
                 'tittle' => 'Tambah Data',
                 'judul' => 'Tambah Penjualan Produk',
-                'menu' => 'Produk',
+                'menu' => 'Penjualan Produk',
                 'submenu' => 'Tambah Data'
             ]
         );
@@ -168,9 +168,9 @@ class ProdukKeluarController extends Controller
             'pages.produkKeluar.edit',
             ['produkKeluar' => $produkKeluar, 'produkJadi' => $produkJadi],
             [
-                'tittle' => 'Edit Data Penjualan Produk',
+                'tittle' => 'Edit Data',
                 'judul' => 'Edit Penjualan Produk',
-                'menu' => 'Produk',
+                'menu' => 'Penjualan Produk',
                 'submenu' => 'Edit Data'
             ]
         );

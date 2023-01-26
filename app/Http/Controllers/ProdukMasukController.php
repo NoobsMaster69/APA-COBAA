@@ -70,7 +70,7 @@ class ProdukMasukController extends Controller
             [
                 'tittle' => 'Tambah Data',
                 'judul' => 'Tambah Pembuatan Produk',
-                'menu' => 'Produk Jadi',
+                'menu' => 'Pembuatan Produk',
                 'submenu' => 'Tambah Data'
             ]
         );
@@ -178,7 +178,7 @@ class ProdukMasukController extends Controller
             [
                 'tittle' => 'Edit Data Pembuatan Produk',
                 'judul' => 'Edit Pembuatan Produk',
-                'menu' => 'Produk Jadi',
+                'menu' => 'Pembuatan Produk',
                 'submenu' => 'Edit Data'
             ]
         );

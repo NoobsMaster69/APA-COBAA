@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sopir;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -103,6 +104,17 @@ class SopirController extends Controller
             $input['foto'] = "$profileImage";
         }
 
+        // menambahkan nik sopir sebagai username dan password di tabel users
+        $user = new User;
+        $user->name = $request->nm_sopir;
+        $user->nip = $request->no_ktp;
+        $user->password = bcrypt($request->no_ktp);
+        $user->role = 'sopir';
+        $user->id_karyawan = $request->kd_sopir;
+        $user->save();
+
+
+
         Sopir::create($input);
 
         Alert::success('Data Sopir', 'Berhasil Ditambahkan!');
@@ -186,6 +198,14 @@ class SopirController extends Controller
 
             $sopir->update($input);
 
+            // mengupdate nik sopir sebagai username dan password di tabel users
+            $user = User::where('nip', $sopir->no_ktp)->first();
+            $user->name = $request->nm_sopir;
+            $user->nip = $request->no_ktp;
+            $user->password = bcrypt($request->no_ktp);
+            $user->id_karyawan = $request->kd_sopir;
+            $user->save();
+
             Alert::success('Data Sopir', 'Berhasil diubah!');
             return redirect('sopir');
         } else {
@@ -220,6 +240,14 @@ class SopirController extends Controller
 
             $input = $request->validate($rules, $messages);
 
+            // mengupdate nik sopir sebagai username dan password di tabel users
+            $user = User::where('nip', $sopir->no_ktp)->first();
+            $user->name = $request->nm_sopir;
+            $user->nip = $request->no_ktp;
+            $user->password = bcrypt($request->no_ktp);
+            $user->id_karyawan = $request->kd_sopir;
+            $user->save();
+
             $sopir->update($input);
             Alert::success('Data Sopir', 'Berhasil diubah!');
             return redirect('sopir');
@@ -230,9 +258,17 @@ class SopirController extends Controller
     {
         $this->authorize('delete', $sopir);
 
+
         // menghapus foto berdasarkan id
         File::delete('images/' . $sopir->foto);
         $sopir->delete();
+
+        // cek apakah sopir memiliki username di tabel user jika iya maka hapus, jika tidak maka biarkan
+        if (User::where('nip', $sopir->no_ktp)->exists()) {
+            // menghapus user sopir
+            $user = User::where('nip', $sopir->no_ktp)->first();
+            $user->delete();
+        }
         Alert::success('Data Sopir', 'Berhasil dihapus!');
         return redirect('sopir');
     }

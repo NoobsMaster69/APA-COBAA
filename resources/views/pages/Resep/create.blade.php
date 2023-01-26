@@ -40,24 +40,26 @@
                 </div>
                 <div class="mt-3">
                     <label for="kd_bahan" class="form-label font-bold">Pilih Bahan-bahan disertai jumlah</label>
-                    <div class="overflow-x-auto sm:overflow-x-visible">
-                        @foreach ($dataBahan as $bahan)
-                        <div class="intro-y">
-                            <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-white dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400">
-                                <div class="flex px-5 py-3">
-                                    <div class="w-40 flex-none flex items-center mr-5">
-                                        <input class=" form-check-input flex-none @error('kd_bahan') border-danger @enderror" type="checkbox" value="{{ $bahan->kd_bahan }}" name="kd_bahan[]">
-                                        <div class="inbox__item--sender truncate ml-3">{{ $bahan->nm_bahan }}</div>
-                                    </div>
-                                    <div class="w-80 sm:w-auto truncate">
-                                        <span class="inbox__item--highlight">
-                                            <input type="number" name="jumlah[]" class="form-control w-full @error('jumlah') border-danger @enderror" placeholder="Berapa {{ $bahan->nm_satuan }}">
-                                        </span>
+                    <div class="intro-y inbox box mt-5">
+                        <div class="overflow-x-auto sm:overflow-x-visible shadow-md">
+                            @foreach ($dataBahan as $bahan)
+                            <div class="intro-y">
+                                <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-white dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400">
+                                    <div class="flex px-5 py-3">
+                                        <div class="w-40 flex-none flex items-center mr-5">
+                                            <input class=" form-check-input flex-none @error('kd_bahan') border-danger @enderror" type="checkbox" value="{{ $bahan->kd_bahan }}" name="kd_bahan[]">
+                                            <div class="inbox__item--sender truncate ml-3">{{ $bahan->nm_bahan }}</div>
+                                        </div>
+                                        <div class="w-80 sm:w-auto truncate">
+                                            <span class="inbox__item--highlight">
+                                                <input type="number" name="jumlah[]" class="form-control w-full @error('jumlah') border-danger @enderror" placeholder="Berapa {{ $bahan->nm_satuan }}">
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
                 </div>
                 @error('kd_bahan')

@@ -10,12 +10,12 @@
                     <div class="box">
                         <div class="flex items-start px-5 pt-5 pb-5 border-b border-slate-400">
                             <div class="w-full flex flex-col lg:flex-row items-center">
-                                <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-no-repeat bg-local bg-top zoom-in scale-110">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full object-scale-down" src="{{ asset('images/'.$produk->foto) }}">
+                                <div class="w-20 h-20 rounded-lg overflow-hidden shadow-lg bg-no-repeat bg-local bg-top zoom-in scale-110">
+                                    <img alt="Foto Produk" class="rounded-lg object-scale-down" src="{{ asset('images/'.$produk->foto) }}">
                                 </div>
                                 <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0">
-                                    <a href="" class="font-large font-semibold">{{ $produk->nm_karyawan }}</a>
-                                    <div class="text-slate-500 text-xs mt-0.5">{{ $produk->nm_jabatan }}</div>
+                                    <a href="" class="font-large font-semibold">{{ $produk->nm_produk }} ({{ $produk->jumlah }} {{ $produk->nm_satuan }})</a>
+                                    <div class="text-slate-500 text-xs mt-0.5">{{ $produk->kd_produk }}</div>
                                 </div>
                             </div>
                             <div class="absolute right-0 top-0 mr-5 mt-3 dropdown">
@@ -34,16 +34,24 @@
                         <div class="text-center lg:text-left px-5 pb-5 pt-3">
 
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-3">
-                                <i data-feather="award" class="w-3 h-3 mr-2"></i> {{ $produk->nip }}
+                                <i data-feather="bell" class="w-3 h-3 mr-2"></i>
+                                @if ($produk->status == 0)
+                                <span class="text-warning">Menunggu Konfirmasi Anda</span>
+                                @elseif ($produk->status == 1)
+                                <span class="text-primary">Sedang Dikirim</span>
+                                @elseif ($produk->status == 2)
+                                <span class="text-success">Selesai</span>
+                                @endif
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-3">
-                                <i data-feather="user" class="w-3 h-3 mr-2"></i> {{ $produk->jenis_kelamin }}
+                                <i data-feather="user" class="w-3 h-3 mr-2"></i> {{ $produk->nm_sopir }}
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
-                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> {{ $produk->ttl }}
+                                <i data-feather="truck" class="w-3 h-3 mr-2"></i> {{ $produk->plat_nomor }}
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
-                                <i data-feather="phone" class="w-3 h-3 mr-2"></i> {{ $produk->no_telp }}
+                                <!-- format tanggal pengiriman -->
+                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> {{ date('d F Y',strtotime($produk->tgl_pengiriman)) }}
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
                                 <i data-feather="tool" class="w-3 h-3 mr-2"></i> {{ ucwords($produk->role) }}

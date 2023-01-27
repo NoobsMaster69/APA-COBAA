@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\pengirimanProduk;
 use App\Models\ProdukJadi;
 use App\Models\ProdukKeluar;
 use App\Models\ProdukMasuk;
@@ -23,7 +24,10 @@ class ProdukKeluarController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join table
-        $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name')
+        $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
+            ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
+            ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name')
             ->where('produkKeluar.kd_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
@@ -31,6 +35,20 @@ class ProdukKeluarController extends Controller
             ->orWhere('produkKeluar.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('produkKeluar.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
+
+        // mengambil id_produkKeluar dari tabel pengirimanProduk
+        $id_produkKeluar = pengirimanProduk::select('id_produkKeluar')->get();
+
+        // jika id_produkKeluar di tabel pengirimanProduk sudah ada maka status 'Dikirim'
+        // dd($id_produkKeluar);
+
+        // looping 
+
+        if ($produkKeluar->id_produkKeluar == $id_produkKeluar) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
 
         // ambil nama karyawan dari session
         $nama = session('name');
@@ -40,6 +58,7 @@ class ProdukKeluarController extends Controller
             [
                 'produkKeluar' => $produkKeluar,
                 'nama' => $nama,
+                'status' => $status,
                 'tittle' => 'Data Penjualan Produk',
                 'judul' => 'Data Penjualan Produk',
                 'menu' => 'Produk',

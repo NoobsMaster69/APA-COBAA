@@ -1,4 +1,3 @@
-<!-- cara mengambil foto yang sedang login dari tabel karyawan dengan laravel -->
 @php
 use App\Models\Karyawan;
 

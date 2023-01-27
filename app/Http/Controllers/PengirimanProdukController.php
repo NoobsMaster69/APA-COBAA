@@ -47,7 +47,8 @@ class PengirimanProdukController extends Controller
             ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
             ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
             ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
-            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'satuan.nm_satuan', 'sopir.nm_sopir', 'mobil.plat_nomor')
+            ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
+            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'satuan.nm_satuan', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role')
             ->latest()
             ->paginate(50)
             ->withQueryString();

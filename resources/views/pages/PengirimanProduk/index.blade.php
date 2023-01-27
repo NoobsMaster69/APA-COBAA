@@ -183,7 +183,7 @@
                     </td>
                     <td class="text-center">
                         @if ($produk->status == 0)
-                        <span class="text-warning">Menunggu Konfirmasi Sopir</span>
+                        <span class="text-warning">Menunggu Konfirmasi Anda</span>
                         @elseif ($produk->status == 1)
                         <span class="text-primary">Sedang Dikirim</span>
                         @elseif ($produk->status == 2)

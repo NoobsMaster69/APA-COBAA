@@ -78,11 +78,11 @@
                     <!-- <td class="text-center">{{ $keluar->kd_produk }}</td> -->
                     <!-- <td class="text-center">{{ $keluar->kd_resep }}</td> -->
                     <!-- status pengiriman produk -->
-                    @if ($status == 1)
-                    <td class="text-center text-success">Dikirim</td>
-                    @elseif ($status == 0)
-                    <td class="text-center text-danger">Belum Dikirim</td>
-                    @endif
+                        @if ($keluar->id_produkKeluar == $id_produkKeluar)
+                        <td class="text-center text-success">Dikirim</td>
+                        @else
+                        <td class="text-center text-danger">Belum Dikirim</td>
+                        @endif
                     <td class="text-center">{{ $keluar->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $keluar->name }}</td> -->
                     <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>

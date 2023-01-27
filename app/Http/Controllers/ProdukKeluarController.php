@@ -37,18 +37,42 @@ class ProdukKeluarController extends Controller
             ->oldest()->paginate(10)->withQueryString();
 
         // mengambil id_produkKeluar dari tabel pengirimanProduk
-        $id_produkKeluar = pengirimanProduk::select('id_produkKeluar')->get();
+        // $id_produkKeluar = pengirimanProduk::select('id_produkKeluar', $produkKeluar->id_produkKeluar)->get();
+
+        foreach ($produkKeluar as $keluar) {
+            // dd($keluar->id_produkKeluar);
+            $id_produkKeluar = pengirimanProduk::where('id_produkKeluar', $keluar->id_produkKeluar)->first()->id_produkKeluar;
+        }
+
+
+
+        // dd($id_produkKeluar);
+
+        // cek apakah id produkKeluar sudah ada di pengirimanProduk
+        // foreach ($produkKeluar as $key => $value) {
+        //     foreach ($id_produkKeluar as $key2 => $value2) {
+        //         if ($value->id_produkKeluar == $value2->id_produkKeluar) {
+        //             $status = 1;
+        //         } else {
+        //             $status = 0;
+        //         }
+        //     }
+        // }
+
+        // dd($status);
 
         // jika id_produkKeluar di tabel pengirimanProduk sudah ada maka status 'Dikirim'
-        // dd($id_produkKeluar);
+        // dd($value->id_produkKeluar);
 
         // looping 
 
-        if ($produkKeluar->id_produkKeluar == $id_produkKeluar) {
-            $status = 1;
-        } else {
-            $status = 0;
-        }
+        // if ($produkKeluar->id_produkKeluar == $id_produkKeluar) {
+        //     $status = 1;
+        // } else {
+        //     $status = 0;
+        // }
+
+        // $status = 0;
 
         // ambil nama karyawan dari session
         $nama = session('name');
@@ -58,7 +82,7 @@ class ProdukKeluarController extends Controller
             [
                 'produkKeluar' => $produkKeluar,
                 'nama' => $nama,
-                'status' => $status,
+                'id_produkKeluar' => $id_produkKeluar,
                 'tittle' => 'Data Penjualan Produk',
                 'judul' => 'Data Penjualan Produk',
                 'menu' => 'Produk',

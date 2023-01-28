@@ -8,6 +8,7 @@ use App\Models\ProdukKeluar;
 use App\Models\ProdukMasuk;
 use App\Models\Resep;
 use Illuminate\Http\Request;
+use Mockery\Undefined;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukKeluarController extends Controller
@@ -36,44 +37,6 @@ class ProdukKeluarController extends Controller
             ->orWhere('produkKeluar.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
 
-        // mengambil id_produkKeluar dari tabel pengirimanProduk
-        // $id_produkKeluar = pengirimanProduk::select('id_produkKeluar', $produkKeluar->id_produkKeluar)->get();
-
-        foreach ($produkKeluar as $keluar) {
-            // dd($keluar->id_produkKeluar);
-            $id_produkKeluar = pengirimanProduk::where('id_produkKeluar', $keluar->id_produkKeluar)->first()->id_produkKeluar;
-        }
-
-
-
-        // dd($id_produkKeluar);
-
-        // cek apakah id produkKeluar sudah ada di pengirimanProduk
-        // foreach ($produkKeluar as $key => $value) {
-        //     foreach ($id_produkKeluar as $key2 => $value2) {
-        //         if ($value->id_produkKeluar == $value2->id_produkKeluar) {
-        //             $status = 1;
-        //         } else {
-        //             $status = 0;
-        //         }
-        //     }
-        // }
-
-        // dd($status);
-
-        // jika id_produkKeluar di tabel pengirimanProduk sudah ada maka status 'Dikirim'
-        // dd($value->id_produkKeluar);
-
-        // looping 
-
-        // if ($produkKeluar->id_produkKeluar == $id_produkKeluar) {
-        //     $status = 1;
-        // } else {
-        //     $status = 0;
-        // }
-
-        // $status = 0;
-
         // ambil nama karyawan dari session
         $nama = session('name');
         // mengirim tittle dan judul ke view
@@ -82,7 +45,6 @@ class ProdukKeluarController extends Controller
             [
                 'produkKeluar' => $produkKeluar,
                 'nama' => $nama,
-                'id_produkKeluar' => $id_produkKeluar,
                 'tittle' => 'Data Penjualan Produk',
                 'judul' => 'Data Penjualan Produk',
                 'menu' => 'Produk',
@@ -165,6 +127,8 @@ class ProdukKeluarController extends Controller
 
         $total = $harga_jual * $request->jumlah;
 
+        $stts = 0;
+
         ProdukKeluar::create([
             'kd_produk' => $request->kd_produk,
             'nip_karyawan' => $nip,
@@ -173,6 +137,7 @@ class ProdukKeluarController extends Controller
             'jumlah' => $request->jumlah,
             'total' => $total,
             'ket' => $request->ket,
+            'stts' => $stts,
         ]);
 
 
@@ -266,6 +231,8 @@ class ProdukKeluarController extends Controller
 
         $total = $harga_jual * $request->jumlah;
 
+        $stts = 0;
+
         $produkKeluar->update([
             'kd_produk' => $request->kd_produk,
             'nip_karyawan' => $nip,
@@ -274,6 +241,7 @@ class ProdukKeluarController extends Controller
             'jumlah' => $request->jumlah,
             'total' => $total,
             'ket' => $request->ket,
+            'stts' => $stts,
         ]);
 
         Alert::success('Data Penjualan Produk', 'Berhasil Diubah!');

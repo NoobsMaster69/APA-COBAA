@@ -192,26 +192,42 @@ class PengirimanProdukController extends Controller
             return redirect()->back();
         }
 
+        // update status tabel produkKeluar
+
+
         // ubah format tanggal agar bisa dimasukkan ke database
         $tgl_pengiriman = date('Y-m-d', strtotime($request->tgl_pengiriman));
 
         // mengambil kd_produk berdasarkan id_produkKeluar
         $kd_produk = ProdukKeluar::where('id_produkKeluar', $request->id_produkKeluar)->first();
 
-        // memasukkan id_produkKeluar ke dalam database dengan cara looping disetiap baris 
+        // update kolom stts di produkKeluar berdasarkan id_produkKeluar ek dalam database dengan cara looping setiap baris
         foreach ($request->id_produkKeluar as $id_produkKeluar) {
-            $pengirimanProduk = new pengirimanProduk;
-            $pengirimanProduk->tgl_pengiriman = $tgl_pengiriman;
-            $pengirimanProduk->id_produkKeluar = $id_produkKeluar;
-            $pengirimanProduk->kd_produk = $kd_produk->kd_produk;
-            $pengirimanProduk->kd_sopir = $request->kd_sopir;
-            $pengirimanProduk->kd_mobil = $request->kd_mobil;
-            $pengirimanProduk->status = 0;
-            $pengirimanProduk->save();
+            $produkKeluar = ProdukKeluar::where('id_produkKeluar', $id_produkKeluar)->first();
+            $produkKeluar->stts = 1;
+            $produkKeluar->save();
         }
+        if (!empty($request->all())) {
+            // memasukkan id_produkKeluar ke dalam database dengan cara looping disetiap baris 
+            foreach ($request->id_produkKeluar as $id_produkKeluar) {
+                $pengirimanProduk = new pengirimanProduk;
+                $pengirimanProduk->tgl_pengiriman = $tgl_pengiriman;
+                $pengirimanProduk->id_produkKeluar = $id_produkKeluar;
+                $pengirimanProduk->kd_produk = $kd_produk->kd_produk;
+                $pengirimanProduk->kd_sopir = $request->kd_sopir;
+                $pengirimanProduk->kd_mobil = $request->kd_mobil;
+                $pengirimanProduk->status = 0;
+                $pengirimanProduk->save();
+            }
 
-        Alert::success('Berhasil', 'Data Pengiriman berhasil ditambahkan');
-        return redirect()->route('pengirimanProduk.index');
+
+
+            Alert::success('Berhasil', 'Data Pengiriman berhasil ditambahkan');
+            return redirect()->route('pengirimanProduk.index');
+        } else {
+            Alert::error('Gagal', 'Periksa Kembali Data yang anda kirimkan!');
+            return redirect()->route('pengirimanProduk.create')->withInput();
+        }
     }
 
     /**
@@ -245,6 +261,7 @@ class PengirimanProdukController extends Controller
      */
     public function update(Request $request, pengirimanProduk $pengirimanProduk)
     {
+        dd($request->all());
         // update untuk status pengiriman
         $pengirimanProduk->status = $request->status;
         $pengirimanProduk->save();

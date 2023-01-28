@@ -21,5 +21,6 @@ class ProdukKeluar extends Model
         'harga_jual',
         'total',
         'ket',
+        'stts',
     ];
 }

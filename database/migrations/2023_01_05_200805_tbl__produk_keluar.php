@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('harga_jual');
             $table->double('total');
             $table->string('ket');
+            $table->integer('stts');
             $table->timestamps();
         });
     }

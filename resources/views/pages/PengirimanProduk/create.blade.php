@@ -168,6 +168,18 @@
                                 </div>
                             </div>
                             @endforeach
+                            <!-- menampilkan keterangan tidak ada produk jika tidak produk tidak ditampilkan -->
+                            @if ($produkKeluar->count() == 0)
+                            <div class="intro-y">
+                                <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-slate-100 dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400">
+                                    <div class="flex px-5 py-3">
+                                        <div class="w-full flex-none flex items-center">
+                                            <div class="inbox__item--sender truncate mx-auto text-center">Tidak ada produk untuk dikirimkan</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @error('id_produkKeluar')

@@ -159,7 +159,7 @@ class KaryawanController extends Controller
         // upload foto
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+            $profileImage = date('YmdHis') . "." . "webp";
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(150, 150);
             $image_resize->save(public_path($destinationPath . $profileImage));
@@ -365,7 +365,7 @@ class KaryawanController extends Controller
 
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
-                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+                $profileImage = date('YmdHis') . "." . "webp";
                 $image_resize = Image::make($image->getRealPath());
                 $image_resize->resize(150, 150);
                 $image_resize->save(public_path($destinationPath . $profileImage));

@@ -146,7 +146,7 @@ FilePond.setOptions({
 @section('script')
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
 
-<script>
+{{-- <script>
    const inputElement = document.querySelector('input[id="foto"]');
 
 const pond = FilePond.create(inputElement);
@@ -160,5 +160,5 @@ FilePond.setOptions({
         }
     }
 });
-    </script>
+    </script> --}}
 @endsection

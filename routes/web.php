@@ -10,6 +10,7 @@ use App\Http\Controllers\DataBahanController;
 use App\Http\Controllers\BahanMasukController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\LokasiPengirimanController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\PengirimanProdukController;
 use App\Http\Controllers\ProdukJadiController;
@@ -95,8 +96,8 @@ Route::middleware('auth')->group(function () {
     // Route::get('datapengiriman', [PengirimanProdukController::class, 'index'])->name('dataPengiriman');
     Route::resource('pengirimanProduk', PengirimanProdukController::class);
     // Produk Terkirim
-    // Route::get('produkterkirim', [TerkirimProdukController::class, 'index'])->name('produkTerkirim');
-    Route::resource('terkirimProduk', TerkirimProdukController::class);
+    // Route::get('lokasipengiriman', [LokasiPengirimanController::class, 'index'])->name('lokasiPengiriman');
+    Route::resource('lokasiPengiriman', LokasiPengirimanController::class);
     // Sopir
     // Route::get('tampilsopir', [SopirController::class, 'index'])->name('tampil-sopir');
     Route::resource('sopir', SopirController::class);

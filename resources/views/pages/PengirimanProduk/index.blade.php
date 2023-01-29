@@ -73,7 +73,7 @@
                     <!-- menampilkan keterangan tidak ada produk jika tidak produk tidak ditampilkan -->
                     @if ($produkKeluar->count() == 0)
                     <div class="intro-y">
-                        <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-slate-100 dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400">
+                        <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-slate-100 dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400 rounded-md">
                             <div class="flex px-5 py-3">
                                 <div class="w-full flex-none flex items-center">
                                     <div class="inbox__item--sender truncate mx-auto text-center">Tidak ada produk untuk dikirim</div>
@@ -104,7 +104,7 @@
                     <th class="whitespace-nowrap text-center">KODE PRODUK</th>
                     <th class="whitespace-nowrap text-center">NAMA PRODUK</th>
                     <th class="whitespace-nowrap text-center">JUMLAH</th>
-                    <th class="whitespace-nowrap text-center">TANGGAL PENGIRIMAN</th>
+                    <th class="whitespace-nowrap text-center">TANGGAL PENJUALAN</th>
                     <th class="whitespace-nowrap text-center">SOPIR (PLAT MOBIL)</th>
                     <th class="whitespace-nowrap text-center">STATUS</th>
                     <th class="whitespace-nowrap text-center">AKSI</th>

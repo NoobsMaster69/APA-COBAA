@@ -64,7 +64,7 @@
                     <th class="text-center whitespace-nowrap">NAMA PRODUK</th>
                     <!-- <th class="text-center whitespace-nowrap">PENCATAT</th> -->
                     <th class="text-center whitespace-nowrap">JUMLAH </th>
-                    <th class="text-center whitespace-nowrap">TANGGAL KELUAR</th>
+                    <th class="text-center whitespace-nowrap">TANGGAL PENJUALAN</th>
                     <!-- <th class="text-center whitespace-nowrap">TANGGAL EXPIRED</th> -->
                     <th class="text-center whitespace-nowrap">HARGA JUAL</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>

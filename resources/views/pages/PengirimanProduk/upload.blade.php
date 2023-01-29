@@ -21,7 +21,7 @@
     <p>Silahkan upload bukti foto pengiriman!</p>
     <input type="hidden" name="status" value="2">
     <div class="flex items-center justify-center w-full shadow-md">
-      <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-50 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('bukti_foto') border-danger @enderror">
+      <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-50 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('bukti_foto') border-danger @enderror">
         <div class="flex flex-col items-center justify-center pt-5 pb-6">
           <img src="" class="my-0 rounded-lg w-32" id="output">
           <div class="flex flex-col items-center justify-center pt-5 pb-6" id="hilang">
@@ -37,10 +37,19 @@
 
       </label>
     </div>
+    <div class="mt-8">
+      <label for="nm_penerima" class="form-label font-bold"> Nama Penerima </label>
+      <input type="text" class="form-control w-full shadow-md @error('nm_penerima') border-danger @enderror" name="nm_penerima" id="nm_penerima" value="{{ old('nm_penerima') }}" placeholder="Masukkan Nama Penerima">
+      @error('nm_penerima')
+      <div class="text-danger mt-2 mx-1">
+        {{ $message }}
+      </div>
+      @enderror
+    </div>
   </div>
   <div class="px-5 pb-8 text-center mt-5">
     <a href="/pengirimanProduk" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</a>
-    <button type="submit" class="inline-flex items-center rounded-md border bg-red-600 px-6 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn btn-primary hover:bg-blue-900">Upload</button>
+    <button type="submit" class="inline-flex items-center rounded-md border bg-red-600 px-6 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn btn-primary hover:bg-blue-900">Kirim</button>
   </div>
 </form>
 

@@ -23,5 +23,6 @@ class pengirimanProduk extends Model
         'kd_mobil',
         'status',
         'bukti_foto',
+        'nm_penerima',
     ];
 }

@@ -290,10 +290,12 @@ class PengirimanProdukController extends Controller
                 'bukti_foto.required' => 'Upload Foto Bukti Pengiriman terlebih dahulu',
                 'bukti_foto.image' => 'File yang anda pilih bukan foto atau gambar',
                 'bukti_foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
+                'nm_penerima' => 'Harap isi nama penerima',
             ];
 
             $request->validate([
                 'bukti_foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
+                'nm_penerima' => 'required',
             ], $message);
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . "webp";
@@ -302,15 +304,18 @@ class PengirimanProdukController extends Controller
             $image_resize->save(public_path($destinationPath . $profileImage));
             $pengirimanProduk->bukti_foto = "$profileImage";
             // update untuk status pengiriman
+            $pengirimanProduk->nm_penerima = $request->nm_penerima;
             $pengirimanProduk->status = $request->status;
             $pengirimanProduk->save();
 
-            // Alert::success('Berhasil', 'Status Pengiriman berhasil diubah');
+            Alert::success('Terima Kasih', 'Karena telah melaksanakan tugas dengan baik');
             return redirect()->route('pengirimanProduk.index');
         } else {
             $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
 
             if ($status == 0 || $status == 1) {
+                // update untuk created_at secara otomatis
+                $pengirimanProduk->created_at = date('Y-m-d H:i:s');
                 // update untuk status pengiriman
                 $pengirimanProduk->status = $request->status;
                 $pengirimanProduk->save();

@@ -1,3 +1,8 @@
+<!-- agar menit tidak lebih dari 60 -->
+@php
+$hours = $produk->created_at->diffInHours($produk->updated_at);
+$minutes = $produk->created_at->diffInMinutes($produk->updated_at) - ($hours * 60);
+@endphp
 <div id="detail-{{ $produk->id_pengirimanProduk }}" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -50,26 +55,51 @@
                                 <i data-feather="truck" class="w-3 h-3 mr-2"></i> {{ $produk->plat_nomor }}
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
-                                <!-- format tanggal pengiriman -->
-                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> {{ date('d F Y',strtotime($produk->tgl_pengiriman)) }}
-                            </div>
-                            <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
                                 <i data-feather="tool" class="w-3 h-3 mr-2"></i> {{ ucwords($produk->role) }}
                             </div>
-                            {{-- <div class="border-t border-slate-500"></div> --}}
                             <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
                                 <i data-feather="map-pin" class="w-3 h-3 mr-2"></i> Alamat
                             </div>
-                            <div class="flex justify-center lg:justify-start text-slate-700 mt-2 pl-4">
+                            <div class="flex justify-center lg:justify-start text-slate-700 mt-2 pl-3">
                                 {{ $produk->alamat }}
                             </div>
-
+                            <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
+                                <!-- format tanggal pengiriman agar menampilkan hari dan jam juga dari field created_at -->
+                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> Dikirim Pada :
+                            </div>
+                            @if ($produk->status == 1 || $produk->status == 2)
+                            <div class="flex justify-center lg:justify-start text-slate-700 mt-2 pl-3">
+                                <!-- agar menampilkan tanggal dalam bahasa indonesia menggunakan isoFormat -->
+                                {{ $produk->created_at->isoFormat('dddd, D MMMM Y') }}
+                            </div>
+                            <span class="text-xs text-slate-500 pl-3">(Pukul : {{ date('H:i', strtotime($produk->created_at)) }})</span>
+                            @if ($produk->status == 1)
+                            <span class="text-xs text-slate-500">({{ $produk->created_at->diffForHumans() }})</span>
+                            @endif
+                            @endif
+                            <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
+                                <!-- format tanggal pengiriman agar menampilkan hari dan jam juga dari field updated_at -->
+                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> Sampai Pada :
+                            </div>
+                            @if ($produk->status == 2)
+                            <div class="flex justify-center lg:justify-start text-slate-700 mt-2 pl-3">
+                                {{ $produk->updated_at->isoFormat('dddd, D MMMM Y') }}
+                            </div>
+                            <span class="text-xs text-slate-500 pl-3">(Pukul : {{ date('H:i', strtotime($produk->updated_at)) }})</span>
+                            <span class="text-xs text-slate-500">({{ $produk->updated_at->diffForHumans() }})</span>
+                            @endif
+                            @if ($produk->status == 2)
+                            <div class="flex items-center justify-center lg:justify-start text-slate-700 mt-2">
+                                <!-- format tanggal pengiriman agar menampilkan hari dan jam juga dari field updated_at -->
+                                <i data-feather="clock" class="w-3 h-3 mr-2"></i> Waktu Tempuh : {{ $hours }} Jam {{ $minutes }} Menit
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer mb-1">
-                <button type="button" data-tw-dismiss="modal" class="btn btn-primary">Back</button>
+                <button type="button" data-tw-dismiss="modal" class="btn btn-primary">Kembali</button>
             </div>
             </form>
             <!-- END: Modal Footer -->

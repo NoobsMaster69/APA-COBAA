@@ -81,7 +81,7 @@
             @enderror
           </div>
           <div class="col-span-6">
-            <label for="tgl_keluar" class="form-label"> Tanggal Keluar </label>
+            <label for="tgl_keluar" class="form-label"> Tanggal Penjualan </label>
             <input type="text" class="datepicker form-control w-full shadow-md @error('tgl_keluar') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_keluar') }}" name="tgl_keluar" id="tgl_keluar">
             @error('tgl_keluar')
             <div class="text-danger mt-1">

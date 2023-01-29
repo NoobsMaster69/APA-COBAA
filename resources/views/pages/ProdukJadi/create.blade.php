@@ -110,6 +110,11 @@
                         </label>
                     </div>
                 </div>
+                @error('foto')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
                 <div class="relative">
                     <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
                         <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">

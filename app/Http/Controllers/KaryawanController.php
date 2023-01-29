@@ -103,7 +103,7 @@ class KaryawanController extends Controller
             'role.required' => 'Harap tentukan dia login sebagai apa!',
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.images' => 'File yang anda pilih bukan foto atau gambar',
-            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
             'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
         ];
 
@@ -121,7 +121,7 @@ class KaryawanController extends Controller
             'kecamatan' => 'required',
             'alamat_lengkap' => 'required',
             'role' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
 
         // cek apakah nama belakang diisi
@@ -301,7 +301,7 @@ class KaryawanController extends Controller
                 'role.required' => 'Harap tentukan dia login sebagai apa!',
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.images' => 'File yang anda pilih bukan foto atau gambar',
-                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
                 'nip.required' => 'NIP tidak boleh kosong',
                 'nip.min' => 'NIP minimal 11 karakter',
                 'nip.max' => 'NIP maksimal 11 karakter',
@@ -322,7 +322,7 @@ class KaryawanController extends Controller
                 'kecamatan' => 'required',
                 'alamat_lengkap' => 'required',
                 'role' => 'required',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
             ];
 
             if ($request->nip != $karyawan->nip) {

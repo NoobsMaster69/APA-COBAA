@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kd_sopir', 10);
             $table->string('kd_mobil', 10);
             $table->integer('status');
+            $table->text('butki_foto');
             $table->timestamps();
         });
     }

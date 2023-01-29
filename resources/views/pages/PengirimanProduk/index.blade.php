@@ -45,6 +45,47 @@
             </div>
         </div>
         <div class="hidden md:block mx-auto text-slate-500"></div>
+        <!-- BEGIN: Notifications -->
+        <div class="intro-x dropdown mr-4 mx-auto">
+            <div class="dropdown-toggle notification @if ($produkKeluar->count() > 0) notification--bullet @endif cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                <i data-feather="bell" class="notification__icon text-primary"></i>
+            </div>
+            <div class="notification-content pt-2 dropdown-menu">
+                <div class="notification-content__box dropdown-content">
+                    <div class="notification-content__title">Produk Perlu Dikirim</div>
+                    @foreach ($produkKeluar as $keluar)
+                    <a href="{{ route('pengirimanProduk.create') }}">
+                        <div class="cursor-pointer relative flex items-center {{ $keluar ? 'mt-5' : '' }}">
+                            <div class="w-12 h-12 flex-none image-fit mr-1">
+                                <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="{{ asset('images/' . $keluar->foto) }}">
+                                <div class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
+                            </div>
+                            <div class="ml-2 overflow-hidden">
+                                <div class="flex items-center">
+                                    <a href="{{ route('pengirimanProduk.create') }}" class="font-medium truncate mr-5">{{ $keluar->nm_produk }}</a>
+                                    <div class="text-xs text-slate-400 text-right">{{ date('d F Y',strtotime($keluar->tgl_keluar)) }}</div>
+                                </div>
+                                <div class="w-full truncate text-slate-500 mt-0.5">Jumlah : {{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</div>
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
+                    <!-- menampilkan keterangan tidak ada produk jika tidak produk tidak ditampilkan -->
+                    @if ($produkKeluar->count() == 0)
+                    <div class="intro-y">
+                        <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-slate-100 dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400">
+                            <div class="flex px-5 py-3">
+                                <div class="w-full flex-none flex items-center">
+                                    <div class="inbox__item--sender truncate mx-auto text-center">Tidak ada produk untuk dikirim</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <!-- END: Notifications -->
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
                 <form action="">
@@ -66,6 +107,7 @@
                     <th class="whitespace-nowrap text-center">TANGGAL PENGIRIMAN</th>
                     <th class="whitespace-nowrap text-center">SOPIR (PLAT MOBIL)</th>
                     <th class="whitespace-nowrap text-center">STATUS</th>
+                    <th class="whitespace-nowrap text-center">AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,7 +125,83 @@
                         @elseif ($produk->status == 1)
                         <span class="text-primary">Sedang Dikirim</span>
                         @elseif ($produk->status == 2)
-                        <span class="text-success">Selesai</span>
+                        <span class="text-success">Selesai.
+                            <button type="button" class="bg-none border-none text-primary underline hover:text-info" data-tw-toggle="modal" data-tw-target="#bukti{{ $produk->id_pengirimanProduk, $produk->bukti_foto }}">
+                                bukti foto
+                            </button>
+                            <div id="bukti{{ $produk->id_pengirimanProduk, $produk->bukti_foto }}" class="modal" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <div class="p-5 text-center">
+                                                <input type="hidden" name="status" value="2">
+                                                <div id="exampleModalLabel" class="text-3xl mt-1">Bukti Foto</div>
+                                                <img alt="Bukti foto produk" class="rounded-md" src="{{ asset('images/'.$produk->bukti_foto) }}">
+                                            </div>
+                                            <div class="px-3 pb-2 text-center">
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Kembali</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        @endif
+                    </td>
+                    <td class="table-report__action">
+                        @if ($produk->status == 0)
+                        <div class="flex justify-center items-center">
+                            <!-- trigger modal -->
+                            <button class="flex items-center tooltip text-danger" data-tw-toggle="modal" data-theme="light" title="Batalkan" data-tw-target="#hapus{{ $produk->id_pengirimanProduk }}">
+                                Batal
+                            </button>
+                            <!-- BEGIN: Delete Confirmation Modal -->
+                            <div id="hapus{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <form action="{{ route('pengirimanProduk.destroy', $produk->id_pengirimanProduk) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <div class="p-5 text-center">
+                                                    <i data-feather="alert-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin ingin membatalkan pengiriman produk ini?</div>
+                                                    <div class="text-slate-500 mt-2">klik oke jika setuju!</div>
+                                                </div>
+                                                <div class="px-5 pb-8 text-center">
+                                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
+                                                    <button type="submit" class="btn btn-danger w-24">Oke</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: Delete Confirmation Modal -->
+                        </div>
+                        @else
+                        <button class="flex items-center text-danger mx-auto" data-tw-toggle="modal" data-tw-target="#why{{ $produk->id_pengirimanProduk }}">
+                            <i data-feather="slash" class="w-4 h-4 mx-auto"></i>
+                        </button>
+                        <!-- BEGIN: Confirmation Modal -->
+                        <div id="why{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body p-0">
+                                        <div class="p-5 text-center">
+                                            <i data-feather="slash" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                            <div id="exampleModalLabel" class="text-3xl mt-5">Penjualan Produk Sudah Dikirim!</div>
+                                            <div class="text-danger mt-2">Tidak dapat di modifikasi</div>
+                                            <div class="text-slate-500 mt-2"><i>Kecuali dibatalkan oleh sopir</i>!</div>
+                                        </div>
+                                        <div class="px-5 pb-8 text-center">
+                                            <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Oke</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Confirmation Modal -->
                         @endif
                     </td>
                     <!-- <td class="table-report__action">
@@ -171,47 +289,9 @@
                             <button type="submit" class="btn btn-success text-white">Kirim</button>
                         </form>
                         @elseif ($produk->status == 1)
-                        <button type="button" class="btn btn-success text-white" data-tw-toggle="modal" data-tw-target="#sampai{{ $produk->id_pengirimanProduk }}">
+                        <a href="{{ route('pengirimanProduk.edit',$produk->id_pengirimanProduk) }}" class="btn btn-success text-white">
                             Sampai
-                        </button>
-                        <div id="sampai{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body p-0">
-                                        <form action="{{ route('pengirimanProduk.update', $produk->id_pengirimanProduk) }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="p-5 text-center">
-                                                <input type="hidden" name="status" value="2">
-                                                <div id="exampleModalLabel" class="text-3xl mt-5">Kirim Foto</div>
-                                                <div class="text-slate-500 mt-2">Anda harus mengirimkan bukti foto produk {{ $produk->nm_produk }} Bahwa produk tersebut sudah sampai ditempat!</div>
-                                                <div class="flex items-center justify-center w-full shadow-md">
-                                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-50 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 @error('foto') border-danger @enderror">
-                                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                            <img src="" class="my-0 rounded-lg w-32" id="output">
-                                                            <div class="flex flex-col items-center justify-center pt-5 pb-6" id="hilang">
-                                                                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                                                </svg>
-                                                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
-                                                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                                            </div>
-                                                        </div>
-
-                                                        <input id="dropzone-file" type="file" class="hidden" name="foto" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
-
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="px-5 pb-8 text-center">
-                                                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
-                                                <button type="submit" class="inline-flex items-center rounded-md border border-transparent bg-red-600 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Upload</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                         @elseif ($produk->status == 2)
                         <span class="mx-auto" data-feather="check"></span>
                         @endif
@@ -243,11 +323,6 @@
     <!-- END: Data List -->
 
     <!-- menghilangkan id hilang saat upload file di modal-->
-    <script>
-        if (document.getElementById('dropzone-file').value != '') {
-            document.getElementById('hilang').style.display = 'none';
-        }
-    </script>
     @endcan
 
     <!-- tampilan untuk sopir mengupdate status -->
@@ -258,4 +333,9 @@
 @endforeach
 @endcan
 
+<script>
+    document.getElementById('dropzone-file').addEventListener('change', function() {
+        document.getElementById('hilang').style.display = 'none';
+    });
+</script>
 @endsection

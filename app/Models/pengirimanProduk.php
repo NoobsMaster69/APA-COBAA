@@ -22,5 +22,6 @@ class pengirimanProduk extends Model
         'kd_sopir',
         'kd_mobil',
         'status',
+        'bukti_foto',
     ];
 }

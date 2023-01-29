@@ -80,7 +80,7 @@ class SopirController extends Controller
             'alamat.min' => 'Alamat minimal 3 karakter',
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.image' => 'File yang anda pilih bukan foto atau gambar',
-            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
             'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi',
         ];
 
@@ -90,7 +90,7 @@ class SopirController extends Controller
             'no_ktp' => 'required|min:16|max:16|unique:sopir,no_ktp',
             'jenis_kelamin' => 'required',
             'alamat' => 'required|min:3',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
 
         $input = $request->all();
@@ -103,6 +103,7 @@ class SopirController extends Controller
             $image_resize->save(public_path($destinationPath . $profileImage));
             $input['foto'] = "$profileImage";
         }
+        $input['hapus'] = 0;
 
         // menambahkan nik sopir sebagai username dan password di tabel users
         $user = new User;
@@ -170,7 +171,7 @@ class SopirController extends Controller
                 'no_ktp.numeric' => 'Nomor KTP harus berupa angka',
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.images' => 'File yang anda pilih bukan foto atau gambar',
-                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
                 'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi',
             ];
             $rules = [
@@ -178,7 +179,7 @@ class SopirController extends Controller
                 'nm_sopir' => 'required|min:3|max:50',
                 'jenis_kelamin' => 'required',
                 'alamat' => 'required|min:3',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1',
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1',
             ];
 
             if ($request->no_ktp != $sopir->no_ktp) {
@@ -195,6 +196,7 @@ class SopirController extends Controller
                 $image_resize->save(public_path($destinationPath . $profileImage));
                 $input['foto'] = "$profileImage";
             }
+            $input['hapus'] = 0;
 
             $sopir->update($input);
 
@@ -247,6 +249,8 @@ class SopirController extends Controller
             $user->password = bcrypt($request->no_ktp);
             $user->id_karyawan = $request->kd_sopir;
             $user->save();
+
+            $input['hapus'] = 0;
 
             $sopir->update($input);
             Alert::success('Data Sopir', 'Berhasil diubah!');

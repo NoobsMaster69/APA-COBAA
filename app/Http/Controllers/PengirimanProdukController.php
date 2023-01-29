@@ -8,6 +8,7 @@ use App\Models\ProdukKeluar;
 use App\Models\Sopir;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Intervention\Image\Facades\Image;
 
 class PengirimanProdukController extends Controller
 {
@@ -53,6 +54,21 @@ class PengirimanProdukController extends Controller
             ->paginate(50)
             ->withQueryString();
 
+        // menampilkan semua produkKeluar join dengan produkJadi dan satuan
+        $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
+            ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'produkJadi.foto')
+            ->get();
+
+        // cek apakah id produkKeluar sudah ada di pengirimanProduk
+        foreach ($produkKeluar as $key => $value) {
+            foreach ($pengirimanProduk as $key2 => $value2) {
+                if ($value->id_produkKeluar == $value2->id_produkKeluar) {
+                    unset($produkKeluar[$key]);
+                }
+            }
+        }
+
         // membuat status ketika menunggu sopir mengkonfirmasi pengiriman
         // foreach ($pengirimanProduk as $pengiriman) {
         //     if ($pengiriman->status == 0) {
@@ -68,6 +84,7 @@ class PengirimanProdukController extends Controller
             'pages.pengirimanProduk.index',
             [
                 'pengirimanProduk' => $pengirimanProduk,
+                'produkKeluar' => $produkKeluar,
                 'tittle' => 'Data Pengiriman Produk',
                 'judul' => 'Data Pengiriman Produk',
                 'menu' => 'Pengiriman',
@@ -164,7 +181,7 @@ class PengirimanProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PengirimanProduk $pengirimanProduk)
     {
         $this->authorize('create', pengirimanProduk::class);
 
@@ -249,7 +266,14 @@ class PengirimanProdukController extends Controller
      */
     public function edit(pengirimanProduk $pengirimanProduk)
     {
-        //
+        $pengirimanProduk = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first();
+
+        return view(
+            'pages.pengirimanProduk.upload',
+            [
+                'pengirimanProduk' => $pengirimanProduk,
+            ]
+        );
     }
 
     /**
@@ -261,13 +285,43 @@ class PengirimanProdukController extends Controller
      */
     public function update(Request $request, pengirimanProduk $pengirimanProduk)
     {
-        dd($request->all());
-        // update untuk status pengiriman
-        $pengirimanProduk->status = $request->status;
-        $pengirimanProduk->save();
+        if ($image = $request->file('bukti_foto')) {
+            $message = [
+                'bukti_foto.required' => 'Upload Foto Bukti Pengiriman terlebih dahulu',
+                'bukti_foto.image' => 'File yang anda pilih bukan foto atau gambar',
+                'bukti_foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
+            ];
 
-        // Alert::success('Berhasil', 'Status Pengiriman berhasil diubah');
-        return redirect()->route('pengirimanProduk.index');
+            $request->validate([
+                'bukti_foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
+            ], $message);
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . "webp";
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(480, 480);
+            $image_resize->save(public_path($destinationPath . $profileImage));
+            $pengirimanProduk->bukti_foto = "$profileImage";
+            // update untuk status pengiriman
+            $pengirimanProduk->status = $request->status;
+            $pengirimanProduk->save();
+
+            // Alert::success('Berhasil', 'Status Pengiriman berhasil diubah');
+            return redirect()->route('pengirimanProduk.index');
+        } else {
+            $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
+
+            if ($status == 0 || $status == 1) {
+                // update untuk status pengiriman
+                $pengirimanProduk->status = $request->status;
+                $pengirimanProduk->save();
+
+                // Alert::success('Berhasil', 'Status Pengiriman berhasil diubah');
+                return redirect()->route('pengirimanProduk.index');
+            } else {
+                Alert::error('Gagal', 'Produk Sudah dibatalkan');
+                return redirect()->route('pengirimanProduk.index');
+            }
+        }
     }
 
     /**
@@ -278,6 +332,21 @@ class PengirimanProdukController extends Controller
      */
     public function destroy(pengirimanProduk $pengirimanProduk)
     {
-        //
+        // ambil status dari tabel pengirimanProduk berdasarkan id_pengirimanProduk
+        $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
+        if ($status == 0) {
+            $produkKeluar = ProdukKeluar::where('id_produkKeluar', $pengirimanProduk->id_produkKeluar)->first();
+            $produkKeluar->stts = 0;
+            $produkKeluar->save();
+
+            // hapus data pengirimanProduk
+            $pengirimanProduk->delete();
+
+            Alert::success('Berhasil', 'Data pengiriman sudah dibatalkan!');
+            return redirect()->route('pengirimanProduk.index');
+        } else {
+            Alert::error('Gagal', 'Sopir Sudah mengirimkan produk ini');
+            return redirect()->route('pengirimanProduk.index');
+        }
     }
 }

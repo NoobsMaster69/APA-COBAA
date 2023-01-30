@@ -17,10 +17,10 @@ class pengirimanProduk extends Model
     [
         'id_pengirimanProduk',
         'kd_produk',
-        'tgl_pengiriman',
         'id_produkKeluar',
         'kd_sopir',
         'kd_mobil',
+        'id_lokasi',
         'status',
         'bukti_foto',
         'nm_penerima',

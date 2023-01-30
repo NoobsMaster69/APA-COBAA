@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\lokasiPengiriman;
 use App\Models\Mobil;
 use App\Models\pengirimanProduk;
 use App\Models\ProdukKeluar;
 use App\Models\Sopir;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Intervention\Image\Facades\Image;
 
@@ -49,7 +51,8 @@ class PengirimanProdukController extends Controller
             ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
             ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
             ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
-            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'satuan.nm_satuan', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role')
+            ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
+            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'satuan.nm_satuan', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')
             ->latest()
             ->paginate(50)
             ->withQueryString();
@@ -159,6 +162,7 @@ class PengirimanProdukController extends Controller
 
         $sopir = Sopir::all();
         $mobil = Mobil::all();
+        $lokasiPengiriman = lokasiPengiriman::all();
 
         return view(
             'pages.pengirimanProduk.create',
@@ -167,6 +171,7 @@ class PengirimanProdukController extends Controller
                 'pengirimanProduk' => $pengirimanProduk,
                 'sopir' => $sopir,
                 'mobil' => $mobil,
+                'lokasiPengiriman' => $lokasiPengiriman,
                 'tittle' => 'Tambah Data Pengiriman Produk',
                 'judul' => 'Tambah Data Pengiriman Produk',
                 'menu' => 'Pengiriman',
@@ -188,17 +193,17 @@ class PengirimanProdukController extends Controller
         // dd($request->all());
 
         $message = [
-            'tgl_pengiriman.required' => 'Tanggal Pengiriman harus diisi',
             'id_produkKeluar.required' => 'Pilih Produk terlebih dahulu',
             'kd_sopir.required' => 'Pilih sopir terlebih dahulu',
             'kd_mobil.required' => 'Pilih mobil terlebih dahulu',
+            'id_lokasi.required' => 'Pilih lokasi terlebih dahulu',
         ];
 
         $request->validate([
-            'tgl_pengiriman' => 'required',
             'id_produkKeluar' => 'required',
             'kd_sopir' => 'required',
             'kd_mobil' => 'required',
+            'id_lokasi' => 'required',
         ], $message);
 
         // jika id_produkKeluar sudah ada di database maka tidak bisa diinputkan lagi
@@ -209,16 +214,11 @@ class PengirimanProdukController extends Controller
             return redirect()->back();
         }
 
-        // update status tabel produkKeluar
-
-
-        // ubah format tanggal agar bisa dimasukkan ke database
-        $tgl_pengiriman = date('Y-m-d', strtotime($request->tgl_pengiriman));
 
         // mengambil kd_produk berdasarkan id_produkKeluar
         $kd_produk = ProdukKeluar::where('id_produkKeluar', $request->id_produkKeluar)->first();
 
-        // update kolom stts di produkKeluar berdasarkan id_produkKeluar ek dalam database dengan cara looping setiap baris
+        // update kolom stts di produkKeluar berdasarkan id_produkKeluar ke dalam database dengan cara looping setiap baris
         foreach ($request->id_produkKeluar as $id_produkKeluar) {
             $produkKeluar = ProdukKeluar::where('id_produkKeluar', $id_produkKeluar)->first();
             $produkKeluar->stts = 1;
@@ -228,11 +228,11 @@ class PengirimanProdukController extends Controller
             // memasukkan id_produkKeluar ke dalam database dengan cara looping disetiap baris 
             foreach ($request->id_produkKeluar as $id_produkKeluar) {
                 $pengirimanProduk = new pengirimanProduk;
-                $pengirimanProduk->tgl_pengiriman = $tgl_pengiriman;
                 $pengirimanProduk->id_produkKeluar = $id_produkKeluar;
                 $pengirimanProduk->kd_produk = $kd_produk->kd_produk;
                 $pengirimanProduk->kd_sopir = $request->kd_sopir;
                 $pengirimanProduk->kd_mobil = $request->kd_mobil;
+                $pengirimanProduk->id_lokasi = $request->id_lokasi;
                 $pengirimanProduk->status = 0;
                 $pengirimanProduk->save();
             }
@@ -267,13 +267,25 @@ class PengirimanProdukController extends Controller
     public function edit(pengirimanProduk $pengirimanProduk)
     {
         $pengirimanProduk = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first();
+        $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
 
-        return view(
-            'pages.pengirimanProduk.upload',
-            [
-                'pengirimanProduk' => $pengirimanProduk,
-            ]
-        );
+        // mengambil role dari yang login
+        $role = Auth::user()->role;
+
+        if ($status == 1) {
+            if ($role == 'sopir') {
+                return view(
+                    'pages.pengirimanProduk.upload',
+                    [
+                        'pengirimanProduk' => $pengirimanProduk,
+                    ]
+                );
+            } else {
+                return redirect()->route('pengirimanProduk.index');
+            }
+        } else {
+            return redirect()->route('pengirimanProduk.index');
+        }
     }
 
     /**
@@ -285,45 +297,62 @@ class PengirimanProdukController extends Controller
      */
     public function update(Request $request, pengirimanProduk $pengirimanProduk)
     {
-        if ($image = $request->file('bukti_foto')) {
-            $message = [
-                'bukti_foto.required' => 'Upload Foto Bukti Pengiriman terlebih dahulu',
-                'bukti_foto.image' => 'File yang anda pilih bukan foto atau gambar',
-                'bukti_foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
-                'nm_penerima' => 'Harap isi nama penerima',
-            ];
+        $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
 
-            $request->validate([
-                'bukti_foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
-                'nm_penerima' => 'required',
-            ], $message);
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . "webp";
-            $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(480, 480);
-            $image_resize->save(public_path($destinationPath . $profileImage));
-            $pengirimanProduk->bukti_foto = "$profileImage";
-            // update untuk status pengiriman
-            $pengirimanProduk->nm_penerima = $request->nm_penerima;
-            $pengirimanProduk->status = $request->status;
-            $pengirimanProduk->save();
+        // mengambil role dari yang login
+        $role = Auth::user()->role;
 
-            Alert::success('Terima Kasih', 'Karena telah melaksanakan tugas dengan baik');
+        if ($status == 2) {
             return redirect()->route('pengirimanProduk.index');
-        } else {
-            $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
+        }
 
-            if ($status == 0 || $status == 1) {
-                // update untuk created_at secara otomatis
-                $pengirimanProduk->created_at = date('Y-m-d H:i:s');
+        if ($image = $request->file('bukti_foto')) {
+            if ($role == 'sopir') {
+                $message = [
+                    'bukti_foto.required' => 'Upload Foto Bukti Pengiriman terlebih dahulu',
+                    'bukti_foto.image' => 'File yang anda pilih bukan foto atau gambar',
+                    'bukti_foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
+                    'nm_penerima' => 'Harap isi nama penerima',
+                ];
+
+                $request->validate([
+                    'bukti_foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
+                    'nm_penerima' => 'required',
+                ], $message);
+                $destinationPath = 'images/';
+                $profileImage = date('YmdHis') . "." . "webp";
+                $image_resize = Image::make($image->getRealPath());
+                $image_resize->resize(480, 480);
+                $image_resize->save(public_path($destinationPath . $profileImage));
+                $pengirimanProduk->bukti_foto = "$profileImage";
                 // update untuk status pengiriman
+                $pengirimanProduk->nm_penerima = $request->nm_penerima;
                 $pengirimanProduk->status = $request->status;
                 $pengirimanProduk->save();
 
-                // Alert::success('Berhasil', 'Status Pengiriman berhasil diubah');
+                Alert::success('Terima Kasih', 'Karena telah melaksanakan tugas dengan baik');
                 return redirect()->route('pengirimanProduk.index');
             } else {
-                Alert::error('Gagal', 'Produk Sudah dibatalkan');
+                return redirect()->route('pengirimanProduk.index');
+            }
+        } else {
+            if ($role == 'sopir') {
+                $status = pengirimanProduk::where('id_pengirimanProduk', $pengirimanProduk->id_pengirimanProduk)->first()->status;
+
+                if ($status == 0 || $status == 1) {
+                    // update untuk created_at secara otomatis
+                    $pengirimanProduk->created_at = date('Y-m-d H:i:s');
+                    // update untuk status pengiriman
+                    $pengirimanProduk->status = $request->status;
+                    $pengirimanProduk->save();
+
+                    // Alert::success('Berhasil', 'Status Pengiriman berhasil diubah');
+                    return redirect()->route('pengirimanProduk.index');
+                } else {
+                    Alert::error('Gagal', 'Produk Sudah dibatalkan');
+                    return redirect()->route('pengirimanProduk.index');
+                }
+            } else {
                 return redirect()->route('pengirimanProduk.index');
             }
         }

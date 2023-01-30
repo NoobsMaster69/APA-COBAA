@@ -33,13 +33,21 @@ class KaryawanController extends Controller
             ->orWhere('karyawan.jenis_kelamin', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(5)->withQueryString();
 
+        $bulanIndo = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
         // memecah format ttl menjadi tempat dan tanggal lahir
         foreach ($karyawan as $k) {
             $ttl = explode(',', $k->ttl);
             $k->tempat_lahir = $ttl[0];
             $k->tgl_lahir = $ttl[1];
             // mengubah format tanggal lahir menjadi dd-mm-yyyy
-            $tgl_lahir = date('d F Y', strtotime($k->tgl_lahir));
+            $tanggal = date('j', strtotime($k->tgl_lahir));
+            $bulan = $bulanIndo[date('n', strtotime($k->tgl_lahir)) - 1];
+            $tahun = date('Y', strtotime($k->tgl_lahir));
+            $tgl_lahir = "{$tanggal} {$bulan} {$tahun}";
             $k->tgl_lahir = $tgl_lahir;
             // menggambar format tempat dan tanggal lahir menjadi ttl
             $k->ttl = $k->tempat_lahir . ', ' . $k->tgl_lahir;

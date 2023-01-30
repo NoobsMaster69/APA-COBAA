@@ -1,3 +1,16 @@
+<!-- use App\Models\Sopir;
+
+$sopir = Sopir::where('no_ktp', Auth::user()->nip)
+->select('sopir.*')
+->first();
+
+if ($sopir == null) {
+$foto = asset('dist/images/user.png');
+$jabatan = 'User';
+} else {
+$foto = asset('images/'.$sopir->foto);
+$jabatan = 'User';
+} -->
 @php
 use App\Models\Karyawan;
 
@@ -5,6 +18,8 @@ $karyawan = Karyawan::where('nip', Auth::user()->nip)
 ->join('jabatan', 'jabatan.id_jabatan', '=', 'karyawan.kd_jabatan')
 ->select('karyawan.*', 'jabatan.nm_jabatan')
 ->first();
+
+
 if ($karyawan == null) {
 $foto = asset('dist/images/user.png');
 $jabatan = 'User';
@@ -12,7 +27,6 @@ $jabatan = 'User';
 $foto = asset('images/'.$karyawan->foto);
 $jabatan = $karyawan->nm_jabatan;
 }
-$foto
 @endphp
 <!-- BEGIN: Top Bar -->
 <div class="top-bar-boxed h-[70px] z-[51] relative border-b border-white/[0.08] -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-12">

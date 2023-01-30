@@ -23,7 +23,7 @@
                     <select data-placeholder="Silahkan pilih sopir" class="tom-select w-full shadow-md @error('kd_sopir') border-danger @enderror" id="kd_sopir" name="kd_sopir">
                         <option value="0" hidden disabled selected>-- Silahkan Pilih --</option>
                         @foreach ($sopir as $spr)
-                        @if (old('kd_sopir') == $spr->id_sopir)
+                        @if (old('kd_sopir') == $spr->kd_sopir)
                         <option value="{{ $spr->kd_sopir }}" selected>{{ $spr->nm_sopir }}</option>
                         @else
                         <option value="{{$spr->kd_sopir }}">{{ $spr->nm_sopir }}</option>
@@ -41,7 +41,7 @@
                     <select data-placeholder="Silahkan pilih mobil" class="tom-select w-full shadow-md @error('kd_mobil') border-danger @enderror" id="kd_mobil" name="kd_mobil">
                         <option value="0" hidden disabled selected>-- Silahkan Pilih --</option>
                         @foreach ($mobil as $mbl)
-                        @if (old('kd_mobil') == $mbl->id_mobil)
+                        @if (old('kd_mobil') == $mbl->kd_mobil)
                         <option value="{{ $mbl->kd_mobil }}" selected>{{ $mbl->plat_nomor }}</option>
                         @else
                         <option value="{{$mbl->kd_mobil }}">{{ $mbl->plat_nomor }}</option>
@@ -55,9 +55,18 @@
                     @enderror
                 </div>
                 <div class="mt-6">
-                    <label for="tgl_pengiriman" class="form-label font-bold">Tanggal Pengiriman</label>
-                    <input type="text" class="datepicker form-control w-full shadow-md @error('tgl_pengiriman') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_pengiriman') }}" name="tgl_pengiriman" id="tgl_pengiriman">
-                    @error('tgl_pengiriman')
+                    <label for="id_lokasi" class="form-label font-bold">Lokasi</label>
+                    <select data-placeholder="Silahkan pilih Lokasi" class="tom-select w-full shadow-md @error('id_lokasi') border-danger @enderror" id="id_lokasi" name="id_lokasi">
+                        <option value="0" hidden disabled selected>-- Silahkan Pilih --</option>
+                        @foreach ($lokasiPengiriman as $lp)
+                        @if (old('id_lokasi') == $lp->id_lokasiPengiriman)
+                        <option value="{{ $lp->id_lokasiPengiriman }}" selected>{{ $lp->tempat }}</option>
+                        @else
+                        <option value="{{$lp->id_lokasiPengiriman }}">{{ $lp->tempat }}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                    @error('id_lokasi')
                     <div class="text-danger mt-1">
                         {{ $message }}
                     </div>

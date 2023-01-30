@@ -3,7 +3,7 @@
 $hours = $produk->created_at->diffInHours($produk->updated_at);
 $minutes = $produk->created_at->diffInMinutes($produk->updated_at) - ($hours * 60);
 @endphp
-<div id="detail-{{ $produk->id_pengirimanProduk }}" class="modal" tabindex="-1" aria-hidden="true">
+<div id="info-{{ $produk->id_pengirimanProduk }}" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- BEGIN: Modal Header -->
@@ -23,38 +23,13 @@ $minutes = $produk->created_at->diffInMinutes($produk->updated_at) - ($hours * 6
                                     <div class="text-slate-500 text-xs mt-0.5">{{ $produk->kd_produk }}</div>
                                 </div>
                             </div>
-                            <div class="absolute right-0 top-0 mr-5 mt-3 dropdown">
-                                <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                                    <i data-feather="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                                </a>
-                                <div class="dropdown-menu w-40">
-                                    <div class="dropdown-content">
-                                        @if ($produk->status == 0)
-                                        <a href="#" class="dropdown-item">
-                                            <form action="{{ route('pengirimanProduk.update', $produk->id_pengirimanProduk) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="1">
-                                                <button type="submit" class="dropdown-item text-dark">Kirim</button>
-                                            </form>
-                                        </a>
-                                        @elseif ($produk->status == 1)
-                                        <a href="{{ route('pengirimanProduk.edit',$produk->id_pengirimanProduk) }}" class="dropdown-item text-dark">
-                                            Sampai
-                                        </a>
-                                        @elseif ($produk->status == 2)
-                                        <span class="dropdown-item"><i data-feather="check" class="w-3 h-3 mr-1"></i>Selesai</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="text-left lg:text-left px-5 pb-5 pt-3">
 
                             <div class="flex items-center justify-start lg:justify-start text-slate-700 mt-3">
                                 <i data-feather="bell" class="w-3 h-3 mr-2"></i>
                                 @if ($produk->status == 0)
-                                <span class="text-warning">Menunggu Konfirmasi Anda</span>
+                                <span class="text-warning">Menunggu Konfirmasi Sopir</span>
                                 @elseif ($produk->status == 1)
                                 <span class="text-primary">Sedang Dikirim</span>
                                 @elseif ($produk->status == 2)
@@ -86,7 +61,7 @@ $minutes = $produk->created_at->diffInMinutes($produk->updated_at) - ($hours * 6
                             </div>
                             <div class="flex items-center justify-start lg:justify-start text-slate-700 mt-2 font-semibold">
                                 <!-- format tanggal pengiriman agar menampilkan hari dan jam juga dari field created_at -->
-                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> Dikirim Pada
+                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> Tanggal Pengiriman
                             </div>
                             @if ($produk->status == 1 || $produk->status == 2)
                             <div class="flex justify-start lg:justify-start text-slate-700 mt-1 pl-5">
@@ -100,7 +75,7 @@ $minutes = $produk->created_at->diffInMinutes($produk->updated_at) - ($hours * 6
                             @endif
                             <div class="flex items-center justify-start lg:justify-start text-slate-700 mt-2 font-semibold">
                                 <!-- format tanggal pengiriman agar menampilkan hari dan jam juga dari field updated_at -->
-                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> Sampai Pada
+                                <i data-feather="calendar" class="w-3 h-3 mr-2"></i> Tanggal Sampai
                             </div>
                             @if ($produk->status == 2)
                             <div class="flex justify-start lg:justify-start text-slate-700 mt-1 pl-5">

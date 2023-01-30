@@ -54,6 +54,17 @@
                 <div class="notification-content__box dropdown-content">
                     <div class="notification-content__title">Produk Perlu Dikirim</div>
                     @foreach ($produkKeluar as $keluar)
+                    <!-- menampilkan bulan dengan bahasa indonesia -->
+                    @php
+                    $bulanIndo = [
+                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                    ];
+
+                    $tanggal = date('j', strtotime($keluar->tgl_keluar));
+                    $bulan = $bulanIndo[date('n', strtotime($keluar->tgl_keluar)) - 1];
+                    $tahun = date('Y', strtotime($keluar->tgl_keluar));
+                    @endphp
                     <a href="{{ route('pengirimanProduk.create') }}">
                         <div class="cursor-pointer relative flex items-center {{ $keluar ? 'mt-5' : '' }}">
                             <div class="w-12 h-12 flex-none image-fit mr-1">
@@ -62,10 +73,10 @@
                             </div>
                             <div class="ml-2 overflow-hidden">
                                 <div class="flex items-center">
-                                    <a href="{{ route('pengirimanProduk.create') }}" class="font-medium truncate mr-5">{{ $keluar->nm_produk }}</a>
-                                    <div class="text-xs text-slate-400 text-right">{{ date('d F Y',strtotime($keluar->tgl_keluar)) }}</div>
+                                    <a href="{{ route('pengirimanProduk.create') }}" class="font-medium truncate mr-2">{{ $keluar->nm_produk }}</a>
+                                    <div class="text-xs text-slate-400 text-right">({{ $keluar->jumlah }} {{ $keluar->nm_satuan }})</div>
                                 </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">Jumlah : {{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</div>
+                                <div class="w-full truncate text-slate-500 mt-0.5">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</div>
                             </div>
                         </div>
                     </a>
@@ -101,10 +112,10 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center">NO.</th>
-                    <th class="whitespace-nowrap text-center">KODE PRODUK</th>
-                    <th class="whitespace-nowrap text-center">NAMA PRODUK</th>
-                    <th class="whitespace-nowrap text-center">JUMLAH</th>
-                    <th class="whitespace-nowrap text-center">TANGGAL PENJUALAN</th>
+                    <!-- <th class="whitespace-nowrap text-center">KODE PRODUK</th> -->
+                    <th class="whitespace-nowrap text-center">PRODUK (JUMLAH)</th>
+                    <th class="whitespace-nowrap text-center">TANGGAL PENGIRIMAN</th>
+                    <th class="whitespace-nowrap text-center">TANGGAL SAMPAI</th>
                     <th class="whitespace-nowrap text-center">SOPIR (PLAT MOBIL)</th>
                     <th class="whitespace-nowrap text-center">STATUS</th>
                     <th class="whitespace-nowrap text-center">AKSI</th>
@@ -114,10 +125,26 @@
                 @foreach ($pengirimanProduk as $produk)
                 <tr class="intro-x">
                     <td class="text-center">{{ $loop->iteration + ($pengirimanProduk->currentPage() - 1) * $pengirimanProduk->perPage() }}</td>
-                    <td class="text-center">{{ $produk->kd_produk }}</td>
-                    <td class="text-center">{{ $produk->nm_produk }}</td>
-                    <td class="text-center">{{ $produk->jumlah }} {{ $produk->nm_satuan }}</td>
-                    <td class="text-center">{{ date('d F Y',strtotime($produk->tgl_pengiriman)) }}</td>
+                    <!-- <td class="text-center">{{ $produk->kd_produk }}</td> -->
+                    <td class="text-center">{{ $produk->nm_produk }} ({{ $produk->jumlah }} {{ $produk->nm_satuan }})</td>
+                    @if ($produk->status == 0)
+                    <td class="text-center">
+                        <span class="text-dark">Belum dikirim</span>
+                    </td>
+                    @else
+                    <td class="text-center">{{ $produk->created_at->isoFormat('dddd, D MMM Y') }}</td>
+                    @endif
+                    @if ($produk->status == 2)
+                    <td class="text-center">{{ $produk->updated_at->isoFormat('dddd, D MMM Y') }}</td>
+                    @elseif ($produk->status == 1)
+                    <td class="text-center">
+                        <span class="text-dark">Dalam Perjalanan</span>
+                    </td>
+                    @else
+                    <td class="text-center">
+                        <span class="text-dark">Belum dikirim</span>
+                    </td>
+                    @endif
                     <td class="text-center">{{ $produk->nm_sopir }} ({{ $produk->plat_nomor }})</td>
                     <td class="text-center">
                         @if ($produk->status == 0)
@@ -152,8 +179,11 @@
                         @if ($produk->status == 0)
                         <div class="flex justify-center items-center">
                             <!-- trigger modal -->
-                            <button class="flex items-center tooltip text-danger" data-tw-toggle="modal" data-theme="light" title="Batalkan" data-tw-target="#hapus{{ $produk->id_pengirimanProduk }}">
-                                Batal
+                            <button class="flex items-center tooltip text-danger mr-1" data-tw-toggle="modal" data-theme="light" title="Batalkan" data-tw-target="#hapus{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="x" class="w-4 h-4"></i>
+                            </button>
+                            <button class="flex items-center tooltip text-primary" data-theme="light" title="Detail" data-tw-toggle="modal" data-tw-target="#info-{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="alert-circle" class="w-4 h-4"></i>
                             </button>
                             <!-- BEGIN: Delete Confirmation Modal -->
                             <div id="hapus{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
@@ -180,22 +210,27 @@
                             <!-- END: Delete Confirmation Modal -->
                         </div>
                         @else
-                        <button class="flex items-center text-danger mx-auto" data-tw-toggle="modal" data-tw-target="#why{{ $produk->id_pengirimanProduk }}">
-                            <i data-feather="slash" class="w-4 h-4 mx-auto"></i>
-                        </button>
-                        <!-- BEGIN: Confirmation Modal -->
-                        <div id="why{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body p-0">
-                                        <div class="p-5 text-center">
-                                            <i data-feather="slash" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                            <div id="exampleModalLabel" class="text-3xl mt-5">Penjualan Produk Sudah Dikirim!</div>
-                                            <div class="text-danger mt-2">Tidak dapat di modifikasi</div>
-                                            <div class="text-slate-500 mt-2"><i>Kecuali dibatalkan oleh sopir</i>!</div>
-                                        </div>
-                                        <div class="px-5 pb-8 text-center">
-                                            <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Oke</button>
+                        <div class="flex justify-center items-center">
+                            <button class="flex items-center text-danger mr-1" data-tw-toggle="modal" data-tw-target="#why{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="slash" class="w-4 h-4"></i>
+                            </button>
+                            <button class="flex items-center tooltip text-primary" data-theme="light" title="Detail" data-tw-toggle="modal" data-tw-target="#info-{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="alert-circle" class="w-4 h-4"></i>
+                            </button>
+                            <!-- BEGIN: Confirmation Modal -->
+                            <div id="why{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <div class="p-5 text-center">
+                                                <i data-feather="slash" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                                <div id="exampleModalLabel" class="text-3xl mt-5">Penjualan Produk Sudah Dikirim!</div>
+                                                <div class="text-danger mt-2">Tidak dapat di modifikasi</div>
+                                                <div class="text-slate-500 mt-2"><i>Kecuali dibatalkan oleh sopir</i>!</div>
+                                            </div>
+                                            <div class="px-5 pb-8 text-center">
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Oke</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -330,6 +365,11 @@
 @can('sopir')
 @foreach ($pengirimanProduk as $produk)
 @include('pages.PengirimanProduk.detail')
+@endforeach
+@endcan
+@can('create', App\Models\PengirimanProduk::class)
+@foreach ($pengirimanProduk as $produk)
+@include('pages.PengirimanProduk.info')
 @endforeach
 @endcan
 

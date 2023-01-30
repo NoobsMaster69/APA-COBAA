@@ -74,6 +74,17 @@
             </thead>
             <tbody>
                 @foreach ($produkKeluar as $keluar)
+                <!-- menampilkan bulan dengan bahasa indonesia -->
+                @php
+                $bulanIndo = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                ];
+
+                $tanggal = date('j', strtotime($keluar->tgl_keluar));
+                $bulan = $bulanIndo[date('n', strtotime($keluar->tgl_keluar)) - 1];
+                $tahun = date('Y', strtotime($keluar->tgl_keluar));
+                @endphp
                 <tr class="intro-x">
                     <!-- <td class="text-center">{{ $keluar->kd_produk }}</td> -->
                     <!-- <td class="text-center">{{ $keluar->kd_resep }}</td> -->
@@ -86,8 +97,8 @@
                     <td class="text-center">{{ $keluar->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $keluar->name }}</td> -->
                     <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
-                    <td class="text-center">{{ date('d F Y',strtotime($keluar->tgl_keluar)) }}</td>
-                    <!-- <td class="text-center">{{ date('d F Y',strtotime($keluar->tgl_expired)) }}</td> -->
+                    <!-- menampilkan format bulan dengan bahasa indonesia -->
+                    <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">Rp. {{ number_format($keluar->harga_jual, 0, ',', '.') }}</td>
                     <td class="text-center">Rp. {{ number_format($keluar->total, 0, ',', '.') }}</td>
                     <!-- <td class="text-center">{{ $keluar->ket }}</td> -->

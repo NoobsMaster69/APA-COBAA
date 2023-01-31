@@ -15,6 +15,7 @@
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
         <!-- BEGIN: Form Layout -->
+        <script src="https://cdn.tailwindcss.com"></script>
         <div class="intro-y box px-10 py-5">
             <form action="{{ route('bahanMasuk.store') }}" method="POST">
                 @csrf
@@ -52,7 +53,38 @@
                     </div>
                     @enderror
                 </div>
-                <div class="overflow-x-auto mt-6 shadow-md">
+
+
+                    {{-- <div class=" -mx-4 mt-10 ring-1 ring-gray-300 sm:-mx-6 md:mx-0 md:rounded-lg">
+                      <table class="min-w-full divide-y divide-gray-300">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Nama Bahan</th>
+                            <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Stok</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Harga Bahan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm">
+                              <div class="font-medium text-gray-900" id="tampilBahan"></div>
+                              <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
+                                <span id="tampilStok"></span>
+                              </div>
+                            </td>
+                            <td id="tampilStok" class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"></td>
+                            <td id="tampilHarga" class="px-3 py-3.5 text-sm text-gray-500">
+                              <div id="tampilHarga" class="sm:hidden"></div>
+                              <div id="tampilHarga" class="hidden sm:block"></div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <input name="stok" id="stok" type="hidden" value="{{ old('stok') }}">
+                      <input name="nm_bahan" id="bahan" type="hidden" value="{{ old('nm_bahan') }}">
+                      <input name="harga_beli" id="harga" type="hidden" value="{{ old('harga_beli') }}">
+                    </div> --}}
+                <div class="overflow-x-auto mt-6 shadow-md " >
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -110,7 +142,7 @@
                     <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
                         <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
                             <a href="/bahanMasuk" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
-                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
+                            <button type="submit" class="btn py-3 b w-full md:w-52">Save</button>
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SopirController;
-
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +119,9 @@ Route::middleware('auth')->group(function () {
     // Laporan Pengiriman Produk
     // Route::get('lappengirimanproduk', [PengirimanProdukController::class, 'index'])->name('lapPengirimanProduk');
     Route::resource('PengirimanProduk', PengirimanProdukController::class);
+
+    // Route::get('/UserProfile', [UserProfileController::class, 'index'])->can('userProfile');
+    Route::resource('UserProfile', UserProfileController::class);
     // END Route Projek Kita
 
     Route::get('dashboard-overview-1-page', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');

@@ -13,11 +13,14 @@ $jabatan = 'User';
 } -->
 @php
 use App\Models\Karyawan;
+use App\Models\Sopir;
 
 $karyawan = Karyawan::where('nip', Auth::user()->nip)
 ->join('jabatan', 'jabatan.id_jabatan', '=', 'karyawan.kd_jabatan')
 ->select('karyawan.*', 'jabatan.nm_jabatan')
 ->first();
+
+$sopir = Sopir::where('no_ktp', Auth::user()->nip)->first();
 
 
 if ($karyawan == null) {
@@ -147,11 +150,16 @@ $jabatan = $karyawan->nm_jabatan;
                     <li>
                         <hr class="dropdown-divider border-white/[0.08]">
                     </li>
+ 
+                    @if ($karyawan !== null || $sopir !== null)
                     <li>
-                        <a href="" class="dropdown-item hover:bg-white/5">
+                        <a href="{{ route('UserProfile.index') }}" class="dropdown-item hover:bg-white/5">
                             <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile
                         </a>
                     </li>
+                    @endif
+
+                    
                     <li>
                         <a href="" class="dropdown-item hover:bg-white/5">
                             <i data-feather="edit" class="w-4 h-4 mr-2"></i> Add Account

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -57,5 +58,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('sopir', function (User $user) {
             return $user->role == 'sopir';
         });
+
+        // Gate::define('userProfile', function (User $user) {
+        //     return $user->role == 'gudang' || $user->role == 'produksi' || $user->role == 'distribusi' || $user->role == 'sopir'
+        //         ? Response::allow()
+        //         : Response::denyWithStatus(404);;
+        // });
     }
 }

@@ -20,11 +20,9 @@ class DataBahanController extends Controller
 
 
         // menyatukan search dengan join tabel
-        $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('databahan.*', 'satuan.nm_satuan')
+        $dataBahan = DataBahan::select('databahan.*')
             ->where('databahan.kd_bahan', 'LIKE', '%' . $search . '%')
             ->orWhere('databahan.nm_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('databahan.harga_beli', 'LIKE', '%' . $search . '%')
             ->orWhere('databahan.stok', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate($paginate)->withQueryString();
@@ -49,13 +47,10 @@ class DataBahanController extends Controller
         $kode = $kode + 1;
         $kode_otomatis = "BHN" . sprintf("%03s", $kode);
 
-
-        $satuan = Satuan::all();
-
         return view(
             'pages.databahan.create',
-            ['kode_otomatis' => $kode_otomatis, 'satuan' => $satuan],
             [
+                'kode_otomatis' => $kode_otomatis,
                 'tittle' => 'Tambah Data',
                 'judul' => 'Tambah Data Bahan',
                 'menu' => 'Data Bahan',
@@ -75,7 +70,6 @@ class DataBahanController extends Controller
             'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
             'nm_bahan.min' => 'Nama Bahan minimal 3 karakter',
             'nm_bahan.max' => 'Nama Bahan maksimal 50 karakter',
-            'kd_satuan.required' => 'Kode Satuan tidak boleh kosong',
             'harga_beli.required' => 'Harga Beli tidak boleh kosong',
             'harga_beli.numeric' => 'Harga Beli harus berupa angka',
             'stok.required' => 'Stok tidak boleh kosong',
@@ -88,8 +82,7 @@ class DataBahanController extends Controller
         $request->validate([
             'kd_bahan' => 'required|min:3|max:10',
             'nm_bahan' => 'required|min:3|max:50',
-            'kd_satuan' => 'required',
-            'harga_beli' => 'required',
+            'harga_beli' => 'required|numeric',
             'stok' => 'required|numeric',
             'ket' => 'required|min:3',
         ], $messages);
@@ -110,12 +103,11 @@ class DataBahanController extends Controller
     {
         $this->authorize('update', $dataBahan);
 
-        $dataBahan = DB::table('databahan')->join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')->select('databahan.*', 'satuan.nm_satuan')->where('kd_satuan', $dataBahan->kd_satuan)->first();
+        $dataBahan = DB::table('databahan')->select('databahan.*')->first();
 
-        $satuan = Satuan::all();
         return view(
             'pages.DataBahan.edit',
-            compact('dataBahan', 'satuan'),
+            compact('dataBahan'),
             ['tittle' => 'Edit Data', 'judul' => 'Edit Data Bahan', 'menu' => 'Data Bahan', 'submenu' => 'Edit Data']
         );
     }
@@ -130,7 +122,6 @@ class DataBahanController extends Controller
             'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
             'nm_bahan.min' => 'Nama Bahan minimal 3 karakter',
             'nm_bahan.max' => 'Nama Bahan maksimal 50 karakter',
-            'kd_satuan.required' => 'Kode Satuan tidak boleh kosong',
             'harga_beli.required' => 'Harga Beli tidak boleh kosong',
             'harga_beli.numeric' => 'Harga Beli harus berupa angka',
             'stok.required' => 'Stok tidak boleh kosong',
@@ -143,8 +134,7 @@ class DataBahanController extends Controller
         $request->validate([
             'kd_bahan' => 'required|min:3|max:10',
             'nm_bahan' => 'required|min:3|max:50',
-            'kd_satuan' => 'required',
-            'harga_beli' => 'required',
+            'harga_beli' => 'required|numeric',
             'stok' => 'required|numeric',
             'ket' => 'required|min:3',
         ], $messages);

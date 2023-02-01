@@ -92,7 +92,7 @@
                     <!-- <td class="whitespace-nowrap">{{ $masuk->bahan }}</td> -->
                     <td class="text-center">{{ $masuk->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $masuk->name }}</td> -->
-                    <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
+                    <td class="text-center">{{ $masuk->jumlah }} Pcs</td>
                     <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">{{ $tgl }} {{ $bln }} {{ $thn }}</td>
                     <td class="text-center">Rp. {{ number_format($masuk->modal, 0, ',', '.') }}</td>

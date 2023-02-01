@@ -41,9 +41,8 @@ class ResepController extends Controller
 
         $dataBahan = BuatResep::join('databahan', 'buatresep.kd_bahan', '=', 'databahan.kd_bahan')
             ->join('resep', 'buatresep.kd_resep', '=', 'resep.kd_resep')
-            ->join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('buatresep.id_buatResep', 'databahan.nm_bahan', 'resep.kd_resep', 'satuan.nm_satuan', 'buatResep.kd_bahan', 'buatResep.jumlah')
-            ->groupBy('resep.kd_resep', 'buatresep.id_buatResep', 'databahan.kd_bahan', 'databahan.nm_bahan', 'satuan.nm_satuan', 'buatResep.kd_bahan', 'buatResep.jumlah')
+            ->select('buatresep.id_buatResep', 'databahan.nm_bahan', 'resep.kd_resep', 'buatResep.kd_bahan', 'buatResep.jumlah')
+            ->groupBy('resep.kd_resep', 'buatresep.id_buatResep', 'databahan.kd_bahan', 'databahan.nm_bahan', 'buatResep.kd_bahan', 'buatResep.jumlah')
             ->get();
 
 

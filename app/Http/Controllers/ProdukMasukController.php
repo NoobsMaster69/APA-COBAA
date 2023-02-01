@@ -24,10 +24,9 @@ class ProdukMasukController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join table
-        $produkMasuk = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'produkJadi.modal', 'satuan.nm_satuan', 'users.name')
+        $produkMasuk = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.modal', 'users.name')
             ->where('produkMasuk.kd_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('produkMasuk.tgl_produksi', 'LIKE', '%' . $search . '%')
             ->orWhere('produkJadi.modal', 'LIKE', '%' . $search . '%')
             ->orWhere('produkMasuk.jumlah', 'LIKE', '%' . $search . '%')
@@ -60,8 +59,7 @@ class ProdukMasukController extends Controller
         $this->authorize('create', ProdukMasuk::class);
 
         // join dengan tabel satuan
-        $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkJadi.*', 'satuan.nm_satuan')
+        $produkJadi = ProdukJadi::select('produkJadi.*')
             ->get();
 
         return view(
@@ -167,8 +165,7 @@ class ProdukMasukController extends Controller
         $this->authorize('update', $produkMasuk);
 
         // join dengan tabel satuan
-        $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkJadi.*', 'satuan.nm_satuan')
+        $produkJadi = ProdukJadi::select('produkJadi.*')
             ->where('kd_produk', $produkMasuk->kd_produk)
             ->first();
 

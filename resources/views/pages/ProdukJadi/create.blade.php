@@ -38,24 +38,10 @@
                         </div>
                         <input name="stok" id="stok" type="text" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
                         <div class="absolute inset-y-0 right-0 flex items-center">
-                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md  @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm">
-                                <option disabled hidden selected>-- Pilih Satuan --</option>
-                                @foreach ($satuan as $sat)
-                                @if (old('kd_satuan') == $sat->id_satuan)
-                                <option value="{{ $sat->id_satuan }}" selected>{{ $sat->nm_satuan }}</option>
-                                @else
-                                <option value="{{$sat->id_satuan }}">{{ $sat->nm_satuan }}</option>
-                                @endif
-                                @endforeach
-                            </select>
+                            <input id="satuan" class="form-control h-full rounded-md shadow-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm" readonly value="Pcs">
                         </div>
                     </div>
                     @error('stok')
-                    <div class="text-danger mt-1">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    @error('kd_satuan')
                     <div class="text-danger mt-1">
                         {{ $message }}
                     </div>

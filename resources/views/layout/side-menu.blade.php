@@ -50,18 +50,6 @@
                         </div>
                     </a>
                 </li>
-
-                <li>
-                    <a href="/satuan" class="side-menu {{ Request::is('satuan*') ? 'side-menu--active' : '' }}">
-                        <div class="side-menu__icon">
-                            <i data-feather="inbox"></i>
-                        </div>
-                        <div class="side-menu__title">
-                            Satuan Massa
-                        </div>
-                    </a>
-                </li>
-
                 <li>
                     <a href="javascript:;" class="side-menu {{ Request::is('dataBahan*', 'bahanMasuk*', 'bahanKeluar*') ? 'side-menu--active' : '' }}">
                         <div class="side-menu__icon">
@@ -329,17 +317,6 @@
                 @can('gudang')
 
                 <li>
-                    <a href="/satuan" class="side-menu {{ Request::is('satuan*') ? 'side-menu--active' : '' }}">
-                        <div class="side-menu__icon">
-                            <i data-feather="inbox"></i>
-                        </div>
-                        <div class="side-menu__title">
-                            Satuan Massa
-                        </div>
-                    </a>
-                </li>
-
-                <li>
                     <a href="/dataBahan" class="side-menu {{ Request::is('dataBahan*') ? 'side-menu--active' : '' }}">
                         <div class="side-menu__icon">
                             <i data-feather="inbox"></i>
@@ -375,17 +352,6 @@
                 @endcan
 
                 @can('produksi')
-
-                <li>
-                    <a href="/satuan" class="side-menu {{ Request::is('satuan*') ? 'side-menu--active' : '' }}">
-                        <div class="side-menu__icon">
-                            <i data-feather="inbox"></i>
-                        </div>
-                        <div class="side-menu__title">
-                            Satuan Massa
-                        </div>
-                    </a>
-                </li>
 
                 <li>
                     <a href="/resep" class="side-menu {{ Request::is('resep*') ? 'side-menu--active' : '' }}">

@@ -19,7 +19,7 @@ $minutes = $produk->created_at->diffInMinutes($produk->updated_at) - ($hours * 6
                                     <img alt="Foto Produk" class="rounded-lg object-scale-down" src="{{ asset('images/'.$produk->foto) }}">
                                 </div>
                                 <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0">
-                                    <a href="" class="font-large font-semibold">{{ $produk->nm_produk }} ({{ $produk->jumlah }} {{ $produk->nm_satuan }})</a>
+                                    <a href="" class="font-large font-semibold">{{ $produk->nm_produk }} ({{ $produk->jumlah }} Pcs)</a>
                                     <div class="text-slate-500 text-xs mt-0.5">{{ $produk->kd_produk }}</div>
                                 </div>
                             </div>

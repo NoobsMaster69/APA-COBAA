@@ -167,7 +167,7 @@
                                                 <img alt="Icewall Tailwind HTML Admin Template" class="rounded-md" src="{{ asset('images/'.$keluar->foto) }}">
                                             </div>
                                             <div class="inbox__item--sender truncate ml-3">{{ $keluar->nm_produk }}</div>
-                                            <div class="inbox__item--sender truncate ml-6">{{ $keluar->jumlah}} {{ $keluar->nm_satuan }}</div>
+                                            <div class="inbox__item--sender truncate ml-6">{{ $keluar->jumlah}} Pcs</div>
                                         </div>
                                         <div class="w-48 sm:w-auto truncate">
                                             <span class="inbox__item--highlight">{{ date('d F Y',strtotime($keluar->tgl_keluar)) }}</span>

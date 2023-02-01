@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="mt-3">
                                         <div class="flex items-center mt-2">
-                                            <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
+                                            <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} Pcs
                                         </div>
                                     </div>
                                     <div class="mt-6">

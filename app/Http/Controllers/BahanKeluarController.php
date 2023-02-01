@@ -17,11 +17,10 @@ class BahanKeluarController extends Controller
 
         $search = $request->search;
         // menyatukan search dengan join tabel
-        $bahanKeluar = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.kd_satuan', 'dataBahan.harga_beli', 'satuan.nm_satuan')
+        $bahanKeluar = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')
+            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')
             ->where('bahanKeluar.kd_bahan', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanKeluar.nm_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanKeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanKeluar.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanKeluar.ket', 'LIKE', '%' . $search . '%')
@@ -46,8 +45,7 @@ class BahanKeluarController extends Controller
         $this->authorize('create', bahanKeluar::class);
 
         // join dengan tabel satuan
-        $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('databahan.*', 'satuan.nm_satuan')
+        $dataBahan = DataBahan::select('databahan.*')
             ->get();
 
         return view(
@@ -73,6 +71,7 @@ class BahanKeluarController extends Controller
             'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
             'tgl_keluar.required' => 'Tanggal Keluar tidak boleh kosong',
             'jumlah.required' => 'Jumlah tidak boleh kosong',
+            'jumlah.numeric' => 'Jumlah harus berupa angka',
             'ket.required' => 'Keterangan tidak boleh kosong',
         ];
 
@@ -80,14 +79,20 @@ class BahanKeluarController extends Controller
             'kd_bahan' => 'required',
             'nm_bahan' => 'required',
             'tgl_keluar' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|numeric',
             'ket' => 'required',
         ], $messages);
 
         // stok bahan berkurang
         $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
-        $stok->stok = $stok->stok - $request->jumlah;
-        $stok->save();
+        // update stok bahan
+        if ($stok->stok < $request->jumlah) {
+            Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
+            return redirect('bahanKeluar');
+        } else {
+            $stok->stok = $stok->stok - $request->jumlah;
+            $stok->save();
+        }
         // merubah harga_beli dan jumlah menjadi integer
         $harga_beli = (int) $request->harga_beli;
         $jumlah = (int) $request->jumlah;
@@ -125,8 +130,7 @@ class BahanKeluarController extends Controller
         $this->authorize('update', $bahanKeluar);
 
         // join tabel satuan
-        $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('databahan.*', 'satuan.nm_satuan')
+        $dataBahan = DataBahan::select('databahan.*')
             ->where('kd_bahan', $bahanKeluar->kd_bahan)
             ->first();
 
@@ -154,13 +158,14 @@ class BahanKeluarController extends Controller
                 'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_keluar.required' => 'Tanggal Keluar tidak boleh kosong',
                 'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'jumlah.numeric' => 'Jumlah harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
                 'tgl_keluar' => 'required',
-                'jumlah' => 'required',
+                'jumlah' => 'required|numeric',
                 'ket' => 'required',
             ], $messages);
 
@@ -169,10 +174,13 @@ class BahanKeluarController extends Controller
             $stok->stok = $stok->stok + $bahanKeluar->jumlah;
             $stok->save();
 
-            // update stok bahan baru
-            $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
-            $stok->stok = $stok->stok - $request->jumlah;
-            $stok->save();
+            if ($stok->stok < $request->jumlah) {
+                Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
+                return redirect('bahanKeluar');
+            } else {
+                $stok->stok = $stok->stok - $request->jumlah;
+                $stok->save();
+            }
 
             // merubah harga_beli dan jumlah menjadi integer
             $harga_beli = (int) $stok->harga_beli;
@@ -199,13 +207,14 @@ class BahanKeluarController extends Controller
                 'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_keluar.required' => 'Tanggal Keluar tidak boleh kosong',
                 'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'jumlah.numeric' => 'Jumlah harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
                 'tgl_keluar' => 'required',
-                'jumlah' => 'required',
+                'jumlah' => 'required|numeric',
                 'ket' => 'required',
             ], $messages);
 
@@ -214,8 +223,13 @@ class BahanKeluarController extends Controller
 
                 // update stok bahan
                 $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
-                $stok->stok = $stok->stok - $request->jumlah;
-                $stok->save();
+                if ($stok->stok < $request->jumlah) {
+                    Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
+                    return redirect('bahanKeluar');
+                } else {
+                    $stok->stok = $stok->stok - $request->jumlah;
+                    $stok->save();
+                }
 
                 // merubah harga_beli dan jumlah menjadi integer
                 $harga_beli = (int) $stok->harga_beli;

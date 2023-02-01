@@ -30,7 +30,12 @@
                 </div>
                 <div class="mt-6">
                     <label for="jumlah" class="form-label"> Jumlah Bahan </label>
-                    <input type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ old('jumlah', $bahanKeluar->jumlah) }}" required>
+                    <div class="relative rounded-md">
+                        <input type="text" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ old('jumlah', $bahanKeluar->jumlah) }}" required>
+                        <div class="absolute inset-y-0 right-0 flex items-center">
+                            <input id="satuan" class="form-control h-full w-14 rounded-md shadow-md border-transparent bg-transparent py-0  text-gray-500 sm:text-sm text-center" readonly value="Kg">
+                        </div>
+                    </div>
                 </div>
                 @error('jumlah')
                 <div class="text-danger mt-1">

@@ -88,7 +88,7 @@
                     <td class="text-center">{{ $masuk->nm_bahan }}</td>
                     <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
-                    <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
+                    <td class="text-center">{{ $masuk->jumlah }} Kg</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->total) }}</td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">

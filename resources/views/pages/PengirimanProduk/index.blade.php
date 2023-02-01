@@ -74,7 +74,7 @@
                             <div class="ml-2 overflow-hidden">
                                 <div class="flex items-center">
                                     <a href="{{ route('pengirimanProduk.create') }}" class="font-medium truncate mr-2">{{ $keluar->nm_produk }}</a>
-                                    <div class="text-xs text-slate-400 text-right">({{ $keluar->jumlah }} {{ $keluar->nm_satuan }})</div>
+                                    <div class="text-xs text-slate-400 text-right">({{ $keluar->jumlah }} Pcs)</div>
                                 </div>
                                 <div class="w-full truncate text-slate-500 mt-0.5">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</div>
                             </div>
@@ -126,7 +126,7 @@
                 <tr class="intro-x">
                     <td class="text-center">{{ $loop->iteration + ($pengirimanProduk->currentPage() - 1) * $pengirimanProduk->perPage() }}</td>
                     <!-- <td class="text-center">{{ $produk->kd_produk }}</td> -->
-                    <td class="text-center">{{ $produk->nm_produk }} ({{ $produk->jumlah }} {{ $produk->nm_satuan }})</td>
+                    <td class="text-center">{{ $produk->nm_produk }} ({{ $produk->jumlah }} Pcs)</td>
                     @if ($produk->status == 0)
                     <td class="text-center">
                         <span class="text-dark">Belum dikirim</span>

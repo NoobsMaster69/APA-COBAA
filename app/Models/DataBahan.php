@@ -18,7 +18,6 @@ class DataBahan extends Model
     protected $fillable = [
         'kd_bahan',
         'nm_bahan',
-        'kd_satuan',
         'harga_beli',
         'stok',
         'ket',

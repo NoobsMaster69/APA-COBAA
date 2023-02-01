@@ -96,7 +96,7 @@
                     @endif
                     <td class="text-center">{{ $keluar->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $keluar->name }}</td> -->
-                    <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
+                    <td class="text-center">{{ $keluar->jumlah }} Pcs</td>
                     <!-- menampilkan format bulan dengan bahasa indonesia -->
                     <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">Rp. {{ number_format($keluar->harga_jual, 0, ',', '.') }}</td>

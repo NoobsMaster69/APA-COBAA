@@ -17,9 +17,8 @@ return new class extends Migration
             // menjadikan kolom kd_bahan sebagai primary key tipe string
             $table->string('kd_bahan', 10)->primary();
             $table->string('nm_bahan', 50);
-            $table->string('kd_satuan', 10);
             $table->integer('harga_beli');
-            $table->integer('stok');
+            $table->float('stok');
             $table->string('ket');
             $table->timestamps();
         });

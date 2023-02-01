@@ -28,7 +28,7 @@
 
                         @foreach ($dataBahan as $bahan)
                         @if (old('kd_bahan') == $bahan->kd_bahan)
-                        <option value="{{ $bahan->kd_bahan }}" selected>{{ $bahan->kd_bahan }} - $bahan->nm_bahan }} </option>
+                        <option value="{{ $bahan->kd_bahan }}" selected>{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
                         @else
                         <option value="{{ $bahan->kd_bahan }}">{{ $bahan->kd_bahan }} - {{ $bahan->nm_bahan }} </option>
                         @endif
@@ -38,7 +38,7 @@
                         nm_bahan : '" . addslashes($bahan['nm_bahan']) . "',
                         harga : '" . addslashes($bahan['harga_beli']) . "',
                         hargaTampil : '" . addslashes('Rp. ' . number_format($bahan['harga_beli'])) . "',
-                        stokTampil : '" . addslashes($bahan['stok']. " " . $bahan['nm_satuan']) . "',
+                        stokTampil : '" . addslashes($bahan['stok']. " " . 'Kg') . "',
                         stok : '" . addslashes($bahan['stok']) . "',
 
                         };\n";
@@ -77,7 +77,12 @@
                 <div class="grid grid-cols-12 gap-4 mt-6">
                     <div class="col-span-6">
                         <label for="jumlah" class="form-label font-medium"> Jumlah </label>
-                        <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                        <div class="relative rounded-md">
+                            <input name="jumlah" id="jumlah" type="text" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                            <div class="absolute inset-y-0 right-0 flex items-center text-center">
+                                <input id="satuan" class="form-control w-24 h-full rounded-md shadow-md @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Kg">
+                            </div>
+                        </div>
                         @error('jumlah')
                         <div class="text-danger mt-1">
                             {{ $message }}

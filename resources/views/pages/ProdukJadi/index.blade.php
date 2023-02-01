@@ -76,7 +76,7 @@
                         <i data-feather="link" class="w-4 h-4 mr-2"></i> Harga : Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}
                     </div>
                     <div class="flex items-center mt-2">
-                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} {{ $produk['nm_satuan'] }}
+                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} Pcs
                     </div>
                     <!-- <div class="flex items-center mt-2">
                         <i data-feather="clipboard" class="w-4 h-4 mr-2"></i> Keterangan : {{ $produk['ket'] }}

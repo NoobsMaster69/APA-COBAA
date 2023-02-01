@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ProdukJadi;
 use Illuminate\Http\Request;
-use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,11 +18,9 @@ class ProdukJadiController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join tabel
-        $produkJadi = ProdukJadi::join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkjadi.*', 'satuan.nm_satuan')
+        $produkJadi = ProdukJadi::select('produkjadi.*')
             ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(8)->withQueryString();
@@ -41,12 +38,9 @@ class ProdukJadiController extends Controller
         $kode = $kode + 1;
         $kode_otomatis = "PRDK" . sprintf("%03s", $kode);
 
-        $satuan = Satuan::all();
-
         return view(
             'pages.produkJadi.create',
-            ['kode_otomatis' => $kode_otomatis, 'satuan' => $satuan],
-            ['tittle' => 'Tambah Data', 'judul' => 'Tambah Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Tambah Data']
+            ['kode_otomatis' => $kode_otomatis, 'tittle' => 'Tambah Data', 'judul' => 'Tambah Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Tambah Data']
         );
     }
 
@@ -60,7 +54,6 @@ class ProdukJadiController extends Controller
             'nm_produk.required' => 'Nama Produk tidak boleh kosong',
             'stok.required' => 'Stok tidak boleh kosong',
             'stok.integer' => 'Stok harus berupa angka',
-            'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
             'harga_jual.required' => 'Harga Jual tidak boleh kosong',
             'harga_jual.integer' => 'Harga Jual harus berupa angka',
             'modal.required' => 'Modal tidak boleh kosong',
@@ -77,7 +70,6 @@ class ProdukJadiController extends Controller
             'kd_produk' => 'required',
             'nm_produk' => 'required',
             'stok' => 'required|integer',
-            'kd_satuan' => 'required',
             'modal' => 'required|integer',
             'harga_jual' => 'required|integer',
             'ket' => 'required|min:3',
@@ -122,14 +114,12 @@ class ProdukJadiController extends Controller
     {
         $this->authorize('update', $produkJadi);
 
-        $produkJadi = DB::table('produkjadi')->join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')->select('produkjadi.*', 'satuan.nm_satuan')->where('kd_produk', $produkJadi->kd_produk)->first();
+        $produkJadi = DB::table('produkjadi')->select('produkjadi.*')->where('kd_produk', $produkJadi->kd_produk)->first();
 
-        // dd($produkJadi->foto);
 
-        $satuan = Satuan::all();
         return view(
             'pages.ProdukJadi.edit',
-            compact('produkJadi', 'satuan'),
+            compact('produkJadi'),
             ['tittle' => 'Edit Data', 'judul' => 'Edit Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Edit Data']
         );
     }
@@ -149,7 +139,6 @@ class ProdukJadiController extends Controller
                 'nm_produk.required' => 'Nama Produk tidak boleh kosong',
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
-                'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
                 'modal.required' => 'Modal tidak boleh kosong',
                 'modal.integer' => 'Modal harus berupa angka',
                 'harga_jual.required' => 'Harga Jual tidak boleh kosong',
@@ -166,7 +155,6 @@ class ProdukJadiController extends Controller
                 'kd_produk' => 'required',
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
-                'kd_satuan' => 'required',
                 'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
@@ -202,7 +190,6 @@ class ProdukJadiController extends Controller
                 'nm_produk.required' => 'Nama Produk tidak boleh kosong',
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
-                'kd_satuan.required' => 'Pilih nama satuan terlebih dahulu',
                 'modal.required' => 'Modal tidak boleh kosong',
                 'modal.integer' => 'Modal harus berupa angka',
                 'harga_jual.required' => 'Harga Jual tidak boleh kosong',
@@ -215,7 +202,6 @@ class ProdukJadiController extends Controller
                 'kd_produk' => 'required',
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
-                'kd_satuan' => 'required',
                 'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',

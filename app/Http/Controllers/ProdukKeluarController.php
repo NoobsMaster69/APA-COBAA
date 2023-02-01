@@ -26,16 +26,14 @@ class ProdukKeluarController extends Controller
 
         // menyatukan search dengan join table
         $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
             ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'users.name')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'users.name')
             ->where('produkKeluar.kd_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('produkKeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
             ->orWhere('produkKeluar.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('produkKeluar.ket', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(10)->withQueryString();
+            ->oldest()->paginate(20)->withQueryString();
 
         // ambil nama karyawan dari session
         $nama = session('name');
@@ -63,8 +61,7 @@ class ProdukKeluarController extends Controller
         $this->authorize('create', ProdukKeluar::class);
 
         // join dengan tabel satuan
-        $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkJadi.*', 'satuan.nm_satuan')
+        $produkJadi = ProdukJadi::select('produkJadi.*')
             ->get();
 
         return view(
@@ -88,6 +85,7 @@ class ProdukKeluarController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', ProdukKeluar::class);
+
 
         // mengubah nama validasi
         $messages = [
@@ -117,8 +115,13 @@ class ProdukKeluarController extends Controller
 
         // stok bahan bertambah
         $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
-        $stok->stok = $stok->stok - $request->jumlah;
-        $stok->save();
+        if ($stok->stok < $request->jumlah) {
+            Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
+            return redirect('produkKeluar');
+        } else {
+            $stok->stok = $stok->stok - $request->jumlah;
+            $stok->save();
+        }
 
         // ubah format tgl_keluar dari varchar ke date
         $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar)); // $tgl_keluar
@@ -172,8 +175,7 @@ class ProdukKeluarController extends Controller
         if ($status == 0) {
 
             // join dengan tabel satuan
-            $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-                ->select('produkJadi.*', 'satuan.nm_satuan')
+            $produkJadi = ProdukJadi::select('produkJadi.*')
                 ->where('kd_produk', $produkKeluar->kd_produk)
                 ->first();
 
@@ -234,9 +236,13 @@ class ProdukKeluarController extends Controller
             $stok->save();
 
             // update stok produk
-            $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
-            $stok->stok = $stok->stok - $request->jumlah;
-            $stok->save();
+            if ($stok->stok < $request->jumlah) {
+                Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
+                return redirect('produkKeluar');
+            } else {
+                $stok->stok = $stok->stok - $request->jumlah;
+                $stok->save();
+            }
 
             // ubah format tgl_keluar dari varchar ke date
             $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));

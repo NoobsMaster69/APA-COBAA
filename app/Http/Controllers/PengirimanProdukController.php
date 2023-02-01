@@ -47,20 +47,18 @@ class PengirimanProdukController extends Controller
         // join pengirimanProduk dan produkKeluar dengan produkJadi
         $pengirimanProduk = pengirimanProduk::join('produkKeluar', 'pengirimanProduk.id_produkKeluar', '=', 'produkKeluar.id_produkKeluar')
             ->join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
             ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
             ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
             ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
             ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
-            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'satuan.nm_satuan', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')
+            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')
             ->latest()
             ->paginate(50)
             ->withQueryString();
 
         // menampilkan semua produkKeluar join dengan produkJadi dan satuan
         $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'produkJadi.foto')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk',  'produkJadi.foto')
             ->get();
 
         // cek apakah id produkKeluar sudah ada di pengirimanProduk
@@ -144,8 +142,7 @@ class PengirimanProdukController extends Controller
 
         // menampilkan semua produkKeluar join dengan produkJadi dan satuan
         $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.kd_satuan', 'satuan.nm_satuan', 'produkJadi.foto')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.foto')
             ->get();
 
         // ambil id_produkKeluar dari pengirimanProduk

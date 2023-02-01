@@ -75,7 +75,7 @@
                     <td class="text-center">{{ $bahan->kd_bahan }}</td>
                     <td class="text-center">{{ $bahan->nm_bahan }}</td>
                     <td class="text-center">Rp. {{ number_format($bahan->harga_beli, 0, ',', '.') }}</td>
-                    <td class="text-center">{{ $bahan->stok }} {{ $bahan->nm_satuan }}</td>
+                    <td class="text-center">{{ $bahan->stok }} Kg</td>
                     <td class="text-center">{{ $bahan->ket }}</td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">

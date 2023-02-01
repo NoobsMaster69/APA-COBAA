@@ -26,52 +26,40 @@
                     <label for="nm_bahan" class="form-label"> Nama Bahan </label>
                     <input name="nm_bahan" id="nm_bahan" type="text" class="form-control w-full shadow-md @error('nm_bahan') border-danger @enderror" placeholder="Masukkan Nama Bahan" value="{{ old('nm_bahan') }}">
                     @error('nm_bahan')
-                        <div class="text-danger mt-1">
-                            {{ $message }}
-                        </div>
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
-                
+
                 <div class="mt-6">
-                    <label for="harga_beli" class="form-label"> Harga Beli </label>
-                    <input name="harga_beli" id="harga_beli" type="number" class="form-control w-full shadow-md @error('harga_beli') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('harga_beli') }}">
+                    <label for="harga_beli" class="form-label w-full"> Harga Beli </label>
+                    <input name="harga_beli" id="harga_beli" type="text" class="form-control w-full shadow-md @error('harga_beli') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('harga_beli') }}">
+                    <div class="text-dark mt-1">
+                        <small>Harga Beli per Kilogram (/kg)</small>
+                    </div>
                     @error('harga_beli')
-                        <div class="text-danger mt-1">
-                            {{ $message }}
-                        </div>
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
-               
+
                 <div class="mt-6">
                     <label for="stok" class="form-label"> Stok </label>
                     <div class="relative rounded-md">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
                         <input name="stok" id="stok" type="number" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
-                       
                         <div class="absolute inset-y-0 right-0 flex items-center">
-                            <select name="kd_satuan" id="satuan" class="form-control h-full rounded-md shadow-md @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm">
-                                <option disabled hidden selected>-- Pilih Satuan --</option>
-                                @foreach ($satuan as $sat)
-                                @if (old('kd_satuan') == $sat->id_satuan)
-                                <option value="{{ $sat->id_satuan }}" selected>{{ $sat->nm_satuan }}</option>
-                                @else
-                                <option value="{{$sat->id_satuan }}">{{ $sat->nm_satuan }}</option>
-                                @endif
-                                @endforeach
-                            </select>
+                            <input id="satuan" class="form-control h-full w-24 rounded-md shadow-md border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Kg">
                         </div>
                     </div>
                     <div class="flex">
                         @error('stok')
-                            <div class="text-danger mt-1 mr-1">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                        @error('kd_satuan')
-                            <div class="text-danger mt-1">
-                                {{ $message }}
-                            </div>
+                        <div class="text-danger mt-1 mr-1">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -81,9 +69,9 @@
                     </label>
                     <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan" required>{{ old('ket') }}</textarea>
                     @error('ket')
-                        <div class="text-danger mt-1">
-                            {{ $message }}
-                        </div>
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
                 <div class="relative">

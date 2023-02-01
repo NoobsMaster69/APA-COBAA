@@ -18,11 +18,9 @@ class BahanMasukController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join tabel
-        $bahanMasuk = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')->join('satuan', 'dataBahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.kd_satuan', 'dataBahan.harga_beli', 'satuan.nm_satuan')
+        $bahanMasuk = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')
             ->where('bahanMasuk.kd_bahan', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.nm_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.tgl_masuk', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanMasuk.ket', 'LIKE', '%' . $search . '%')
@@ -46,9 +44,7 @@ class BahanMasukController extends Controller
         $this->authorize('create', BahanMasuk::class);
 
         // join dengan tabel satuan
-        $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('databahan.*', 'satuan.nm_satuan')
-            ->get();
+        $dataBahan = DataBahan::select('databahan.*')->get();
 
         return view(
             'pages.bahanMasuk.create',
@@ -73,6 +69,7 @@ class BahanMasukController extends Controller
             'nm_bahan.required' => 'Nama Bahan tidak boleh kosong',
             'tgl_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
             'jumlah.required' => 'Jumlah tidak boleh kosong',
+            'jumlah.numeric' => 'Jumlah harus berupa angka',
             'ket.required' => 'Keterangan tidak boleh kosong',
         ];
 
@@ -80,7 +77,7 @@ class BahanMasukController extends Controller
             'kd_bahan' => 'required',
             'nm_bahan' => 'required',
             'tgl_masuk' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|numeric',
             'ket' => 'required',
         ], $messages);
 
@@ -126,8 +123,7 @@ class BahanMasukController extends Controller
         $this->authorize('update', $bahanMasuk);
 
         // join tabel satuan
-        $dataBahan = DataBahan::join('satuan', 'databahan.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('databahan.*', 'satuan.nm_satuan')
+        $dataBahan = DataBahan::select('databahan.*')
             ->where('kd_bahan', $bahanMasuk->kd_bahan)
             ->first();
 
@@ -157,13 +153,14 @@ class BahanMasukController extends Controller
                 'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
                 'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'jumlah.numeric' => 'Jumlah harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
                 'tgl_masuk' => 'required',
-                'jumlah' => 'required',
+                'jumlah' => 'required|numeric',
                 'ket' => 'required',
             ], $messages);
             // mengembalikan stok bahan yg lama
@@ -201,13 +198,14 @@ class BahanMasukController extends Controller
                 'kd_bahan.required' => 'Pilih Kode Bahan terlebih dahulu',
                 'tgl_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
                 'jumlah.required' => 'Jumlah tidak boleh kosong',
+                'jumlah.numeric' => 'Jumlah harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
             ];
 
             $request->validate([
                 'kd_bahan' => 'required',
                 'tgl_masuk' => 'required',
-                'jumlah' => 'required',
+                'jumlah' => 'required|numeric',
                 'ket' => 'required',
             ], $messages);
 

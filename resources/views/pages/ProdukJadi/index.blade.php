@@ -78,6 +78,9 @@
                     <div class="flex items-center mt-2">
                         <i data-feather="box" class="w-4 h-4 mr-2"></i> Stok : {{ $produk['stok']}} Pcs
                     </div>
+                    <div class="flex items-center mt-2">
+                        <i data-feather="box" class="w-4 h-4 mr-2"></i> Berat : {{ $produk['berat'] * 1000}} Gram
+                    </div>
                     <!-- <div class="flex items-center mt-2">
                         <i data-feather="clipboard" class="w-4 h-4 mr-2"></i> Keterangan : {{ $produk['ket'] }}
                     </div> -->

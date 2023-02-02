@@ -54,6 +54,7 @@ class ProdukJadiController extends Controller
             'nm_produk.required' => 'Nama Produk tidak boleh kosong',
             'stok.required' => 'Stok tidak boleh kosong',
             'stok.integer' => 'Stok harus berupa angka',
+            'berat.required' => 'Berat Produk tidak boleh kosong',
             'harga_jual.required' => 'Harga Jual tidak boleh kosong',
             'harga_jual.integer' => 'Harga Jual harus berupa angka',
             'modal.required' => 'Modal tidak boleh kosong',
@@ -70,6 +71,7 @@ class ProdukJadiController extends Controller
             'kd_produk' => 'required',
             'nm_produk' => 'required',
             'stok' => 'required|integer',
+            'berat' => 'required',
             'modal' => 'required|integer',
             'harga_jual' => 'required|integer',
             'ket' => 'required|min:3',
@@ -77,6 +79,8 @@ class ProdukJadiController extends Controller
         ], $messages);
 
         $input = $request->all();
+
+        $input['berat'] = $input['berat'] / 1000;
 
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
@@ -119,11 +123,12 @@ class ProdukJadiController extends Controller
 
         $produkJadi = DB::table('produkjadi')->select('produkjadi.*')->where('kd_produk', $produkJadi->kd_produk)->first();
 
+        $berat = $produkJadi->berat * 1000;
 
         return view(
             'pages.ProdukJadi.edit',
             compact('produkJadi'),
-            ['tittle' => 'Edit Data', 'judul' => 'Edit Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Edit Data']
+            ['tittle' => 'Edit Data', 'judul' => 'Edit Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Edit Data', 'berat' => $berat]
         );
     }
 
@@ -142,6 +147,7 @@ class ProdukJadiController extends Controller
                 'nm_produk.required' => 'Nama Produk tidak boleh kosong',
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
+                'berat.required' => 'Berat Produk tidak boleh kosong',
                 'modal.required' => 'Modal tidak boleh kosong',
                 'modal.integer' => 'Modal harus berupa angka',
                 'harga_jual.required' => 'Harga Jual tidak boleh kosong',
@@ -158,6 +164,7 @@ class ProdukJadiController extends Controller
                 'kd_produk' => 'required',
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
+                'berat' => 'required',
                 'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
@@ -172,6 +179,9 @@ class ProdukJadiController extends Controller
             //     $image->move($destinationPath, $profileImage);
             //     $input['foto'] = "$profileImage";
             // }
+
+            $input['berat'] = $input['berat'] / 1000;
+
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
                 $profileImage = date('YmdHis') . "." . "webp";
@@ -193,6 +203,7 @@ class ProdukJadiController extends Controller
                 'nm_produk.required' => 'Nama Produk tidak boleh kosong',
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
+                'berat.required' => 'Berat Produk tidak boleh kosong',
                 'modal.required' => 'Modal tidak boleh kosong',
                 'modal.integer' => 'Modal harus berupa angka',
                 'harga_jual.required' => 'Harga Jual tidak boleh kosong',
@@ -205,12 +216,16 @@ class ProdukJadiController extends Controller
                 'kd_produk' => 'required',
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
+                'berat' => 'required',
                 'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
             ];
 
             $input = $request->validate($rules, $messages);
+
+            $input['berat'] = $input['berat'] / 1000;
+
 
             $produkJadi->update($input);
             Alert::success('Data Produk', 'Berhasil diubah!');

@@ -463,6 +463,32 @@
             </li>
 
         @endcan
+
+        @can('kasir')
+
+            <li>
+                <a href="/produkJadi" class="menu {{ Request::is('produkJadi*') ? 'menu--active' : '' }}">
+                    <div class="menu__icon">
+                        <i data-feather="inbox"></i>
+                    </div>
+                    <div class="menu__title">
+                        Produk
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="/pos" class="menu {{ Request::is('pos*') ? 'menu--active' : '' }}">
+                    <div class="menu__icon">
+                        <i data-feather="truck"></i>
+                    </div>
+                    <div class="menu__title">
+                        POS System
+                    </div>
+                </a>
+            </li>
+
+        @endcan
         
     </ul>
 </div>

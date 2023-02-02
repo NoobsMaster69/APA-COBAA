@@ -236,11 +236,14 @@
                         <option value="produksi" selected>Produksi</option>
                         @elseif (old('role') == "distribusi")
                         <option value="distribusi" selected>Distribusi</option>
+                        @elseif (old('role') == "kasir")
+                        <option value="kasir" selected>Kasir</option>
                         @else
                         <option value="backoffice">Backoffice</option>
                         <option value="gudang">Gudang</option>
                         <option value="produksi">Produksi</option>
                         <option value="distribusi">Distribusi</option>
+                        <option value="kasir">Kasir</option>
                         @endif
                     </select>
                     @error('role')

@@ -19,7 +19,7 @@ class ProdukJadiPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role == 'distribusi' || $user->role == 'produksi' || $user->role == 'backoffice'
+        return $user->role == 'distribusi' || $user->role == 'produksi' || $user->role == 'backoffice' || $user->role == 'kasir'
             ? Response::allow()
             :  Response::denyWithStatus(404);
     }
@@ -33,7 +33,7 @@ class ProdukJadiPolicy
      */
     public function view(User $user, ProdukJadi $produkJadi)
     {
-        return $user->role == 'distribusi' || $user->role == 'produksi' || $user->role == 'backoffice'
+        return $user->role == 'distribusi' || $user->role == 'produksi' || $user->role == 'backoffice' || $user->role == 'kasir'
             ? Response::allow()
             :  Response::denyWithStatus(404);
     }

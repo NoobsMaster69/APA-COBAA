@@ -59,10 +59,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == 'sopir';
         });
 
-        // Gate::define('userProfile', function (User $user) {
-        //     return $user->role == 'gudang' || $user->role == 'produksi' || $user->role == 'distribusi' || $user->role == 'sopir'
-        //         ? Response::allow()
-        //         : Response::denyWithStatus(404);;
-        // });
+        Gate::define('kasir', function (User $user) {
+            return $user->role == 'kasir';
+        });
     }
 }

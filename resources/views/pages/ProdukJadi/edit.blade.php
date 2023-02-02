@@ -47,6 +47,22 @@
                     </div>
                 </div>
                 <div class="mt-6">
+                    <label for="berat" class="form-label"> Berat Produk </label>
+                    <div class="relative mt-1 rounded-md shadow-sm">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        </div>
+                        <input name="berat" id="berat" type="text" class="form-control block w-full shadow-md @error('berat') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 sm:text-sm" value="{{ old('berat', $berat) }}">
+                        <div class="absolute inset-y-0 right-0 flex items-center">
+                            <input id="satuan" class="form-control h-full rounded-md shadow-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm" readonly value="gram">
+                        </div>
+                    </div>
+                    @error('berat')
+                    <div class="text-danger mt-2 mx-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="mt-6">
                     <label for="modal" class="form-label">Modal Produk</label>
                     <input type="text" class="form-control w-full shadow-md @error('modal') border-danger @enderror" id="modal" name="modal" value="{{ old('modal', $produkJadi->modal) }}" required>
                     @error('modal')

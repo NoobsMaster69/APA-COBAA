@@ -232,6 +232,7 @@
                         <option value="gudang">Gudang</option>
                         <option value="produksi">Produksi</option>
                         <option value="distribusi">Distribusi</option>
+                        <option value="kasir">Kasir</option>
                     </select>
                     @error('role')
                     <div class="text-danger mt-1">

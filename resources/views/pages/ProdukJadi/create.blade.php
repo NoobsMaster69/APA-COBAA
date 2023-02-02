@@ -42,34 +42,50 @@
                         </div>
                     </div>
                     @error('stok')
-                    <div class="text-danger mt-1">
+                    <div class="text-danger mt-2 mx-1">
                         {{ $message }}
                     </div>
                     @enderror
-                    <div class="mt-6">
-                        <label for="modal" class="form-label"> Modal Produk </label>
-                        <input type="number" class="form-control w-full shadow-md @error('modal') border-danger @enderror" name="modal" id="modal" value="{{ old('modal') }}" placeholder="Masukkan Modal Produk">
-                        @error('modal')
-                        <div class="text-danger mt-2 mx-1">
-                            {{ $message }}
+                </div>
+                <div class="mt-6">
+                    <label for="berat" class="form-label"> Berat Produk </label>
+                    <div class="relative mt-1 rounded-md shadow-sm">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
-                        @enderror
-                    </div>
-                    <div class="mt-6">
-                        <label for="harga_jual" class="form-label"> Harga Jual Produk </label>
-                        <input type="number" class="form-control w-full shadow-md @error('harga_jual') border-danger @enderror" name="harga_jual" id="harga_jual" value="{{ old('harga_jual') }}" placeholder="Masukkan Harga Jual">
-                        @error('harga_jual')
-                        <div class="text-danger mt-2 mx-1">
-                            {{ $message }}
+                        <input name="berat" id="berat" type="text" class="form-control block w-full shadow-md @error('berat') border-danger @enderror rounded-md border-gray-300 pl-3 pr-12 sm:text-sm" placeholder="Masukkan Berat Produk" value="{{ old('berat') }}">
+                        <div class="absolute inset-y-0 right-0 flex items-center">
+                            <input id="satuan" class="form-control h-full rounded-md shadow-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 sm:text-sm" readonly value="gram">
                         </div>
-                        @enderror
                     </div>
-                    <div class="input-form mt-6">
-                        <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
-                            Keterangan
-                        </label>
-                        <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket') }}</textarea>
+                    @error('berat')
+                    <div class="text-danger mt-2 mx-1">
+                        {{ $message }}
                     </div>
+                    @enderror
+                </div>
+                <div class="mt-6">
+                    <label for="modal" class="form-label"> Modal Produk </label>
+                    <input type="number" class="form-control w-full shadow-md @error('modal') border-danger @enderror" name="modal" id="modal" value="{{ old('modal') }}" placeholder="Masukkan Modal Produk">
+                    @error('modal')
+                    <div class="text-danger mt-2 mx-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="mt-6">
+                    <label for="harga_jual" class="form-label"> Harga Jual Produk </label>
+                    <input type="number" class="form-control w-full shadow-md @error('harga_jual') border-danger @enderror" name="harga_jual" id="harga_jual" value="{{ old('harga_jual') }}" placeholder="Masukkan Harga Jual">
+                    @error('harga_jual')
+                    <div class="text-danger mt-2 mx-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="input-form mt-6">
+                    <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
+                        Keterangan
+                    </label>
+                    <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket') }}</textarea>
                     @error('ket')
                     <div class="text-danger mt-1">
                         {{ $message }}

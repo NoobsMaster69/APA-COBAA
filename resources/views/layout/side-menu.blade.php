@@ -471,6 +471,29 @@
                 </li>
                 @endcan
 
+                @can('kasir')
+                <li>
+                    <a href="/produkJadi" class="side-menu {{ Request::is('produkJadi*') ? 'side-menu--active' : '' }}">
+                        <div class="side-menu__icon">
+                            <i data-feather="inbox"></i>
+                        </div>
+                        <div class="side-menu__title">
+                            Produk
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pos" class="side-menu {{ Request::is('pos*') ? 'side-menu--active' : '' }}">
+                        <div class="side-menu__icon">
+                            <i data-feather="inbox"></i>
+                        </div>
+                        <div class="side-menu__title">
+                            POS System
+                        </div>
+                    </a>
+                </li>
+                @endcan
+
             </ul>
         </nav>
         <!-- END: Side Menu -->

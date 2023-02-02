@@ -99,6 +99,7 @@ class KaryawanController extends Controller
             'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
             'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
             'tgl_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'status.required' => 'Status tidak boleh kosong',
             'no_telp.required' => 'Nomor Telepon tidak boleh kosong',
             'no_telp.min' => 'Nomor Telepon minimal 11 karakter',
             'no_telp.max' => 'Nomor Telepon maksimal 12 karakter',
@@ -107,7 +108,10 @@ class KaryawanController extends Controller
             'select_kota.required' => 'Kota / Kabupaten',
             'kota.required' => 'Kota tidak boleh kosong',
             'kecamatan.required' => 'Kecamatan tidak boleh kosong',
+            'kodepos.required' => 'Kode Pos tidak boleh kosong',
             'alamat_lengkap.required' => 'Alamat tidak boleh kosong',
+            'pendidikan.required' => 'Pendidikan Terakhir tidak boleh kosong',
+            'tanggal_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
             'role.required' => 'Harap tentukan dia login sebagai apa!',
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.images' => 'File yang anda pilih bukan foto atau gambar',
@@ -122,12 +126,16 @@ class KaryawanController extends Controller
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required',
+            'status' => 'required',
             'no_telp' => 'required|min:11|min:12|numeric',
             'provinsi' => 'required',
             'select_kota' => 'required',
             'kota' => 'required',
             'kecamatan' => 'required',
+            'kodepos' => 'required',
             'alamat_lengkap' => 'required',
+            'pendidikan' => 'required',
+            'tanggal_masuk' => 'required',
             'role' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
@@ -157,12 +165,16 @@ class KaryawanController extends Controller
         $alamat = [
             $request->alamat_lengkap,
             'Kec. ' . $request->kecamatan,
+            $request->kodepos,
             $request->select_kota . ' ' . $request->kota,
             'Prov. ' . $request->provinsi
         ];
         $alamat = strtoupper(implode(', ', $alamat)); // mengubah string menjadi huruf besar semua
 
         $no_telp = '+62' . $request->no_telp;
+
+        $tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
+
 
         // upload foto
         if ($image = $request->file('foto')) {
@@ -180,8 +192,11 @@ class KaryawanController extends Controller
             'kd_jabatan' => $request->kd_jabatan,
             'jenis_kelamin' => $request->jenis_kelamin,
             'ttl' => $ttl,
+            'status' => $request->status,
             'no_telp' => $no_telp,
             'alamat' => $alamat,
+            'pendidikan' => $request->pendidikan,
+            'tanggal_masuk' => $tgl_masuk,
             'role' => $request->role,
             'foto' => $foto
         ]);
@@ -237,13 +252,16 @@ class KaryawanController extends Controller
         $dataKecamatan = explode('. ', $dataAlamat[1]);
         $kecamatan = $dataKecamatan[1];
 
+        // memisahkan kode pos
+        $kodePos = $dataAlamat[2];
+
         // memisahkan kota
-        $dataKota = explode(' ', $dataAlamat[2]);
+        $dataKota = explode(' ', $dataAlamat[3]);
         $selectKota = $dataKota[0];
         $kota = $dataKota[1];
 
         // memisahkan provinsi
-        $dataProvinsi = explode('. ', $dataAlamat[3]);
+        $dataProvinsi = explode('. ', $dataAlamat[4]);
         $provinsi = $dataProvinsi[1];
 
         // memisahkan nomor telepon
@@ -264,6 +282,7 @@ class KaryawanController extends Controller
                     'no_telp' => $noTelp,
                     'alamat_lengkap' => $namaJalan,
                     'kecamatan' => $kecamatan,
+                    'kodepos' => $kodePos,
                     'select_kota' => $selectKota,
                     'kota' => $kota,
                     'provinsi' => $provinsi
@@ -297,6 +316,7 @@ class KaryawanController extends Controller
                 'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
                 'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
                 'tgl_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+                'status.required' => 'Status tidak boleh kosong',
                 'no_telp.required' => 'Nomor Telepon tidak boleh kosong',
                 'no_telp.min' => 'Nomor Telepon minimal 11 karakter',
                 'no_telp.max' => 'Nomor Telepon maksimal 12 karakter',
@@ -305,7 +325,10 @@ class KaryawanController extends Controller
                 'select_kota.required' => 'Kota / Kabupaten',
                 'kota.required' => 'Kota tidak boleh kosong',
                 'kecamatan.required' => 'Kecamatan tidak boleh kosong',
+                'kodepos.required' => 'Kode Pos tidak boleh kosong',
                 'alamat_lengkap.required' => 'Alamat tidak boleh kosong',
+                'pendidikan.required' => 'Pendidikan Terakhir tidak boleh kosong',
+                'tanggal_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
                 'role.required' => 'Harap tentukan dia login sebagai apa!',
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.images' => 'File yang anda pilih bukan foto atau gambar',
@@ -323,12 +346,16 @@ class KaryawanController extends Controller
                 'jenis_kelamin' => 'required',
                 'tempat_lahir' => 'required',
                 'tgl_lahir' => 'required',
+                'status' => 'required',
                 'no_telp' => 'required|min:11|min:12|numeric',
                 'provinsi' => 'required',
                 'select_kota' => 'required',
                 'kota' => 'required',
                 'kecamatan' => 'required',
+                'kodepos' => 'required',
                 'alamat_lengkap' => 'required',
+                'pendidikan' => 'required',
+                'tanggal_masuk' => 'required',
                 'role' => 'required',
                 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
             ];
@@ -340,12 +367,12 @@ class KaryawanController extends Controller
             $input = $request->validate($rules, $messages);
 
             // cek apakah nama belakang diisi
-            if ($request->namaBelakang) {
-                $nm_karyawan = [
+            if (isset($request->namaBelakang)) {
+                $nama = [
                     $input['namaDepan'],
                     $request->namaBelakang
                 ];
-                $input['nm_karyawan'] = implode(' ', $nm_karyawan);
+                $input['nm_karyawan'] = implode(' ', $nama);
             } else {
                 $input['nm_karyawan'] = $input['namaDepan'];
             }
@@ -364,12 +391,16 @@ class KaryawanController extends Controller
             $alamat = [
                 $input['alamat_lengkap'],
                 'Kec. ' . $input['kecamatan'],
+                $input['kodepos'],
                 $input['select_kota'] . ' ' . $input['kota'],
                 'Prov. ' . $input['provinsi']
             ];
             $input['alamat'] = strtoupper(implode(', ', $alamat)); // mengubah string menjadi huruf besar semua
 
             $input['no_telp'] = '+62' . $input['no_telp'];
+
+            $input['tanggal_masuk'] = date('Y-m-d', strtotime($request->tanggal_masuk));
+
 
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
@@ -392,6 +423,7 @@ class KaryawanController extends Controller
                 'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
                 'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
                 'tgl_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+                'status.required' => 'Status tidak boleh kosong',
                 'no_telp.required' => 'Nomor Telepon tidak boleh kosong',
                 'no_telp.min' => 'Nomor Telepon minimal 11 karakter',
                 'no_telp.max' => 'Nomor Telepon maksimal 12 karakter',
@@ -400,11 +432,10 @@ class KaryawanController extends Controller
                 'select_kota.required' => 'Kota / Kabupaten',
                 'kota.required' => 'Kota tidak boleh kosong',
                 'kecamatan.required' => 'Kecamatan tidak boleh kosong',
+                'kodepos.required' => 'Kode Pos tidak boleh kosong',
                 'alamat_lengkap.required' => 'Alamat tidak boleh kosong',
-                'nip.required' => 'NIP tidak boleh kosong',
-                'nip.min' => 'NIP minimal 11 karakter',
-                'nip.max' => 'NIP maksimal 11 karakter',
-                'nip.unique' => 'NIP sudah terdaftar',
+                'pendidikan.required' => 'Pendidikan Terakhir tidak boleh kosong',
+                'tanggal_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
                 'role.required' => 'Harap tentukan dia login sebagai apa!',
             ];
 
@@ -414,13 +445,17 @@ class KaryawanController extends Controller
                 'jenis_kelamin' => 'required',
                 'tempat_lahir' => 'required',
                 'tgl_lahir' => 'required',
+                'status' => 'required',
                 'no_telp' => 'required|min:11|min:12|numeric',
                 'provinsi' => 'required',
                 'select_kota' => 'required',
                 'kota' => 'required',
                 'kecamatan' => 'required',
+                'kodepos' => 'required',
+                'alamat_lengkap' => 'required',
+                'pendidikan' => 'required',
+                'tanggal_masuk' => 'required',
                 'role' => 'required',
-                'alamat_lengkap' => 'required'
             ];
 
             $karyawan = Karyawan::find($karyawan->id_karyawan);
@@ -432,12 +467,12 @@ class KaryawanController extends Controller
             $input = $request->validate($rules, $messages);
 
             // cek apakah nama belakang diisi
-            if ($request->namaBelakang) {
-                $nm_karyawan = [
+            if (isset($request->namaBelakang)) {
+                $nama = [
                     $input['namaDepan'],
                     $request->namaBelakang
                 ];
-                $input['nm_karyawan'] = implode(' ', $nm_karyawan);
+                $input['nm_karyawan'] = implode(' ', $nama);
             } else {
                 $input['nm_karyawan'] = $input['namaDepan'];
             }
@@ -456,12 +491,17 @@ class KaryawanController extends Controller
             $alamat = [
                 $input['alamat_lengkap'],
                 'Kec. ' . $input['kecamatan'],
+                $input['kodepos'],
                 $input['select_kota'] . ' ' . $input['kota'],
                 'Prov. ' . $input['provinsi']
             ];
             $input['alamat'] = strtoupper(implode(', ', $alamat)); // mengubah string menjadi huruf besar semua
 
             $input['no_telp'] = '+62' . $input['no_telp'];
+
+            $input['tanggal_masuk'] = date('Y-m-d', strtotime($request->tanggal_masuk));
+
+            // dd($input['tanggal_masuk']);
 
             $karyawan->update($input);
             Alert::success('Data Karyawan', 'Berhasil diubah!');

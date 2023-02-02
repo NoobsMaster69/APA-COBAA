@@ -21,9 +21,14 @@ class Karyawan extends Model
         'kd_jabatan',
         'jenis_kelamin',
         'ttl',
+        'status',
         'no_telp',
         'alamat',
+        'pendidikan',
+        'tanggal_masuk',
         'role',
         'foto'
     ];
+
+    // protected $guarded = [];
 }

@@ -20,8 +20,11 @@ return new class extends Migration
             $table->integer('kd_jabatan');
             $table->string('jenis_kelamin', 10);
             $table->string('ttl');
+            $table->string('status', 99);
             $table->string('no_telp', 15);
             $table->text('alamat');
+            $table->string('pendidikan', 99);
+            $table->date('tanggal_masuk');
             $table->string('role', 20);
             $table->text('foto');
 

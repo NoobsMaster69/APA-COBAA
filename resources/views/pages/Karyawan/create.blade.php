@@ -115,6 +115,16 @@
                 </div>
 
                 <div class="mt-6">
+                    <label for="status" class="form-label"> Status Perkawinan </label>
+                    <input name="status" id="status" type="text" class="form-control w-full shadow-md @error('status') border-danger @enderror" placeholder="Masukkan Status Perkawinan" value="{{ old('status') }}">
+                    @error('status')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="mt-6">
                     <label for="no_telp" class="form-label"> Nomor Telepon </label>
                     <div class="input-group">
                         <div id="no_telp" class="input-group-text">+62</div>
@@ -128,7 +138,7 @@
                 </div>
 
                 <div class="grid grid-cols-12 gap-4 md:gap-2 mt-6">
-                    <div class="col-span-4">
+                    <div class="col-span-6">
                         <label for="provinsi" class="form-label"> Provinsi </label>
                         <input name="provinsi" id="provinsi" type="text" class="form-control w-full shadow-md @error('provinsi') border-danger @enderror" minlength="3" value="{{ old('provinsi') }}">
                         @error('provinsi')
@@ -137,7 +147,7 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="col-span-4">
+                    <div class="col-span-6">
                         <label for="kota" class="form-label"> Kota/Kabupaten </label>
                         <div class="input-group">
                             <select name="select_kota" id="kota" class="form-select form-select-md w-24 shadow-md @error('select_kota') border-danger @enderror">
@@ -159,7 +169,10 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="col-span-4">
+                </div>
+
+                <div class="grid grid-cols-12 gap-4 md:gap-2 mt-6">
+                    <div class="col-span-6">
                         <label for="kecamatan" class="form-label"> Kecamatan </label>
                         <input name="kecamatan" id="kecamatan" type="text" class="form-control w-full shadow-md @error('kecamatan') border-danger @enderror" minlength="3" value="{{ old('kecamatan') }}">
                         @error('kecamatan')
@@ -168,7 +181,17 @@
                         </div>
                         @enderror
                     </div>
+                    <div class="col-span-6">
+                        <label for="kodepos" class="form-label"> Kode Pos </label>
+                        <input name="kodepos" id="kodepos" type="text" class="form-control w-full shadow-md @error('kodepos') border-danger @enderror" minlength="3" value="{{ old('kodepos') }}">
+                        @error('kodepos')
+                        <div class="text-danger mt-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
                 </div>
+                
                 <div class="mt-6">
                     <label for="alamat_lengkap" class="form-label">
                         Alamat Lengkap
@@ -176,6 +199,26 @@
                     <textarea name="alamat_lengkap" id="alamat_lengkap" class="form-control w-full shadow-md @error('alamat_lengkap') border-danger @enderror" placeholder="Masukkan Alamat Lengkap">{{ old('alamat_lengkap') }}</textarea>
                     @error('alamat_lengkap')
                     <div class="text-danger ">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="mt-6">
+                    <label for="pendidikan" class="form-label"> Pendidikan Terakhir </label>
+                    <input name="pendidikan" id="pendidikan" type="text" class="form-control w-full shadow-md @error('pendidikan') border-danger @enderror" placeholder="Masukkan Pendidikan Terakhir" value="{{ old('pendidikan') }}">
+                    @error('pendidikan')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="mt-6">
+                    <label for="tanggal_masuk" class="form-label"> Tanggal Masuk </label>
+                    <input type="text" class="datepicker form-control shadow-md w-full @error('tanggal_masuk') border-danger @enderror" data-single-mode="true" value="{{ old('tanggal_masuk') }}" name="tanggal_masuk" id="tanggal_masuk">
+                    @error('tanggal_masuk')
+                    <div class="text-danger mt-1">
                         {{ $message }}
                     </div>
                     @enderror

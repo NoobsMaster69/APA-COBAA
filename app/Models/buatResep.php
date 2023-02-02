@@ -16,6 +16,7 @@ class buatResep extends Model
     protected $fillable = [
         'kd_resep',
         'kd_bahan',
-        'jumlah'
+        'jumlah',
+        'harga_pakai',
     ];
 }

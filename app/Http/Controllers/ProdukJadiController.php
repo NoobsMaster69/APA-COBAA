@@ -87,6 +87,9 @@ class ProdukJadiController extends Controller
             $input['foto'] = "$profileImage";
         }
 
+        // masukkan berat ke dalam $input
+        $input['berat'] = 0.05;
+
         ProdukJadi::create($input);
 
         Alert::success('Data Produk', 'Berhasil Ditambahkan!');

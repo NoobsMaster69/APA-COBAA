@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('stok');
             $table->integer('modal');
             $table->integer('harga_jual');
-            $table->float('berat');
+            $table->double('berat', 10);
             $table->string('ket');
             $table->text('foto');
 

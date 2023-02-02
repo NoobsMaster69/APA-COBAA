@@ -50,7 +50,7 @@
                     <div class="relative rounded-md">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
-                        <input name="stok" id="stok" type="number" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
+                        <input name="stok" id="stok" type="text" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
                         <div class="absolute inset-y-0 right-0 flex items-center">
                             <input id="satuan" class="form-control h-full w-24 rounded-md shadow-md border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Kg">
                         </div>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('kd_bahan', 10);
             $table->string('nm_bahan', 50);
             $table->date('tgl_masuk');
-            $table->float('jumlah');
+            $table->double('jumlah', 10);
             $table->string('ket');
             $table->double('total');
             $table->timestamps();

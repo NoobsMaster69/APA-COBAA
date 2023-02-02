@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kd_bahan', 10)->primary();
             $table->string('nm_bahan', 50);
             $table->integer('harga_beli');
-            $table->float('stok');
+            $table->double('stok');
             $table->string('ket');
             $table->timestamps();
         });

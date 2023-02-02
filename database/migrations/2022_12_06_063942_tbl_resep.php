@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('Resep', function (Blueprint $table) {
             $table->string('kd_resep', 10)->primary();
             $table->string('kd_produk', 10);
-            $table->float('tot_jumlahPakai', 10);
-            $table->integer('tot_hargaPakai', 10);
-            $table->float('tot_cost', 10);
-            $table->float('roti_terbuat', 10);
+            $table->double('tot_jumlahPakai', 10);
+            $table->double('tot_hargaPakai', 10);
+            $table->double('tot_cost', 10);
+            $table->double('roti_terbuat', 10);
             $table->timestamps();
         });
     }

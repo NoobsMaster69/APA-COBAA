@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('id_produkKeluar');
             $table->string('kd_sopir', 10);
             $table->string('kd_mobil', 10);
+            $table->integer('id_lokasi');
             $table->integer('status');
             // agar boleh null
             $table->text('bukti_foto')->nullable();

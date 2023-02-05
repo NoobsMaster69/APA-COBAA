@@ -70,12 +70,23 @@
             </thead>
             <tbody>
                 @foreach ($bahanMasuk as $masuk)
+                <!-- menampilkan bulan dengan bahasa indonesia -->
+                @php
+                $bulanIndo = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                ];
+
+                $tanggal = date('j', strtotime($masuk->tgl_masuk));
+                $bulan = $bulanIndo[date('n', strtotime($masuk->tgl_masuk)) - 1];
+                $tahun = date('Y', strtotime($masuk->tgl_masuk));
+                @endphp
                 <tr class="intro-x">
                     <!-- agar nomer mengikuti pagination -->
                     <td class="text-center">{{ $loop->iteration + ($bahanMasuk->currentPage() - 1) * $bahanMasuk->perPage() }}</td>
                     <td class="text-center">{{ $masuk->kd_bahan }}</td>
                     <td class="text-center">{{ $masuk->nm_bahan }}</td>
-                    <td class="text-center">{{ date('d F Y', strtotime($masuk->tgl_masuk)) }}</td>
+                    <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->harga_beli) }}</td>
                     <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
                     <td class="text-center">{{ 'Rp. ' . number_format($masuk->total) }}</td>

@@ -26,8 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Jabatan' => 'App\Policies\JabatanPolicy',
         'App\Models\Karyawan' => 'App\Policies\KaryawanPolicy',
         'App\Models\Resep' => 'App\Policies\ResepPolicy',
+        'App\Models\PengirimanProduk' => 'App\Policies\PengirimanProdukPolicy',
     ];
-
     /**
      * Register any authentication / authorization services.
      *
@@ -52,6 +52,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('distribusi', function (User $user) {
             return $user->role == 'distribusi';
+        });
+
+        Gate::define('sopir', function (User $user) {
+            return $user->role == 'sopir';
         });
     }
 }

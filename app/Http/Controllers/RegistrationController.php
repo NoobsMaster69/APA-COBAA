@@ -98,7 +98,7 @@ class RegistrationController extends Controller
     public function loginStore(Request $request)
     {
         $messages = [
-            'nip.required' => 'NIP tidak boleh kosong',
+            'nip.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
         ];
 
@@ -115,13 +115,13 @@ class RegistrationController extends Controller
 
             return redirect(RouteServiceProvider::HOME);
         }
-        Alert::error('Login Gagal', 'NIP atau Password yang anda masukkan salah!');
+        Alert::error('Login Gagal', 'Username atau Password yang anda masukkan salah!');
         return back()->withInput();
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Logout Berhasil');
+        return redirect('/')->with('success', 'Logout Berhasil');
     }
 }

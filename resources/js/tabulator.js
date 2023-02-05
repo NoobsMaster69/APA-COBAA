@@ -1,6 +1,4 @@
-import xlsx from "xlsx";
-import feather from "feather-icons";
-import Tabulator from "tabulator-tables";
+
 
 (function () {
     "use strict";
@@ -15,7 +13,7 @@ import Tabulator from "tabulator-tables";
             printAsHtml: true,
             printStyled: true,
             pagination: "remote",
-            paginationSize: 19,
+            paginationSize: 10,
             paginationSizeSelector: [10, 20, 30, 40],
             layout: "fitColumns",
             responsiveLayout: "collapse",

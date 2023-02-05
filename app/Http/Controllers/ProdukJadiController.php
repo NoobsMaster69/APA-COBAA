@@ -69,7 +69,7 @@ class ProdukJadiController extends Controller
             'ket.min' => 'Keterangan minimal 3 karakter',
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.image' => 'File yang anda pilih bukan foto atau gambar',
-            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
             'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
         ];
 
@@ -81,14 +81,14 @@ class ProdukJadiController extends Controller
             'modal' => 'required|integer',
             'harga_jual' => 'required|integer',
             'ket' => 'required|min:3',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
 
         $input = $request->all();
 
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+            $profileImage = date('YmdHis') . "." . "webp";
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(150, 150);
             $image_resize->save(public_path($destinationPath . $profileImage));
@@ -146,7 +146,7 @@ class ProdukJadiController extends Controller
                 'ket.min' => 'Keterangan minimal 3 karakter',
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.image' => 'File yang anda pilih bukan foto atau gambar',
-                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
                 'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
             ];
 
@@ -158,7 +158,7 @@ class ProdukJadiController extends Controller
                 'modal' => 'required|integer',
                 'harga_jual' => 'required|integer',
                 'ket' => 'required|min:3',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
             ];
 
             $input = $request->validate($rules, $messages);
@@ -171,7 +171,7 @@ class ProdukJadiController extends Controller
             // }
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
-                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+                $profileImage = date('YmdHis') . "." . "webp";
                 $image_resize = Image::make($image->getRealPath());
                 $image_resize->resize(150, 150);
                 $image_resize->save(public_path($destinationPath . $profileImage));
@@ -225,5 +225,24 @@ class ProdukJadiController extends Controller
         $produkJadi->delete();
         Alert::success('Data Produk', 'Berhasil dihapus!');
         return redirect('produkJadi');
+    }
+    public function landing(Request $request)
+    {
+        $this->authorize('viewAny', ProdukJadi::class);
+
+        $search = $request->search;
+
+        // menyatukan search dengan join tabel
+        $produkJadi = ProdukJadi::join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')
+            ->select('produkjadi.*', 'satuan.nm_satuan')
+            ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(8)->withQueryString();
+
+        // mengirim tittle dan judul ke view
+        return view('pages.home.index', ['produkJadi' => $produkJadi], ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']);
     }
 }

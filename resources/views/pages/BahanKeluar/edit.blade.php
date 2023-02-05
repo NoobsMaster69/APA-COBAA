@@ -5,8 +5,12 @@
 @endsection
 
 @section('subcontent')
-<div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Edit Pemakaian Bahan</h2>
+<div class="intro-y mt-10 mb-6">
+    <h2 class="text-lg font-medium mr-auto">{{ $judul }}</h2>
+    <ol class="breadcrumb breadcrumb-dark mt-2 mr-auto ml-1">
+        <li class="breadcrumb-item"><a href="/bahanKeluar" class="text-slate-600">{{ $menu }}</a></li>
+        <li class="breadcrumb-item active"><a class="text-slate-700 font-medium">{{ $submenu }}</a></li>
+    </ol>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
@@ -15,54 +19,58 @@
             <form action="{{ route('bahanKeluar.update', $bahanKeluar->id_bahanKeluar) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="mt-3">
-                    <label for="kd_bahan" class="form-l abel"> Kode Bahan </label>
-                    <input type="hidden" name="kd_bahan" class="form-control" id="kd_bahan" value=" {{ $bahanKeluar->kd_bahan  }}">
-                    <input type="text" class="form-control @error('kd_bahan') border-danger @enderror" required id="kd_bahan" value="{{ $bahanKeluar->kd_bahan . ' - ' . $bahanKeluar->nm_bahan  }}" readonly>
+                <input id="kd_bahan" name="kd_bahan" type="hidden" value="{{ $bahanKeluar->kd_bahan }}">
+                <div class="grid grid-cols-12 gap-4 mt-6">
+                    <div class="bg-slate-100 -ml-1 col-span-6 w-full flex justify-center py-2 rounded-lg shadow-lg">
+                        <span class="text-slate-800 font-medium uppercase text-center">Kode Bahan - {{ $bahanKeluar->kd_bahan }}</span>
+                    </div>
+                    <div class="bg-slate-100 -ml-1 col-span-6 flex justify-center py-2 rounded-lg shadow-lg">
+                        <span class="text-slate-800 font-medium uppercase text-center">{{ $bahanKeluar->nm_bahan }}</span>
+                    </div>
                 </div>
-                <div class="mt-5">
+                <div class="mt-6">
                     <label for="jumlah" class="form-label"> Jumlah Bahan </label>
-                    <input type="number" class="form-control @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ old('jumlah', $bahanKeluar->jumlah) }}" required>
+                    <input type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ old('jumlah', $bahanKeluar->jumlah) }}" required>
                 </div>
                 @error('jumlah')
                 <div class="text-danger mt-1">
                     {{ $message }}
                 </div>
                 @enderror
-                <div class="mt-5">
+                <div class="mt-6">
                     <label for="tgl_keluar" class="form-label"> Tanggal Keluar </label>
-                    <div class="relative w-100 mx-flex">
-                        <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
-                            <i data-feather="calendar" class="w-4 h-4"></i>
-                        </div>
-                        <input type="text" name="tgl_keluar" id="tgl_keluar" class="datepicker form-control pl-12" data-single-mode="true" value="{{ old('tgl_keluar', $bahanKeluar->tgl_keluar) }}">
+                    <input type="text" class="datepicker form-control w-full shadow-md @error('tgl_keluar') border-danger @enderror" data-single-mode="true" value="{{ old('tgl_keluar', $bahanKeluar->tgl_keluar) }}" name="tgl_keluar" id="tgl_keluar" required>
+                    @error('tgl_keluar')
+                    <div class="text-danger mt-1">
+                        {{ $message }}
                     </div>
+                    @enderror
                 </div>
-                @error('tgl_keluar')
-                <div class="text-danger mt-1">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="mt-5">
-                    <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
+                <div class="mt-6">
+                    <label for="ket" class="form-label">
                         Keterangan
                     </label>
-                    <textarea name="ket" id="ket" class="form-control @error('ket') border-danger @enderror" placeholder="Masukkan Keterangan">{{ old('ket', $bahanKeluar->ket) }}</textarea>
+                    <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" required>{{ old('ket', $bahanKeluar->ket) }}</textarea>
                     @error('ket')
                     <div class="text-danger mt-1">
                         {{ $message }}
                     </div>
                     @enderror
                 </div>
-                <div class="text-right mt-8">
-                    <a href="/bahanKeluar" type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
-                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                <div class="relative">
+                    <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
+                        <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
+                            <a href="/bahanMasuk" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
 
-    @section('script')
-    <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
-    @endsection
+@section('script')
+<script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
+@endsection

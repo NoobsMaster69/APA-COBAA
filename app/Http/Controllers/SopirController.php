@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sopir;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -79,7 +80,7 @@ class SopirController extends Controller
             'alamat.min' => 'Alamat minimal 3 karakter',
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.image' => 'File yang anda pilih bukan foto atau gambar',
-            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
             'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi',
         ];
 
@@ -89,19 +90,31 @@ class SopirController extends Controller
             'no_ktp' => 'required|min:16|max:16|unique:sopir,no_ktp',
             'jenis_kelamin' => 'required',
             'alamat' => 'required|min:3',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
 
         $input = $request->all();
 
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+            $profileImage = date('YmdHis') . "." . "webp";
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(150, 150);
             $image_resize->save(public_path($destinationPath . $profileImage));
             $input['foto'] = "$profileImage";
         }
+        $input['hapus'] = 0;
+
+        // menambahkan nik sopir sebagai username dan password di tabel users
+        $user = new User;
+        $user->name = $request->nm_sopir;
+        $user->nip = $request->no_ktp;
+        $user->password = bcrypt($request->no_ktp);
+        $user->role = 'sopir';
+        $user->id_karyawan = $request->kd_sopir;
+        $user->save();
+
+
 
         Sopir::create($input);
 
@@ -158,7 +171,7 @@ class SopirController extends Controller
                 'no_ktp.numeric' => 'Nomor KTP harus berupa angka',
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.images' => 'File yang anda pilih bukan foto atau gambar',
-                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
                 'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi',
             ];
             $rules = [
@@ -166,7 +179,7 @@ class SopirController extends Controller
                 'nm_sopir' => 'required|min:3|max:50',
                 'jenis_kelamin' => 'required',
                 'alamat' => 'required|min:3',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1',
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1',
             ];
 
             if ($request->no_ktp != $sopir->no_ktp) {
@@ -177,14 +190,23 @@ class SopirController extends Controller
 
             if ($image = $request->file('foto')) {
                 $destinationPath = 'images/';
-                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
+                $profileImage = date('YmdHis') . "." . "webp";
                 $image_resize = Image::make($image->getRealPath());
                 $image_resize->resize(150, 150);
                 $image_resize->save(public_path($destinationPath . $profileImage));
                 $input['foto'] = "$profileImage";
             }
+            $input['hapus'] = 0;
 
             $sopir->update($input);
+
+            // mengupdate nik sopir sebagai username dan password di tabel users
+            $user = User::where('nip', $sopir->no_ktp)->first();
+            $user->name = $request->nm_sopir;
+            $user->nip = $request->no_ktp;
+            $user->password = bcrypt($request->no_ktp);
+            $user->id_karyawan = $request->kd_sopir;
+            $user->save();
 
             Alert::success('Data Sopir', 'Berhasil diubah!');
             return redirect('sopir');
@@ -220,6 +242,16 @@ class SopirController extends Controller
 
             $input = $request->validate($rules, $messages);
 
+            // mengupdate nik sopir sebagai username dan password di tabel users
+            $user = User::where('nip', $sopir->no_ktp)->first();
+            $user->name = $request->nm_sopir;
+            $user->nip = $request->no_ktp;
+            $user->password = bcrypt($request->no_ktp);
+            $user->id_karyawan = $request->kd_sopir;
+            $user->save();
+
+            $input['hapus'] = 0;
+
             $sopir->update($input);
             Alert::success('Data Sopir', 'Berhasil diubah!');
             return redirect('sopir');
@@ -230,9 +262,17 @@ class SopirController extends Controller
     {
         $this->authorize('delete', $sopir);
 
+
         // menghapus foto berdasarkan id
         File::delete('images/' . $sopir->foto);
         $sopir->delete();
+
+        // cek apakah sopir memiliki username di tabel user jika iya maka hapus, jika tidak maka biarkan
+        if (User::where('nip', $sopir->no_ktp)->exists()) {
+            // menghapus user sopir
+            $user = User::where('nip', $sopir->no_ktp)->first();
+            $user->delete();
+        }
         Alert::success('Data Sopir', 'Berhasil dihapus!');
         return redirect('sopir');
     }

@@ -10,7 +10,9 @@ use App\Http\Controllers\DataBahanController;
 use App\Http\Controllers\BahanMasukController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\LokasiPengirimanController;
 use App\Http\Controllers\MobilController;
+use App\Http\Controllers\PengirimanProdukController;
 use App\Http\Controllers\ProdukJadiController;
 use App\Http\Controllers\ProdukKeluarController;
 use App\Http\Controllers\ProdukMasukController;
@@ -48,18 +50,24 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegistrationController::class, 'store'])->name('register.store');
     // Login
     Route::get('logout', [RegistrationController::class, 'logout']);
-    Route::get('/', [RegistrationController::class, 'login'])->name('login.index');
+    // Route::get('/', [RegistrationController::class, 'login'])->name('login.index');
     Route::get('login', [RegistrationController::class, 'login'])->name('login.index');
     // Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
     // Route::post('login', [AuthController::class, 'login'])->name('login.check');
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
+
+
+    Route::get('/', function () {
+        return view('pages.home.index');
+    })->name('/');
 });
 
 Route::middleware('auth')->group(function () {
     // Dashboard
-    Route::get('/', function () {
+    Route::get('/dashboard', function () {
         return view('pages.dashboard.index');
-    })->name('/');
+    })->name('dashboard');
+
     // logout
     Route::post('logout', [RegistrationController::class, 'logout'])->name('logout');
     // mengarah ke setiap controller
@@ -91,11 +99,11 @@ Route::middleware('auth')->group(function () {
     // Route::get('satuanmassa', [SatuanController::class, 'index'])->name('satuanMassa');
     Route::resource('satuan', SatuanController::class);
     // Pengiriman Produk
-    Route::get('pengirimanproduk', [PengirimanProdukController::class, 'index'])->name('pengirimanProduk');
+    // Route::get('datapengiriman', [PengirimanProdukController::class, 'index'])->name('dataPengiriman');
     Route::resource('pengirimanProduk', PengirimanProdukController::class);
     // Produk Terkirim
-    Route::get('produkterkirim', [ProdukTerkirimController::class, 'index'])->name('produkTerkirim');
-    Route::resource('produkTerkirim', ProdukTerkirimController::class);
+    // Route::get('lokasipengiriman', [LokasiPengirimanController::class, 'index'])->name('lokasiPengiriman');
+    Route::resource('lokasiPengiriman', LokasiPengirimanController::class);
     // Sopir
     // Route::get('tampilsopir', [SopirController::class, 'index'])->name('tampil-sopir');
     Route::resource('sopir', SopirController::class);

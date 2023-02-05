@@ -108,6 +108,11 @@
                         </label>
                     </div>
                 </div>
+                @error('foto')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
                 <div class="relative">
                     <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
                         <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
@@ -120,6 +125,10 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- menghilangkan id hilang ketika file di upload -->
+>>>>>>> okeh
 <script>
     document.getElementById('dropzone-file').addEventListener('change', function() {
         document.getElementById('hilang').style.display = 'none';
@@ -128,6 +137,7 @@
 @endsection
 @section('script')
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
+<<<<<<< HEAD
 
 {{-- <script>
    const inputElement = document.querySelector('input[id="foto"]');
@@ -145,3 +155,6 @@ FilePond.setOptions({
 });
     </script> --}}
 @endsection
+=======
+@endsection
+>>>>>>> okeh

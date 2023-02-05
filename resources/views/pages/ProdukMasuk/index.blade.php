@@ -73,14 +73,28 @@
             </thead>
             <tbody>
                 @foreach ($produkMasuk as $masuk)
+                <!-- menampilkan bulan dengan bahasa indonesia -->
+                @php
+                $bulanIndo = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                ];
+
+                $tanggal = date('j', strtotime($masuk->tgl_produksi));
+                $bulan = $bulanIndo[date('n', strtotime($masuk->tgl_produksi)) - 1];
+                $tahun = date('Y', strtotime($masuk->tgl_produksi));
+                $tgl = date('j', strtotime($masuk->tgl_expired));
+                $bln = $bulanIndo[date('n', strtotime($masuk->tgl_expired)) - 1];
+                $thn = date('Y', strtotime($masuk->tgl_expired));
+                @endphp
                 <tr class="intro-x">
                     <!-- <td class="whitespace-nowrap">{{ $masuk->kd_produk }}</td> -->
                     <!-- <td class="whitespace-nowrap">{{ $masuk->bahan }}</td> -->
                     <td class="text-center">{{ $masuk->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $masuk->name }}</td> -->
                     <td class="text-center">{{ $masuk->jumlah }} {{ $masuk->nm_satuan }}</td>
-                    <td class="text-center">{{ date('d F Y',strtotime($masuk->tgl_produksi)) }}</td>
-                    <td class="text-center">{{ date('d F Y',strtotime($masuk->tgl_expired)) }}</td>
+                    <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
+                    <td class="text-center">{{ $tgl }} {{ $bln }} {{ $thn }}</td>
                     <td class="text-center">Rp. {{ number_format($masuk->modal, 0, ',', '.') }}</td>
                     <td class="text-center">Rp. {{ number_format($masuk->total, 0, ',', '.') }}</td>
                     <!-- <td class="text-center">{{ $masuk->ket }}</td> -->

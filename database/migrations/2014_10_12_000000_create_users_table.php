@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('role');
-            $table->integer('id_karyawan');
+            $table->string('id_karyawan', 11);
             $table->timestamps();
         });
     }

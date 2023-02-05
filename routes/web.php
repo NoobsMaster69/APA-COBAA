@@ -13,6 +13,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LokasiPengirimanController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\PengirimanProdukController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProdukJadiController;
 use App\Http\Controllers\ProdukKeluarController;
 use App\Http\Controllers\ProdukMasukController;
@@ -122,6 +123,18 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('/UserProfile', [UserProfileController::class, 'index'])->can('userProfile');
     Route::resource('UserProfile', UserProfileController::class);
+
+    // route Point Of Sale
+    Route::get('/pos', [PosController::class, 'index']);
+    Route::post('temp_create', [PosController::class, 'temp_create'])->name('temp_create');
+    Route::post('temp_update/{id}', [PosController::class, 'temp_update'])->name('temp_update');
+    Route::delete('temp_delete/{id}', [PosController::class, 'temp_delete'])->name('temp_delete');
+    Route::delete('temp_delete_all', [PosController::class, 'temp_delete_all'])->name('temp_delete_all');
+    Route::post('order_create', [PosController::class, 'order_create'])->name('order_create');
+
+
+
+
     // END Route Projek Kita
 
     Route::get('dashboard-overview-1-page', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');

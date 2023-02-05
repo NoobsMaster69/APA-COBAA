@@ -15,7 +15,7 @@
         <nav class="side-nav">
             <ul>
                 <li>
-                    <a href="/" class="side-menu {{ Request::is('/') ? 'side-menu--active' : '' }}">
+                    <a href="/dashboard" class="side-menu {{ Request::is('/') ? 'side-menu--active' : '' }}">
                         <div class="side-menu__icon">
                             <i data-feather="home"></i>
                         </div>

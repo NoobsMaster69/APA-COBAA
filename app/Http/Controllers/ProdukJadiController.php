@@ -94,18 +94,6 @@ class ProdukJadiController extends Controller
         Alert::success('Data Produk', 'Berhasil Ditambahkan!');
         return redirect('/produkJadi');
     }
-    // public function tmpUpload(Request $request)
-    // {
-    //     if ($image = $request->file('foto')) {
-    //         $destinationPath = 'images/';
-    //         $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() . ".webp";
-    //         $image_resize = Image::make($image->getRealPath());
-    //         $image_resize->resize(150, 150);
-    //         $image_resize->save(public_path($destinationPath . $profileImage));
-    //         $input['foto'] = "$profileImage";
-    //     }
-    // }
-
     public function show(ProdukJadi $produkJadi)
     {
         //
@@ -226,5 +214,24 @@ class ProdukJadiController extends Controller
         $produkJadi->delete();
         Alert::success('Data Produk', 'Berhasil dihapus!');
         return redirect('produkJadi');
+    }
+    public function landing(Request $request)
+    {
+        $this->authorize('viewAny', ProdukJadi::class);
+
+        $search = $request->search;
+
+        // menyatukan search dengan join tabel
+        $produkJadi = ProdukJadi::join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')
+            ->select('produkjadi.*', 'satuan.nm_satuan')
+            ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(8)->withQueryString();
+
+        // mengirim tittle dan judul ke view
+        return view('pages.home.index', ['produkJadi' => $produkJadi], ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']);
     }
 }

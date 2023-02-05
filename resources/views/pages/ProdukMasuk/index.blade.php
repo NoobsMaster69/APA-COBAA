@@ -62,9 +62,9 @@
                     <!-- <th class="text-center whitespace-nowrap">RESEP</th> -->
                     <th class="text-center whitespace-nowrap">NAMA PRODUK</th>
                     <!-- <th class="text-center whitespace-nowrap">PENCATAT</th> -->
+                    <th class="text-center whitespace-nowrap">TGL PRODUKSI</th>
+                    <th class="text-center whitespace-nowrap">TGL KADALUWARSA</th>
                     <th class="text-center whitespace-nowrap">JUMLAH </th>
-                    <th class="text-center whitespace-nowrap">TANGGAL PRODUKSI</th>
-                    <th class="text-center whitespace-nowrap">TANGGAL EXPIRED</th>
                     <th class="text-center whitespace-nowrap">MODAL</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
                     <!-- <th class="text-center whitespace-nowrap">KETERANGAN</th> -->
@@ -92,9 +92,9 @@
                     <!-- <td class="whitespace-nowrap">{{ $masuk->bahan }}</td> -->
                     <td class="text-center">{{ $masuk->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $masuk->name }}</td> -->
-                    <td class="text-center">{{ $masuk->jumlah }} Pcs</td>
                     <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">{{ $tgl }} {{ $bln }} {{ $thn }}</td>
+                    <td class="text-center">{{ $masuk->jumlah }} Pcs</td>
                     <td class="text-center">Rp. {{ number_format($masuk->modal, 0, ',', '.') }}</td>
                     <td class="text-center">Rp. {{ number_format($masuk->total, 0, ',', '.') }}</td>
                     <!-- <td class="text-center">{{ $masuk->ket }}</td> -->

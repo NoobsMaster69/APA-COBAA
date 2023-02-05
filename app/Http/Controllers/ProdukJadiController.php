@@ -20,8 +20,8 @@ class ProdukJadiController extends Controller
         // menyatukan search dengan join tabel
         $produkJadi = ProdukJadi::select('produkjadi.*')
             ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(8)->withQueryString();
 
@@ -55,10 +55,7 @@ class ProdukJadiController extends Controller
             'stok.required' => 'Stok tidak boleh kosong',
             'stok.integer' => 'Stok harus berupa angka',
             'berat.required' => 'Berat Produk tidak boleh kosong',
-            'harga_jual.required' => 'Harga Jual tidak boleh kosong',
-            'harga_jual.integer' => 'Harga Jual harus berupa angka',
-            'modal.required' => 'Modal tidak boleh kosong',
-            'modal.integer' => 'Modal harus berupa angka',
+            'berat.numeric' => 'Berat Produk harus berupa angka',
             'ket.required' => 'Keterangan tidak boleh kosong',
             'ket.min' => 'Keterangan minimal 3 karakter',
             'foto.required' => 'Foto tidak boleh kosong',
@@ -71,9 +68,7 @@ class ProdukJadiController extends Controller
             'kd_produk' => 'required',
             'nm_produk' => 'required',
             'stok' => 'required|integer',
-            'berat' => 'required',
-            'modal' => 'required|integer',
-            'harga_jual' => 'required|integer',
+            'berat' => 'required|numeric',
             'ket' => 'required|min:3',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
@@ -148,10 +143,7 @@ class ProdukJadiController extends Controller
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
                 'berat.required' => 'Berat Produk tidak boleh kosong',
-                'modal.required' => 'Modal tidak boleh kosong',
-                'modal.integer' => 'Modal harus berupa angka',
-                'harga_jual.required' => 'Harga Jual tidak boleh kosong',
-                'harga_jual.integer' => 'Harga Jual harus berupa angka',
+                'berat.numeric' => 'Berat harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
                 'ket.min' => 'Keterangan minimal 3 karakter',
                 'foto.required' => 'Foto tidak boleh kosong',
@@ -164,9 +156,7 @@ class ProdukJadiController extends Controller
                 'kd_produk' => 'required',
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
-                'berat' => 'required',
-                'modal' => 'required|integer',
-                'harga_jual' => 'required|integer',
+                'berat' => 'required|numeric',
                 'ket' => 'required|min:3',
                 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
             ];
@@ -204,10 +194,7 @@ class ProdukJadiController extends Controller
                 'stok.required' => 'Stok tidak boleh kosong',
                 'stok.integer' => 'Stok harus berupa angka',
                 'berat.required' => 'Berat Produk tidak boleh kosong',
-                'modal.required' => 'Modal tidak boleh kosong',
-                'modal.integer' => 'Modal harus berupa angka',
-                'harga_jual.required' => 'Harga Jual tidak boleh kosong',
-                'harga_jual.integer' => 'Harga Jual harus berupa angka',
+                'berat.numeric' => 'Berat harus berupa angka',
                 'ket.required' => 'Keterangan tidak boleh kosong',
                 'ket.min' => 'Keterangan minimal 3 karakter',
             ];
@@ -216,9 +203,7 @@ class ProdukJadiController extends Controller
                 'kd_produk' => 'required',
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
-                'berat' => 'required',
-                'modal' => 'required|integer',
-                'harga_jual' => 'required|integer',
+                'berat' => 'required|numeric',
                 'ket' => 'required|min:3',
             ];
 

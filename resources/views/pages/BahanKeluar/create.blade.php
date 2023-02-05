@@ -79,7 +79,7 @@
                         <div class="relative rounded-md">
                             <input name="jumlah" id="jumlah" type="text" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
                             <div class="absolute inset-y-0 right-0 flex items-center text-center">
-                                <input id="satuan" class="form-control w-24 h-full rounded-md shadow-md @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Kg">
+                                <input id="satuan" class="form-control w-24 h-full rounded-md shadow-md border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Gram">
                             </div>
                         </div>
                     </div>

@@ -63,24 +63,6 @@
                     </div>
                     @enderror
                 </div>
-                <div class="mt-6">
-                    <label for="modal" class="form-label"> Modal Produk </label>
-                    <input type="number" class="form-control w-full shadow-md @error('modal') border-danger @enderror" name="modal" id="modal" value="{{ old('modal') }}" placeholder="Masukkan Modal Produk">
-                    @error('modal')
-                    <div class="text-danger mt-2 mx-1">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="mt-6">
-                    <label for="harga_jual" class="form-label"> Harga Jual Produk </label>
-                    <input type="number" class="form-control w-full shadow-md @error('harga_jual') border-danger @enderror" name="harga_jual" id="harga_jual" value="{{ old('harga_jual') }}" placeholder="Masukkan Harga Jual">
-                    @error('harga_jual')
-                    <div class="text-danger mt-2 mx-1">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
                 <div class="input-form mt-6">
                     <label for="ket" class="form-label w-full flex flex-col sm:flex-row">
                         Keterangan

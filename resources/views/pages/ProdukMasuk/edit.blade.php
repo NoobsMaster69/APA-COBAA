@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <div class="mt-6">
-                    <label for="jumlah" class="form-label"> Jumlah Produk </label>
+                    <label for="jumlah" class="form-label"> Kapasitas Pembuatan </label>
                     <div class="relative rounded-md">
-                        <input type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ old('jumlah', $produkMasuk->jumlah) }}" required>
+                        <input type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ $produkMasuk->jumlah }}" readonly>
                         <div class="absolute inset-y-0 right-0 flex items-center text-center">
                             <input id="satuan" class="form-control w-24 h-full rounded-md shadow-md @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Pcs">
                         </div>

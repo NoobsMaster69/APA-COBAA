@@ -20,11 +20,12 @@
                 @csrf
                 <div class="mt-3">
                     <label for="kd_produk" class="form-label font-medium"> Produk </label>
-                    <select name="kd_produk" data-placeholder="Silahkan Pilih produk" class="tom-select w-full shadow-md @error('kd_produk') is-invalid @enderror" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
+                    <select name="kd_produk" data-placeholder="Silahkan Pilih produk" class="tom-select w-full shadow-md @error('kd_produk') is-invalid @enderror @error('stok') is-invalid @enderror" required autofocus onchange="changeValue(this.value)" onclick="changeValue(this.value)">
                         <option hidden disabled selected>- Pilih produk -</option>
 
                         @php
                         $jsArray = "var prdName = new Array();\n";
+                        $pcs = " Pcs";
                         @endphp
 
                         @foreach ($produkJadi as $produk)
@@ -33,12 +34,10 @@
                         @php
                         $jsArray .= "prdName['" . $produk['kd_produk'] . "']= {
                         nm_produk : '" . addslashes($produk['nm_produk']) . "',
-                        harga : '" . addslashes($produk['harga_jual']) . "',
-                        hargaTampil : '" . addslashes('Rp. ' . number_format($produk['harga_jual'])) . "',
-                        modal : '" . addslashes($produk['modal']) . "',
-                        modalTampil : '" . addslashes('Rp. ' . number_format($produk['modal'])) . "',
+                        jumlah : '" . addslashes($produk['roti_terbuat']) . "',
+                        tampilJumlah : '" . addslashes($produk['roti_terbuat'] . "" . $pcs) . "',
                         stok : '" . addslashes($produk['stok']) . "',
-                        stokTampil : '" . addslashes($produk['stok']. " " . $produk['nm_satuan']) . "',
+                        stokTampil : '" . addslashes($produk['stok'] . "" . $pcs) . "',
 
                         };\n";
                         @endphp
@@ -50,6 +49,14 @@
                         {{ $message }}
                     </div>
                     @enderror
+                    @error('stok')
+                    <div class="col-12 text-danger mt-2 mx-1">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="text-dark mt-1">
+                    <small>*Pastikan sudah memasukkan resep untuk produk yang akan dibuat</small>
                 </div>
                 <div class="overflow-x-auto mt-6 shadow-md">
                     <table class="table table-bordered table-hover">
@@ -57,30 +64,29 @@
                             <tr>
                                 <th class="whitespace-nowrap">Nama Produk</th>
                                 <th class="whitespace-nowrap">Stok</th>
-                                <th class="whitespace-nowrap">Modal</th>
-                                <th class="whitespace-nowrap">Harga</th>
+                                <th class="whitespace-nowrap">Kapasitas Pembuatan</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td id="tampilProduk"></td>
                                 <td id="tampilStok"></td>
-                                <td id="tampilModal"></td>
-                                <td id="tampilHarga"></td>
+                                <td id="tampilJumlah"></td>
                             </tr>
                         </tbody>
                     </table>
                     <input name="stok" id="stok" type="hidden" value="{{ old('stok') }}">
                     <input name="nm_produk" id="produk" type="hidden" value="{{ old('nm_produk') }}">
+                    <input name="jumlah" id="jumlah" type="hidden" value="{{ old('jumlah') }}">
                     <!-- <input name="harga_beli" id="produk" type="hidden" value="{{ old('harga_beli') }}"> -->
                 </div>
-                <div class="grid grid-cols-12 gap-4 mt-6">
+                <!-- <div class="grid grid-cols-12 gap-4 mt-6">
                     <div class="col-span-12">
                         <label for="jumlah" class="form-label"> Jumlah </label>
                         <div class="relative rounded-md">
-                            <input name="jumlah" id="jumlah" type="number" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
+                            <input name="jumlah" id="jumlah" type="text" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
                             <div class="absolute inset-y-0 right-0 flex items-center text-center">
-                                <input id="satuan" class="form-control w-24 h-full rounded-md shadow-md @error('kd_satuan') border-danger @enderror border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Kg">
+                                <input id="satuan" class="form-control w-24 h-full rounded-md shadow-md border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Pcs">
                             </div>
                         </div>
                         @error('jumlah')
@@ -89,7 +95,7 @@
                         </div>
                         @enderror
                     </div>
-                </div>
+                </div> -->
                 <div class="grid grid-cols-12 gap-4 mt-6">
                     <div class="col-span-6">
                         <label for="tgl_produksi" class="form-label"> Tanggal Produksi </label>
@@ -141,13 +147,12 @@
 
     function changeValue(x) {
         document.getElementById('tampilProduk').innerHTML = prdName[x].nm_produk;
-        document.getElementById('tampilHarga').innerHTML = prdName[x].hargaTampil;
         document.getElementById('tampilStok').innerHTML = prdName[x].stokTampil;
-        document.getElementById('tampilModal').innerHTML = prdName[x].modalTampil;
+        document.getElementById('tampilJumlah').innerHTML = prdName[x].tampilJumlah;
         document.getElementById('stok').value = prdName[x].stok;
         document.getElementById('harga').value = prdName[x].harga;
         document.getElementById('produk').value = prdName[x].nm_produk;
-        document.getElementById('modal').value = prdName[x].modal;
+        document.getElementById('jumlah').value = prdName[x].jumlah;
     }
 </script>
 @endsection

@@ -22,5 +22,8 @@ class Resep extends Model
         'tot_hargaPakai',
         'tot_cost',
         'roti_terbuat',
+        'biaya_tenaga_kerja',
+        'biaya_kemasan',
+        'biaya_peralatan_operasional',
     ];
 }

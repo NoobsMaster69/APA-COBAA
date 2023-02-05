@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('PengirimanProduk', function (Blueprint $table) {
             $table->increments('id_pengirimanProduk');
             $table->string('kd_produk', 10);
-            $table->date('tgl_pengiriman');
             $table->integer('id_produkKeluar');
             $table->string('kd_sopir', 10);
             $table->string('kd_mobil', 10);
             $table->integer('status');
+            // agar boleh null
+            $table->text('bukti_foto')->nullable();
+            $table->string('nm_penerima', 100)->nullable();
             $table->timestamps();
         });
     }

@@ -45,6 +45,58 @@
             </div>
         </div>
         <div class="hidden md:block mx-auto text-slate-500"></div>
+        <!-- BEGIN: Notifications -->
+        <div class="intro-x dropdown mr-4 mx-auto">
+            <div class="dropdown-toggle notification @if ($produkKeluar->count() > 0) notification--bullet @endif cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                <i data-feather="bell" class="notification__icon text-primary"></i>
+            </div>
+            <div class="notification-content pt-2 dropdown-menu">
+                <div class="notification-content__box dropdown-content">
+                    <div class="notification-content__title">Produk Perlu Dikirim</div>
+                    @foreach ($produkKeluar as $keluar)
+                    <!-- menampilkan bulan dengan bahasa indonesia -->
+                    @php
+                    $bulanIndo = [
+                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                    ];
+
+                    $tanggal = date('j', strtotime($keluar->tgl_keluar));
+                    $bulan = $bulanIndo[date('n', strtotime($keluar->tgl_keluar)) - 1];
+                    $tahun = date('Y', strtotime($keluar->tgl_keluar));
+                    @endphp
+                    <a href="{{ route('pengirimanProduk.create') }}">
+                        <div class="cursor-pointer relative flex items-center {{ $keluar ? 'mt-5' : '' }}">
+                            <div class="w-12 h-12 flex-none image-fit mr-1">
+                                <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="{{ asset('images/' . $keluar->foto) }}">
+                                <div class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
+                            </div>
+                            <div class="ml-2 overflow-hidden">
+                                <div class="flex items-center">
+                                    <a href="{{ route('pengirimanProduk.create') }}" class="font-medium truncate mr-2">{{ $keluar->nm_produk }}</a>
+                                    <div class="text-xs text-slate-400 text-right">({{ $keluar->jumlah }} {{ $keluar->nm_satuan }})</div>
+                                </div>
+                                <div class="w-full truncate text-slate-500 mt-0.5">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</div>
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
+                    <!-- menampilkan keterangan tidak ada produk jika tidak produk tidak ditampilkan -->
+                    @if ($produkKeluar->count() == 0)
+                    <div class="intro-y">
+                        <div class="inbox__item inline-block sm:block text-slate-600 dark:text-slate-500 bg-slate-100 dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400 rounded-md">
+                            <div class="flex px-5 py-3">
+                                <div class="w-full flex-none flex items-center">
+                                    <div class="inbox__item--sender truncate mx-auto text-center">Tidak ada produk untuk dikirim</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <!-- END: Notifications -->
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
                 <form action="">
@@ -60,22 +112,39 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center">NO.</th>
-                    <th class="whitespace-nowrap text-center">KODE PRODUK</th>
-                    <th class="whitespace-nowrap text-center">NAMA PRODUK</th>
-                    <th class="whitespace-nowrap text-center">JUMLAH</th>
+                    <!-- <th class="whitespace-nowrap text-center">KODE PRODUK</th> -->
+                    <th class="whitespace-nowrap text-center">PRODUK (JUMLAH)</th>
                     <th class="whitespace-nowrap text-center">TANGGAL PENGIRIMAN</th>
+                    <th class="whitespace-nowrap text-center">TANGGAL SAMPAI</th>
                     <th class="whitespace-nowrap text-center">SOPIR (PLAT MOBIL)</th>
                     <th class="whitespace-nowrap text-center">STATUS</th>
+                    <th class="whitespace-nowrap text-center">AKSI</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($pengirimanProduk as $produk)
                 <tr class="intro-x">
                     <td class="text-center">{{ $loop->iteration + ($pengirimanProduk->currentPage() - 1) * $pengirimanProduk->perPage() }}</td>
-                    <td class="text-center">{{ $produk->kd_produk }}</td>
-                    <td class="text-center">{{ $produk->nm_produk }}</td>
-                    <td class="text-center">{{ $produk->jumlah }} {{ $produk->nm_satuan }}</td>
-                    <td class="text-center">{{ date('d F Y',strtotime($produk->tgl_pengiriman)) }}</td>
+                    <!-- <td class="text-center">{{ $produk->kd_produk }}</td> -->
+                    <td class="text-center">{{ $produk->nm_produk }} ({{ $produk->jumlah }} {{ $produk->nm_satuan }})</td>
+                    @if ($produk->status == 0)
+                    <td class="text-center">
+                        <span class="text-dark">Belum dikirim</span>
+                    </td>
+                    @else
+                    <td class="text-center">{{ $produk->created_at->isoFormat('dddd, D MMM Y') }}</td>
+                    @endif
+                    @if ($produk->status == 2)
+                    <td class="text-center">{{ $produk->updated_at->isoFormat('dddd, D MMM Y') }}</td>
+                    @elseif ($produk->status == 1)
+                    <td class="text-center">
+                        <span class="text-dark">Dalam Perjalanan</span>
+                    </td>
+                    @else
+                    <td class="text-center">
+                        <span class="text-dark">Belum dikirim</span>
+                    </td>
+                    @endif
                     <td class="text-center">{{ $produk->nm_sopir }} ({{ $produk->plat_nomor }})</td>
                     <td class="text-center">
                         @if ($produk->status == 0)
@@ -83,7 +152,91 @@
                         @elseif ($produk->status == 1)
                         <span class="text-primary">Sedang Dikirim</span>
                         @elseif ($produk->status == 2)
-                        <span class="text-success">Selesai</span>
+                        <span class="text-success">Selesai.
+                            <button type="button" class="bg-none border-none text-primary underline hover:text-info" data-tw-toggle="modal" data-tw-target="#bukti{{ $produk->id_pengirimanProduk, $produk->bukti_foto }}">
+                                bukti foto
+                            </button>
+                            <div id="bukti{{ $produk->id_pengirimanProduk, $produk->bukti_foto }}" class="modal" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <div class="p-5 text-center">
+                                                <input type="hidden" name="status" value="2">
+                                                <div id="exampleModalLabel" class="text-3xl mt-1">Bukti Foto</div>
+                                                <img alt="Bukti foto produk" class="rounded-md" src="{{ asset('images/'.$produk->bukti_foto) }}">
+                                            </div>
+                                            <div class="px-3 pb-2 text-center">
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Kembali</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        @endif
+                    </td>
+                    <td class="table-report__action">
+                        @if ($produk->status == 0)
+                        <div class="flex justify-center items-center">
+                            <!-- trigger modal -->
+                            <button class="flex items-center tooltip text-danger mr-1" data-tw-toggle="modal" data-theme="light" title="Batalkan" data-tw-target="#hapus{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="x" class="w-4 h-4"></i>
+                            </button>
+                            <button class="flex items-center tooltip text-primary" data-theme="light" title="Detail" data-tw-toggle="modal" data-tw-target="#info-{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="alert-circle" class="w-4 h-4"></i>
+                            </button>
+                            <!-- BEGIN: Delete Confirmation Modal -->
+                            <div id="hapus{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <form action="{{ route('pengirimanProduk.destroy', $produk->id_pengirimanProduk) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <div class="p-5 text-center">
+                                                    <i data-feather="alert-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                                    <div id="exampleModalLabel" class="text-3xl mt-5">Apakah yakin ingin membatalkan pengiriman produk ini?</div>
+                                                    <div class="text-slate-500 mt-2">klik oke jika setuju!</div>
+                                                </div>
+                                                <div class="px-5 pb-8 text-center">
+                                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Kembali</button>
+                                                    <button type="submit" class="btn btn-danger w-24">Oke</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: Delete Confirmation Modal -->
+                        </div>
+                        @else
+                        <div class="flex justify-center items-center">
+                            <button class="flex items-center text-danger mr-1" data-tw-toggle="modal" data-tw-target="#why{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="slash" class="w-4 h-4"></i>
+                            </button>
+                            <button class="flex items-center tooltip text-primary" data-theme="light" title="Detail" data-tw-toggle="modal" data-tw-target="#info-{{ $produk->id_pengirimanProduk }}">
+                                <i data-feather="alert-circle" class="w-4 h-4"></i>
+                            </button>
+                            <!-- BEGIN: Confirmation Modal -->
+                            <div id="why{{ $produk->id_pengirimanProduk }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <div class="p-5 text-center">
+                                                <i data-feather="slash" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                                <div id="exampleModalLabel" class="text-3xl mt-5">Penjualan Produk Sudah Dikirim!</div>
+                                                <div class="text-danger mt-2">Tidak dapat di modifikasi</div>
+                                                <div class="text-slate-500 mt-2"><i>Kecuali dibatalkan oleh sopir</i>!</div>
+                                            </div>
+                                            <div class="px-5 pb-8 text-center">
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Oke</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Confirmation Modal -->
                         @endif
                     </td>
                     <!-- <td class="table-report__action">
@@ -171,12 +324,9 @@
                             <button type="submit" class="btn btn-success text-white">Kirim</button>
                         </form>
                         @elseif ($produk->status == 1)
-                        <form action="{{ route('pengirimanProduk.update', $produk->id_pengirimanProduk) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="2">
-                            <button type="submit" class="btn btn-success text-white">Sampai</button>
-                        </form>
+                        <a href="{{ route('pengirimanProduk.edit',$produk->id_pengirimanProduk) }}" class="btn btn-success text-white">
+                            Sampai
+                        </a>
                         @elseif ($produk->status == 2)
                         <span class="mx-auto" data-feather="check"></span>
                         @endif
@@ -207,6 +357,7 @@
     </div>
     <!-- END: Data List -->
 
+    <!-- menghilangkan id hilang saat upload file di modal-->
     @endcan
 
     <!-- tampilan untuk sopir mengupdate status -->
@@ -216,5 +367,15 @@
 @include('pages.PengirimanProduk.detail')
 @endforeach
 @endcan
+@can('create', App\Models\PengirimanProduk::class)
+@foreach ($pengirimanProduk as $produk)
+@include('pages.PengirimanProduk.info')
+@endforeach
+@endcan
 
+<script>
+    document.getElementById('dropzone-file').addEventListener('change', function() {
+        document.getElementById('hilang').style.display = 'none';
+    });
+</script>
 @endsection

@@ -8,6 +8,7 @@ use App\Models\ProdukKeluar;
 use App\Models\ProdukMasuk;
 use App\Models\Resep;
 use Illuminate\Http\Request;
+use Mockery\Undefined;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukKeluarController extends Controller
@@ -36,44 +37,6 @@ class ProdukKeluarController extends Controller
             ->orWhere('produkKeluar.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
 
-        // mengambil id_produkKeluar dari tabel pengirimanProduk
-        // $id_produkKeluar = pengirimanProduk::select('id_produkKeluar', $produkKeluar->id_produkKeluar)->get();
-
-        foreach ($produkKeluar as $keluar) {
-            // dd($keluar->id_produkKeluar);
-            $id_produkKeluar = pengirimanProduk::where('id_produkKeluar', $keluar->id_produkKeluar)->first()->id_produkKeluar;
-        }
-
-
-
-        // dd($id_produkKeluar);
-
-        // cek apakah id produkKeluar sudah ada di pengirimanProduk
-        // foreach ($produkKeluar as $key => $value) {
-        //     foreach ($id_produkKeluar as $key2 => $value2) {
-        //         if ($value->id_produkKeluar == $value2->id_produkKeluar) {
-        //             $status = 1;
-        //         } else {
-        //             $status = 0;
-        //         }
-        //     }
-        // }
-
-        // dd($status);
-
-        // jika id_produkKeluar di tabel pengirimanProduk sudah ada maka status 'Dikirim'
-        // dd($value->id_produkKeluar);
-
-        // looping 
-
-        // if ($produkKeluar->id_produkKeluar == $id_produkKeluar) {
-        //     $status = 1;
-        // } else {
-        //     $status = 0;
-        // }
-
-        // $status = 0;
-
         // ambil nama karyawan dari session
         $nama = session('name');
         // mengirim tittle dan judul ke view
@@ -82,7 +45,6 @@ class ProdukKeluarController extends Controller
             [
                 'produkKeluar' => $produkKeluar,
                 'nama' => $nama,
-                'id_produkKeluar' => $id_produkKeluar,
                 'tittle' => 'Data Penjualan Produk',
                 'judul' => 'Data Penjualan Produk',
                 'menu' => 'Produk',
@@ -165,6 +127,8 @@ class ProdukKeluarController extends Controller
 
         $total = $harga_jual * $request->jumlah;
 
+        $stts = 0;
+
         ProdukKeluar::create([
             'kd_produk' => $request->kd_produk,
             'nip_karyawan' => $nip,
@@ -173,6 +137,7 @@ class ProdukKeluarController extends Controller
             'jumlah' => $request->jumlah,
             'total' => $total,
             'ket' => $request->ket,
+            'stts' => $stts,
         ]);
 
 
@@ -201,22 +166,31 @@ class ProdukKeluarController extends Controller
     {
         $this->authorize('update', $produkKeluar);
 
-        // join dengan tabel satuan
-        $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkJadi.*', 'satuan.nm_satuan')
-            ->where('kd_produk', $produkKeluar->kd_produk)
-            ->first();
+        // ambil status dari database berdasarkan id
+        $status = ProdukKeluar::where('id_produkKeluar', $produkKeluar->id_produkKeluar)->first()->stts;
 
-        return view(
-            'pages.produkKeluar.edit',
-            ['produkKeluar' => $produkKeluar, 'produkJadi' => $produkJadi],
-            [
-                'tittle' => 'Edit Data',
-                'judul' => 'Edit Penjualan Produk',
-                'menu' => 'Penjualan Produk',
-                'submenu' => 'Edit Data'
-            ]
-        );
+        if ($status == 0) {
+
+            // join dengan tabel satuan
+            $produkJadi = ProdukJadi::join('satuan', 'produkJadi.kd_satuan', '=', 'satuan.id_satuan')
+                ->select('produkJadi.*', 'satuan.nm_satuan')
+                ->where('kd_produk', $produkKeluar->kd_produk)
+                ->first();
+
+            return view(
+                'pages.produkKeluar.edit',
+                ['produkKeluar' => $produkKeluar, 'produkJadi' => $produkJadi],
+                [
+                    'tittle' => 'Edit Data',
+                    'judul' => 'Edit Penjualan Produk',
+                    'menu' => 'Penjualan Produk',
+                    'submenu' => 'Edit Data'
+                ]
+            );
+        } else {
+            Alert::error('Gagal!', 'Data penjualan sudah berada dipengiriman');
+            return redirect('produkKeluar');
+        }
     }
 
     /**
@@ -231,53 +205,65 @@ class ProdukKeluarController extends Controller
 
         $this->authorize('update', $produkKeluar);
 
-        // mengubah nama validasi
-        $messages = [
-            'kd_produk.required' => 'Kode Produk Harus Diisi',
-            'tgl_keluar.required' => 'Tanggal Keluar Harus Diisi',
-            'jumlah.required' => 'Jumlah Harus Diisi',
-            'jumlah.numeric' => 'Jumlah Harus Angka',
-            'ket.required' => 'Keterangan Harus Diisi',
-        ];
+        // ambil status dari database berdasarkan id
+        $status = ProdukKeluar::where('id_produkKeluar', $produkKeluar->id_produkKeluar)->first()->stts;
 
-        $request->validate([
-            'kd_produk' => 'required',
-            'tgl_keluar' => 'required',
-            'jumlah' => 'required|numeric',
-            'ket' => 'required',
-        ], $messages);
+        if ($status == 0) {
+            dd('kesini');
+            // mengubah nama validasi
+            $messages = [
+                'kd_produk.required' => 'Kode Produk Harus Diisi',
+                'tgl_keluar.required' => 'Tanggal Keluar Harus Diisi',
+                'jumlah.required' => 'Jumlah Harus Diisi',
+                'jumlah.numeric' => 'Jumlah Harus Angka',
+                'ket.required' => 'Keterangan Harus Diisi',
+            ];
 
-        $nip = auth()->user()->nip;
+            $request->validate([
+                'kd_produk' => 'required',
+                'tgl_keluar' => 'required',
+                'jumlah' => 'required|numeric',
+                'ket' => 'required',
+            ], $messages);
 
-        // mengembalikan stok produk
-        $stok = ProdukJadi::where('kd_produk', $produkKeluar->kd_produk)->first();
-        $stok->stok = $stok->stok + $produkKeluar->jumlah;
-        $stok->save();
+            $nip = auth()->user()->nip;
 
-        // update stok produk
-        $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
-        $stok->stok = $stok->stok - $request->jumlah;
-        $stok->save();
+            // mengembalikan stok produk
+            $stok = ProdukJadi::where('kd_produk', $produkKeluar->kd_produk)->first();
+            $stok->stok = $stok->stok + $produkKeluar->jumlah;
+            $stok->save();
 
-        // ubah format tgl_keluar dari varchar ke date
-        $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));
+            // update stok produk
+            $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
+            $stok->stok = $stok->stok - $request->jumlah;
+            $stok->save();
 
-        $harga_jual = ProdukJadi::where('kd_produk', $request->kd_produk)->first()->harga_jual;
+            // ubah format tgl_keluar dari varchar ke date
+            $tgl_keluar = date('Y-m-d', strtotime($request->tgl_keluar));
 
-        $total = $harga_jual * $request->jumlah;
+            $harga_jual = ProdukJadi::where('kd_produk', $request->kd_produk)->first()->harga_jual;
 
-        $produkKeluar->update([
-            'kd_produk' => $request->kd_produk,
-            'nip_karyawan' => $nip,
-            'tgl_keluar' => $tgl_keluar,
-            'harga_jual' => $harga_jual,
-            'jumlah' => $request->jumlah,
-            'total' => $total,
-            'ket' => $request->ket,
-        ]);
+            $total = $harga_jual * $request->jumlah;
 
-        Alert::success('Data Penjualan Produk', 'Berhasil Diubah!');
-        return redirect('produkKeluar');
+            $stts = 0;
+
+            $produkKeluar->update([
+                'kd_produk' => $request->kd_produk,
+                'nip_karyawan' => $nip,
+                'tgl_keluar' => $tgl_keluar,
+                'harga_jual' => $harga_jual,
+                'jumlah' => $request->jumlah,
+                'total' => $total,
+                'ket' => $request->ket,
+                'stts' => $stts,
+            ]);
+
+            Alert::success('Data Penjualan Produk', 'Berhasil Diubah!');
+            return redirect('produkKeluar');
+        } else {
+            Alert::error('Gagal!', 'Data penjualan sudah berada dipengiriman');
+            return redirect('produkKeluar');
+        }
     }
 
     /**
@@ -290,13 +276,21 @@ class ProdukKeluarController extends Controller
     {
         $this->authorize('delete', $produkKeluar);
 
-        // update stok produk
-        $stok = ProdukJadi::where('kd_produk', $produkKeluar->kd_produk)->first();
-        $stok->stok = $stok->stok + $produkKeluar->jumlah;
-        $stok->save();
+        // ambil status dari database berdasarkan id
+        $status = ProdukKeluar::where('id_produkKeluar', $produkKeluar->id_produkKeluar)->first()->stts;
 
-        $produkKeluar->delete();
-        Alert::success('Data Penjualan Produk', 'Berhasil Dihapus!');
-        return redirect('produkKeluar');
+        if ($status == 0) {
+            // update stok produk
+            $stok = ProdukJadi::where('kd_produk', $produkKeluar->kd_produk)->first();
+            $stok->stok = $stok->stok + $produkKeluar->jumlah;
+            $stok->save();
+
+            $produkKeluar->delete();
+            Alert::success('Data Penjualan Produk', 'Berhasil Dihapus!');
+            return redirect('produkKeluar');
+        } else {
+            Alert::error('Gagal!', 'Data penjualan sudah berada di Pengiriman');
+            return redirect('produkKeluar');
+        }
     }
 }

@@ -69,6 +69,7 @@
             </thead>
             <tbody>
                 @foreach ($sopir as $spr)
+                @if ($spr->hapus == 0)
                 <tr class="intro-x">
                     <td class="text-center">{{ $loop->iteration + ($sopir->currentPage() - 1) * $sopir->perPage() }}</td>
                     <td class="text-center">
@@ -117,6 +118,7 @@
                         </div>
                     </td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>

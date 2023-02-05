@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('jenis_kelamin', 15);
             $table->string('alamat', 155);
             $table->text('foto');
-
-
             $table->timestamps();
         });
     }

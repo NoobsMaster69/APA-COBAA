@@ -64,7 +64,7 @@
                     <th class="text-center whitespace-nowrap">NAMA PRODUK</th>
                     <!-- <th class="text-center whitespace-nowrap">PENCATAT</th> -->
                     <th class="text-center whitespace-nowrap">JUMLAH </th>
-                    <th class="text-center whitespace-nowrap">TANGGAL KELUAR</th>
+                    <th class="text-center whitespace-nowrap">TANGGAL PENJUALAN</th>
                     <!-- <th class="text-center whitespace-nowrap">TANGGAL EXPIRED</th> -->
                     <th class="text-center whitespace-nowrap">HARGA JUAL</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
@@ -74,24 +74,36 @@
             </thead>
             <tbody>
                 @foreach ($produkKeluar as $keluar)
+                <!-- menampilkan bulan dengan bahasa indonesia -->
+                @php
+                $bulanIndo = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                ];
+
+                $tanggal = date('j', strtotime($keluar->tgl_keluar));
+                $bulan = $bulanIndo[date('n', strtotime($keluar->tgl_keluar)) - 1];
+                $tahun = date('Y', strtotime($keluar->tgl_keluar));
+                @endphp
                 <tr class="intro-x">
                     <!-- <td class="text-center">{{ $keluar->kd_produk }}</td> -->
                     <!-- <td class="text-center">{{ $keluar->kd_resep }}</td> -->
                     <!-- status pengiriman produk -->
-                        @if ($keluar->id_produkKeluar == $id_produkKeluar)
-                        <td class="text-center text-success">Dikirim</td>
-                        @else
-                        <td class="text-center text-danger">Belum Dikirim</td>
-                        @endif
+                    @if ($keluar->stts == 1)
+                    <td class="text-center text-success">Dikirim</td>
+                    @elseif ($keluar->stts == 0)
+                    <td class="text-center text-danger">Belum Dikirim</td>
+                    @endif
                     <td class="text-center">{{ $keluar->nm_produk }}</td>
                     <!-- <td class="text-center">{{ $keluar->name }}</td> -->
                     <td class="text-center">{{ $keluar->jumlah }} {{ $keluar->nm_satuan }}</td>
-                    <td class="text-center">{{ date('d F Y',strtotime($keluar->tgl_keluar)) }}</td>
-                    <!-- <td class="text-center">{{ date('d F Y',strtotime($keluar->tgl_expired)) }}</td> -->
+                    <!-- menampilkan format bulan dengan bahasa indonesia -->
+                    <td class="text-center">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center">Rp. {{ number_format($keluar->harga_jual, 0, ',', '.') }}</td>
                     <td class="text-center">Rp. {{ number_format($keluar->total, 0, ',', '.') }}</td>
                     <!-- <td class="text-center">{{ $keluar->ket }}</td> -->
                     <td class="table-report__action">
+                        @if ($keluar->stts == 0)
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-2 tooltip text-success" title="Edit" data-theme="light" href="{{ route('produkKeluar.edit', $keluar->id_produkKeluar) }}">
                                 <i data-feather="check-square" class="w-4 h-4"></i>
@@ -105,7 +117,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
-                                            <form action="{{ route('dataBahan.destroy', $keluar->id_produkKeluar) }}" method="POST">
+                                            <form action="{{ route('produkKeluar.destroy', $keluar->id_produkKeluar) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="p-5 text-center">
@@ -124,6 +136,30 @@
                             </div>
                             <!-- END: Delete Confirmation Modal -->
                         </div>
+                        @else
+                        <button class="flex items-center text-danger mx-auto" data-tw-toggle="modal" data-tw-target="#why{{ $keluar->id_produkKeluar }}">
+                            <i data-feather="slash" class="w-4 h-4 mx-auto"></i>
+                        </button>
+                        <!-- BEGIN: Confirmation Modal -->
+                        <div id="why{{ $keluar->id_produkKeluar }}" class="modal pt-16" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body p-0">
+                                        <div class="p-5 text-center">
+                                            <i data-feather="slash" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                            <div id="exampleModalLabel" class="text-3xl mt-5">Penjualan Produk Sudah Dikirim!</div>
+                                            <div class="text-danger mt-2">Tidak dapat di modifikasi</div>
+                                            <div class="text-slate-500 mt-2"><i>Kecuali dibatalkan oleh bagian pengiriman</i>!</div>
+                                        </div>
+                                        <div class="px-5 pb-8 text-center">
+                                            <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24 mr-1">Oke</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Confirmation Modal -->
+                        @endif
                     </td>
                 </tr>
                 @endforeach

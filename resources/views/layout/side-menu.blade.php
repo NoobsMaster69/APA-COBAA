@@ -15,7 +15,7 @@
         <nav class="side-nav">
             <ul>
                 <li>
-                    <a href="/" class="side-menu {{ Request::is('/') ? 'side-menu--active' : '' }}">
+                    <a href="/dashboard" class="side-menu {{ Request::is('/') ? 'side-menu--active' : '' }}">
                         <div class="side-menu__icon">
                             <i data-feather="home"></i>
                         </div>
@@ -188,12 +188,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/terkirimProduk" class="side-menu {{ Request::is('terkirimProduk*') ? 'side-menu--active' : '' }}">
+                            <a href="/lokasiPengiriman" class="side-menu {{ Request::is('lokasiPengiriman*') ? 'side-menu--active' : '' }}">
                                 <div class="side-menu__icon">
                                     <i data-feather="truck"></i>
                                 </div>
                                 <div class="side-menu__title">
-                                    Produk Terkirim
+                                    Lokasi Pengiriman
                                 </div>
                             </a>
                         </li>
@@ -458,12 +458,12 @@
                 </li>
 
                 <li>
-                    <a href="/terkirimProduk" class="side-menu {{ Request::is('terkirimProduk*') ? 'side-menu--active' : '' }}">
+                    <a href="/lokasiPengiriman" class="side-menu {{ Request::is('lokasiPengiriman*') ? 'side-menu--active' : '' }}">
                         <div class="side-menu__icon">
                             <i data-feather="truck"></i>
                         </div>
                         <div class="side-menu__title">
-                            Produk Terkirim
+                            Lokasi Pengiriman
                         </div>
                     </a>
                 </li>

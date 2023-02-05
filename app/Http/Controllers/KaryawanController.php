@@ -33,13 +33,21 @@ class KaryawanController extends Controller
             ->orWhere('karyawan.jenis_kelamin', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(5)->withQueryString();
 
+        $bulanIndo = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
         // memecah format ttl menjadi tempat dan tanggal lahir
         foreach ($karyawan as $k) {
             $ttl = explode(',', $k->ttl);
             $k->tempat_lahir = $ttl[0];
             $k->tgl_lahir = $ttl[1];
             // mengubah format tanggal lahir menjadi dd-mm-yyyy
-            $tgl_lahir = date('d F Y', strtotime($k->tgl_lahir));
+            $tanggal = date('j', strtotime($k->tgl_lahir));
+            $bulan = $bulanIndo[date('n', strtotime($k->tgl_lahir)) - 1];
+            $tahun = date('Y', strtotime($k->tgl_lahir));
+            $tgl_lahir = "{$tanggal} {$bulan} {$tahun}";
             $k->tgl_lahir = $tgl_lahir;
             // menggambar format tempat dan tanggal lahir menjadi ttl
             $k->ttl = $k->tempat_lahir . ', ' . $k->tgl_lahir;
@@ -103,7 +111,7 @@ class KaryawanController extends Controller
             'role.required' => 'Harap tentukan dia login sebagai apa!',
             'foto.required' => 'Foto tidak boleh kosong',
             'foto.images' => 'File yang anda pilih bukan foto atau gambar',
-            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+            'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
             'foto.dimensions' => 'Foto harus memiliki ratio 1:1 atau berbentuk persegi'
         ];
 
@@ -121,7 +129,7 @@ class KaryawanController extends Controller
             'kecamatan' => 'required',
             'alamat_lengkap' => 'required',
             'role' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
 
         // cek apakah nama belakang diisi
@@ -301,7 +309,7 @@ class KaryawanController extends Controller
                 'role.required' => 'Harap tentukan dia login sebagai apa!',
                 'foto.required' => 'Foto tidak boleh kosong',
                 'foto.images' => 'File yang anda pilih bukan foto atau gambar',
-                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,svg,webp',
+                'foto.mimes' => 'File atau Foto harus berupa jpeg,png,jpg,gif,webp',
                 'nip.required' => 'NIP tidak boleh kosong',
                 'nip.min' => 'NIP minimal 11 karakter',
                 'nip.max' => 'NIP maksimal 11 karakter',
@@ -322,7 +330,7 @@ class KaryawanController extends Controller
                 'kecamatan' => 'required',
                 'alamat_lengkap' => 'required',
                 'role' => 'required',
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|dimensions:ratio=1/1'
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
             ];
 
             if ($request->nip != $karyawan->nip) {

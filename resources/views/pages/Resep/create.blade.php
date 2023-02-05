@@ -14,7 +14,7 @@
 </div>
 @if ($errors->any())
 @foreach ($errors->all() as $error)
-<div class="alert alert-danger alert-dismissible show flex items-center mb-2 w-full lg:w-1/2" role="alert">
+<div class="alert alert-danger alert-dismissible show flex items-center mb-2 w-full lg:w-1/2 shadow-md" role="alert">
     <i data-feather="alert-octagon" class="w-6 h-6 mr-2"></i> {{ $error }}
     <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
         <i data-feather="x" class="w-4 h-4"></i>
@@ -47,9 +47,45 @@
                         </select>
                     </div>
                 </div>
+                <!-- buat inputan untuk biaya tenaga_kerja -->
+                <div class="mt-6">
+                    <label for="biaya_tenaga_kerja" class="form-label font-bold">Biaya Tenaga Kerja</label>
+                    <div class="mt-1">
+                        <input type="text" class="form-control @error('biaya_tenaga_kerja') border-danger @enderror shadow-md" id="biaya_tenaga_kerja" name="biaya_tenaga_kerja" value="{{ old('biaya_tenaga_kerja') }}" placeholder="Masukkan biaya tenaga kerja">
+                    </div>
+                </div>
+                @error('biaya_tenaga_kerja')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+                <!-- buat inputan untuk biaya kemasan -->
+                <div class="mt-6">
+                    <label for="biaya_kemasan" class="form-label font-bold">Harga kemasan per produk</label>
+                    <div class="mt-1">
+                        <input type="text" class="form-control @error('biaya_kemasan') border-danger @enderror shadow-md" id="biaya_kemasan" name="biaya_kemasan" value="{{ old('biaya_kemasan') }}" placeholder="Masukkan harga kemasan per produk">
+                    </div>
+                </div>
+                @error('biaya_kemasan')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+                <!-- buat inputan untuk biaya peralatan dan operasional -->
+                <div class="mt-6">
+                    <label for="biaya_peralatan_operasional" class="form-label font-bold">Biaya Peralatan dan Operasional</label>
+                    <div class="mt-1">
+                        <input type="text" class="form-control @error('biaya_peralatan_operasional') border-danger @enderror shadow-md" id="biaya_peralatan_operasional" name="biaya_peralatan_operasional" value="{{ old('biaya_peralatan_operasional') }}" placeholder="Masukkan biaya peralatan dan operasional">
+                    </div>
+                </div>
+                @error('biaya_peralatan_operasional')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
                 <div class="mt-6">
                     <label for="kd_bahan" class="form-label font-bold">Pilih Bahan-bahan disertai jumlah</label>
-                    <div class="intro-y inbox box mt-3">
+                    <div class="intro-y inbox box mt-3 @error('kd_bahan') border-danger @enderror">
                         <div class="overflow-x-auto sm:overflow-x-visible shadow-md">
                             @foreach ($dataBahan as $bahan)
                             <div class="intro-y">

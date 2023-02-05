@@ -115,12 +115,18 @@ class ProdukKeluarController extends Controller
 
         // stok bahan bertambah
         $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
+        $resep = Resep::where('kd_produk', $request->kd_produk)->get();
         if ($stok->stok < $request->jumlah) {
             Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
             return redirect('produkKeluar');
         } else {
-            $stok->stok = $stok->stok - $request->jumlah;
-            $stok->save();
+            if (empty($resep->first())) {
+                Alert::warning('Resep untuk Produk ini belum tersedia', 'Silahkan tambahkan resep terlebih dahulu!');
+                return redirect('resep');
+            } else {
+                $stok->stok = $stok->stok - $request->jumlah;
+                $stok->save();
+            }
         }
 
         // ubah format tgl_keluar dari varchar ke date

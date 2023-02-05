@@ -51,6 +51,8 @@ $jabatan = $karyawan->nm_jabatan;
         </nav> --}}
         <!-- END: Breadcrumb -->
         <!-- BEGIN: Search -->
+        <!-- agar search tampil hanya pada saat di halaman index -->
+        @if (Request::is('resep *') || Request::is('produkMasuk *') || Request::is('produkKeluar *') || Request::is('produk *') || Request::is('bahanBaku *') || Request::is('karyawan *') || Request::is('sopir *') || Request::is('jabatan *') || Request::is('produkMasuk *') || Request::is('produkkeluar *') || Request::is('bahanMasuk *') || Request::is('bahanKeluar *') || Request::is('laporan *') || Request::is('dashboard *'))
         <div class="intro-x relative mr-3 sm:mr-6">
             <div class="search hidden sm:block">
                 <input type="text" class="search__input form-control border-transparent" placeholder="Search...">
@@ -108,6 +110,7 @@ $jabatan = $karyawan->nm_jabatan;
             </div>
         </div>
         <!-- END: Search -->
+        @endif
         <!-- BEGIN: Notifications -->
         <div class="intro-x dropdown mr-4 sm:mr-6">
             <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown">
@@ -150,7 +153,7 @@ $jabatan = $karyawan->nm_jabatan;
                     <li>
                         <hr class="dropdown-divider border-white/[0.08]">
                     </li>
- 
+
                     @if ($karyawan !== null || $sopir !== null)
                     <li>
                         <a href="{{ route('UserProfile.index') }}" class="dropdown-item hover:bg-white/5">
@@ -159,7 +162,7 @@ $jabatan = $karyawan->nm_jabatan;
                     </li>
                     @endif
 
-                    
+
                     <li>
                         <a href="" class="dropdown-item hover:bg-white/5">
                             <i data-feather="edit" class="w-4 h-4 mr-2"></i> Add Account

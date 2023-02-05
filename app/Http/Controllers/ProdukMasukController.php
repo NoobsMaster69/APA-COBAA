@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\buatResep;
+use App\Models\DataBahan;
 use App\Models\ProdukJadi;
 use App\Models\ProdukMasuk;
 use App\Models\Resep;
@@ -60,6 +62,8 @@ class ProdukMasukController extends Controller
 
         // join dengan tabel satuan
         $produkJadi = ProdukJadi::select('produkJadi.*')
+            ->join('resep', 'produkJadi.kd_produk', '=', 'resep.kd_produk')
+            ->select('produkJadi.*', 'resep.roti_terbuat')
             ->get();
 
         return view(
@@ -84,13 +88,13 @@ class ProdukMasukController extends Controller
     {
         $this->authorize('create', ProdukMasuk::class);
 
-        // dd($request->all());
 
         // mengubah nama validasi
         $messages = [
-            'kd_produk.required' => 'Kode Produk Harus Diisi',
+            'kd_produk.required' => 'Pilih Produk terlebih dahulu',
             'tgl_produksi.required' => 'Tanggal Produksi Harus Diisi',
             'tgl_expired.required' => 'Tanggal Expired Harus Diisi',
+            'stok.required' => 'Pilih Produk terlebih dahulu',
             'jumlah.required' => 'Jumlah Harus Diisi',
             'jumlah.numeric' => 'Jumlah Harus Angka',
             'ket.required' => 'Keterangan Harus Diisi',
@@ -100,23 +104,36 @@ class ProdukMasukController extends Controller
             'kd_produk' => 'required',
             'tgl_produksi' => 'required',
             'tgl_expired' => 'required',
-            'jumlah' => 'required|numeric',
+            'stok' => 'required',
+            // 'jumlah' => 'required|numeric',
             'ket' => 'required',
         ], $messages);
 
-        $nip = auth()->user()->nip;
-
+        // dd($request->all());
         $resep = Resep::where('kd_produk', $request->kd_produk)->get();
+        $jumlah = Resep::where('kd_produk', $request->kd_produk)->get();
         if (empty($resep->first())) {
             Alert::warning('Resep untuk Produk ini belum tersedia', 'Silahkan tambahkan resep terlebih dahulu!');
             return redirect('resep');
         } else {
             $resep = $resep->first()->kd_resep;
+            $jumlah = $jumlah->first()->roti_terbuat;
+        }
+        $nip = auth()->user()->nip;
+
+        // ambil semua kd_bahan di tabel buatresep berdasarkan request kd_produk lalu kurangi setiap stok bahan di tabel dataBahan berdasarkan jumlah pemakaian di tabel buatresep
+        $bahan = BuatResep::where('kd_resep', $resep)->get();
+        $jumlah_bahan = BuatResep::where('kd_resep', $resep)->get();
+        // kurangi stok bahan berdasarkan jumlah tiap bahan yang ada di tabel buatresep dengan mneyamakan kd_resep ditabel resep dengan kd_resep di tabel buatresep
+        foreach ($bahan as $key => $value) {
+            $stok = DataBahan::where('kd_bahan', $value->kd_bahan)->first();
+            $stok->stok = $stok->stok - ($jumlah_bahan[$key]->jumlah);
+            $stok->save();
         }
 
         // stok bahan bertambah
         $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
-        $stok->stok = $stok->stok + $request->jumlah;
+        $stok->stok = $stok->stok + $jumlah;
         $stok->save();
 
         // ubah format tgl_keluar dari varchar ke date
@@ -126,14 +143,14 @@ class ProdukMasukController extends Controller
 
         $modal = ProdukJadi::where('kd_produk', $request->kd_produk)->first()->modal;
 
-        $total = $modal * $request->jumlah;
+        $total = $modal * $jumlah;
 
         ProdukMasuk::create([
             'kd_produk' => $request->kd_produk,
             'nip_karyawan' => $nip,
             'tgl_produksi' => $tgl_produksi,
             'tgl_expired' => $tgl_expired,
-            'jumlah' => $request->jumlah,
+            'jumlah' => $jumlah,
             'total' => $total,
             'ket' => $request->ket,
         ]);
@@ -206,7 +223,7 @@ class ProdukMasukController extends Controller
             'kd_produk' => 'required',
             'tgl_produksi' => 'required',
             'tgl_expired' => 'required',
-            'jumlah' => 'required|numeric',
+            // 'jumlah' => 'required|numeric',
             'ket' => 'required',
         ], $messages);
 
@@ -259,6 +276,18 @@ class ProdukMasukController extends Controller
         $stok = ProdukJadi::where('kd_produk', $produkMasuk->kd_produk)->first();
         $stok->stok = $stok->stok - $produkMasuk->jumlah;
         $stok->save();
+        // ambil semua kd_bahan di tabel buatresep berdasarkan request kd_produk lalu tambahkan setiap stok bahan di tabel dataBahan berdasarkan jumlah pemakaian di tabel buatresep
+        $resep = Resep::where('kd_produk', $produkMasuk->kd_produk)->get();
+        $resep = $resep->first()->kd_resep;
+        $bahan = BuatResep::where('kd_resep', $resep)->get();
+        $jumlah_bahan = BuatResep::where('kd_resep', $resep)->get();
+        // tambhkan stok bahan berdasarkan jumlah tiap bahan yang ada di tabel buatresep dengan mneyamakan kd_resep ditabel resep dengan kd_resep di tabel buatresep
+        foreach ($bahan as $key => $value) {
+            $stok = DataBahan::where('kd_bahan', $value->kd_bahan)->first();
+            $stok->stok = $stok->stok + ($jumlah_bahan[$key]->jumlah);
+            $stok->save();
+        }
+
 
         $produkMasuk->delete();
         Alert::success('Data Pembuatan Produk', 'Berhasil Dihapus!');

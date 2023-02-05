@@ -59,7 +59,7 @@
             <thead>
                 <tr>
                     <th class="text-center">RESEP</th>
-                    <th class="whitespace-nowrap">BAHAN-BAHAN</th>
+                    <th colspan="2" class="whitespace-nowrap">BAHAN-BAHAN</th>
                     <th class="whitespace-nowrap text-center">TOTAL BERAT <br>BAHAN TERPAKAI</th>
                     <th class="whitespace-nowrap text-center">TOTAL HARGA <br>BAHAN TERPAKAI </th>
                     <th class="whitespace-nowrap text-center">MODAL <br> PER PRODUK</th>
@@ -73,15 +73,12 @@
                     <td class="text-center">
                         {{ $resep->nm_produk }}
                     </td>
-                    <td class="whitespace-nowrap">
-                        <ul>
-                            <!-- menampilkan bahan berdasarkan kode resep yang sama dengan variabel $dataBahan -->
-                            @foreach ($dataBahan as $bahan)
-                            @if ($bahan->kd_resep == $resep->kd_resep)
-                            <li>{{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram)</li>
-                            @endif
-                            @endforeach
-                        </ul>
+                    <td colspan="2" class="whitespace-nowrap">
+                        @foreach ($dataBahan as $index => $bahan)
+                        @if ($bahan->kd_resep == $resep->kd_resep)
+                        @if ($index == count($dataBahan) - 2)
+                        {{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram), dan<br>
+                        @elseif ($index < count($dataBahan) - 1) {{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram),<br> @else {{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram)<br> @endif @endif @endforeach
                     </td>
                     <td class="text-center">
                         {{ $resep->tot_jumlahPakai }} Kg
@@ -149,3 +146,13 @@
 
 
 @endsection
+
+<!-- <td class="whitespace-nowrap">
+    <ul>
+        @foreach ($dataBahan as $bahan)
+        @if ($bahan->kd_resep == $resep->kd_resep)
+        <li>{{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram)</li>
+        @endif
+        @endforeach
+    </ul>
+</td> -->

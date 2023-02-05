@@ -20,6 +20,9 @@ return new class extends Migration
             $table->double('tot_hargaPakai', 10);
             $table->double('tot_cost', 10);
             $table->double('roti_terbuat', 10);
+            $table->double('biaya_tenaga_kerja', 10);
+            $table->double('biaya_kemasan', 10);
+            $table->double('biaya_peralatan_operasional', 10);
             $table->timestamps();
         });
     }

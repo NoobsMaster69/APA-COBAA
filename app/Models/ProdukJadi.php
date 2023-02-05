@@ -19,8 +19,6 @@ class ProdukJadi extends Model
         'kd_produk',
         'nm_produk',
         'stok',
-        'modal',
-        'harga_jual',
         'berat',
         'ket',
         'foto',

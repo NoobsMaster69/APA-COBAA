@@ -67,7 +67,8 @@
                         <div class="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
                             <div class="sm:col-span-4 lg:col-span-5">
                                 <div class="overflow-hidden rounded-lg bg-gray-100 h-64 2xl:h-56 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10">
-                                    <img src="{{ asset('images/'.$produk->foto) }}" alt="Foto Produk." class="object-cover object-center">
+                                    <!-- <img src="{{ asset('images/'.$produk->foto) }}" alt="Foto Produk." class="object-cover object-center"> -->
+                                    <img src="{{ asset('dist/images/roti.webp') }}" alt="Foto Produk." class="object-cover object-center">
                                 </div>
                             </div>
                             <div class="sm:col-span-8 lg:col-span-7">

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('kd_produk', 10)->primary();
             $table->string('nm_produk', 50);
             $table->integer('stok');
-            $table->integer('modal');
-            $table->integer('harga_jual');
+            $table->double('modal')->nullable();
+            $table->double('harga_jual')->nullable();
             $table->double('berat', 10);
             $table->string('ket');
             $table->text('foto');

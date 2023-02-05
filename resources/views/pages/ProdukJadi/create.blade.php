@@ -104,9 +104,7 @@
                                     <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
                             </div>
-
                             <input id="dropzone-file" type="file" class="hidden" name="foto" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
-
                         </label>
                     </div>
                 </div>
@@ -127,7 +125,10 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
 <!-- menghilangkan id hilang ketika file di upload -->
+>>>>>>> okeh
 <script>
     document.getElementById('dropzone-file').addEventListener('change', function() {
         document.getElementById('hilang').style.display = 'none';
@@ -136,4 +137,24 @@
 @endsection
 @section('script')
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
+<<<<<<< HEAD
+
+{{-- <script>
+   const inputElement = document.querySelector('input[id="foto"]');
+
+const pond = FilePond.create(inputElement);
+
+
+FilePond.setOptions({
+    server: {
+        process:'/tmp-upload',
+        headers:{
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    }
+});
+    </script> --}}
 @endsection
+=======
+@endsection
+>>>>>>> okeh

@@ -50,18 +50,24 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegistrationController::class, 'store'])->name('register.store');
     // Login
     Route::get('logout', [RegistrationController::class, 'logout']);
-    Route::get('/', [RegistrationController::class, 'login'])->name('login.index');
+    // Route::get('/', [RegistrationController::class, 'login'])->name('login.index');
     Route::get('login', [RegistrationController::class, 'login'])->name('login.index');
     // Route::get('login', [AuthController::class, 'loginView'])->name('login.index');
     // Route::post('login', [AuthController::class, 'login'])->name('login.check');
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
+
+
+    Route::get('/', function () {
+        return view('pages.home.index');
+    })->name('/');
 });
 
 Route::middleware('auth')->group(function () {
     // Dashboard
-    Route::get('/', function () {
+    Route::get('/dashboard', function () {
         return view('pages.dashboard.index');
-    })->name('/');
+    })->name('dashboard');
+
     // logout
     Route::post('logout', [RegistrationController::class, 'logout'])->name('logout');
     // mengarah ke setiap controller

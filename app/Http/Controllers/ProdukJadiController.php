@@ -215,9 +215,10 @@ class ProdukJadiController extends Controller
         Alert::success('Data Produk', 'Berhasil dihapus!');
         return redirect('produkJadi');
     }
-    public function landing(Request $request)
+
+    public function home(Request $request)
     {
-        $this->authorize('viewAny', ProdukJadi::class);
+        // $this->authorize('viewAny', ProdukJadi::class);
 
         $search = $request->search;
 
@@ -232,6 +233,6 @@ class ProdukJadiController extends Controller
             ->oldest()->paginate(8)->withQueryString();
 
         // mengirim tittle dan judul ke view
-        return view('pages.home.index', ['produkJadi' => $produkJadi], ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']);
+        return view('pages.home.index', ['produkJadi' => $produkJadi]);
     }
 }

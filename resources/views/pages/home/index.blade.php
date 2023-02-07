@@ -38,16 +38,16 @@
                 </div>
             </div>
         </div> -->
-        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+        <div class="header-middle header-middle-ptb-2 d-none d-lg-block">
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                        <a href="index.html"><img src="assets/imgs/theme/logo.png" alt="logo" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-1">
-                            <form action="#">
-                                <input type="text" placeholder="Search for items..." />
+                            <form action="">
+                                <input type="text"name="search" autocomplete="off" value="{{ request('search') }}" placeholder="Search for items..."  />
                             </form>
                         </div>
                         <!-- <div class="header-action-right">
@@ -168,24 +168,19 @@
             <div class="container">
                 <div class="">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                        <a href="index.html"><img src="assets/imgs/theme/logo.png" alt="logo" /></a>
                     </div>
-                    <div class="header-nav d-none d-lg-flex">
+                    <div class="header-nav d-none d-lg-flex justify-content-center">
                         <div class="main-categori-wrap d-none d-lg-block">
                         </div>
-                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-lg-block font-heading">
                             <nav>
                                 <ul>
                                     <li>
-                                        <a class="active" href="index.html">Home <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.html">Home 1</a></li>
-                                            <li><a href="index-2.html">Home 2</a></li>
-                                            <li><a href="index-3.html">Home 3</a></li>
-                                            <li><a href="index-4.html">Home 4</a></li>
-                                            <li><a href="index-5.html">Home 5</a></li>
-                                            <li><a href="index-6.html">Home 6</a></li>
-                                        </ul>
+                                        <a class="active" href="index.html">Home</a>
+                                    </li>
+                                    <li>
+                                        <a class="active" href="#produk">Produk</a>
                                     </li>
                                     <li>
                                         <a href="page-about.html">About</a>
@@ -214,7 +209,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                    <a href="index.html"><img src="assets/imgs/theme/logo.png" alt="logo" /></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -332,7 +327,7 @@
         <!-- BEGIN: Users Layout -->
 
         <section class="bg-grey-1 section-padding pt-100 pb-80 mb-80">
-         {{-- @foreach ($produkJadi as $produk) --}}
+         @foreach ($produkJadi as $produk)
             <div class="container">
                 <h1 class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
@@ -341,8 +336,7 @@
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     <a href="shop-product-right.html">
-                                        <img class="default-img" src="assets/imgs/shop/product-1-1.jpg" alt="" />
-
+                                        <img class="default-img" src="{{ asset('images/'.$produk->foto) }}" alt="" />
                                     </a>
                                 </div>
                                 <!-- <div class="product-action-1">
@@ -353,16 +347,15 @@
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    <a href="shop-grid-right.html">Roti</a>
+                                    <a href="shop-grid-right.html"></a>
                                 </div>
-                                <h2><a href="shop-product-right.html">Roti Coklat</a></h2>
+                                <h2><a href="#">{{ $produk->nm_produk }}</a></h2>
                                 <div>
-                                    <span class="font-small text-muted">Stok: <a href="vendor-details-1.html">20</a></span>
+                                    <span class="font-small text-muted">Stok: <a href="vendor-details-1.html">{{ $produk['stok']}}</a></span>
                                 </div>
                                 <div class="product-card-bottom">
                                     <div class="product-price">
-                                        <span>Rp 2000</span>
-                                        <span class="old-price">Rp 3500</span>
+                                        <span>Rp {{ number_format($produk->harga_jual, 0, ',', '.') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -521,7 +514,7 @@
                     </div>
                 </div> -->
                 </div>
-                {{-- @endforeach --}}
+                @endforeach
         </section>
 
     </main>
@@ -798,9 +791,9 @@
             <div class="row">
                 <div class="col">
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                        <div class="logo mb-30">
-                            <a href="index.html" class="mb-15"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
-                            <p class="font-lg text-heading">Awesome grocery store website template</p>
+                        <div class="logo mb-15">
+                            <a href="index.html" class="mb-15"><img src="assets/imgs/theme/logo.png" alt="logo" /></a>
+                            <p class="font-lg text-heading">Tentang Perusahaan</p>
                         </div>
                         <ul class="contact-infor">
                             <li><img src="assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
@@ -811,16 +804,6 @@
                     </div>
                 </div>
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                    <h4 class="widget-title">Company</h4>
-                    <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Delivery Information</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Conditions</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Support Center</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
                 </div>
             </div>
         </div>

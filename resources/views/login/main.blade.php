@@ -10,14 +10,14 @@
         <!-- BEGIN: Login Info -->
         <div class="hidden xl:flex flex-col min-h-screen">
             <a href="" class="-intro-x flex items-center pt-5">
-                <img alt="Icewall Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
+                <img alt="Logo" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
                 <span class="text-white text-lg ml-3">
                     Bread Smile
                 </span>
             </a>
             <div class="my-auto">
-                <img alt="Icewall Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="{{ asset('dist/images/illustration.svg') }}">
-                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di website Bread Smile</div>
+                <img alt="Logo" class="-intro-x w-1/2 -mt-16 rounded-md shadow-lg xl:shadow"  src="assets/imgs/theme/logo3.png">
+                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di Admin Bread Smile</div>
                 <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Silahkan login menggunakan akunmu</div>
             </div>
         </div>

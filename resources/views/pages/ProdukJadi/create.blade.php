@@ -109,10 +109,7 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-=======
 <!-- menghilangkan id hilang ketika file di upload -->
->>>>>>> okeh
 <script>
     document.getElementById('dropzone-file').addEventListener('change', function() {
         document.getElementById('hilang').style.display = 'none';
@@ -121,24 +118,4 @@
 @endsection
 @section('script')
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
-<<<<<<< HEAD
-
-{{-- <script>
-   const inputElement = document.querySelector('input[id="foto"]');
-
-const pond = FilePond.create(inputElement);
-
-
-FilePond.setOptions({
-    server: {
-        process:'/tmp-upload',
-        headers:{
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        }
-    }
-});
-    </script> --}}
 @endsection
-=======
-@endsection
->>>>>>> okeh

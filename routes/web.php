@@ -22,6 +22,7 @@ use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SopirController;
 use App\Http\Controllers\UserProfileController;
+use App\Models\ProdukJadi;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,14 +58,16 @@ Route::middleware('guest')->group(function () {
     // Route::post('login', [AuthController::class, 'login'])->name('login.check');
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
 
+    Route::get('/', [ProdukJadiController::class, 'home'])->name('/');
 
-    Route::get('/', function () {
-        return view('pages.home.index');
-    })->name('/');
+    // Route::get('/', function () {
+    //     return view('pages.home.index');
+    // })->name('/');
 });
 
 Route::middleware('auth')->group(function () {
     // Dashboard
+
     Route::get('/dashboard', function () {
         return view('pages.dashboard.index');
     })->name('dashboard');

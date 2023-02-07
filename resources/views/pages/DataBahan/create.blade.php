@@ -32,18 +32,9 @@
                     @enderror
                 </div>
 
-<<<<<<< HEAD
-                <div class="mt-6">
-                    <label for="harga_beli" class="form-label w-full"> Harga Beli </label>
-                    <input name="harga_beli" id="harga_beli" type="text" class="form-control w-full shadow-md @error('harga_beli') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('harga_beli') }}">
-                    <div class="text-dark mt-1">
-                        <small>Harga Beli per Kilogram (/kg)</small>
-                    </div>
-=======
                 <div class="mt-6                ">
                     <label for="harga_beli" class="form-label"> Harga Beli </label>
                     <input name="harga_beli" id="harga_beli" type="number" class="form-control w-full shadow-md @error('harga_beli') border-danger @enderror" placeholder="Masukkan Harga Beli" value="{{ old('harga_beli') }}">
->>>>>>> dashboard
                     @error('harga_beli')
                     <div class="text-danger mt-1">
                         {{ $message }}
@@ -56,11 +47,7 @@
                     <div class="relative rounded-md">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         </div>
-<<<<<<< HEAD
-                        <input name="stok" id="stok" type="text" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
-=======
                         <input name="stok" id="stok" type="number" class="form-control block w-full shadow-md @error('stok') border-danger @enderror rounded-md pl-3 pr-12 sm:text-sm" placeholder="Masukkan Stok" value="{{ old('stok') }}">
->>>>>>> dashboard
                         <div class="absolute inset-y-0 right-0 flex items-center">
                             <input id="satuan" class="form-control h-full w-24 rounded-md shadow-md border-transparent bg-transparent py-0 text-gray-500 sm:text-sm text-center" readonly value="Kg">
                         </div>

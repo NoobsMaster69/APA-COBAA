@@ -49,9 +49,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-</div>
-=======
 </div> -->
 <script src="https://cdn.tailwindcss.com"></script>
 <div id="detail-{{ $produk->kd_produk }}" class="modal" tabindex="-1" aria-hidden="true">
@@ -109,7 +106,5 @@
                 </div>
             </div>
         </div>
-           
     </div>
 </div>
->>>>>>> okeh

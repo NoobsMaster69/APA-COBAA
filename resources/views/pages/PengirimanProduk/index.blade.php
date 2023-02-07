@@ -68,7 +68,7 @@
                     <a href="{{ route('pengirimanProduk.create') }}">
                         <div class="cursor-pointer relative flex items-center {{ $keluar ? 'mt-5' : '' }}">
                             <div class="w-12 h-12 flex-none image-fit mr-1">
-                                <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="{{ asset('images/' . $keluar->foto) }}">
+                                <img alt="Foto Produk" class="rounded-full" src="{{ asset('images/' . $keluar->foto) }}">
                                 <div class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
                             </div>
                             <div class="ml-2 overflow-hidden">

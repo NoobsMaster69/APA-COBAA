@@ -85,17 +85,20 @@ class BahanKeluarController extends Controller
 
         // stok bahan berkurang
         $stok = DataBahan::where('kd_bahan', $request->kd_bahan)->first();
+
+        // ubah jumlah dari kilogram ke gram
+        $jumlah = $request->jumlah / 1000;
         // update stok bahan
-        if ($stok->stok < $request->jumlah) {
+        if ($stok->stok < $jumlah) {
             Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
             return redirect('bahanKeluar');
         } else {
-            $stok->stok = $stok->stok - $request->jumlah;
+            $stok->stok = $stok->stok - $jumlah;
             $stok->save();
         }
         // merubah harga_beli dan jumlah menjadi integer
         $harga_beli = (int) $request->harga_beli;
-        $jumlah = (int) $request->jumlah;
+        $jumlah = (int) $jumlah;
 
         $total = $harga_beli * $jumlah;
 
@@ -169,22 +172,25 @@ class BahanKeluarController extends Controller
                 'ket' => 'required',
             ], $messages);
 
+            // ubah jumlah dari kilogram ke gram
+            $jumlah = $bahanKeluar->jumlah / 1000;
             // mengembalikan stok bahan yg lama
             $stok = DataBahan::where('kd_bahan', $bahanKeluar->kd_bahan)->first();
-            $stok->stok = $stok->stok + $bahanKeluar->jumlah;
+            $stok->stok = $stok->stok + $jumlah;
             $stok->save();
 
-            if ($stok->stok < $request->jumlah) {
+
+            if ($stok->stok < $jumlah) {
                 Alert::warning('Stok tidak mencukupi', 'Silahkan tambahkan stok terlebih dahulu!');
                 return redirect('bahanKeluar');
             } else {
-                $stok->stok = $stok->stok - $request->jumlah;
+                $stok->stok = $stok->stok - $jumlah;
                 $stok->save();
             }
 
             // merubah harga_beli dan jumlah menjadi integer
             $harga_beli = (int) $stok->harga_beli;
-            $jumlah = (int) $request->jumlah;
+            $jumlah = (int) $jumlah;
 
 
             $input = $request->all();

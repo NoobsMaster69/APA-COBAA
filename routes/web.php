@@ -8,6 +8,7 @@ use App\Http\Controllers\DarkModeController;
 use App\Http\Controllers\ColorSchemeController;
 use App\Http\Controllers\DataBahanController;
 use App\Http\Controllers\BahanMasukController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LokasiPengirimanController;
@@ -65,10 +66,8 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard.index');
-    })->name('dashboard');
-
+    // arahkan ke dashboardcontroller
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // logout
     Route::post('logout', [RegistrationController::class, 'logout'])->name('logout');
     // mengarah ke setiap controller

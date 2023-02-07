@@ -162,9 +162,9 @@
                                 <div class="inbox__item{{ $keluar[0] ? ' inbox__item--active' : '' }} inline-block sm:block text-slate-600 dark:text-slate-500 bg-slate-100 dark:bg-darkmode-400/70 border-b border-slate-200/60 dark:border-darkmode-400 @error('id_produkKeluar') border-danger @enderror">
                                     <div class="flex px-5 py-3">
                                         <div class="w-64 flex-none flex items-center mr-5">
-                                            <input class="form-check-input flex-none" type="checkbox" value="{{ $keluar->id_produkKeluar }}" name="id_produkKeluar[]">
+                                            <input class="form-check-input flex-none" type="checkbox" value="{{ $keluar->id_produkKeluar }}" name="id_produkKeluar[]" @if(old('id_produkKeluar') && in_array($keluar->id_produkKeluar, old('id_produkKeluar'))) checked @endif>
                                             <div class="w-6 h-6 flex-none image-fit relative ml-5">
-                                                <img alt="Icewall Tailwind HTML Admin Template" class="rounded-md" src="{{ asset('images/'.$keluar->foto) }}">
+                                                <img alt="Foto Produk" class="rounded-md" src="{{ asset('images/'.$keluar->foto) }}">
                                             </div>
                                             <div class="inbox__item--sender truncate ml-3">{{ $keluar->nm_produk }}</div>
                                             <div class="inbox__item--sender truncate ml-6">{{ $keluar->jumlah}} Pcs</div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Resep;
 use App\Models\BuatResep;
 use App\Models\DataBahan;
+use App\Models\BahanKeluar;
 use App\Models\ProdukJadi;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
@@ -273,6 +274,15 @@ class ResepController extends Controller
                 $buatResep->jumlah = $value;
                 $buatResep->harga_pakai = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
                 $buatResep->save();
+
+                // input juga ke tabel bahanKeluar
+                $bahanKeluar = new BahanKeluar;
+                $bahanKeluar->kd_bahan = $key;
+                $bahanKeluar->nm_bahan = $hargaBahan->where('kd_bahan', $key)->first()->nm_bahan;
+                $bahanKeluar->tgl_keluar = $request->created_at;
+                $bahanKeluar->jumlah = $value;
+                $bahanKeluar->harga_pakai = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
+                $bahanKeluar->save();
             }
 
 

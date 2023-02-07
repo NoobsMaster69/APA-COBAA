@@ -145,6 +145,8 @@ class ProdukMasukController extends Controller
 
         $total = $modal * $jumlah;
 
+
+
         ProdukMasuk::create([
             'kd_produk' => $request->kd_produk,
             'nip_karyawan' => $nip,

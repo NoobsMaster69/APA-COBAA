@@ -47,7 +47,7 @@
                     <div class="header-right">
                         <div class="search-style-1">
                             <form action="">
-                                <input type="text"name="search" autocomplete="off" value="{{ request('search') }}" placeholder="Search for items..."  />
+                                <input type="text" name="search" autocomplete="off" value="{{ request('search') }}" placeholder="Search for items..." />
                             </form>
                         </div>
                         <!-- <div class="header-action-right">
@@ -316,7 +316,7 @@
     <!--End header-->
     <main class="main">
         <section class="hero-3 position-relative align-items">
-            <h2 class="mb-30 text-center" id="text">Assalamualaikum Bang </h2>
+            <h2 class="mb-30 text-center" id="text">SELAMAT DATANG</h2>
             <!-- <ul class="list-inline nav nav-tabs links font-xs text-center">
                 <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">S</a></li>
                 <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Coffes</a></li>
@@ -327,12 +327,12 @@
         <!-- BEGIN: Users Layout -->
 
         <section class="bg-grey-1 section-padding pt-100 pb-80 mb-80">
-         @foreach ($produkJadi as $produk)
             <div class="container">
-                <h1 class="mb-80 text-center">List Produk </h1>
+                <h1 id="produk" class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                        <div class="product-cart-wrap mb-30">
+                    <div class="product-cart-wrap mb-30">
+                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                            @foreach ($produkJadi as $produk)
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     <a href="shop-product-right.html">
@@ -513,8 +513,8 @@
                         </div>
                     </div>
                 </div> -->
+                    @endforeach
                 </div>
-                @endforeach
         </section>
 
     </main>

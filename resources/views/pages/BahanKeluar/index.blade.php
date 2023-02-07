@@ -89,7 +89,7 @@
                     <td class="text-center">{{ $keluar->nm_bahan }}</td>
                     <td class="text-center ">{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
                     <td class="text-center ">{{ 'Rp. ' . number_format($keluar->harga_beli) }}</td>
-                    <td class="text-center ">{{ $keluar->jumlah }} Kg</td>
+                    <td class="text-center ">{{ $keluar->jumlah }} Gram</td>
                     <td class="text-center ">{{ 'Rp. ' . number_format($keluar->total) }}</td>
                     <!-- <td class="text-center ">{{ $keluar->ket }}</td> -->
                     <td class="table-report__action">

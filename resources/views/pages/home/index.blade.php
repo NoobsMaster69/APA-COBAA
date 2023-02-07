@@ -232,45 +232,23 @@
                             <li class="menu-item-has-children">
                                 <a href="index.html">Home</a>
                                 <ul class="dropdown">
-                                    <li><a href="index.html">Home 1</a></li>
-                                    <li><a href="index-2.html">Home 2</a></li>
-                                    <li><a href="index-3.html">Home 3</a></li>
-                                    <li><a href="index-4.html">Home 4</a></li>
-                                    <li><a href="index-5.html">Home 5</a></li>
-                                    <li><a href="index-6.html">Home 6</a></li>
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="shop-grid-right.html">shop</a>
                                 <ul class="dropdown">
                                     <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
-                                    <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
-                                    <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
-                                    <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
-                                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
                                     <li class="menu-item-has-children">
                                         <a href="#">Single Product</a>
                                         <ul class="dropdown">
                                             <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
-                                            <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
-                                            <li><a href="shop-product-full.html">Product – No sidebar</a></li>
-                                            <li><a href="shop-product-vendor.html">Product – Vendor Infor</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="shop-filter.html">Shop – Filter</a></li>
-                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
-                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
-                                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
-                                    <li><a href="shop-compare.html">Shop – Compare</a></li>
                                     <li class="menu-item-has-children">
                                         <a href="#">Shop Invoice</a>
                                         <ul class="dropdown">
                                             <li><a href="shop-invoice-1.html">Shop Invoice 1</a></li>
-                                            <li><a href="shop-invoice-2.html">Shop Invoice 2</a></li>
-                                            <li><a href="shop-invoice-3.html">Shop Invoice 3</a></li>
-                                            <li><a href="shop-invoice-4.html">Shop Invoice 4</a></li>
-                                            <li><a href="shop-invoice-5.html">Shop Invoice 5</a></li>
-                                            <li><a href="shop-invoice-6.html">Shop Invoice 6</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -279,11 +257,6 @@
                                 <a href="#">Vendors</a>
                                 <ul class="dropdown">
                                     <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                                    <li><a href="vendors-list.html">Vendors List</a></li>
-                                    <li><a href="vendor-details-1.html">Vendor Details 01</a></li>
-                                    <li><a href="vendor-details-2.html">Vendor Details 02</a></li>
-                                    <li><a href="vendor-dashboard.html">Vendor Dashboard</a></li>
-                                    <li><a href="vendor-guide.html">Vendor Guide</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -325,14 +298,13 @@
             </ul> -->
         </section>
         <!-- BEGIN: Users Layout -->
-
         <section class="bg-grey-1 section-padding pt-100 pb-80 mb-80">
             <div class="container">
                 <h1 id="produk" class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
-                    <div class="product-cart-wrap mb-30">
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            @foreach ($produkJadi as $produk)
+                    @foreach ($produkJadi as $produk)
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                        <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     <a href="shop-product-right.html">
@@ -361,158 +333,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--row-->
-                    <!-- <h1 class="text-center mt-100 mb-80">Deals of the day</h1>
-                <div class="row">
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="assets/imgs/banner/banner-5.png" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown, & Red Rice</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$32.85</span>
-                                            <span class="old-price">$33.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="assets/imgs/banner/banner-6.png" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2026/04/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Perdue Simply Smart Organics Gluten Free</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Old El Paso</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$24.85</span>
-                                            <span class="old-price">$26.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 d-none d-lg-block">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="assets/imgs/banner/banner-7.png" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2027/03/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Signature Wood-Fired Mushroom and Caramelized</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 80%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (3.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Progresso</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$12.85</span>
-                                            <span class="old-price">$13.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 d-none d-xl-block">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="assets/imgs/banner/banner-8.png" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2025/02/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Simply Lemonade with Raspberry Juice</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 80%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (3.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Yoplait</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$15.85</span>
-                                            <span class="old-price">$16.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                     @endforeach
                 </div>
         </section>
@@ -796,10 +616,8 @@
                             <p class="font-lg text-heading">Tentang Perusahaan</p>
                         </div>
                         <ul class="contact-infor">
-                            <li><img src="assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-                            <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
-                            <li><img src="assets/imgs/theme/icons/icon-email-2.svg" alt="" /><strong>Email:</strong><span>sale@Nest.com</span></li>
-                            <li><img src="assets/imgs/theme/icons/icon-clock.svg" alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span></li>
+                            <li><strong>Bread Smile </strong> <span>perusahaan ini di bangun pada tahun 2006 oleh (Gak tawu siapa ) atas dasar kemanusiaan. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate iste reiciendis sed repellendus vel perspiciatis temporibus animi, laudantium pariatur rerum. Ab tempora non quasi praesentium consequatur. Illo non voluptates voluptatem.</span>
+
                         </ul>
                     </div>
                 </div>

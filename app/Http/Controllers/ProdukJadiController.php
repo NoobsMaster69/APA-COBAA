@@ -223,12 +223,11 @@ class ProdukJadiController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join tabel
-        $produkJadi = ProdukJadi::join('satuan', 'produkjadi.kd_satuan', '=', 'satuan.id_satuan')
-            ->select('produkjadi.*', 'satuan.nm_satuan')
+        $produkJadi = ProdukJadi::select('produkjadi.*')
+
             ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('satuan.nm_satuan', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(8)->withQueryString();
 

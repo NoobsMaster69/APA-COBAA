@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('pos_orders', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->string('keterangan', 255);
+            $table->string('no_referensi', 99);
             $table->integer('total');
+            $table->integer('bayar');
             $table->timestamps();
         });
     }

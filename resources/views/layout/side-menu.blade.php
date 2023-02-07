@@ -483,12 +483,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/pos" class="side-menu {{ Request::is('pos*') ? 'side-menu--active' : '' }}">
+                    <a href="/pos" class="side-menu {{ Request::is('pos') ? 'side-menu--active' : '' }}">
                         <div class="side-menu__icon">
                             <i data-feather="inbox"></i>
                         </div>
                         <div class="side-menu__title">
                             POS System
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/riwayat-transaksi" class="side-menu {{ Request::is('riwayat-transaksi*') ? 'side-menu--active' : '' }}">
+                        <div class="side-menu__icon">
+                            <i data-feather="inbox"></i>
+                        </div>
+                        <div class="side-menu__title">
+                            Riwayat Transaksi
                         </div>
                     </a>
                 </li>

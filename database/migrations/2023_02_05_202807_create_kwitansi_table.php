@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pos_payments', function (Blueprint $table) {
+        Schema::create('kwitansi', function (Blueprint $table) {
             $table->id();
-            $table->integer('bayar');
-            $table->string('metode');
+            $table->string('no_kwitansi', 99);
             $table->string('order_id');
+            $table->integer('status')->default(1);
+
+
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_payments');
+        Schema::dropIfExists('kwitansi');
     }
 };

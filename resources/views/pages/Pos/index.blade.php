@@ -12,10 +12,12 @@
     <!-- BEGIN: Item List -->
     <div class="intro-y col-span-12 lg:col-span-8">
         <div class="lg:flex intro-y">
-            <div class="relative">
-                <input type="text" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="Search item...">
-                <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-feather="search"></i>
-            </div>
+            <form action="">
+                <div class="relative">
+                    <input type="text" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="Search item..." autocomplete="off" name="search" value="{{ request('search') }}">
+                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-feather="search"></i>
+                </div>
+            </form>
             <select class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto">
                 <option>Sort By</option>
                 <option>A to Z</option>
@@ -24,36 +26,6 @@
                 <option>Highest Price</option>
             </select>
         </div>
-        {{-- <div class="grid grid-cols-12 gap-5 mt-5">
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base">Soup</div>
-                <div class="text-slate-500">5 Items</div>
-            </div>
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box bg-primary p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base text-white">Pancake & Toast</div>
-                <div class="text-white text-opacity-80 dark:text-slate-500">8 Items</div>
-            </div>
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base">Pasta</div>
-                <div class="text-slate-500">4 Items</div>
-            </div>
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base">Waffle</div>
-                <div class="text-slate-500">3 Items</div>
-            </div>
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base">Snacks</div>
-                <div class="text-slate-500">8 Items</div>
-            </div>
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base">Deserts</div>
-                <div class="text-slate-500">8 Items</div>
-            </div>
-            <div class="col-span-12 sm:col-span-4 2xl:col-span-3 box p-5 cursor-pointer zoom-in">
-                <div class="font-medium text-base">Beverage</div>
-                <div class="text-slate-500">9 Items</div>
-            </div>
-        </div> --}}
 
         {{-- display produk --}}
         <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t">
@@ -91,7 +63,7 @@
                             aria-controls="ticket"
                             aria-selected="true"
                         >
-                            Orders
+                            Pesan
                         </button>
                     </li>
                     <li id="details-tab" class="nav-item flex-1" role="presentation">
@@ -104,7 +76,7 @@
                             aria-controls="details"
                             aria-selected="false"
                         >
-                            Faktur
+                            Kwitansi
                         </button>
                     </li>
                 </ul>
@@ -135,17 +107,6 @@
                             
                         </div>
                     @endforeach
-                    
-                    @if (!empty($temp) || $temp == !null)
-                    <form action="{{ route('temp_delete_all') }}" method="POST" class="flex mt-3 mr-1">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-warning mr-1 mb-2 ml-auto">
-                            <i data-feather="refresh-cw" class="w-3 h-3"></i>
-                        </button>
-                    </form>
-                    @endif
-
                 </div>
                 {{-- end data order sementara --}}
 
@@ -179,8 +140,14 @@
                 
                 
                 <div class="flex mt-5">
-                    <button type="submit" class="btn btn-primary w-32 shadow-md ml-auto">Simpan</button>
+                    <button type="submit" class="btn btn-primary w-32 shadow-md">Simpan</button>
                 </form>
+                <form action="{{ route('temp_delete_all') }}" method="POST" class="ml-auto">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn w-32 border-slate-300 dark:border-darkmode-400 text-slate-500">Clear Items</button>
+                </form>
+
                 </div>
                 {{-- end form total harga --}}
 
@@ -188,36 +155,78 @@
 
             {{-- data faktur pembelian --}}
             <div id="details" class="tab-pane" role="tabpanel" aria-labelledby="details-tab">
+                @if (!empty($kwitansi) || $kwitansi == !null)
                 <div class="box p-5 mt-5">
-                    <div class="flex items-center border-b border-slate-200 dark:border-darkmode-400 pb-5">
-                        <div>
-                            <div class="text-slate-500">Time</div>
-                            <div class="mt-1">02/06/20 02:10 PM</div>
-                        </div>
-                        <i data-feather="clock" class="w-4 h-4 text-slate-500 ml-auto"></i>
+                    <div class="text-center text-base">Pt. Bread Smile</div>
+                    <div class="text-center text-xs mt-1.5 mb-2">CSB Mall - Jl. Dr. Cipto Mangunkusumo No. 26, Kota Cirebon, Jawa Barat, Indonesia</div>
+                    <hr>
+                    <div class="flex mt-3 mb-1">
+                        <div class="mr-auto">NOTA</div>
+                        <div class="">{{ $kwitansi->no_kwitansi }}</div>
                     </div>
-                    <div class="flex items-center border-b border-slate-200 dark:border-darkmode-400 py-5">
-                        <div>
-                            <div class="text-slate-500">Customer</div>
-                            <div class="mt-1">{{ $fakers[0]['users'][0]['name'] }}</div>
-                        </div>
-                        <i data-feather="user" class="w-4 h-4 text-slate-500 ml-auto"></i>
+                    <div class="flex mb-1">
+                        <div class="mr-auto">No. Referensi</div>
+                        <div class="">{{ $kwitansi->no_referensi }}</div>
                     </div>
-                    <div class="flex items-center border-b border-slate-200 dark:border-darkmode-400 py-5">
-                        <div>
-                            <div class="text-slate-500">People</div>
-                            <div class="mt-1">3</div>
-                        </div>
-                        <i data-feather="users" class="w-4 h-4 text-slate-500 ml-auto"></i>
+                    <div class="flex mb-1">
+                        <div class="mr-auto">Kasir</div>
+                        <div class="">{{ ucwords(auth()->user()->name) }}</div>
                     </div>
-                    <div class="flex items-center pt-5">
-                        <div>
-                            <div class="text-slate-500">Table</div>
-                            <div class="mt-1">21</div>
-                        </div>
-                        <i data-feather="mic" class="w-4 h-4 text-slate-500 ml-auto"></i>
+                    <div class="flex mb-3">
+                        <div class="mr-auto"></div>
+                        <div class="">{{ $kwitansi->created_at }}</div>
+                    </div>
+                    <hr>
+                    @php
+                        $details = App\models\PosOrderDetail::join('produkJadi', 'pos_order_details.produk_id', '=', 'produkJadi.kd_produk')->select('pos_order_details.*', 'produkJadi.nm_produk')->where('order_id', $kwitansi->order_id)->get();
+
+                        $sumKwi = DB::table('pos_order_details')->where('order_id', $kwitansi->order_id)->sum('harga');
+                    @endphp
+                    @foreach ($details as $detail)
+                    <div class="flex mt-3 mb-1">
+                        <div class="mr-auto"><span>{{ $detail->jumlah }}</span> {{ $detail->nm_produk }}</div>
+                        <div class="">{{ $detail->harga }}</div>
+                    </div>
+                    @endforeach
+                    <hr>
+                    <div class="flex mt-2">
+                        <div class="mr-auto">Subtotal</div>
+                        <div class="font-medium">Rp {{ number_format($sumKwi, 0, ',', '.') }}</div>
+                    </div>
+                    @php
+                        $pajakKwi = $sumKwi * 0.05;
+                        $totalKwi = $pajakKwi + $sumKwi;
+                    @endphp
+                    <div class="flex mt-2">
+                        <div class="mr-auto">Pajak</div>
+                        <div class="font-medium">Rp {{ number_format($pajakKwi, 0, ',', '.') }}</div>
+                    </div>
+                    <div class="flex mt-2 pt-2 mb-2 border-t border-slate-200/60 dark:border-darkmode-400">
+                        <div class="mr-auto font-medium text-base">Total</div>
+                        <div class="font-medium text-base">Rp {{ number_format($totalKwi, 0, ',', '.') }}</div>
+                    </div>
+                    <hr>
+                    <div class="flex mt-2">
+                        <div class="mr-auto">Bayar</div>
+                        <div class="font-medium">Rp {{ number_format($kwitansi->bayar, 0, ',', '.') }}</div>
+                    </div>
+                    @php
+                        $kmbl = $kwitansi->bayar - $totalKwi;
+                    @endphp
+                    <div class="flex mt-2">
+                        <div class="mr-auto">Kembalian</div>
+                        <div class="font-medium">Rp {{ number_format($kmbl, 0, ',', '.') }}</div>
                     </div>
                 </div>
+                <div class="mt-5 flex justify-end">
+                    <a href="/cetak-kwitansi" target="_blank">
+                        <button type="submit" class="btn btn-primary shadow-md">
+                            <i data-feather="printer" class="mr-1 w-4 h-4"></i> Print
+                        </button>
+                    </a>
+                </div>
+                @endif
+                
             </div>
             {{-- end data faktur pembelian --}}
 

@@ -137,7 +137,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('temp_delete/{id}', [PosController::class, 'temp_delete'])->name('temp_delete');
     Route::delete('temp_delete_all', [PosController::class, 'temp_delete_all'])->name('temp_delete_all');
     Route::post('order_create', [PosController::class, 'order_create'])->name('order_create');
-
+    Route::get('/cetak-kwitansi', [PosController::class, 'print'])->name('cetak-kwitansi');
+    Route::get('/riwayat-transaksi', [PosController::class, 'transaksi']);
 
 
 

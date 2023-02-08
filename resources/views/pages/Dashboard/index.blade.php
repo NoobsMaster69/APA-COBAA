@@ -1,7 +1,8 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-    <title>Dashboard - Bread Smile</title>
+<title>Dashboard - Bread Smile</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endsection
 
 @section('subcontent')
@@ -217,6 +218,9 @@
     // produkKeluar
     let labels = @json($labels);
     let jumlah = @json($jumlah);
+    // produkTerlaris
+    let produkKeluar_lap_pie_label = @json($produkKeluar_lap_pie_label);
+    let produkKeluar_lap_pie = @json($produkKeluar_lap_pie);
 
 
     let ctx = document.getElementById("lineChart");
@@ -293,14 +297,10 @@
     let myPieChart = new Chart(pctx, {
         type: 'pie',
         data: {
-            labels: [
-                'Roti Abon',
-                'Roti keju',
-                'Roti Coklat'
-            ],
+            labels: produkKeluar_lap_pie_label,
             datasets: [{
                 label: 'Jumlah Roti Terjual',
-                data: [300, 50, 100],
+                data: produkKeluar_lap_pie,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',

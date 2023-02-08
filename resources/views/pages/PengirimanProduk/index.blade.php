@@ -302,6 +302,7 @@
                 <tr>
                     <!-- <th class="whitespace-nowrap text-center">NO.</th> -->
                     <th class="whitespace-nowrap text-center">KONFIRMASI</th>
+                    <th class="whitespace-nowrap text-center">LOKASI</th>
                     <th class="whitespace-nowrap text-center">STATUS</th>
                     <th class="whitespace-nowrap text-center">DETAIL</th>
                     <!-- <th class="whitespace-nowrap text-center">KODE PRODUK</th>
@@ -331,6 +332,7 @@
                         <span class="mx-auto" data-feather="check"></span>
                         @endif
                     </td>
+                    <td class="text-center">{{ $produk->tempat }}</td>
                     <td class="text-center">
                         @if ($produk->status == 0)
                         <span class="text-warning">Menunggu Konfirmasi Anda</span>

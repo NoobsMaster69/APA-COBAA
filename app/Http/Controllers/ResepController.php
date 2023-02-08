@@ -279,9 +279,10 @@ class ResepController extends Controller
                 $bahanKeluar = new BahanKeluar;
                 $bahanKeluar->kd_bahan = $key;
                 $bahanKeluar->nm_bahan = $hargaBahan->where('kd_bahan', $key)->first()->nm_bahan;
-                $bahanKeluar->tgl_keluar = $request->created_at;
+                $bahanKeluar->tgl_keluar = date('Y-m-d');;
                 $bahanKeluar->jumlah = $value;
-                $bahanKeluar->harga_pakai = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
+                $bahanKeluar->total = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
+                $bahanKeluar->ket = 'Resep';
                 $bahanKeluar->save();
             }
 

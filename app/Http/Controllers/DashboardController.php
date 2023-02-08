@@ -95,6 +95,8 @@ class DashboardController extends Controller
         $jumlahMasuk = $produkMasuk_lap_setiapBulan->values();
         $labelsMasuk = $produkMasuk_lap_setiapBulan->keys();
 
+        // dd($labelsMasuk, $jumlahMasuk);
+
         // mengubah isi dari array $labelsMasuk agar bulan berbahasa indonesia
         // lakukan jika ada data
         if ($labelsMasuk->count() > 0) {
@@ -141,17 +143,21 @@ class DashboardController extends Controller
         }
 
         // melakukan sum total group by kd_produk pada tabel produkKeluar
-        $produkKeluar = ProdukKeluar::select(DB::raw("sum(total) as total"), DB::raw("kd_produk as kd_produk"))
+        $produkKeluar = ProdukKeluar::select(DB::raw("sum(jumlah) as jumlah"), DB::raw("kd_produk"))
+            ->join('produkJadi', 'produkJadi.kd_produk', '=', 'produkKeluar.kd_produk')
+            ->select('produkJadi.nm_produk', 'produkKeluar.kd_produk', DB::raw("sum(jumlah) as jumlah"))
             ->whereYear('tgl_keluar', date('Y'))
-            ->groupBy(DB::raw('kd_produk'))
-            ->orderBy('total', 'desc')
-            ->take(5)
+            ->groupBy('kd_produk', 'nm_produk')
+            ->orderBy('jumlah', 'desc')
+            ->take(3)
             ->get();
 
-        $produkKeluar_lap_pie = $produkKeluar->pluck('total', 'kd_produk');
-        $produkKeluar_lap_pie_label = $produkKeluar->pluck('kd_produk');
 
-        // dd($produkKeluar_lap_pie_label);
+
+        $produkKeluar_lap_pie = $produkKeluar->pluck('jumlah');
+        $produkKeluar_lap_pie_label = $produkKeluar->pluck('nm_produk');
+
+        // dd($produkKeluar_lap_pie_label, $produkKeluar_lap_pie);
 
 
 

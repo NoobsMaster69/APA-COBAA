@@ -58,7 +58,7 @@
                                         <i data-feather="package" class="report-box__icon text-warning"></i>
                                         <div class="ml-auto">
                                             <div class="report-box__indicator bg-success cursor-pointer">
-                                                <span class="pr-1">Data</span>
+                                                <span class="pr-1">{{ $produkStok }} Pcs</span>
                                             </div>
                                         </div>
                                     </div>
@@ -76,12 +76,12 @@
                                         <i data-feather="box" class="report-box__icon text-success"></i>
                                         <div class="ml-auto">
                                             <div class="report-box__indicator bg-success cursor-pointer">
-                                                <span class="pr-1">Data</span>
+                                                <span class="pr-1">{{ $stokBahan }} Kg</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="text-3xl font-medium leading-8 mt-6">{{ $dataBahan }}</div>
-                                    <div class="text-base text-slate-500 mt-1">Bahan-bahan</div>
+                                    <div class="text-base text-slate-500 mt-1">Jenis Bahan</div>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
             <!-- BEGIN: Sales Report -->
             <div class="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
                 <div class="intro-y flex items-center h-10">
-                    <h2 class="text-lg font-medium truncate mr-5">Outlet Terlaris</h2>
+                    <h2 class="text-lg font-medium truncate mr-5">Pengiriman Terbanyak</h2>
                 </div>
                 <div class="intro-y box p-5 mt-5">
                     <canvas class="mt-3" id="doughnutChart" height="300"></canvas>
@@ -159,12 +159,12 @@
                     <div class="box p-5 zoom-in">
                         <div class="flex items-center">
                             <div class="w-2/4 flex-none">
-                                <div class="text-lg font-medium truncate">Keuntungan</div>
-                                <div class="text-slate-500 mt-1">Rp. 100.000.000</div>
+                                <div class="text-lg font-medium truncate">Keuntungan Bulan Ini</div>
+                                <div class="text-slate-500 mt-1">Rp. {{ number_format($keuntungan, 0, ',', '.') }}</div>
                             </div>
                             <div class="flex-none ml-auto relative">
-                                <img src="{{ asset('dist/images/profits.png') }}" alt="" width="90">
-                                <div class="font-medium absolute w-full h-full flex items-center justify-center top-0 left-0">20%</div>
+                                <img src="{{ asset('dist/images/profits.png') }}" alt="gambar diagram batang" width="95">
+                                <div class="font-extrabold absolute w-full h-full flex items-center justify-center top-0 left-0 -ml-1">{{ $persentaseKeuntungan }} %</div>
                             </div>
                         </div>
                     </div>
@@ -173,12 +173,12 @@
                     <div class="box p-5 zoom-in">
                         <div class="flex items-center">
                             <div class="w-2/4 flex-none">
-                                <div class="text-lg font-medium truncate">Produk Terjual</div>
-                                <div class="text-slate-500 mt-1">1450 Roti</div>
+                                <div class="text-lg font-medium truncate">Produk Terjual Bulan Ini</div>
+                                <div class="text-slate-500 mt-1">{{ $produkTerjual }} Roti</div>
                             </div>
                             <div class="flex-none ml-auto relative">
-                                <canvas id="report-donut-chart-2" width="90" height="90"></canvas>
-                                <div class="font-medium absolute w-full h-full flex items-center justify-center top-0 left-0">45%</div>
+                                <img src="{{ asset('dist/images/bread.png') }}" alt="gambar roti" width="95">
+                                <div class="font-extrabold absolute w-full h-full flex items-center justify-center top-0 left-0">{{ $persentaseTerjual }} %</div>
                             </div>
                         </div>
                     </div>
@@ -191,17 +191,17 @@
                     <h2 class="text-lg font-medium truncate mr-5">Sopir Terbaik Bulan ini</h2>
                 </div>
                 <div class="mt-5">
-                    @foreach (array_slice($fakers, 0, 4) as $faker)
+                    @foreach ($sopirTerbanyak as $st)
                     <div class="intro-y">
                         <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
                             <div class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden">
-                                <img alt="Icewall Tailwind HTML Admin Template" src="{{ asset('dist/images/' . $faker['photos'][0]) }}">
+                                <img alt="Foto Sopir" src="{{ asset('images/'.$st->foto) }}">
                             </div>
                             <div class="ml-4 mr-auto">
-                                <div class="font-medium">{{ $faker['users'][0]['name'] }}</div>
-                                <div class="text-slate-500 text-xs mt-0.5">{{ $faker['dates'][0] }}</div>
+                                <div class="font-medium">{{ $st->nm_sopir }}</div>
+                                <div class="text-slate-500 text-xs mt-0.5">{{ $st->jumlah}} kali Mengirim</div>
                             </div>
-                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">137 Sales</div>
+                            <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">{{ $st->jumlah_produk }} Produk Dikirim</div>
                         </div>
                     </div>
                     @endforeach
@@ -212,37 +212,26 @@
 </div>
 
 <script>
+    // produkTerlaris
+    let produkKeluar_lap_pie_label = @json($produkKeluar_lap_pie_label);
+    let produkKeluar_lap_pie = @json($produkKeluar_lap_pie);
     // produkMasuk
     let labelsMasuk = @json($labelsMasuk);
     let jumlahMasuk = @json($jumlahMasuk);
     // produkKeluar
     let labels = @json($labels);
     let jumlah = @json($jumlah);
-    // produkTerlaris
-    let produkKeluar_lap_pie_label = @json($produkKeluar_lap_pie_label);
-    let produkKeluar_lap_pie = @json($produkKeluar_lap_pie);
+    // lokasiTerlaris
+    let labelsLokasi = @json($labelsLokasi);
+    let jumlahLokasi = @json($jumlahLokasi);
 
 
     let ctx = document.getElementById("lineChart");
     let myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: labelsMasuk,
             datasets: [{
-                    label: "Penjualan Produk",
-                    lineTension: 0.5,
-                    backgroundColor: "rgba(2,117,216,0.2)",
-                    borderColor: "rgba(2,117,216,1)",
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(2,117,216,1)",
-                    pointBorderColor: "rgba(255,255,255,0.8)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
-                    pointHitRadius: 50,
-                    pointBorderWidth: 2,
-                    data: jumlah,
-                },
-                {
                     label: "Pembuatan Produk",
                     lineTension: 0.5,
                     backgroundColor: "rgba(2,117,216,0.2)",
@@ -255,8 +244,22 @@
                     pointHitRadius: 50,
                     pointBorderWidth: 2,
                     data: jumlahMasuk,
+                },
+                {
+                    label: "Penjualan Produk",
+                    lineTension: 0.5,
+                    backgroundColor: "rgba(2,117,216,0.2)",
+                    borderColor: "rgba(2,117,216,1)",
+                    pointRadius: 5,
+                    pointBackgroundColor: "rgba(2,117,216,1)",
+                    pointBorderColor: "rgba(255,255,255,0.8)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                    pointHitRadius: 50,
+                    pointBorderWidth: 2,
+                    data: jumlah,
                 }
-            ]
+            ],
         },
         options: {
             scales: {
@@ -273,9 +276,11 @@
                 }],
                 yAxes: [{
                     ticks: {
-                        min: 0,
-                        // max: 40000,
-                        maxTicksLimit: 5
+                        fontSize: 10,
+                        padding: 5,
+                        callback: function(value, index, values) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        }
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -326,14 +331,10 @@
     let myDoughnutChart = new Chart(dctx, {
         type: 'doughnut',
         data: {
-            labels: [
-                'CSB Mall',
-                'ASIA Toserba',
-                'Garasi Cafe'
-            ],
+            labels: labelsLokasi,
             datasets: [{
-                label: 'Omset Penjualan',
-                data: [300, 50, 100],
+                label: 'Produk Dikirim Ke Lokasi',
+                data: jumlahLokasi,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',

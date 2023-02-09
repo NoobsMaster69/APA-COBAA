@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BahanKeluar;
 use App\Models\buatResep;
 use App\Models\DataBahan;
 use App\Models\ProdukJadi;
@@ -121,6 +122,11 @@ class ProdukMasukController extends Controller
         }
         $nip = auth()->user()->nip;
 
+        // ubah format tgl_keluar dari varchar ke date
+        $tgl_produksi = date('Y-m-d', strtotime($request->tgl_produksi));
+
+        $tgl_expired = date('Y-m-d', strtotime($request->tgl_expired));
+
         // ambil semua kd_bahan di tabel buatresep berdasarkan request kd_produk lalu kurangi setiap stok bahan di tabel dataBahan berdasarkan jumlah pemakaian di tabel buatresep
         $bahan = BuatResep::where('kd_resep', $resep)->get();
         $jumlah_bahan = BuatResep::where('kd_resep', $resep)->get();
@@ -129,17 +135,22 @@ class ProdukMasukController extends Controller
             $stok = DataBahan::where('kd_bahan', $value->kd_bahan)->first();
             $stok->stok = $stok->stok - ($jumlah_bahan[$key]->jumlah);
             $stok->save();
+
+            // input juga ke bahanKeluar
+            $bahanKeluar = new BahanKeluar;
+            $bahanKeluar->kd_bahan = $value->kd_bahan;
+            $bahanKeluar->nm_bahan = DataBahan::where('kd_bahan', $value->kd_bahan)->first()->nm_bahan;
+            $bahanKeluar->tgl_keluar = $tgl_produksi;
+            $bahanKeluar->jumlah = $jumlah_bahan[$key]->jumlah;
+            $bahanKeluar->total = $jumlah_bahan[$key]->jumlah * DataBahan::where('kd_bahan', $value->kd_bahan)->first()->harga_beli;
+            $bahanKeluar->ket = $request->ket;
+            $bahanKeluar->save();
         }
 
         // stok bahan bertambah
         $stok = ProdukJadi::where('kd_produk', $request->kd_produk)->first();
         $stok->stok = $stok->stok + $jumlah;
         $stok->save();
-
-        // ubah format tgl_keluar dari varchar ke date
-        $tgl_produksi = date('Y-m-d', strtotime($request->tgl_produksi));
-
-        $tgl_expired = date('Y-m-d', strtotime($request->tgl_expired));
 
         $modal = ProdukJadi::where('kd_produk', $request->kd_produk)->first()->modal;
 
@@ -289,6 +300,13 @@ class ProdukMasukController extends Controller
             $stok->stok = $stok->stok + ($jumlah_bahan[$key]->jumlah);
             $stok->save();
         }
+
+        // hapus yang di bahanKeluar juga dengan foreach
+        foreach ($bahan as $key => $value) {
+            $bahanKeluar = BahanKeluar::where('kd_bahan', $value->kd_bahan)->first();
+            $bahanKeluar->delete();
+        }
+
 
 
         $produkMasuk->delete();

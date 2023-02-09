@@ -129,6 +129,14 @@
                 </tr>
                 @endforeach
             </tbody>
+            <!-- buat untuk total keseluruhan -->
+            <tfoot>
+                <tr class="font-bold">
+                    <td colspan="6" class="text-left">Total</td>
+                    <td class="text-center">{{ 'Rp. ' . number_format($bahanKeluar->sum('total')) }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <!-- END: Data List -->

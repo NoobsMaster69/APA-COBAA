@@ -229,7 +229,7 @@ class ProdukJadiController extends Controller
             ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(8)->withQueryString();
+            ->oldest()->paginate(20)->withQueryString();
 
         // mengirim tittle dan judul ke view
         return view('pages.home.index', ['produkJadi' => $produkJadi]);

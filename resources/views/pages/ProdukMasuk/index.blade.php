@@ -135,6 +135,13 @@
                 </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr class="font-bold">
+                    <td colspan="5" class="text-left">Total</td>
+                    <td class="text-center">{{ 'Rp. ' . number_format($produkMasuk->sum('total')) }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <!-- END: Data List -->

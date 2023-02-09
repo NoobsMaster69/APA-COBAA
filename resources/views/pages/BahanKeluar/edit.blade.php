@@ -33,7 +33,7 @@
                     <div class="relative rounded-md">
                         <input type="text" class="form-control w-full shadow-md @error('jumlah') border-danger @enderror" name="jumlah" id="jumlah" value="{{ old('jumlah', $bahanKeluar->jumlah) }}" required>
                         <div class="absolute inset-y-0 right-0 flex items-center">
-                            <input id="satuan" class="form-control h-full w-14 rounded-md shadow-md border-transparent bg-transparent py-0  text-gray-500 sm:text-sm text-center" readonly value="Kg">
+                            <input id="satuan" class="form-control h-full w-14 rounded-md shadow-md border-transparent bg-transparent py-0  text-gray-500 sm:text-sm text-center" readonly value="Gram">
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                 <div class="relative">
                     <div class="intro-y col-span-11 2xl:col-span-9 mb-3">
                         <div class="flex justify-center flex-col md:flex-row gap-2 mt-8">
-                            <a href="/bahanMasuk" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                            <a href="/bahanKeluar" type="button" class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
                             <button type="submit" class="btn py-3 btn-primary w-full md:w-52">Save</button>
                         </div>
                     </div>

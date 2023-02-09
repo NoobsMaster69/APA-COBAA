@@ -24,7 +24,14 @@ class BahanKeluarController extends Controller
             ->orWhere('bahanKeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanKeluar.jumlah', 'LIKE', '%' . $search . '%')
             ->orWhere('bahanKeluar.ket', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(2)->withQueryString();
+            ->oldest()->paginate(20)->withQueryString();
+
+        // agar jumlah di convert dari kilogram ke gram
+        if ($bahanKeluar != null) {
+            foreach ($bahanKeluar as $b) {
+                $b->jumlah = $b->jumlah * 1000;
+            }
+        }
 
         // mengirim tittle dan judul ke view
         return view(
@@ -136,6 +143,9 @@ class BahanKeluarController extends Controller
         $dataBahan = DataBahan::select('databahan.*')
             ->where('kd_bahan', $bahanKeluar->kd_bahan)
             ->first();
+
+        // mengubah jumlah dari kilogram ke gram
+        $bahanKeluar->jumlah = $bahanKeluar->jumlah * 1000;
 
         return view(
             'pages.bahanKeluar.edit',

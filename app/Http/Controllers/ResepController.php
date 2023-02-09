@@ -276,14 +276,14 @@ class ResepController extends Controller
                 $buatResep->save();
 
                 // input juga ke tabel bahanKeluar
-                $bahanKeluar = new BahanKeluar;
-                $bahanKeluar->kd_bahan = $key;
-                $bahanKeluar->nm_bahan = $hargaBahan->where('kd_bahan', $key)->first()->nm_bahan;
-                $bahanKeluar->tgl_keluar = date('Y-m-d');;
-                $bahanKeluar->jumlah = $value;
-                $bahanKeluar->total = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
-                $bahanKeluar->ket = 'Resep';
-                $bahanKeluar->save();
+                // $bahanKeluar = new BahanKeluar;
+                // $bahanKeluar->kd_bahan = $key;
+                // $bahanKeluar->nm_bahan = $hargaBahan->where('kd_bahan', $key)->first()->nm_bahan;
+                // $bahanKeluar->tgl_keluar = date('Y-m-d');;
+                // $bahanKeluar->jumlah = $value;
+                // $bahanKeluar->total = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
+                // $bahanKeluar->ket = 'Resep';
+                // $bahanKeluar->save();
             }
 
 

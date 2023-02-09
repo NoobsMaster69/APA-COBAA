@@ -14,7 +14,7 @@ use App\Models\Karyawan;
 use App\Models\Sopir;
 use Illuminate\Support\Facades\DB;
 
-// 
+//
 
 class DashboardController extends Controller
 {
@@ -35,11 +35,17 @@ class DashboardController extends Controller
         // menghitung sum field total dari tabel produkMasuk pada bulan ini
         $produkMasuk_lap_bulanIni = ProdukMasuk::whereMonth('tgl_produksi', date('m'))->sum('total');
 
-        $keuntungan = $produkKeluar_lap_bulanIni - $produkMasuk_lap_bulanIni;
-        // buat persentase keuntungan
-        $persentaseKeuntungan = 0;
-        if ($produkMasuk_lap_bulanIni > 0) {
-            $persentaseKeuntungan = ($keuntungan / $produkKeluar_lap_bulanIni) * 100;
+
+        if ($produkKeluar_lap_bulanIni > 0 && $produkMasuk_lap_bulanIni > 0) {
+            $keuntungan = $produkKeluar_lap_bulanIni - $produkMasuk_lap_bulanIni;
+            // buat persentase keuntungan
+            $persentaseKeuntungan = 0;
+            if ($produkMasuk_lap_bulanIni > 0) {
+                $persentaseKeuntungan = ($keuntungan / $produkKeluar_lap_bulanIni) * 100;
+            }
+        } else {
+            $keuntungan = 0;
+            $persentaseKeuntungan = 0;
         }
 
         // sum fiels total bahanKeluar
@@ -79,7 +85,7 @@ class DashboardController extends Controller
         $labels = $produkKeluar_lap_setiapBulan->keys();
 
         // mengubah isi dari array $labels agar bulan berbahasa indonesia
-        // lakukan jika ada data 
+        // lakukan jika ada data
         if ($labels->count() > 0) {
             $labels = $labels->map(function ($item) {
                 switch ($item) {

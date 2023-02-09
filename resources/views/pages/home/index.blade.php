@@ -168,7 +168,7 @@
             <div class="container">
                 <div class="">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="index.html"><img src="assets/imgs/theme/logo.png" alt="logo" /></a>
+                        <a href="index.html"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex justify-content-center">
                         <div class="main-categori-wrap d-none d-lg-block">
@@ -303,6 +303,7 @@
                 <h1 id="produk" class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
                     @foreach ($produkJadi as $produk)
+                    @if ($produk->harga_jual > 0 && $produk->modal > 0)
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -333,6 +334,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                 </div>
         </section>
@@ -606,13 +608,13 @@
             </div>
         </section>
         <!--End 4 columns-->
-    <section class="section-padding footer-mid">
+    <section class="section-padding footer-mid flex justify-content-center">
         <div class="container pt-15 pb-20">
             <div class="row">
-                <div class="col">
-                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
+                <div class="col-12">
+                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp mx-auto" data-wow-delay="0">
                         <div class="logo mb-15">
-                            <a href="index.html" class="mb-15"><img src="assets/imgs/theme/logo.png" alt="logo" /></a>
+                            <a href="index.html" class="mb-15"><img class="mx-auto d-block" src="assets/imgs/theme/logo.png" alt="logo" /></a>
                             <p class="font-lg text-heading">Tentang Perusahaan</p>
                         </div>
                         <ul class="contact-infor">

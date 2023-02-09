@@ -193,6 +193,7 @@
                             </nav>
                         </div>
                     </div>
+
                     <div class="header-action-icon-2 d-block d-lg-none">
                         <div class="burger-icon burger-icon-white">
                             <span class="burger-icon-top"></span>
@@ -303,13 +304,14 @@
                 <h1 id="produk" class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
                     @foreach ($produkJadi as $produk)
-                    @if ($produk->harga_jual > 0 && $produk->modal > 0)
+                    {{-- @if ($produk->harga_jual > 0 && $produk->modal > 0) --}}
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     <a href="shop-product-right.html">
-                                        <img class="default-img" src="{{ asset('images/'.$produk->foto) }}" alt="" />
+                                        {{-- <img class="default-img" src="{{ asset('images/'.$produk->foto) }}" alt="" /> --}}
+                                        <img class="rounded-md" src="{{ asset('dist/images/roti.webp') }}">
                                     </a>
                                 </div>
                                 <!-- <div class="product-action-1">
@@ -320,11 +322,11 @@
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    <a href="shop-grid-right.html"></a>
+                                    {{-- <a href="shop-grid-right.html"></a> --}}
                                 </div>
-                                <h2><a href="#">{{ $produk->nm_produk }}</a></h2>
+                                <h2>{{ $produk->nm_produk }}</h2>
                                 <div>
-                                    <span class="font-small text-muted">Stok: <a href="vendor-details-1.html">{{ $produk['stok']}}</a></span>
+                                    <span class="font-small text-muted">Stok: {{ $produk['stok']}}</span>
                                 </div>
                                 <div class="product-card-bottom">
                                     <div class="product-price">
@@ -334,7 +336,7 @@
                             </div>
                         </div>
                     </div>
-                    @endif
+                    {{-- @endif --}}
                     @endforeach
                 </div>
         </section>

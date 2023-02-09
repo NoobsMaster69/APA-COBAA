@@ -227,7 +227,7 @@ class ProdukJadiController extends Controller
 
             ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
             ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIK`E', '%' . $search . '%')
             ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(20)->withQueryString();
 

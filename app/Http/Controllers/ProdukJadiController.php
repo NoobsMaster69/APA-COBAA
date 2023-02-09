@@ -224,12 +224,20 @@ class ProdukJadiController extends Controller
 
         // menyatukan search dengan join tabel
         $produkJadi = ProdukJadi::select('produkjadi.*')
+            ->where('produkJadi.harga_jual', '>', 0)
+            ->oldest()->paginate(20);
 
-            ->where('produkjadi.kd_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkjadi.harga_jual', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkjadi.nm_produk', 'LIK`E', '%' . $search . '%')
-            ->orWhere('produkjadi.stok', 'LIKE', '%' . $search . '%')
-            ->oldest()->paginate(20)->withQueryString();
+        // // ambil id_produkKeluar dari pengirimanProduk
+        // $produkJadi = ProdukJadi::select('harga_jual')->get();
+
+        // // cek apakah id produkKeluar sudah ada di pengirimanProduk
+        // foreach ($produkJadi as $key => $value) {
+        //     if ($value->harga_jual < 0) {
+        //         unset($produkJadi[$key]);
+        //     }
+        // }
+
+        // $produkJadi = ProdukJadi::all();
 
         // mengirim tittle dan judul ke view
         return view('pages.home.index', ['produkJadi' => $produkJadi]);

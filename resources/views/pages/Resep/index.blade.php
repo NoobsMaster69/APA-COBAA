@@ -59,7 +59,7 @@
             <thead>
                 <tr>
                     <th class="text-center">RESEP</th>
-                    <th colspan="2" class="whitespace-nowrap">BAHAN-BAHAN</th>
+                    <th class="text-center">BAHAN-BAHAN</th>
                     <th class="whitespace-nowrap text-center">TOTAL BERAT <br>BAHAN TERPAKAI</th>
                     <th class="whitespace-nowrap text-center">TOTAL HARGA <br>BAHAN TERPAKAI </th>
                     <th class="whitespace-nowrap text-center">MODAL <br> PER PRODUK</th>
@@ -73,13 +73,51 @@
                     <td class="text-center">
                         {{ $resep->nm_produk }}
                     </td>
-                    <td colspan="2" class="whitespace-nowrap">
-                        @foreach ($dataBahan as $index => $bahan)
-                        @if ($bahan->kd_resep == $resep->kd_resep)
-                        @if ($index == count($dataBahan) - 2)
-                        {{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram), dan<br>
-                        @elseif ($index < count($dataBahan) - 1) {{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram),<br> @else {{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram)<br> @endif @endif @endforeach
+                    <td class="text-center">
+                        <!-- trigger modal -->
+                        @if ($dataBahan->where('kd_resep', $resep->kd_resep)->count() > 0)
+                        <button class="flex items-center tooltip text-primary mx-auto" data-theme="light" title="Detail Bahan" data-tw-toggle="modal" data-tw-target="#detail{{ $resep->kd_resep }}">
+                            <i data-feather="info" class="w-4 h-4 mr-1"></i>
+                            Detail
+                        </button>
+                        <div id="detail{{ $resep->kd_resep }}" class="modal pt-12" tabindex="-1" aria-hidden="true" varia-labelledby="exampleModalLabel">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- BEGIN: Modal Header -->
+                                    <div class="modal-header">
+                                        <h3 class="font-medium text-base mr-auto">Detail Bahan-Bahan Resep</h3>
+                                    </div>
+                                    <div class="modal-body grid grid-cols-12 gap-4">
+                                        <div class="intro-y col-span-12 md:col-span-12 lg:col-span-12 border-2 border-slate-200/60 rounded-md shadow-lg shadow-slate-900">
+                                            <div class="box">
+                                                <div class="flex items-start px-5 pt-5 pb-5 border-b border-slate-400">
+                                                    <div class="w-1/2 flex flex-col pl-5">
+                                                        <ul>
+                                                            @foreach ($dataBahan as $index => $bahan)
+                                                            @if ($bahan->kd_resep == $resep->kd_resep)
+                                                            <li>{{ $bahan->nm_bahan }} ({{ $bahan->jumlah }} Gram)</li>
+                                                            @endif
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <div class="w-1/2">
+                                                        <!-- <img src="{{ asset('images/.$resep->foto') }}" class="w-full h-auto" alt="Foto Produk"> -->
+                                                        <img src="{{ asset('dist/images/roti.webp') }}" class="w-full h-auto shadow-lg" alt="Foto Produk">
+                                                        <div class="text-center text-slate-500 mt-2">{{ $resep->nm_produk }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer mb-1">
+                                        <button type="button" data-tw-dismiss="modal" class="btn btn-primary flex mx-auto">Back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </td>
+
                     <td class="text-center">
                         {{ $resep->tot_jumlahPakai }} Kg
                     </td>

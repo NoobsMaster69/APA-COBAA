@@ -28,17 +28,11 @@ class ResepController extends Controller
 
         $buatResep = Resep::join('buatresep', 'resep.kd_resep', '=', 'buatresep.kd_resep')
             ->join('produkjadi', 'resep.kd_produk', '=', 'produkjadi.kd_produk')
-            ->select(DB::raw('DISTINCT resep.kd_resep, produkjadi.nm_produk, resep.tot_jumlahPakai, resep.tot_hargaPakai, resep.tot_cost, resep.roti_terbuat'))
+            ->select(DB::raw('DISTINCT resep.kd_resep, produkjadi.nm_produk, resep.tot_jumlahPakai, resep.tot_hargaPakai, resep.tot_cost, resep.roti_terbuat, produkJadi.foto'))
             ->where('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orderBy('resep.created_at', 'desc')
             ->paginate(100)
             ->withQueryString();
-
-
-
-
-
-
 
         $dataBahan = BuatResep::join('databahan', 'buatresep.kd_bahan', '=', 'databahan.kd_bahan')
             ->join('resep', 'buatresep.kd_resep', '=', 'resep.kd_resep')
@@ -340,7 +334,25 @@ class ResepController extends Controller
      */
     public function edit(Resep $resep)
     {
-        //
+        $this->authorize('update', $resep);
+
+        $produkJadi = ProdukJadi::where('kd_produk', $resep->kd_produk)->first();
+        $bahan = DataBahan::all();
+        $bahanKeluar = BahanKeluar::all();
+        $buatResep = BuatResep::where('kd_resep', $resep->kd_resep)->get();
+        $resep = Resep::where('kd_resep', $resep->kd_resep)->first();
+
+        return view(
+            [
+                'pages.resep.edit',
+                'tittle' => 'Edit Resep',
+                'judul' => 'Edit Resep',
+                'menu' => 'Produk',
+                'submenu' => 'Data Resep'
+
+            ],
+            compact('produkJadi', 'bahan', 'bahanKeluar', 'buatResep', 'resep')
+        );
     }
 
     /**

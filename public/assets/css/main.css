@@ -3818,9 +3818,9 @@ table .product-thumbnail img {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    background: url(../imgs/page/home-6-bg.jpg) no-repeat center center;
+    background: url(../imgs/page/rotiRoti.jpg) no-repeat center center;
     background-size: cover;
-    height: 330px;
+    height: 400px;
 }
 
 .hero-3 form {

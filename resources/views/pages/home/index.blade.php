@@ -288,8 +288,8 @@
     </div>
     <!--End header-->
     <main class="main">
-        <section class="hero-3 position-relative align-items">
-            <h2 class="mb-30 text-center" id="text">SELAMAT DATANG</h2>
+        <section class="hero-3 position-relative align-items shadow-md">
+            <h2 class="mb-30 text-center text-white" id="text">SELAMAT DATANG</h2>
             <!-- <ul class="list-inline nav nav-tabs links font-xs text-center">
                 <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">S</a></li>
                 <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Coffes</a></li>

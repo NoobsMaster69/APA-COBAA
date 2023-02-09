@@ -177,13 +177,13 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a class="active" href="index.html">Home</a>
+                                        <a class="active" href="#">Home</a>
                                     </li>
                                     <li>
                                         <a class="active" href="#produk">Produk</a>
                                     </li>
                                     <li>
-                                        <a href="page-about.html">About</a>
+                                        <a href="#about">About</a>
                                     </li>
 
                                     <li>
@@ -230,7 +230,7 @@
                     <nav>
                         <ul class="mobile-menu font-heading">
                             <li class="menu-item-has-children">
-                                <a href="index.html">Home</a>
+                                <a href="/">Home</a>
                                 <ul class="dropdown">
                                 </ul>
                             </li>
@@ -614,8 +614,8 @@
                 <div class="col-12">
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp mx-auto" data-wow-delay="0">
                         <div class="logo mb-15">
-                            <a href="index.html" class="mb-15"><img class="mx-auto d-block" src="assets/imgs/theme/logo.png" alt="logo" /></a>
-                            <p class="font-lg text-heading">Tentang Perusahaan</p>
+                            <a class="mb-15"><img class="mx-auto d-block" src="assets/imgs/theme/logo.png" alt="logo" /></a>
+                            <h1 class="font-lg text-heading ">Tentang Perusahaan</h1>
                         </div>
                         <ul class="contact-infor">
                             <li><strong>Bread Smile </strong> <span>perusahaan ini di bangun pada tahun 2006 oleh (Gak tawu siapa ) atas dasar kemanusiaan. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate iste reiciendis sed repellendus vel perspiciatis temporibus animi, laudantium pariatur rerum. Ab tempora non quasi praesentium consequatur. Illo non voluptates voluptatem.</span>

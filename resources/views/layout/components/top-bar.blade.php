@@ -36,7 +36,7 @@ $jabatan = $karyawan->nm_jabatan;
     <div class="h-full flex items-center">
         <!-- BEGIN: Logo -->
         <a href="" class="-intro-x hidden md:flex mr-auto">
-            <img alt="Icewall Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
+            <img  class="w-8" src="{{ asset('dist/images/logoh.png') }}">
             <span class="text-white text-lg ml-3">
                 Bread Smile
             </span>
@@ -86,15 +86,6 @@ $jabatan = $karyawan->nm_jabatan;
                     </div>
                     <div class="search-result__content__title">Users</div>
                     <div class="mb-5">
-                        @foreach (array_slice($fakers, 0, 4) as $faker)
-                        <a href="" class="flex items-center mt-2">
-                            <div class="w-8 h-8 image-fit">
-                                <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="{{ asset('dist/images/' . $faker['photos'][0]) }}">
-                            </div>
-                            <div class="ml-3">{{ $faker['users'][0]['name'] }}</div>
-                            <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">{{ $faker['users'][0]['email'] }}</div>
-                        </a>
-                        @endforeach
                     </div>
                     <div class="search-result__content__title">Products</div>
                     @foreach (array_slice($fakers, 0, 4) as $faker)

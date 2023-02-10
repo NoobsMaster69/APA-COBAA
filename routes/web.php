@@ -60,6 +60,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
 
     Route::get('/', [ProdukJadiController::class, 'home'])->name('/');
+    Route::get('about', [ProdukJadiController::class, 'about'])->name('about');
 
     // Route::get('/', function () {
     //     return view('pages.home.index');

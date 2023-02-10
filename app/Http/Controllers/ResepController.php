@@ -294,9 +294,9 @@ class ResepController extends Controller
             $resep->biaya_peralatan_operasional = $peralatan_operasional;
             $resep->save();
 
-            // cari harga jual dengan rumus Biaya produksi + (Persentase keuntungan x biaya produksi) = Harga jual 
+            // cari harga jual dengan rumus Biaya produksi + (Persentase keuntungan x biaya produksi) = Harga jual
             // keuntungannya 60%
-            $keuntungan = 600;
+            $keuntungan = 200;
             $harga_jual = $tot_cost + (($keuntungan / 100) * $tot_cost);
 
             // input tot_cost jika di produk jadi adalah field modal dan harga_jual ke tabel produkJadi
@@ -384,7 +384,7 @@ class ResepController extends Controller
         $produkJadi->save();
 
 
-        // hapus data resep di tabel resep  
+        // hapus data resep di tabel resep
         Resep::where('kd_resep', $resep->kd_resep)->delete();
         // hapus data resep di tabel buatResep
         BuatResep::where('kd_resep', $resep->kd_resep)->delete();

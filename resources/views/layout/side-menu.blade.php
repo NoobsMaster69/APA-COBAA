@@ -149,6 +149,16 @@
                                 </div>
                             </a>
                         </li>
+                        <li>
+                            <a href="/riwayat-transaksi" class="side-menu {{ Request::is('riwayat-transaksi*') ? 'side-menu--active' : '' }}">
+                                <div class="side-menu__icon">
+                                    <i data-feather="inbox"></i>
+                                </div>
+                                <div class="side-menu__title">
+                                    Riwayat Transaksi
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

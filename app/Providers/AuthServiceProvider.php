@@ -28,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Karyawan' => 'App\Policies\KaryawanPolicy',
         'App\Models\Resep' => 'App\Policies\ResepPolicy',
         'App\Models\PengirimanProduk' => 'App\Policies\PengirimanProdukPolicy',
+        'App\Models\PengirimanProduk' => 'App\Policies\PengirimanProdukPolicy',
+        'App\Models\PengirimanProduk' => 'App\Policies\PengirimanProdukPolicy',
     ];
     /**
      * Register any authentication / authorization services.
@@ -61,6 +63,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('kasir', function (User $user) {
             return $user->role == 'kasir';
+        });
+
+        Gate::define('transaksi', function (User $user) {
+            return $user->role == 'kasir' || $user->role == 'backoffice';
         });
     }
 }

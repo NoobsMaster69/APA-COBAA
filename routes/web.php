@@ -140,6 +140,8 @@ Route::middleware('auth')->group(function () {
     Route::post('order_create', [PosController::class, 'order_create'])->name('order_create');
     Route::get('/cetak-kwitansi', [PosController::class, 'print'])->name('cetak-kwitansi');
     Route::get('/riwayat-transaksi', [PosController::class, 'transaksi']);
+    Route::get('/riwayat-transaksi/cari', [PosController::class, 'cari']);
+
 
 
 

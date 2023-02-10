@@ -35,6 +35,7 @@
                         <div class="flex-none relative block before:block before:w-full before:pt-[100%]">
                             <div class="absolute top-0 left-0 w-full h-full image-fit">
                                 <img alt="Roti" class="rounded-md" src="{{ asset('images/'.$p->foto) }}">
+                                <img class="rounded-md" src="{{ asset('dist/images/roti.webp') }}">
                             </div>
                         </div>
                         <div class="block font-medium text-center truncate mt-3">{{ $p->nm_produk }}</div>
@@ -104,7 +105,7 @@
                                     {{-- <i data-feather="trash-2" class="w-4 h-4 text-danger ml-1"></i> --}}
                                 </button>
                             </form>
-                            
+
                         </div>
                     @endforeach
                 </div>
@@ -132,13 +133,13 @@
                         <input type="hidden" name="total" value="{{ $totalBayar }}">
                     </div>
 
-                    
+
                 </div>
                 <div class="box p-5 mt-5">
                     <input type="text" class="form-control w-full bg-slate-100 border-slate-200/60" name="bayar" placeholder="Bayar">
                 </div>
-                
-                
+
+
                 <div class="flex mt-5">
                     <button type="submit" class="btn btn-primary w-32 shadow-md">Simpan</button>
                 </form>
@@ -226,7 +227,7 @@
                     </a>
                 </div>
                 @endif
-                
+
             </div>
             {{-- end data faktur pembelian --}}
 
@@ -285,7 +286,7 @@
                         </div>
                         <input type="hidden" name="kd_produk" value="{{ $prdk->kd_produk }}">
                     </div>
-                
+
                 {{-- <div class="col-span-12">
                     <label for="pos-form-5" class="form-label">Notes</label>
                     <textarea id="pos-form-5" class="form-control w-full mt-2" placeholder="Item notes"></textarea>
@@ -298,7 +299,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 @endforeach
 
 {{-- modal edit temp --}}
@@ -322,7 +323,7 @@
                     </div>
                     <input type="hidden" name="kd_produk" value="{{ $tmp->produk_id }}">
 
-                
+
                 {{-- <div class="col-span-12">
                     <label for="pos-form-5" class="form-label">Notes</label>
                     <textarea id="pos-form-5" class="form-control w-full mt-2" placeholder="Item notes"></textarea>
@@ -335,7 +336,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 @endforeach
 
 
@@ -349,7 +350,7 @@
         total = a + 1; //melakukan penjumlahan
         document.getElementById("jumlah").value= total;
     }
-    
+
 }
 </script>
 

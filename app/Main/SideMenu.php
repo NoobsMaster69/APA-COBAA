@@ -806,36 +806,6 @@ class SideMenu
                     ]
                 ]
             ],
-            'widgets' => [
-                'icon' => 'hard-drive',
-                'title' => 'Widgets',
-                'sub_menu' => [
-                    'chart' => [
-                        'icon' => '',
-                        'route_name' => 'chart',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Chart'
-                    ],
-                    'slider' => [
-                        'icon' => '',
-                        'route_name' => 'slider',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Slider'
-                    ],
-                    'image-zoom' => [
-                        'icon' => '',
-                        'route_name' => 'image-zoom',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Image Zoom'
-                    ]
-                ]
-            ]
         ];
     }
 }

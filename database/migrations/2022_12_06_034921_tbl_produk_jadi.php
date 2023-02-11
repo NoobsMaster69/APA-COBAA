@@ -20,7 +20,7 @@ return new class extends Migration
             $table->double('modal')->nullable();
             $table->double('harga_jual')->nullable();
             $table->double('berat', 10);
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->text('foto');
 
             $table->timestamps();

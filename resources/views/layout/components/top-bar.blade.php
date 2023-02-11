@@ -36,7 +36,7 @@ $jabatan = $karyawan->nm_jabatan;
     <div class="h-full flex items-center">
         <!-- BEGIN: Logo -->
         <a href="" class="-intro-x hidden md:flex mr-auto">
-            <img  class="w-8" src="{{ asset('dist/images/logoh.png') }}">
+            <img class="w-8" src="{{ asset('dist/images/logoh.png') }}">
             <span class="text-white text-lg ml-3">
                 Bread Smile
             </span>
@@ -103,7 +103,7 @@ $jabatan = $karyawan->nm_jabatan;
         <!-- END: Search -->
         @endif
         <!-- BEGIN: Notifications -->
-        <div class="intro-x dropdown mr-4 sm:mr-6">
+        <!-- <div class="intro-x dropdown mr-4 sm:mr-6">
             <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown">
                 <i data-feather="bell" class="notification__icon dark:text-slate-500"></i>
             </div>
@@ -127,7 +127,7 @@ $jabatan = $karyawan->nm_jabatan;
                     @endforeach
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- END: Notifications -->
         <!-- BEGIN: Account Menu -->
         <div class="intro-x dropdown w-8 h-8">
@@ -153,7 +153,7 @@ $jabatan = $karyawan->nm_jabatan;
                     </li>
                     @endif
 
-
+                    <!-- 
                     <li>
                         <a href="" class="dropdown-item hover:bg-white/5">
                             <i data-feather="edit" class="w-4 h-4 mr-2"></i> Add Account
@@ -171,7 +171,7 @@ $jabatan = $karyawan->nm_jabatan;
                     </li>
                     <li>
                         <hr class="dropdown-divider border-white/[0.08]">
-                    </li>
+                    </li> -->
                     <li>
                         @if (Auth::check())
                         <form action="/logout" method="POST">

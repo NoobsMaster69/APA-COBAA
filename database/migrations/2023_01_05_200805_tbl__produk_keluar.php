@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tgl_keluar');
             $table->integer('harga_jual');
             $table->double('total');
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->integer('stts');
             $table->timestamps();
         });

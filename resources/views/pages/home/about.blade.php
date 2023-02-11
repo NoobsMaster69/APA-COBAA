@@ -180,138 +180,133 @@
         </div>
     </div>
     <!--End header-->
-<main class="main pages">
-    <div class="page-content pt-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-10 col-lg-12 m-auto">
-                    <section class="row align-items-center mb-50">
-                        <div class="col-lg-6">
-                            <img src="dist/images/breadsmile.jpg" alt="" class="border-radius-15 mb-md-3 mb-lg-0 mb-sm-4" />
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="pl-25">
-                                <h2 class="mb-30">Tentang Bread Smile</h2>
-                                <p class="mb-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate id est laborum.</p>
-                                <p class="mb-50">Ius ferri velit sanctus cu, sed at soleat accusata. Dictas prompta et Ut placerat legendos interpre.Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante Etiam sit amet orci eget. Quis commodo odio aenean sed adipiscing. Turpis massa tincidunt dui ut ornare lectus. Auctor elit sed vulputate mi sit amet. Commodo consequat. Duis aute irure dolor in reprehenderit in voluptate id est laborum.</p>
-                                <div class="carausel-3-columns-cover position-relative">
-                                    <div id="carausel-3-columns-arrows"></div>
-                                    <div class="carausel-3-columns" id="carausel-3-columns">
-                                        <img src="assets/imgs/page/about-2.png" alt="" />
-                                        <img src="assets/imgs/page/about-3.png" alt="" />
-                                        <img src="assets/imgs/page/about-4.png" alt="" />
-                                        <img src="assets/imgs/page/about-2.png" alt="" />
+    <main class="main pages">
+        <div class="page-content pt-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-12 m-auto">
+                        <section class="row align-items-center mb-50">
+                            <div class="col-lg-6">
+                                <img src="dist/images/breadsmile.jpg" alt="" class="border-radius-15 mb-md-3 mb-lg-0 mb-sm-4" />
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="pl-25">
+                                    <h2 class="mb-30">Tentang Bread Smile</h2>
+                                    <p class="mb-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate id est laborum.</p>
+                                    <p class="mb-50">Ius ferri velit sanctus cu, sed at soleat accusata. Dictas prompta et Ut placerat legendos interpre.Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante Etiam sit amet orci eget. Quis commodo odio aenean sed adipiscing. Turpis massa tincidunt dui ut ornare lectus. Auctor elit sed vulputate mi sit amet. Commodo consequat. Duis aute irure dolor in reprehenderit in voluptate id est laborum.</p>
+                                    <div class="carausel-3-columns-cover position-relative">
+                                        <div id="carausel-3-columns-arrows"></div>
+                                        <div class="carausel-3-columns" id="carausel-3-columns">
+                                            <img src="assets/imgs/page/about-2.png" alt="" />
+                                            <img src="assets/imgs/page/about-3.png" alt="" />
+                                            <img src="assets/imgs/page/about-4.png" alt="" />
+                                            <img src="assets/imgs/page/about-2.png" alt="" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <section id="about"class="text-center mb-50">
-                        <h2 class="title style-3 mb-40">Dimana Saja Cabang Kami? </h2>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 mb-24">
-                                <div class="featured-card">
+                        </section>
+                        <section id="about" class="text-center mb-50">
+                            <h2 class="title style-3 mb-40">Dimana Saja Cabang Kami? </h2>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 mb-24">
+                                    <div class="featured-card">
+                                        <h4>Surya Toserba</h4>
+                                        <iframe class="justify-content-center" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.454613416763!2d108.56054321283447!3d-6.714243095145936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee38b3a27354f%3A0x937dad68f87102c6!2sBread%20Smile%20Surya%20Toserba!5e0!3m2!1sen!2sid!4v1676017051351!5m2!1sen!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        <a href="#">Read more</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-24">
+                                    <div class="featured-card">
+                                        <h4>Csb Mall </h4>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4181838659347!2d108.5454938269531!3d-6.718716099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1dee5555555f%3A0x99edf0a988892f8f!2sHypermart%20-%20Cirebon%20Superblock%20Mall!5e0!3m2!1sen!2sid!4v1676017753455!5m2!1sen!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        <a href="#">Read more</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-24">
+                                    <div class="featured-card">
+                                        <h4>Asia Toserba </h4>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4520039677063!2d108.56064131283456!3d-6.714563595145702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee26460ef2ce9%3A0x1c6d620051b9c96!2sAsia%20Toserba!5e0!3m2!1sen!2sid!4v1676017870222!5m2!1sen!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        <a href="#">Read more</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-24">
+                                    <div class="featured-card">
+                                        <img src="assets/imgs/theme/icons/icon-4.svg" alt="" />
+                                        <h4>Easy Returns</h4>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                                        <a href="#">Read more</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-24">
+                                    <div class="featured-card">
+                                        <img src="assets/imgs/theme/icons/icon-5.svg" alt="" />
+                                        <h4>100% Satisfaction</h4>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                                        <a href="#">Read more</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-24">
+                                    <div class="featured-card">
+                                        <img src="assets/imgs/theme/icons/icon-6.svg" alt="" />
+                                        <h4>Great Daily Deal</h4>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                                        <a href="#">Read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 
-                                    <img src="" alt="Logo Cabang"/>
-                                    <h4>Surya Toserba</h4>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.454613416763!2d108.56054321283447!3d-6.714243095145936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee38b3a27354f%3A0x937dad68f87102c6!2sBread%20Smile%20Surya%20Toserba!5e0!3m2!1sen!2sid!4v1676017051351!5m2!1sen!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    <a href="#">Read more</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-24">
-                                <div class="featured-card">
-                                    <img src="" alt="Logo Cabang" />
-                                    <h4>Csb Mall   </h4>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4181838659347!2d108.5454938269531!3d-6.718716099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1dee5555555f%3A0x99edf0a988892f8f!2sHypermart%20-%20Cirebon%20Superblock%20Mall!5e0!3m2!1sen!2sid!4v1676017753455!5m2!1sen!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    <a href="#">Read more</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-24">
-                                <div class="featured-card">
-                                    <img src="" alt="Logo Cabang" />
-                                    <h4>Asia Toserba  </h4>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4520039677063!2d108.56064131283456!3d-6.714563595145702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee26460ef2ce9%3A0x1c6d620051b9c96!2sAsia%20Toserba!5e0!3m2!1sen!2sid!4v1676017870222!5m2!1sen!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    <a href="#">Read more</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-24">
-                                <div class="featured-card">
-                                    <img src="assets/imgs/theme/icons/icon-4.svg" alt="" />
-                                    <h4>Easy Returns</h4>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
-                                    <a href="#">Read more</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-24">
-                                <div class="featured-card">
-                                    <img src="assets/imgs/theme/icons/icon-5.svg" alt="" />
-                                    <h4>100% Satisfaction</h4>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
-                                    <a href="#">Read more</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-24">
-                                <div class="featured-card">
-                                    <img src="assets/imgs/theme/icons/icon-6.svg" alt="" />
-                                    <h4>Great Daily Deal</h4>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
-                                    <a href="#">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </main>
+    <section class="section-padding footer-mid flex justify-content-center">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col-12">
+                </div>
+                <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                 </div>
             </div>
         </div>
-
-    </div>
-</main>
-<section class="section-padding footer-mid flex justify-content-center">
-    <div class="container pt-15 pb-20">
-        <div class="row">
-            <div class="col-12">
-            </div>
-            <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-            </div>
-        </div>
-    </div>
-</section>
-<div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
+    </section>
+    <div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
         <div class="row align-items-center">
             <div class="col-12 mb-30">
                 <div class="footer-bottom"></div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6">
-                <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Bread Smile</strong> - Toko Roti <br />All rights reserved</p>
+                <p class="font-sm mb-0">&copy; {{ date('Y') }}, <strong class="text-brand">Bread Smile</strong> - Toko Roti <br />All rights reserved</p>
             </div>
             <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                 <div class="hotline d-lg-inline-flex mr-30">
-                    <img src="assets/imgs/theme/icons/phone-call.svg" alt="hotline" />
-                    <p> +62 877-6924-6969<span>Info Pemesanan</span></p>
+                    <img src="{{ asset('dist/images/location.png') }}" alt="map-pin" height="60" />
+                    <p>Kunjungi Toko<span>Untuk Pemesanan</span></p>
                 </div>
             </div>
-
         </div>
     </div>
-</footer>
-<!-- Vendor JS-->
-<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-<script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="assets/js/plugins/slick.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/wow.js"></script>
-<script src="assets/js/plugins/perfect-scrollbar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
-<script src="assets/js/plugins/select2.min.js"></script>
-<script src="assets/js/plugins/counterup.js"></script>
-<script src="assets/js/plugins/jquery.countdown.min.js"></script>
-<script src="assets/js/plugins/images-loaded.js"></script>
-<script src="assets/js/plugins/scrollup.js"></script>
-<script src="assets/js/plugins/jquery.vticker-min.js"></script>
-<!-- Template  JS -->
-<script src="assets/js/main.js?v=5.6"></script>
+    </footer>
+    <!-- Vendor JS-->
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <!-- Template  JS -->
+    <script src="assets/js/main.js?v=5.6"></script>
 
 </body>
 

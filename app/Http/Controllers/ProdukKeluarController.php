@@ -100,7 +100,7 @@ class ProdukKeluarController extends Controller
             'kd_produk' => 'required',
             'tgl_keluar' => 'required',
             'jumlah' => 'required|numeric',
-            'ket' => 'required',
+            // 'ket' => 'required',
         ], $messages);
 
         $nip = auth()->user()->nip;
@@ -231,7 +231,7 @@ class ProdukKeluarController extends Controller
                 'kd_produk' => 'required',
                 'tgl_keluar' => 'required',
                 'jumlah' => 'required|numeric',
-                'ket' => 'required',
+                // 'ket' => 'required',
             ], $messages);
 
             $nip = auth()->user()->nip;

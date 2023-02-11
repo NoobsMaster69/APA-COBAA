@@ -19,7 +19,7 @@ class BahanSeeder extends Seeder
         for ($i = 1; $i <= 20; $i++) {
             DataBahan::create(
                 [
-                    'kd_bahan' => 'BNH00' . $i,
+                    'kd_bahan' => 'BHN00' . $i,
                     'nm_bahan' => 'Bahan ' . $i,
                     'harga_beli' => 10000,
                     'stok' => 100,

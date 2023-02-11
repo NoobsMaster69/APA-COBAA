@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nm_bahan', 50);
             $table->date('tgl_masuk');
             $table->double('jumlah', 10);
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->double('total');
             $table->timestamps();
         });

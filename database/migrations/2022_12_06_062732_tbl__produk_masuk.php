@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tgl_produksi');
             $table->date('tgl_expired');
             $table->double('total');
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->timestamps();
         });
     }

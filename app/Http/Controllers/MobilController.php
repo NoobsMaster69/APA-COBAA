@@ -72,7 +72,7 @@ class MobilController extends Controller
             'kd_mobil' => 'required',
             'merk' => 'required',
             'plat_nomor' => 'required|unique:mobil,plat_nomor',
-            'ket' => 'required'
+            // 'ket' => 'required'
         ], $messages);
 
         Mobil::create($request->all());
@@ -119,7 +119,7 @@ class MobilController extends Controller
         $rules = [
             'kd_mobil' => 'required',
             'merk' => 'required',
-            'ket' => 'required'
+            // 'ket' => 'required'
         ];
 
         if ($request->plat_nomor != $mobil->plat_nomor) {

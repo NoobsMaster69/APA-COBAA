@@ -78,7 +78,7 @@ class BahanMasukController extends Controller
             'nm_bahan' => 'required',
             'tgl_masuk' => 'required',
             'jumlah' => 'required|numeric',
-            'ket' => 'required',
+            // 'ket' => 'required',
         ], $messages);
 
         // stok bahan bertambah
@@ -161,7 +161,7 @@ class BahanMasukController extends Controller
                 'kd_bahan' => 'required',
                 'tgl_masuk' => 'required',
                 'jumlah' => 'required|numeric',
-                'ket' => 'required',
+                // 'ket' => 'required',
             ], $messages);
             // mengembalikan stok bahan yg lama
             $stok = DataBahan::where('kd_bahan', $bahanMasuk->kd_bahan)->first();
@@ -206,7 +206,7 @@ class BahanMasukController extends Controller
                 'kd_bahan' => 'required',
                 'tgl_masuk' => 'required',
                 'jumlah' => 'required|numeric',
-                'ket' => 'required',
+                // 'ket' => 'required',
             ], $messages);
 
             if ($request->has('jumlah')) {

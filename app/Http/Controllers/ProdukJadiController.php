@@ -69,7 +69,7 @@ class ProdukJadiController extends Controller
             'nm_produk' => 'required',
             'stok' => 'required|integer',
             'berat' => 'required|numeric',
-            'ket' => 'required|min:3',
+            // 'ket' => 'required|min:3',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
         ], $messages);
 
@@ -145,7 +145,7 @@ class ProdukJadiController extends Controller
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
                 'berat' => 'required|numeric',
-                'ket' => 'required|min:3',
+                // 'ket' => 'required|min:3',
                 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,webp|dimensions:ratio=1/1'
             ];
 
@@ -192,7 +192,7 @@ class ProdukJadiController extends Controller
                 'nm_produk' => 'required',
                 'stok' => 'required|integer',
                 'berat' => 'required|numeric',
-                'ket' => 'required|min:3',
+                // 'ket' => 'required|min:3',
             ];
 
             $input = $request->validate($rules, $messages);

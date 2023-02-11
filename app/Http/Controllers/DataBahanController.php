@@ -84,7 +84,7 @@ class DataBahanController extends Controller
             'nm_bahan' => 'required|min:3|max:50',
             'harga_beli' => 'required|numeric',
             'stok' => 'required|numeric',
-            'ket' => 'required|min:3',
+            // 'ket' => 'required|min:3',
         ], $messages);
 
         DataBahan::create($request->all());
@@ -136,7 +136,7 @@ class DataBahanController extends Controller
             'nm_bahan' => 'required|min:3|max:50',
             'harga_beli' => 'required|numeric',
             'stok' => 'required|numeric',
-            'ket' => 'required|min:3',
+            // 'ket' => 'required|min:3',
         ], $messages);
 
 

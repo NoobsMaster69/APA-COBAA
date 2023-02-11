@@ -107,7 +107,7 @@ class ProdukMasukController extends Controller
             'tgl_expired' => 'required',
             'stok' => 'required',
             // 'jumlah' => 'required|numeric',
-            'ket' => 'required',
+            // 'ket' => 'required',
         ], $messages);
 
         // dd($request->all());
@@ -237,7 +237,7 @@ class ProdukMasukController extends Controller
             'tgl_produksi' => 'required',
             'tgl_expired' => 'required',
             // 'jumlah' => 'required|numeric',
-            'ket' => 'required',
+            // 'ket' => 'required',
         ], $messages);
 
         $nip = auth()->user()->nip;

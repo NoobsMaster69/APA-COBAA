@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('tgl_keluar');
             $table->double('jumlah', 10);
             $table->double('total');
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->timestamps();
         });
     }

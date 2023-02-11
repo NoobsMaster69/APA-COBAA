@@ -87,7 +87,7 @@ class BahanKeluarController extends Controller
             'nm_bahan' => 'required',
             'tgl_keluar' => 'required',
             'jumlah' => 'required|numeric',
-            'ket' => 'required',
+            // 'ket' => 'required',
         ], $messages);
 
         // stok bahan berkurang
@@ -179,7 +179,7 @@ class BahanKeluarController extends Controller
                 'kd_bahan' => 'required',
                 'tgl_keluar' => 'required',
                 'jumlah' => 'required|numeric',
-                'ket' => 'required',
+                // 'ket' => 'required',
             ], $messages);
 
             // ubah jumlah dari kilogram ke gram
@@ -231,7 +231,7 @@ class BahanKeluarController extends Controller
                 'kd_bahan' => 'required',
                 'tgl_keluar' => 'required',
                 'jumlah' => 'required|numeric',
-                'ket' => 'required',
+                // 'ket' => 'required',
             ], $messages);
 
             // cek apakah jumlah diubah

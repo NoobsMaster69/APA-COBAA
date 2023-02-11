@@ -12,7 +12,7 @@
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dist/images/logoh.png') }}" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
     <link rel="stylesheet" href="assets/css/main.css?v=5.6" />
@@ -47,7 +47,7 @@
                     <div class="header-right">
                         <div class="search-style-1">
                             <form action="">
-                                <input type="text" name="search" autocomplete="off" value="{{ request('search') }}" placeholder="Search for items..." />
+                                <input type="text" name="search" autocomplete="off" value="{{ request('search') }}" placeholder="Cari Roti..." />
                             </form>
                         </div>
                         <!-- <div class="header-action-right">
@@ -597,14 +597,14 @@
                 </div>
             </div>
         </section>
-        <!--End 4 columns-->
-    <section class="section-padding footer-mid flex justify-content-center">
+        End 4 columns-->
+    <!-- <section class="section-padding footer-mid flex justify-content-center">
         <div class="container pt-15 pb-20">
             <div class="row">
                 <div class="col-12">
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp mx-auto" data-wow-delay="0">
                         <div class="logo mb-15">
-                            <a class="mb-15"><img class="mx-auto d-block" src="assets/imgs/theme/logo.png" alt="logo" /></a>
+                            <a class="mb-15"><img class="mx-auto d-block" height="100" src="assets/imgs/theme/logo.png" alt="logo" /></a>
                         </div>
                     </div>
                 </div>
@@ -612,22 +612,21 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
         <div class="row align-items-center">
             <div class="col-12 mb-30">
                 <div class="footer-bottom"></div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6">
-                <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Bread Smile</strong> - Toko Roti <br />All rights reserved</p>
+                <p class="font-sm mb-0">&copy; {{ date('Y') }}, <strong class="text-brand">Bread Smile</strong> - Toko Roti <br />All rights reserved</p>
             </div>
             <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                 <div class="hotline d-lg-inline-flex mr-30">
-                    <img src="assets/imgs/theme/icons/phone-call.svg" alt="hotline" />
-                    <p>1900 - 6666<span>Info Pemesanan</span></p>
+                    <img src="{{ asset('dist/images/location.png') }}" alt="map-pin" height="60" />
+                    <p>Kunjungi Toko<span>Untuk Pemesanan</span></p>
                 </div>
             </div>
-
         </div>
     </div>
     </footer>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nm_bahan', 50);
             $table->integer('harga_beli');
             $table->double('stok');
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->timestamps();
         });
     }

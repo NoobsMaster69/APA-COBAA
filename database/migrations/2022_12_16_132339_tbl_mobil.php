@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kd_mobil', 10)->primary();
             $table->string('merk', 50);
             $table->string('plat_nomor', 15);
-            $table->text('ket');
+            $table->text('ket')->nullable();
             $table->timestamps();
         });
     }

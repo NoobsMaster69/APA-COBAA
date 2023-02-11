@@ -74,7 +74,7 @@
                 </div>
                 <div class="mt-6">
                     <label for="id_produkKeluar" class="form-label font-bold">Pilih Produk yang akan dikirim</label>
-                    <div class="flex items-center sm:ml-auto">
+                    <!-- <div class="flex items-center sm:ml-auto">
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-4">
                                 <label for="dari" class="form-label italic"><i>Dari</i></label>
@@ -99,13 +99,13 @@
                                 <button type="submit" class="btn form-control mt-2 btn-primary shadow-md">Cari</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- BEGIN: Inbox Content -->
                     <div class="overflow-x-auto sm:overflow-x-visible shadow-md">
                         <div class="intro-y inbox box mt-5">
                             <div class="p-5 flex flex-col-reverse sm:flex-row text-slate-500 border-b border-slate-200/60">
                                 <div class="flex items-center mt-3 sm:mt-0 border-t sm:border-0 border-slate-200/60 pt-5 sm:pt-0 mt-5 sm:mt-0 -mx-5 sm:mx-0 px-5 sm:px-0">
-                                    <input class="form-check-input" type="checkbox" id="checkAll" onchange="checkAll(checkbox)">
+                                    <input class="form-check-input" type="checkbox" id="checkAll" onchange="checkAll(this)">
                                     <a href="javascript:;" class="w-5 h-5 flex-none ml-4 flex items-center justify-center text-slate-400">
                                         <i class="w-4 h-4">Semua</i>
                                     </a>
@@ -140,7 +140,7 @@
                                         <i class="w-4 h-4" data-feather="refresh-cw"></i>
                                     </a>
                                     <a href="javascript:;" class="w-5 h-5 ml-5 flex items-center justify-center">
-                                        <i class="w-4 h-4" data-feather="more-horizontal"></i> -->
+                                        <i class="w-4 h-4" data-feather="more-horizontal"></i> 
                                     </a>
                                 </div>
                                 <div class="flex items-center sm:ml-auto">
@@ -153,7 +153,7 @@
                                     </a>
                                     <a href="javascript:;" class="w-5 h-5 ml-5 flex items-center justify-center">
                                         <i class="w-4 h-4" data-feather="settings"></i>
-                                    </a>
+                                    </a>-->
                                 </div>
                             </div>
                             @foreach ($produkKeluar as $keluar)
@@ -210,17 +210,17 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
 <script>
     function checkAll(checkbox) {
-        var checkboxes = document.querySelectorAll("input[type='checkbox']:not(#checkAll)");
+        var checkboxes = document.getElementsByName("id_produkKeluar[]");
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = checkbox.checked;
         }
     }
 </script>
+@endsection
+
+@section('script')
+<script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
 
 @endsection

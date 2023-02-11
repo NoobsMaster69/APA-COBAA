@@ -304,13 +304,13 @@
                 <h1 id="produk" class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
                     @foreach ($produkJadi as $produk)
-                    {{-- @if ($produk->harga_jual > 0 && $produk->modal > 0) --}}
+                    <!-- {{-- @if ($produk->harga_jual > 0 && $produk->modal > 0) --}} -->
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        {{-- <img class="default-img" src="{{ asset('images/'.$produk->foto) }}" alt="" /> --}}
+                                    <a href="javascript:;">
+                                        <!-- {{-- <img class="default-img" src="{{ asset('images/'.$produk->foto) }}" alt="" /> --}} -->
                                         <img class="rounded-md" src="{{ asset('dist/images/roti.webp') }}">
                                     </a>
                                 </div>
@@ -322,7 +322,7 @@
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    {{-- <a href="shop-grid-right.html"></a> --}}
+                                    <!-- {{-- <a href="shop-grid-right.html"></a> --}} -->
                                 </div>
                                 <h2>{{ $produk->nm_produk }}</h2>
                                 <div>
@@ -336,7 +336,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @endif --}}
+                    <!-- {{-- @endif --}} -->
                     @endforeach
                 </div>
         </section>
@@ -630,22 +630,22 @@
         </div>
     </section>
     <div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
-            <div class="row align-items-center">
-                <div class="col-12 mb-30">
-                    <div class="footer-bottom"></div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Bread Smile</strong> - Toko Roti <br />All rights reserved</p>
-                </div>
-                <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
-                    <div class="hotline d-lg-inline-flex mr-30">
-                        <img src="assets/imgs/theme/icons/phone-call.svg" alt="hotline" />
-                        <p>1900 - 6666<span>Info Pemesanan</span></p>
-                    </div>
-                </div>
-
+        <div class="row align-items-center">
+            <div class="col-12 mb-30">
+                <div class="footer-bottom"></div>
             </div>
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Bread Smile</strong> - Toko Roti <br />All rights reserved</p>
+            </div>
+            <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
+                <div class="hotline d-lg-inline-flex mr-30">
+                    <img src="assets/imgs/theme/icons/phone-call.svg" alt="hotline" />
+                    <p>1900 - 6666<span>Info Pemesanan</span></p>
+                </div>
+            </div>
+
         </div>
+    </div>
     </footer>
     <!-- Vendor JS-->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>

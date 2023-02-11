@@ -90,7 +90,7 @@
                                     <div class="modal-body grid grid-cols-12 gap-4">
                                         <div class="intro-y col-span-12 md:col-span-12 lg:col-span-12 border-2 border-slate-200/60 rounded-md shadow-lg shadow-slate-900">
                                             <div class="box">
-                                                <div class="flex items-start px-5 pt-5 pb-5 border-b border-slate-400">
+                                                <div class="flex items-start px-5 pt-5 pb-5">
                                                     <div class="w-1/2 flex flex-col pl-5">
                                                         <ul>
                                                             @foreach ($dataBahan as $index => $bahan)
@@ -101,8 +101,11 @@
                                                         </ul>
                                                     </div>
                                                     <div class="w-1/2">
-                                                        <!-- <img src="{{ asset('images/.$resep->foto') }}" class="w-full h-auto" alt="Foto Produk"> -->
+                                                        @if ($resep->foto != null && file_exists(public_path('images/'.$resep->foto)) && !is_dir(public_path('images/'.$resep->foto)))
+                                                        <img src="{{ asset('images/'.$resep->foto) }}" class="w-full h-auto shadow-lg" alt="Foto Produk">
+                                                        @else
                                                         <img src="{{ asset('dist/images/roti.webp') }}" class="w-full h-auto shadow-lg" alt="Foto Produk">
+                                                        @endif
                                                         <div class="text-center text-slate-500 mt-2">{{ $resep->nm_produk }}</div>
                                                     </div>
                                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BahanKeluar;
+use App\Models\BahanMasuk;
 use Illuminate\Http\Request;
 // gunakan model dari produkjadi
 use App\Models\Produkjadi;
@@ -11,7 +12,10 @@ use App\Models\ProdukKeluar;
 use App\Models\ProdukMasuk;
 use App\Models\pengirimanProduk;
 use App\Models\Karyawan;
+use App\Models\lokasiPengiriman;
+use App\Models\Mobil;
 use App\Models\Sopir;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 //
@@ -223,9 +227,73 @@ class DashboardController extends Controller
             ->orderByRaw('jumlah_produk DESC, jumlah DESC')
             ->get();
 
+        // UNTUK DASHBOARD SELAIN BACKOFFICE
+        // menampilkan jam saat ini
+        $jam = date('H:i');
+        $tanggal = date('d M Y');
+
+        // mengubah jam menjadi sambutan selamat pagi, selamat siang, selamat sore, dan selamat malam
+        if ($jam >= '05:00' && $jam <= '10:00') {
+            $sambutan = 'Selamat Pagi';
+        } elseif ($jam >= '10:01' && $jam <= '15:00') {
+            $sambutan = 'Selamat Siang';
+        } elseif ($jam >= '15:01' && $jam <= '18:00') {
+            $sambutan = 'Selamat Sore';
+        } else {
+            $sambutan = 'Selamat Malam';
+        }
+        // ambil nama user yang sedang login
+        $user = Auth::user()->name;
+        // ambil role user yang sedang login
+        $role = Auth::user()->role;
+        // agar huruf depan role menjadi kapital
+        $role = ucfirst($role);
+
+
+        // UNTUK GUDANG
+        // sum jumlah bahanKeluar
+        $sumPemakaian = BahanKeluar::sum('jumlah');
+        $sumPemakaian = number_format($sumPemakaian, 2);
+        // sum jumlah bahanMasuk
+        $sumPembelian = BahanMasuk::sum('jumlah');
+
+        // UNTUK PRODUKSI
+        // sum jumlah produkKeluar
+        $sumPenjualan = ProdukKeluar::sum('jumlah');
+        // sum jumlah produkMasuk
+        $sumProduksi = ProdukMasuk::sum('jumlah');
+
+        // UNTUK DISTRIBUSI
+        // count pengirimanProduk
+        $countPengiriman = pengirimanProduk::count();
+        // count sopir
+        $countSopir = Sopir::count();
+        // count lokasiPengiriman
+        $countLokasi = lokasiPengiriman::count();
+        // count mobil
+        $countMobil = Mobil::count();
+
+        // UNTUK KASIR
+        // count riwayatTransaksi dari tabel pos_order
+        $countTransaksi = DB::table('pos_orders')->count();
+        // count produkJadi yang harga_jual dan stoknya lebih dari 0
+        $countSiapJual = DB::table('produkJadi')->where('harga_jual', '>', 0)->where('stok', '>', 0)->count();
+        // count produkJadi yang stoknya kurang dari sama dengan 0
+        $countStokHabis = DB::table('produkJadi')->where('stok', '<=', 0)->count();
+
+        // UNTUK SOPIR
+        // count pengirimanProduk dari tabel pengirimanProduk berdasarkan kd_sopir yang sedang login
+        $countPengirimanSopir = DB::table('pengirimanProduk')->where('kd_sopir', Auth::user()->id_karyawan)->count();
+        // count id_lokasi pengiriman dari tabel pengirimanProduk berdasarkan kd_sopir yang sedang login
+        $countLokasiSopir = DB::table('pengirimanProduk')->where('kd_sopir', Auth::user()->id_karyawan)->distinct()->count('id_lokasi');
+        // sum jumlah produkKeluar dari tabel produkKeluar berdasarkan kd_sopir di pengirimanProduk yang sedang login
+        $sumPengiriman = DB::table('produkKeluar')->join('pengirimanProduk', 'produkKeluar.id_produkKeluar', '=', 'pengirimanProduk.id_produkKeluar')->where('pengirimanProduk.kd_sopir', Auth::user()->id_karyawan)->sum('produkKeluar.jumlah');
+
+
+
 
 
         // mengirim data produkjadi ke view index
-        return view('pages.dashboard.index', ['produkJadi' => $produkjadi, 'dataBahan' => $databahan, 'karyawan' => $karyawan, 'pengirimanProduk' => $pengirimanproduk, 'produkKeluar_lap_bulanIni' => $produkKeluar_lap_bulanIni, 'produkMasuk_lap_bulanIni' => $produkMasuk_lap_bulanIni, 'produkKeluar_lap_setiapBulan' => $produkKeluar_lap_setiapBulan, 'labels' => $labels, 'jumlah' => $jumlah, 'produkMasuk_lap_setiapBulan' => $produkMasuk_lap_setiapBulan, 'labelsMasuk' => $labelsMasuk, 'jumlahMasuk' => $jumlahMasuk, 'produkKeluar_lap_pie' => $produkKeluar_lap_pie, 'produkKeluar_lap_pie_label' => $produkKeluar_lap_pie_label, 'keuntungan' => $keuntungan, 'persentaseKeuntungan' => $persentaseKeuntungan, 'produkTerjual' => $produkTerjual, 'persentaseTerjual' => $persentaseTerjual, 'bahanKeluar' => $bahanKeluar, 'labelsLokasi' => $labelsLokasi, 'jumlahLokasi' => $jumlahLokasi, 'sopirTerbanyak' => $sopirTerbanyak, 'produkStok' => $produkStok, 'stokBahan' => $stokBahan]);
+        return view('pages.dashboard.index', ['produkJadi' => $produkjadi, 'dataBahan' => $databahan, 'karyawan' => $karyawan, 'pengirimanProduk' => $pengirimanproduk, 'produkKeluar_lap_bulanIni' => $produkKeluar_lap_bulanIni, 'produkMasuk_lap_bulanIni' => $produkMasuk_lap_bulanIni, 'produkKeluar_lap_setiapBulan' => $produkKeluar_lap_setiapBulan, 'labels' => $labels, 'jumlah' => $jumlah, 'produkMasuk_lap_setiapBulan' => $produkMasuk_lap_setiapBulan, 'labelsMasuk' => $labelsMasuk, 'jumlahMasuk' => $jumlahMasuk, 'produkKeluar_lap_pie' => $produkKeluar_lap_pie, 'produkKeluar_lap_pie_label' => $produkKeluar_lap_pie_label, 'keuntungan' => $keuntungan, 'persentaseKeuntungan' => $persentaseKeuntungan, 'produkTerjual' => $produkTerjual, 'persentaseTerjual' => $persentaseTerjual, 'bahanKeluar' => $bahanKeluar, 'labelsLokasi' => $labelsLokasi, 'jumlahLokasi' => $jumlahLokasi, 'sopirTerbanyak' => $sopirTerbanyak, 'produkStok' => $produkStok, 'stokBahan' => $stokBahan, 'sumPemakaian' => $sumPemakaian, 'sumPembelian' => $sumPembelian, 'jam' => $jam, 'tanggal' => $tanggal, 'sambutan' => $sambutan, 'user' => $user, 'role' => $role, 'sumPenjualan' => $sumPenjualan, 'sumProduksi' => $sumProduksi, 'countPengiriman' => $countPengiriman, 'countSopir' => $countSopir, 'countLokasi' => $countLokasi, 'countMobil' => $countMobil, 'countTransaksi' => $countTransaksi, 'countSiapJual' => $countSiapJual, 'countStokHabis' => $countStokHabis, 'countPengirimanSopir' => $countPengirimanSopir, 'countLokasiSopir' => $countLokasiSopir, 'sumPengiriman' => $sumPengiriman]);
     }
 }

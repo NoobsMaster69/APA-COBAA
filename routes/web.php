@@ -60,6 +60,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [RegistrationController::class, 'loginStore'])->name('login');
 
     Route::get('/', [ProdukJadiController::class, 'home'])->name('/');
+    Route::get('about', [ProdukJadiController::class, 'about'])->name('about');
 
     // Route::get('/', function () {
     //     return view('pages.home.index');
@@ -140,6 +141,8 @@ Route::middleware('auth')->group(function () {
     Route::post('order_create', [PosController::class, 'order_create'])->name('order_create');
     Route::get('/cetak-kwitansi', [PosController::class, 'print'])->name('cetak-kwitansi');
     Route::get('/riwayat-transaksi', [PosController::class, 'transaksi']);
+    Route::get('/riwayat-transaksi/cari', [PosController::class, 'cari']);
+
 
 
 

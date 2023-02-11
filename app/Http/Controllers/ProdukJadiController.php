@@ -242,4 +242,30 @@ class ProdukJadiController extends Controller
         // mengirim tittle dan judul ke view
         return view('pages.home.index', ['produkJadi' => $produkJadi]);
     }
+    public function about(Request $request)
+    {
+        // $this->authorize('viewAny', ProdukJadi::class);
+
+        $search = $request->search;
+
+        // menyatukan search dengan join tabel
+        $produkJadi = ProdukJadi::select('produkjadi.*')
+            ->where('produkJadi.harga_jual', '>', 0)
+            ->oldest()->paginate(20);
+
+        // // ambil id_produkKeluar dari pengirimanProduk
+        // $produkJadi = ProdukJadi::select('harga_jual')->get();
+
+        // // cek apakah id produkKeluar sudah ada di pengirimanProduk
+        // foreach ($produkJadi as $key => $value) {
+        //     if ($value->harga_jual < 0) {
+        //         unset($produkJadi[$key]);
+        //     }
+        // }
+
+        // $produkJadi = ProdukJadi::all();
+
+        // mengirim tittle dan judul ke view
+        return view('pages.home.about', ['produkJadi' => $produkJadi]);
+    }
 }

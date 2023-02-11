@@ -41,10 +41,13 @@
         </div>
         <div class="hidden md:block mx-auto text-slate-500"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <div class="w-56 relative text-slate-500">
-                <form action="">
-                    <input type="text" class="form-control w-56 box pr-10" placeholder="Search..." autocomplete="off" name="search" value="{{ request('search') }}">
-                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+            <div class="w-120 relative text-slate-500">
+                <form action="/riwayat-transaksi/cari">
+                    <input type="date" class="form-control w-56 box pr-10" placeholder="Search..." autocomplete="off" name="dari" >
+                    <input type="date" class="form-control w-56 box pr-10" placeholder="Search..." autocomplete="off" name="sampai">
+                    <button type="submit">
+                        <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -55,20 +58,42 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap">NO.</th>
-                    <th class="whitespace-nowrap text-center">No. Kwitansi</th>
-                    <th class="whitespace-nowrap text-center">No. Referensi</th>
-                    <th class="whitespace-nowrap text-center">Pesan</th>
+                    <th class="whitespace-nowrap text-center">No. Ref</th>
+                    <th class="whitespace-nowrap text-center">Tanggal</th>
+                    <th class="whitespace-nowrap text-center">Produk</th>
                     <th class="whitespace-nowrap text-center">Total</th>
+                    <th class="whitespace-nowrap text-center">Bayar</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $dt)
                 <tr class="intro-x">
                     <td class="text-center">{{ $loop->iteration + ($data->currentPage() - 1) * $data->perPage() }}</td>
-                    <td class="text-center">{{ $dt->no_kwitansi }}</td>
                     <td class="text-center">{{ $dt->no_referensi }}</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">{{ $dt->total }}</td>
+                    <td class="text-center">{{ date('d F Y', strtotime($dt->created_at)) }}</td>
+                    <td class="text-center">
+                        <div class="dropdown" data-tw-placement="bottom-start">
+                            <a class="dropdown-toggle w-32 mr-1 cursor-pointer text-success text-" aria-expanded="false" data-tw-toggle="dropdown">Detail</a>
+                            <div class="dropdown-menu w-40">
+                                <ul class="dropdown-content">
+                                    @php
+                                        $produk = App\models\PosOrderDetail::join('produkJadi', 'pos_order_details.produk_id', '=', 'produkJadi.kd_produk')->select('pos_order_details.*', 'produkJadi.nm_produk')->where('order_id', $dt->id)->get(); 
+                                    @endphp
+                                    @foreach ($produk as $p)
+                                        
+                                    <li>
+                                        <a class="dropdown-item">
+                                            {{ $p->nm_produk. ' x'. $p->jumlah }}
+                                        </a>
+                                    </li>
+
+                                    @endforeach
+
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">Rp {{ number_format($dt->total, 0, ',', '.') }}</td>
+                    <td class="text-center">Rp {{ number_format($dt->bayar, 0, ',', '.') }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -78,11 +103,11 @@
     <!-- END: Data List -->
 
     <!-- BEGIN: Pagination -->
-    {{-- <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <div class="w-full sm:w-auto sm:mr-auto">
             {{ $data->withQueryString()->links() }}
         </div>
-    </div> --}}
+    </div>
     <!-- END: Pagination -->
 
 </div>

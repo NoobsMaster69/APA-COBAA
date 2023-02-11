@@ -145,6 +145,16 @@
                             </div>
                         </a>
                     </li>
+                    <li>
+                        <a href="/riwayat-transaksi" class="menu {{ Request::is('riwayat-transaksi*') ? 'menu--active' : '' }}">
+                            <div class="menu__icon">
+                                <i data-feather="truck"></i>
+                            </div>
+                            <div class="menu__title">
+                                Riwayat Transaksi
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </li>
 

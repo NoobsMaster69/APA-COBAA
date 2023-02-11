@@ -167,7 +167,7 @@
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
                 <div class="">
-                    <div class="logo logo-width-1 d-block d-lg-none">
+                    <div class="logo logo-width-2 d-block d-lg-none">
                         <a href="index.html"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex justify-content-center">
@@ -177,13 +177,13 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a class="active" href="#">Home</a>
+                                        <a class="active" href="#home">Home</a>
                                     </li>
                                     <li>
                                         <a class="active" href="#produk">Produk</a>
                                     </li>
                                     <li>
-                                        <a href="#about">About</a>
+                                        <a href="/about">About</a>
                                     </li>
 
                                     <li>
@@ -236,7 +236,7 @@
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="shop-grid-right.html">shop</a>
+                                <a href="shop-grid-right.html">Produk</a>
                                 <ul class="dropdown">
                                     <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
                                     <li class="menu-item-has-children">
@@ -255,7 +255,7 @@
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="#">Vendors</a>
+                                <a href="#">About</a>
                                 <ul class="dropdown">
                                     <li><a href="vendors-grid.html">Vendors Grid</a></li>
                                 </ul>
@@ -269,21 +269,9 @@
                         <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>
                     </div>
                     <div class="single-mobile-header-info">
-                        <a href="page-login.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
-                    </div>
-                    <div class="single-mobile-header-info">
-                        <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
+                        <a href="#"><i class="fi-rs-telephone"></i>(+01) - 2345 - 6789 </a>
                     </div>
                 </div>
-                <div class="mobile-social-icon mb-50">
-                    <h6 class="mb-15">Follow Us</h6>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook-white.svg" alt="" /></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter-white.svg" alt="" /></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram-white.svg" alt="" /></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest-white.svg" alt="" /></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube-white.svg" alt="" /></a>
-                </div>
-                <div class="site-copyright">Copyright 2022 © Nest. All rights reserved. Powered by AliThemes.</div>
             </div>
         </div>
     </div>
@@ -617,11 +605,7 @@
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp mx-auto" data-wow-delay="0">
                         <div class="logo mb-15">
                             <a class="mb-15"><img class="mx-auto d-block" src="assets/imgs/theme/logo.png" alt="logo" /></a>
-                            <h1 class="font-lg text-heading ">Tentang Perusahaan</h1>
                         </div>
-                        <ul class="contact-infor">
-                            <li><strong>Bread Smile </strong> <span>perusahaan ini di bangun pada tahun 2006 oleh (Gak tawu siapa ) atas dasar kemanusiaan. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate iste reiciendis sed repellendus vel perspiciatis temporibus animi, laudantium pariatur rerum. Ab tempora non quasi praesentium consequatur. Illo non voluptates voluptatem.</span>
-                        </ul>
                     </div>
                 </div>
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">

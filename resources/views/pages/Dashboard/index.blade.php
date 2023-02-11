@@ -6,6 +6,7 @@
 @endsection
 
 @section('subcontent')
+@can('backoffice')
 <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12">
         <div class="grid grid-cols-12 gap-6">
@@ -356,7 +357,475 @@
         }
     });
 </script>
+@endcan
+@can('gudang')
+<!-- BEGIN: Important Notes -->
+<div class="col-span-12 md:col-span-6 xl:col-span-12 xl:col-start-1 xl:row-start-1 2xl:col-start-auto 2xl:row-start-auto mt-3">
+    <div class="intro-x flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-auto">Dashboard</h2>
+    </div>
+    <div class="mt-5 intro-x">
+        <div class="box zoom-in">
+            <div class="container" id="important-notes">
+                <div class="p-5">
+                    <div class="font-medium text-3xl mb-2">{{ $sambutan }}!</div>
+                    <hr>
+                    <div class="font-medium text-lg mt-2">Selamat Datang {{ $user }} di Bagian {{ $role }}, Tetap Semangat dan Bahagia Selalu</div>
+                    <div class="text-slate-500 text-justify mt-1"> <q>Satu-satunya cara untuk melakukan pekerjaan hebat yaitu dengan mencintai apa yang sedang kamu lakukan.</q> - Steve Jobs</div>
+                    <div class="text-slate-400 mt-1">Pukul {{ $jam }}, {{ $tanggal }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Important Notes -->
+<!-- BEGIN: General Report -->
+<div class="col-span-12 mt-8">
+    <div class="intro-y flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-5">Data-data</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-6 mt-5">
 
+        <a href="/bahanMasuk" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="report-box zoom-in">
+                <div class="box p-5">
+                    <div class="flex">
+                        <i data-feather="box" class="report-box__icon text-primary"></i>
+                        <div class="ml-auto">
+                            <div class="report-box__indicator bg-success cursor-pointer">
+                                <span class="pr-1">Data</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">{{ $sumPembelian }} Kg</div>
+                    <div class="text-base text-slate-500 mt-1">Pembelian Bahan</div>
+                </div>
+            </div>
+        </a>
+        <a href="/bahanKeluar" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="box" class="report-box__icon text-pending"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $sumPemakaian }} Kg</div>
+                        <div class="text-base text-slate-500 mt-1">Pemakaian Bahan</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/dataBahan" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="box" class="report-box__icon text-warning"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $stokBahan }} Kg</div>
+                        <div class="text-base text-slate-500 mt-1">Stok Bahan</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/dataBahan" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="box" class="report-box__icon text-success"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $dataBahan }}</div>
+                        <div class="text-base text-slate-500 mt-1">Jenis Bahan</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- END: General Report -->
+@endcan
+@can('produksi')
+<!-- BEGIN: Important Notes -->
+<div class="col-span-12 md:col-span-6 xl:col-span-12 xl:col-start-1 xl:row-start-1 2xl:col-start-auto 2xl:row-start-auto mt-3">
+    <div class="intro-x flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-auto">Dashboard</h2>
+    </div>
+    <div class="mt-5 intro-x">
+        <div class="box zoom-in">
+            <div class="container" id="important-notes">
+                <div class="p-5">
+                    <div class="font-medium text-3xl mb-2">{{ $sambutan }}!</div>
+                    <hr>
+                    <div class="font-medium text-lg mt-2">Selamat Datang {{ $user }} di Bagian {{ $role }}, Tetap Semangat dan Bahagia Selalu</div>
+                    <div class="text-slate-500 text-justify mt-1"> <q>Satu-satunya cara untuk melakukan pekerjaan hebat yaitu dengan mencintai apa yang sedang kamu lakukan.</q> - Steve Jobs</div>
+                    <div class="text-slate-400 mt-1">Pukul {{ $jam }}, {{ $tanggal }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Important Notes -->
+<!-- BEGIN: General Report -->
+<div class="col-span-12 mt-8">
+    <div class="intro-y flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-5">Data-data</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-6 mt-5">
 
+        <a href="/produkMasuk" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="report-box zoom-in">
+                <div class="box p-5">
+                    <div class="flex">
+                        <i data-feather="package" class="report-box__icon text-primary"></i>
+                        <div class="ml-auto">
+                            <div class="report-box__indicator bg-success cursor-pointer">
+                                <span class="pr-1">Data</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">{{ $sumPenjualan }} Pcs</div>
+                    <div class="text-base text-slate-500 mt-1">Penjualan Produk</div>
+                </div>
+            </div>
+        </a>
+        <a href="/produkKeluar" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-pending"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $sumProduksi }} Pcs</div>
+                        <div class="text-base text-slate-500 mt-1">Pembuatan Produk</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/produkJadi" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-warning"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $produkStok }} Pcs</div>
+                        <div class="text-base text-slate-500 mt-1">Stok Roti</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/produkJadi" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-success"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $produkJadi }}</div>
+                        <div class="text-base text-slate-500 mt-1">Jenis Roti</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- END: General Report -->
+@endcan
+@can('distribusi')
+<!-- BEGIN: Important Notes -->
+<div class="col-span-12 md:col-span-6 xl:col-span-12 xl:col-start-1 xl:row-start-1 2xl:col-start-auto 2xl:row-start-auto mt-3">
+    <div class="intro-x flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-auto">Dashboard</h2>
+    </div>
+    <div class="mt-5 intro-x">
+        <div class="box zoom-in">
+            <div class="container" id="important-notes">
+                <div class="p-5">
+                    <div class="font-medium text-xl">{{ $sambutan }}, Selamat Datang {{ $user }} di Bagian {{ $role }} Tetap Semangat dan Bahagia Selalu</div>
+                    <div class="text-slate-500 text-justify mt-1"> <q>Satu-satunya cara untuk melakukan pekerjaan hebat yaitu dengan mencintai apa yang sedang kamu lakukan.</q> - Steve Jobs</div>
+                    <div class="text-slate-400 mt-1">Pukul {{ $jam }}, {{ $tanggal }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Important Notes -->
+<!-- BEGIN: General Report -->
+<div class="col-span-12 mt-8">
+    <div class="intro-y flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-5">Data-data</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-6 mt-5">
 
+        <a href="/sopir" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="report-box zoom-in">
+                <div class="box p-5">
+                    <div class="flex">
+                        <i data-feather="user" class="report-box__icon text-primary"></i>
+                        <div class="ml-auto">
+                            <div class="report-box__indicator bg-success cursor-pointer">
+                                <span class="pr-1">Data</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">{{ $countSopir }} Orang</div>
+                    <div class="text-base text-slate-500 mt-1">Jumlah Sopir</div>
+                </div>
+            </div>
+        </a>
+        <a href="/mobil" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="truck" class="report-box__icon text-pending"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $countMobil }} Mobil</div>
+                        <div class="text-base text-slate-500 mt-1">Jumlah Mobil</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/pengirimanProduk" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="truck" class="report-box__icon text-warning"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $countPengiriman }} Pengiriman</div>
+                        <div class="text-base text-slate-500 mt-1">Total Pengiriman</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/lokasiPengiriman" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="map-pin" class="report-box__icon text-success"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $countLokasi }} Lokasi</div>
+                        <div class="text-base text-slate-500 mt-1">Jumlah Lokasi</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- END: General Report -->
+@endcan
+@can('kasir')
+<!-- BEGIN: Important Notes -->
+<div class="col-span-12 md:col-span-6 xl:col-span-12 xl:col-start-1 xl:row-start-1 2xl:col-start-auto 2xl:row-start-auto mt-3">
+    <div class="intro-x flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-auto">Dashboard</h2>
+    </div>
+    <div class="mt-5 intro-x">
+        <div class="box zoom-in">
+            <div class="container" id="important-notes">
+                <div class="p-5">
+                    <div class="font-medium text-3xl mb-2">{{ $sambutan }}!</div>
+                    <hr>
+                    <div class="font-medium text-lg mt-2">Selamat Datang {{ $user }} di Bagian {{ $role }}, Tetap Semangat dan Bahagia Selalu</div>
+                    <div class="text-slate-500 text-justify mt-1"> <q>Satu-satunya cara untuk melakukan pekerjaan hebat yaitu dengan mencintai apa yang sedang kamu lakukan.</q> - Steve Jobs</div>
+                    <div class="text-slate-400 mt-1">Pukul {{ $jam }}, {{ $tanggal }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Important Notes -->
+<!-- BEGIN: General Report -->
+<div class="col-span-12 mt-8">
+    <div class="intro-y flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-5">Data-data</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <a href="/sopir" class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+            <div class="report-box zoom-in">
+                <div class="box p-5">
+                    <div class="flex">
+                        <i data-feather="package" class="report-box__icon text-primary"></i>
+                        <div class="ml-auto">
+                            <div class="report-box__indicator bg-success cursor-pointer">
+                                <span class="pr-1">Data</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">{{ $countTransaksi }} Transaksi</div>
+                    <div class="text-base text-slate-500 mt-1">Riwayat Transaksi</div>
+                </div>
+            </div>
+        </a>
+        <a href="/produkJadi" class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-pending"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $countSiapJual }} Produk</div>
+                        <div class="text-base text-slate-500 mt-1">Produk Siap Jual</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/produkJadi" class="col-span-12 sm:col-span-12 xl:col-span-4 intro-y">
+            <div class="col-span-12 sm:col-span-12 xl:col-span-4 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-warning"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $countStokHabis }} Produk</div>
+                        <div class="text-base text-slate-500 mt-1">Stok Kosong</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- END: General Report -->
+@endcan
+@can('sopir')
+<!-- BEGIN: Important Notes -->
+<div class="col-span-12 md:col-span-6 xl:col-span-12 xl:col-start-1 xl:row-start-1 2xl:col-start-auto 2xl:row-start-auto mt-3">
+    <div class="intro-x flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-auto">Dashboard</h2>
+    </div>
+    <div class="mt-5 intro-x">
+        <div class="box zoom-in">
+            <div class="container" id="important-notes">
+                <div class="p-5">
+                    <div class="font-medium text-3xl mb-2">{{ $sambutan }}!</div>
+                    <hr>
+                    <div class="font-medium text-lg mt-2">Selamat Datang {{ $user }} di Bagian {{ $role }}, Tetap Semangat dan Bahagia Selalu</div>
+                    <div class="text-slate-500 text-justify mt-1"> <q>Satu-satunya cara untuk melakukan pekerjaan hebat yaitu dengan mencintai apa yang sedang kamu lakukan.</q> - Steve Jobs</div>
+                    <div class="text-slate-400 mt-1">Pukul {{ $jam }}, {{ $tanggal }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Important Notes -->
+<!-- BEGIN: General Report -->
+<div class="col-span-12 mt-8">
+    <div class="intro-y flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-5">Data-data</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <a href="/pengirimanProduk" class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+            <div class="report-box zoom-in">
+                <div class="box p-5">
+                    <div class="flex">
+                        <i data-feather="package" class="report-box__icon text-primary"></i>
+                        <div class="ml-auto">
+                            <div class="report-box__indicator bg-success cursor-pointer">
+                                <span class="pr-1">Data</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">{{ $countPengirimanSopir }} kali</div>
+                    <div class="text-base text-slate-500 mt-1">Total Pengiriman</div>
+                </div>
+            </div>
+        </a>
+        <a href="/pengirimanProduk" class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-pending"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $countLokasiSopir }} Lokasi</div>
+                        <div class="text-base text-slate-500 mt-1">Lokasi Pengiriman</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/pengirimanProduk" class="col-span-12 sm:col-span-12 xl:col-span-4 intro-y">
+            <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <i data-feather="package" class="report-box__icon text-pending"></i>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success cursor-pointer">
+                                    <span class="pr-1">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{ $sumPengiriman }} Produk</div>
+                        <div class="text-base text-slate-500 mt-1">Total Produk Dikirim</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- END: General Report -->
+@endcan
 @endsection

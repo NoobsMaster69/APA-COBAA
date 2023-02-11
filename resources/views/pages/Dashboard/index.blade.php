@@ -6,6 +6,7 @@
 @endsection
 
 @section('subcontent')
+@can('backoffice')
 <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12">
         <div class="grid grid-cols-12 gap-6">
@@ -359,4 +360,5 @@
 
 
 
+@endcan
 @endsection

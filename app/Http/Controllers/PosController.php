@@ -297,4 +297,10 @@ class PosController extends Controller
         $pdf->setPaper('A4', 'potrait');
         return $pdf->download('laporan-transaksipenjualan.pdf');
     }
+
+    public function print_transaksi()
+    {
+        $data = DB::table('pos_orders')->get();
+        return view('pages.pos.laporan', ['data' => $data, 'print' => 'print']);
+    }
 }

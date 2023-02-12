@@ -17,32 +17,6 @@
         <a href="{{ route('mobil.create') }}">
             <button class="btn btn-primary shadow-md mr-2">Tambah Mobil</button>
         </a>
-        <div class="dropdown">
-            <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                <span class="w-5 h-5 flex items-center justify-center">
-                    <i class="w-4 h-4" data-feather="plus"></i>
-                </span>
-            </button>
-            <div class="dropdown-menu w-40">
-                <ul class="dropdown-content">
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="printer" class="w-4 h-4 mr-2"></i> Print
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to PDF
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
         <div class="hidden md:block mx-auto text-slate-500"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BahanMasukExport;
 use App\Models\DataBahan;
 use App\Models\BahanMasuk;
-use Barryvdh\DomPDF\Facade\PDF as PDF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BahanMasukController extends Controller
@@ -274,5 +275,17 @@ class BahanMasukController extends Controller
         $pdf = PDF::loadView('pages.BahanMasuk.laporan', ['data' => $data]);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->download('laporan-bahanmasuk.pdf');
+    }
+
+    public function print_excel()
+    {
+        return Excel::download(new BahanMasukExport, 'bahanmasuk.xlsx');
+    }
+
+    public function print()
+    {
+        $data = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')
+            ->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+        return view('pages.BahanMasuk.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

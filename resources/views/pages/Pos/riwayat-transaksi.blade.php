@@ -22,13 +22,8 @@
             <div class="dropdown-menu w-40">
                 <ul class="dropdown-content">
                     <li>
-                        <a href="" class="dropdown-item">
+                        <a href="/lap-transaksipenjualan-print" target="_blank" class="dropdown-item">
                             <i data-feather="printer" class="w-4 h-4 mr-2"></i> Print
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="dropdown-item">
-                            <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
                         </a>
                     </li>
                     <li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProdukKeluarExport;
 use App\Models\pengirimanProduk;
 use App\Models\ProdukJadi;
 use App\Models\ProdukKeluar;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Mockery\Undefined;
 use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\PDF as PDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukKeluarController extends Controller
 {
@@ -317,5 +319,18 @@ class ProdukKeluarController extends Controller
         $pdf = PDF::loadView('pages.ProdukKeluar.laporan', ['data' => $data]);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->download('laporan-produkkeluar.pdf');
+    }
+
+    public function print_excel()
+    {
+        return Excel::download(new ProdukKeluarExport, 'produkkeluar.xlsx');
+    }
+
+    public function print()
+    {
+        $data = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
+            ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'users.name')->get();
+        return view('pages.ProdukKeluar.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

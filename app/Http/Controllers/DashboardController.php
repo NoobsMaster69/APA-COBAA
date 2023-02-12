@@ -6,7 +6,7 @@ use App\Models\BahanKeluar;
 use App\Models\BahanMasuk;
 use Illuminate\Http\Request;
 // gunakan model dari produkjadi
-use App\Models\Produkjadi;
+use App\Models\ProdukJadi;
 use App\Models\DataBahan;
 use App\Models\ProdukKeluar;
 use App\Models\ProdukMasuk;
@@ -25,7 +25,7 @@ class DashboardController extends Controller
     public function index()
     {
         // count produkjadi
-        $produkjadi = Produkjadi::count();
+        $produkjadi = ProdukJadi::count();
         $databahan = DataBahan::count();
         $karyawan = Karyawan::count();
         $pengirimanproduk = pengirimanProduk::count();

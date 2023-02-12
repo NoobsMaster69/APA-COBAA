@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProdukMasukExport;
 use App\Models\BahanKeluar;
 use App\Models\buatResep;
 use App\Models\DataBahan;
@@ -11,6 +12,7 @@ use App\Models\Resep;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\PDF as PDF;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 
 class ProdukMasukController extends Controller
@@ -324,5 +326,16 @@ class ProdukMasukController extends Controller
         $pdf = PDF::loadView('pages.ProdukMasuk.laporan', ['data' => $data]);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->download('laporan-produkmasuk.pdf');
+    }
+
+    public function print_excel()
+    {
+        return Excel::download(new ProdukMasukExport, 'produkmasuk.xlsx');
+    }
+
+    public function print()
+    {
+        $data = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.modal', 'users.name')->get();
+        return view('pages.ProdukMasuk.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

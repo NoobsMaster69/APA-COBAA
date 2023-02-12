@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BahanKeluarExport;
 use App\Models\BahanKeluar;
 use Barryvdh\DomPDF\Facade\PDF as PDF;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\DataBahan;
-
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -304,5 +305,18 @@ class BahanKeluarController extends Controller
         $pdf = PDF::loadView('pages.BahanKeluar.laporan', ['data' => $data]);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->download('laporan-bahankeluar.pdf');
+    }
+
+    public function print_excel()
+    {
+        return Excel::download(new BahanKeluarExport, 'bahankeluar.xlsx');
+    }
+
+    public function print()
+    {
+        $data = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')
+            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+
+        return view('pages.BahanKeluar.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

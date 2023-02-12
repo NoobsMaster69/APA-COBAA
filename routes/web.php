@@ -81,11 +81,15 @@ Route::middleware('auth')->group(function () {
     // Data Bahan Masuk
     // Route::get('bahanmasuk', [BahanMasukController::class, 'index'])->name('bahanMasuk');
     Route::resource('bahanMasuk', BahanMasukController::class);
+    Route::get('/lap-bahanmasuk-print', [BahanMasukController::class, 'print']);
     Route::get('/lap-bahanmasuk-pdf', [BahanMasukController::class, 'print_pdf']);
+    Route::get('/lap-bahanmasuk-excel', [BahanMasukController::class, 'print_excel']);
     // Data Bahan Keluar
     // Route::get('bahankeluar', [BahanKeluarController::class, 'index'])->name('bahanKeluar');
     Route::resource('bahanKeluar', BahanKeluarController::class);
+    Route::get('/lap-bahankeluar-print', [BahanKeluarController::class, 'print']);
     Route::get('/lap-bahankeluar-pdf', [BahanKeluarController::class, 'print_pdf']);
+    Route::get('/lap-bahankeluar-excel', [BahanKeluarController::class, 'print_excel']);
     // Produk Jadi
     // Route::get('produkjadi', [ProdukJadiController::class, 'index'])->name('produkJadi');
     Route::resource('produkJadi', ProdukJadiController::class);
@@ -95,11 +99,15 @@ Route::middleware('auth')->group(function () {
     // Produk Masuk
     // Route::get('produkmasuk', [ProdukMasukController::class, 'index'])->name('produkMasuk');
     Route::resource('produkMasuk', ProdukMasukController::class);
+    Route::get('/lap-produkmasuk-print', [ProdukMasukController::class, 'print']);
     Route::get('/lap-produkmasuk-pdf', [ProdukMasukController::class, 'print_pdf']);
+    Route::get('/lap-produkmasuk-excel', [ProdukMasukController::class, 'print_excel']);
     // Produk Keluar
     // Route::get('produkkeluar', [ProdukKeluarController::class, 'index'])->name('produkKeluar');
     Route::resource('produkKeluar', ProdukKeluarController::class);
+    Route::get('/lap-produkkeluar-print', [ProdukKeluarController::class, 'print']);
     Route::get('/lap-produkkeluar-pdf', [ProdukKeluarController::class, 'print_pdf']);
+    Route::get('/lap-produkkeluar-excel', [ProdukKeluarController::class, 'print_excel']);
 
     // Resep
     // Route::get('dataresep', [ResepController::class, 'index'])->name('dataResep');
@@ -110,6 +118,7 @@ Route::middleware('auth')->group(function () {
     // Pengiriman Produk
     // Route::get('datapengiriman', [PengirimanProdukController::class, 'index'])->name('dataPengiriman');
     Route::resource('pengirimanProduk', PengirimanProdukController::class);
+    Route::get('/lap-pengirimanproduk-print', [PengirimanProdukController::class, 'print']);
     Route::get('/lap-pengirimanproduk-pdf', [PengirimanProdukController::class, 'print_pdf']);
     // Produk Terkirim
     // Route::get('lokasipengiriman', [LokasiPengirimanController::class, 'index'])->name('lokasiPengiriman');
@@ -148,6 +157,7 @@ Route::middleware('auth')->group(function () {
     Route::post('order_create', [PosController::class, 'order_create'])->name('order_create');
     Route::get('/cetak-kwitansi', [PosController::class, 'print'])->name('cetak-kwitansi');
     Route::get('/riwayat-transaksi', [PosController::class, 'transaksi']);
+    Route::get('/lap-transaksipenjualan-print', [PosController::class, 'print_transaksi']);
     Route::get('/lap-transaksipenjualan-pdf', [PosController::class, 'print_pdf']);
     Route::get('/riwayat-transaksi/cari', [PosController::class, 'cari']);
 

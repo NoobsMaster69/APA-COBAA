@@ -228,50 +228,6 @@ $sopir = Sopir::where('no_ktp', Auth::user()->nip)->first();
                         </li>
                     </ul>
                 </li>
-
-                <li>
-                    <a href="javascript:;" class="side-menu {{ Request::is('') ? 'side-menu--active' : '' }}">
-                        <div class="side-menu__icon">
-                            <i data-feather="clipboard"></i>
-                        </div>
-                        <div class="side-menu__title">
-                            Laporan
-                            <div class="side-menu__sub-icon {{ Request::is('') ? 'transform rotate-180' : '' }}">
-                                <i data-feather="chevron-down"></i>
-                            </div>
-                        </div>
-                    </a>
-                    <ul class=" {{ Request::is('') ? 'side-menu__sub-open' : '' }}">
-                        <li>
-                            <a href="#" class="side-menu {{ Request::is('*') ? 'side-menu--active' : '' }}">
-                                <div class="side-menu__icon">
-                                    <i data-feather="clipboard"></i>
-                                </div>
-                                <div class="side-menu__title">
-                                    Laporan Permintaan Bahan
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="side-menu {{ Request::is('') ? 'side-menu--active' : '' }}">
-                                <div class="side-menu__icon">
-                                    <i data-feather="clipboard"></i>
-                                </div>
-                                <div class="side-menu__title">
-                                    Laporan Permintaan Produk
-                                </div>
-                            </a>
-                        </li>
-                        {{-- <li>
-                            <a href="#" class="side-menu {{ Request::is('') ? 'side-menu--active' : '' }}">
-                        <div class="side-menu__icon">
-                            <i data-feather="clipboard"></i>
-                        </div>
-                        <div class="side-menu__title">
-                            Laporan Pengiriman Produk
-                        </div>
-                        </a>
-                </li> --}}
             </ul>
             </li>
             @if ($karyawan !== null || $sopir !== null)

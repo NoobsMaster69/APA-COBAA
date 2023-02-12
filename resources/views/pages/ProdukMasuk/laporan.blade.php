@@ -100,7 +100,7 @@
     </style>
 
 </head>
-<body>
+<body @isset($print) onload="javascript:window.print()" @endisset>
     {{-- <header class="">
         <div class="row">
             <div class="col-lg-2"><img src="{{ asset('images/logo.png') }}" class="mt-4"></div>

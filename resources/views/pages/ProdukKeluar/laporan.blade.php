@@ -100,7 +100,7 @@
     </style>
 
 </head>
-<body>
+<body @isset($print) onload="javascript:window.print()" @endisset>
     {{-- <header class="">
         <div class="row">
             <div class="col-lg-2"><img src="{{ asset('images/logo.png') }}" class="mt-4"></div>
@@ -174,7 +174,6 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th>No</th>
-                <th>Status</th>
                 <th>Nama Produk</th>
                 <th>Jumlah</th>
                 <th>Tanggal Penjualan</th>
@@ -195,11 +194,6 @@
                  @endphp
                  <tr>
                     <td>{{ $loop->iteration}}</td>
-                     @if ($dt->stts == 1)
-                     <td>Dikirim</td>
-                     @elseif ($dt->stts == 0)
-                     <td>Belum Dikirim</td>
-                     @endif
                      <td>{{ $dt->nm_produk }}</td>
                      <td>{{ $dt->jumlah }} Pcs</td>
                      <td>{{ $tanggal }} {{ $bulan }} {{ $tahun }}</td>
@@ -207,7 +201,7 @@
                      <td>Rp. {{ number_format($dt->total, 0, ',', '.') }}</td>
             @endforeach
             <tr>
-                <td colspan="6">Total</td>
+                <td colspan="5">Total</td>
                 <td>{{ 'Rp. ' . number_format($data->sum('total')) }}</td>
             </tr>
         </table>

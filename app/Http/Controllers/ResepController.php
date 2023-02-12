@@ -296,7 +296,7 @@ class ResepController extends Controller
 
             // cari harga jual dengan rumus Biaya produksi + (Persentase keuntungan x biaya produksi) = Harga jual
             // keuntungannya 60%
-            $keuntungan = 200;
+            $keuntungan = 300;
             $harga_jual = $tot_cost + (($keuntungan / 100) * $tot_cost);
 
             // input tot_cost jika di produk jadi adalah field modal dan harga_jual ke tabel produkJadi

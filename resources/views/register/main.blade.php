@@ -17,7 +17,7 @@
             </a>
             <div class="my-auto">
                 <img alt="Logo" class="-intro-x w-1/2 -mt-16 rounded-md shadow-lg xl:shadow" src="{{ asset('dist/images/logo.png') }}">
-                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di halaman registrasi Bread Smile.</div>
+                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di halaman registrasi <br> Bread Smile.</div>
                 <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Silahkan mendaftar agar bisa login</div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                             {{ $message }}
                         </div>
                         @enderror
-                        <input placeholder="Nama Karyawan" type="text" class="intro-x login__input form-control py-3 px-4 block mt-4" name="nm_karyawan" id="nm_karyawan" value="{{ old('nm_karyawan') }}" placeholder="Nama Lengkap" readonly>
+                        <input placeholder="Nama Karyawan" type="hidden" class="intro-x login__input form-control py-3 px-4 block mt-4" name="nm_karyawan" id="nm_karyawan" value="{{ old('nm_karyawan') }}" placeholder="Nama Lengkap" readonly>
                         <!-- <input type="text" class="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Email"> -->
                         <input name="password" type="password" class="intro-x login__input form-control py-3 px-4 block mt-4 @error('password') border-danger @enderror" placeholder="Password">
                         @error('password')

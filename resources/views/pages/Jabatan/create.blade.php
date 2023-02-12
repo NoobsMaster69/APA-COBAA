@@ -7,7 +7,7 @@
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
-            <form action="{{ route('jabatan.store') }}" method="POST">
+            <form action="{{ route('jabatan.store') }}" meth`od="POST">
             @csrf
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                 <div class="col-span-12 sm:col-span-12">

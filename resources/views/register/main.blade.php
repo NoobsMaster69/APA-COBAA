@@ -2,11 +2,6 @@
 
 @section('head')
 <title>Registrasi - Bread Smile</title>
-<style type="text/tailwindcss">
-    * {
-        border: 1px solid red;
-    }
-</style>
 @endsection
 
 @section('content')
@@ -15,7 +10,7 @@
         <!-- BEGIN: Register Info -->
         <div class="hidden xl:flex flex-col min-h-screen">
             <a href="" class="-intro-x flex items-center pt-5">
-                <img alt="Icewall Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logoh.png') }}">
+                <img alt="Logo Perusahaan" class="w-6" src="{{ asset('dist/images/logoh.png') }}">
                 <span class="text-white text-lg ml-3">
                     Bread Smile
                 </span>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BahanKeluar;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 use App\Models\DataBahan;
 
 use Illuminate\Http\Request;
@@ -292,5 +293,16 @@ class BahanKeluarController extends Controller
         $bahanKeluar->delete();
         Alert::success('Data Pemakaian Bahan', 'Berhasil dihapus!');
         return redirect('/bahanKeluar');
+    }
+
+    public function print_pdf()
+    {
+        $data = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')
+            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+        // return view('pages.BahanKeluar.laporan', ['data' => $data]);
+
+        $pdf = PDF::loadView('pages.BahanKeluar.laporan', ['data' => $data]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->download('laporan-bahankeluar.pdf');
     }
 }

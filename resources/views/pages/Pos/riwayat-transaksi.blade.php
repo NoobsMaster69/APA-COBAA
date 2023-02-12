@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="dropdown-item">
+                        <a href="/lap-transaksipenjualan-pdf" target="_blank" class="dropdown-item">
                             <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to PDF
                         </a>
                     </li>

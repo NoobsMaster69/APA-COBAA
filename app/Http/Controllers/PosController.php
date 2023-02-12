@@ -11,6 +11,7 @@ use App\Models\PosOrderDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 
 
 class PosController extends Controller
@@ -285,5 +286,15 @@ class PosController extends Controller
         } else {
             return back();
         }
+    }
+
+    public function print_pdf()
+    {
+        $data = DB::table('pos_orders')->get();
+        // return view('pages.pos.laporan', ['data' => $data]);
+
+        $pdf = PDF::loadView('pages.pos.laporan', ['data' => $data]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->download('laporan-transaksipenjualan.pdf');
     }
 }

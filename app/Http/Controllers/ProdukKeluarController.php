@@ -10,6 +10,7 @@ use App\Models\Resep;
 use Illuminate\Http\Request;
 use Mockery\Undefined;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 
 class ProdukKeluarController extends Controller
 {
@@ -304,5 +305,17 @@ class ProdukKeluarController extends Controller
             Alert::error('Gagal!', 'Data penjualan sudah berada di Pengiriman');
             return redirect('produkKeluar');
         }
+    }
+
+    public function print_pdf()
+    {
+        $data = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
+            ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
+            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'users.name')->get();
+        // return view('pages.ProdukKeluar.laporan', ['data' => $data]);
+
+        $pdf = PDF::loadView('pages.ProdukKeluar.laporan', ['data' => $data]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->download('laporan-produkkeluar.pdf');
     }
 }

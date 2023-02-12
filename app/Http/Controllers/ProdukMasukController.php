@@ -10,6 +10,7 @@ use App\Models\ProdukMasuk;
 use App\Models\Resep;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 use Carbon\Carbon;
 
 class ProdukMasukController extends Controller
@@ -314,6 +315,14 @@ class ProdukMasukController extends Controller
 
         return redirect('/produkMasuk');
     }
-}
 
-// cara translate bulan dari bahasa inggris ke bahasa indonesia di laravel
+    public function print_pdf()
+    {
+        $data = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.modal', 'users.name')->get();
+        // return view('pages.ProdukMasuk.laporan', ['data' => $data]);
+
+        $pdf = PDF::loadView('pages.ProdukMasuk.laporan', ['data' => $data]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->download('laporan-produkmasuk.pdf');
+    }
+}

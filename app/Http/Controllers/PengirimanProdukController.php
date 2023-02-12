@@ -10,6 +10,7 @@ use App\Models\Sopir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 use Intervention\Image\Facades\Image;
 
 class PengirimanProdukController extends Controller
@@ -379,5 +380,21 @@ class PengirimanProdukController extends Controller
             Alert::error('Gagal', 'Sopir Sudah mengirimkan produk ini');
             return redirect()->route('pengirimanProduk.index');
         }
+    }
+
+    public function print_pdf()
+    {
+        $data = pengirimanProduk::join('produkKeluar', 'pengirimanProduk.id_produkKeluar', '=', 'produkKeluar.id_produkKeluar')
+            ->join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
+            ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
+            ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
+            ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
+            ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
+            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')->where('pengirimanProduk.status', '=', 2)->get();
+        // return view('pages.PengirimanProduk.laporan', ['data' => $data]);
+
+        $pdf = PDF::loadView('pages.PengirimanProduk.laporan', ['data' => $data]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->download('laporan-pengirimanproduk.pdf');
     }
 }

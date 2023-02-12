@@ -220,7 +220,6 @@ class ProdukKeluarController extends Controller
         $status = ProdukKeluar::where('id_produkKeluar', $produkKeluar->id_produkKeluar)->first()->stts;
 
         if ($status == 0) {
-            dd('kesini');
             // mengubah nama validasi
             $messages = [
                 'kd_produk.required' => 'Kode Produk Harus Diisi',

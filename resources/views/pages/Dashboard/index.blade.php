@@ -688,7 +688,7 @@
         <h2 class="text-lg font-medium truncate mr-5">Data-data</h2>
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">
-        <a href="/sopir" class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+        <a href="/riwayat-transaksi" class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
             <div class="report-box zoom-in">
                 <div class="box p-5">
                     <div class="flex">

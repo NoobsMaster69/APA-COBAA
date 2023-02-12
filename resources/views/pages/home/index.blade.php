@@ -20,24 +20,7 @@
 
 <body>
     <!-- Quick view -->
-
-    <header class="header-area header-style-1 header-style-5 header-height-2">
-        <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-4">
-                        <div class="header-info">
-                            <ul>
-                                <li><a href="page-about.htlm">About Us</a></li>
-                                <li><a href="page-account.html">My Account</a></li>
-                                <li><a href="shop-wishlist.html">Wishlist</a></li>
-                                <li><a href="shop-order.html">Order Tracking</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+    <header id="home" class="header-area header-style-1 header-style-5 header-height-2">
         <div class="header-middle header-middle-ptb-2 d-none d-lg-block">
             <div class="container">
                 <div class="header-wrap">
@@ -50,114 +33,6 @@
                                 <input type="text" name="search" autocomplete="off" value="{{ request('search') }}" placeholder="Cari Roti..." />
                             </form>
                         </div>
-                        <!-- <div class="header-action-right">
-                            <div class="header-action-2">
-                                <div class="search-location">
-                                    <form action="#">
-                                        <select class="select-active">
-                                            <option>Your Location</option>
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>Arizona</option>
-                                            <option>Delaware</option>
-                                            <option>Florida</option>
-                                            <option>Georgia</option>
-                                            <option>Hawaii</option>
-                                            <option>Indiana</option>
-                                            <option>Maryland</option>
-                                            <option>Nevada</option>
-                                            <option>New Jersey</option>
-                                            <option>New Mexico</option>
-                                            <option>New York</option>
-                                        </select>
-                                    </form>
-                                </div> -->
-                        <!-- <div class="header-action-icon-2">
-                                    <a href="shop-compare.html">
-                                        <img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-compare.svg" />
-                                        <span class="pro-count blue">3</span>
-                                    </a>
-                                    <a href="shop-compare.html"><span class="lable ml-0">Compare</span></a>
-                                </div>
-                                <div class="header-action-icon-2">
-                                    <a href="shop-wishlist.html">
-                                        <img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-heart.svg" />
-                                        <span class="pro-count blue">6</span>
-                                    </a>
-                                    <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
-                                </div>
-                                <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="shop-cart.html">
-                                        <img alt="Nest" src="assets/imgs/theme/icons/icon-cart.svg" />
-                                        <span class="pro-count blue">2</span>
-                                    </a>
-                                    <a href="shop-cart.html"><span class="lable">Cart</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                        <ul>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="assets/imgs/shop/thumbnail-3.jpg" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html">Daisy Casual Bag</a></h4>
-                                                    <h4><span>1 × </span>$800.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="assets/imgs/shop/thumbnail-2.jpg" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html">Corduroy Shirts</a></h4>
-                                                    <h4><span>1 × </span>$3200.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="shopping-cart-footer">
-                                            <div class="shopping-cart-total">
-                                                <h4>Total <span>$4000.00</span></h4>
-                                            </div>
-                                            <div class="shopping-cart-button">
-                                                <a href="shop-cart.html" class="outline">View cart</a>
-                                                <a href="shop-checkout.html">Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="header-action-icon-2">
-                                    <a href="page-account.html">
-                                        <img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-user.svg" />
-                                    </a>
-                                    <a href="page-account.html"><span class="lable ml-0">Account</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
-                                        <ul>
-                                            <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>My Account</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>My Voucher</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div> -->
                     </div>
                 </div>
             </div>
@@ -183,7 +58,7 @@
                                         <a class="active" href="#produk">Produk</a>
                                     </li>
                                     <li>
-                                        <a href="/about">About</a>
+                                        <a class="active" href="#about">About</a>
                                     </li>
 
                                     <li>
@@ -219,7 +94,7 @@
                     </button>
                 </div>
             </div>
-            <div class="mobile-header-content-area">
+            <div  class="mobile-header-content-area">
                 <div class="mobile-search search-style-3 mobile-header-border">
                     <form action="#">
                         <input type="text" placeholder="Search for items…" />
@@ -237,28 +112,9 @@
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="shop-grid-right.html">Produk</a>
-                                <ul class="dropdown">
-                                    <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Single Product</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="shop-filter.html">Shop – Filter</a></li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Shop Invoice</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop-invoice-1.html">Shop Invoice 1</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">About</a>
-                                <ul class="dropdown">
-                                    <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                                </ul>
                             </li>
                         </ul>
                     </nav>
@@ -276,20 +132,14 @@
         </div>
     </div>
     <!--End header-->
-    <main class="main">
+    <main class="main pages">
         <section class="hero-3 position-relative align-items shadow-md">
-            <h2 class="mb-30 text-center text-white" id="text">SELAMAT DATANG</h2>
-            <!-- <ul class="list-inline nav nav-tabs links font-xs text-center">
-                <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">S</a></li>
-                <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Coffes</a></li>
-                <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Pet Foods</a></li>
-                <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Vegetables</a></li>
-            </ul> -->
+            <h2  class="mb-30 text-center text-white" id="text">SELAMAT DATANG</h2>
         </section>
         <!-- BEGIN: Users Layout -->
-        <section class="bg-grey-1 section-padding pt-100 pb-80 mb-80">
+        <section id="produk" class="bg-grey-1 section-padding pt-100 pb-80 mb-80">
             <div class="container">
-                <h1 id="produk" class="mb-80 text-center">List Produk </h1>
+                <h1  class="mb-80 text-center">List Produk </h1>
                 <div class="row product-grid">
                     @foreach ($produkJadi as $produk)
                     <!-- {{-- @if ($produk->harga_jual > 0 && $produk->modal > 0) --}} -->
@@ -302,11 +152,6 @@
                                         <img class="rounded-md" src="{{ asset('dist/images/roti.webp') }}">
                                     </a>
                                 </div>
-                                <!-- <div class="product-action-1">
-                                    <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                    <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                </div> -->
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
@@ -326,293 +171,89 @@
                     </div>
                     <!-- {{-- @endif --}} -->
                     @endforeach
-                </div>
+                </div >
         </section>
 
+            <div id="about"  class="page-content pt-50">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-12 m-auto">
+                            <section class="row align-items-center mb-50">
+                                <div class="col-lg-6">
+                                    <img src="dist/images/breadsmile.jpg" alt="" class="border-radius-15 mb-md-3 mb-lg-0 mb-sm-4" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="pl-25">
+                                        <h2  class="mb-30">Tentang Kami</h2>
+                                        <p>Perusahaan ini di bangun pada tahun 2016 oleh Ny.inge.</p>
+                                        <p>Bread Smile bergerak dalam pembuatan dan penjualan roti yang sudah tersebar di beberapa daerah di Kota Cirebon, Kabupaten Cirebon dan kawasan Jawa Barat lainnya.</p>
+                                        <p>Bread Smile menyediakan berbagai macam Roti seperti Roti Tawar, Roti Panggang dan berbagai Snack yang dibuat dengan bahan-bahan berkualitas tinggi dan alami dalam pembuatannya.
+                                        <P>Bread Smile memastikan bahwa setiap roti yang dijual adalah produk yang berkualitas tinggi dan layak untuk dinikmati.</p>
+                                        <p class="mb-30">DATANGLAH DAN NIKMATI ROTI LEZAT KAMI!</p>
+                                        <div class="carausel-3-columns-cover position-relative">
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section  class="text-center mb-50">
+                                <h2 class="title style-3 mb-40">Dimana Saja Cabang Kami? </h2>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Surya Toserba</h4>
+                                            <iframe  scrolling="no" height="100%" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.454613416763!2d108.56054321283447!3d-6.714243095145936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee38b3a27354f%3A0x937dad68f87102c6!2sBread%20Smile%20Surya%20Toserba!5e0!3m2!1sen!2sid!4v1676017051351!5m2!1sen!2sid"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Csb Mall </h4>
+                                            <iframe  scrolling="no" height="100%" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4181838659347!2d108.5454938269531!3d-6.718716099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1dee5555555f%3A0x99edf0a988892f8f!2sHypermart%20-%20Cirebon%20Superblock%20Mall!5e0!3m2!1sen!2sid!4v1676017753455!5m2!1sen!2sid"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Asia Toserba </h4>
+                                            <iframe   scrolling="no" height="100%" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4520039677063!2d108.56064131283456!3d-6.714563595145702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee26460ef2ce9%3A0x1c6d620051b9c96!2sAsia%20Toserba!5e0!3m2!1sen!2sid!4v1676017870222!5m2!1sen!2sid"style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Surya Kuningan Toserba </h4>
+                                            <iframe scrolling="no" height="100%" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2476595834264!2d108.47761281355561!3d-6.980076494957475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1597703aab3d%3A0x29444786b745b8f2!2sSurya%20Toserba%20Kuningan%20Siliwangi!5e0!3m2!1sen!2sid!4v1676194957956!5m2!1sen!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Yogya Toserba Pamanukan</h4>
+                                            <iframe scrolling="no" height="100%" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d299.05165532697396!2d107.82125858657811!3d-6.282303233529263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e694523180f18b7%3A0xee766fe8464cea04!2sTOSERBA%20YOGYA!5e0!3m2!1sen!2sid!4v1676196059401!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Grage Mall </h4>
+                                            <iframe  scrolling="no" height="100%" width="100%"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4520039677063!2d108.56064131283456!3d-6.714563595145702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee26460ef2ce9%3A0x1c6d620051b9c96!2sAsia%20Toserba!5e0!3m2!1sen!2sid!4v1676017870222!5m2!1sen!2sid"style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-24">
+                                        <div class="featured-card">
+                                            <h4>Asia Plaza Tasikmalaya </h4>
+                                            <iframe  scrolling="no" height="100%" width="100%"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1867.5026975419107!2d108.21561524543134!3d-7.342612280458079!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f576c7c25dd8f%3A0x911e5e4095a1b4a2!2sAsia%20Plaza%20Shopping%20Centre!5e0!3m2!1sen!2sid!4v1676196636562!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <a href="#">Read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </main>
-    <!-- <footer class="main">
-        <section class="section-padding mb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                        <h4 class="section-title style-1 mb-30 animated animated">Top Selling</h4>
-                        <div class="product-list-small animated animated">
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-1.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-2.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-3.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-md-0 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                        <h4 class="section-title style-1 mb-30 animated animated">Trending Products</h4>
-                        <div class="product-list-small animated animated">
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-4.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Organic Cage-Free Grade A Large Brown Eggs</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-5.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown, & Red Rice</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-6.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Naturally Flavored Cinnamon Vanilla Light Roast Coffee</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-lg-block wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                        <h4 class="section-title style-1 mb-30 animated animated">Recently added</h4>
-                        <div class="product-list-small animated animated">
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-7.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Pepperidge Farm Farmhouse Hearty White Bread</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-8.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Organic Frozen Triple Berry Blend</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-9.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Oroweat Country Buttermilk Bread</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 d-none d-xl-block wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
-                        <h4 class="section-title style-1 mb-30 animated animated">Top Rated</h4>
-                        <div class="product-list-small animated animated">
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-10.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Foster Farms Takeout Crispy Classic Buffalo Wings</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-11.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Angie’s Boomchickapop Sweet & Salty Kettle Corn</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-12.jpg" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">All Natural Italian-Style Chicken Meatballs</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        End 4 columns-->
-    <!-- <section class="section-padding footer-mid flex justify-content-center">
-        <div class="container pt-15 pb-20">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp mx-auto" data-wow-delay="0">
-                        <div class="logo mb-15">
-                            <a class="mb-15"><img class="mx-auto d-block" height="100" src="assets/imgs/theme/logo.png" alt="logo" /></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                </div>
-            </div>
-        </div>
-    </section> -->
     <div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
         <div class="row align-items-center">
             <div class="col-12 mb-30">

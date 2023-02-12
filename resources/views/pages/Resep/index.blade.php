@@ -112,9 +112,9 @@
                     </td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">
-                            <a href="{{ route('resep.edit',$resep->kd_resep) }}" data-theme="light" title="Edit" class="flex items-center mr-2 tooltip text-success">
+                            <!-- <a href="{{ route('resep.edit',$resep->kd_resep) }}" data-theme="light" title="Edit" class="flex items-center mr-2 tooltip text-success">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i>
-                            </a>
+                            </a> -->
                             <!-- trigger modal -->
                             <button class="flex items-center tooltip text-danger" data-theme="light" title="Hapus" data-tw-toggle="modal" data-tw-target="#hapus{{ $resep->kd_resep }}">
                                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i>

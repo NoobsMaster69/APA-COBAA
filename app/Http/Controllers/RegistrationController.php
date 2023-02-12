@@ -27,7 +27,7 @@ class RegistrationController extends Controller
         $messages = [
             'nip.required' => 'Nip tidak boleh kosong',
             'nip.unique' => 'Nip ini sudah memiliki akun, silahkan login!',
-            'nm_karyawan.required' => 'Nama tidak boleh kosong',
+            // 'nm_karyawan.required' => 'Nama tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Password minimal 8 karakter',
             'password.max' => 'Password maksimal 16 karakter',
@@ -37,7 +37,7 @@ class RegistrationController extends Controller
 
         $request->validate([
             'nip' => 'required|unique:users,nip',
-            'nm_karyawan' => 'required',
+            // 'nm_karyawan' => 'required',
             'password' => 'required|min:8|max:16',
             'rePassword' => 'required|same:password',
         ], $messages);

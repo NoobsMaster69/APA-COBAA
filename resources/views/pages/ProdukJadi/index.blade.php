@@ -35,12 +35,11 @@
         <div class="box">
             <div class="p-5">
                 <div class="h-40 2xl:h-56 image-fit rounded-md overflow-hidden before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-black before:to-black/10">
-                    <img class="rounded-md" src="{{ asset('dist/images/roti.webp') }}">
+                    <!-- <img class="rounded-md" src="{{ asset('dist/images/roti.webp') }}"> -->
                     <img class="rounded-md" src="{{ asset('images/'.$produk->foto) }}">
                     <span class="absolute top-0 bg-pending/80 text-white text-xs m-5 px-2 py-1 rounded z-10"></span>
                     <div class="absolute bottom-0 text-white px-5 pb-6 z-10">
                         <a href="{{ route('produkJadi.edit',$produk->kd_produk) }}" class="block font-medium text-base">{{ $produk->nm_produk }}</a>
-                        <span class="text-white/90 text-xs mt-3">Roti</span>
                     </div>
                 </div>
                 <div class="text-slate-600 dark:text-slate-500 mt-5">
@@ -110,14 +109,6 @@
         </div>
     </div>
     <!-- END: Pagination -->
-    <!-- memisahkan tulisan 'Showing 1 to 8 of 20 results' dan paginatenya -->
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mx-auto">
-        <div class="w-full sm:w-auto sm:mr-auto">
-            <div class="text-gray-600 text-xs whitespace-no-wrap">
-                Menampilkan {{ $produkJadi->firstItem() }} sampai {{ $produkJadi->lastItem() }} dari {{ $produkJadi->total() }} data
-            </div>
-        </div>
-    </div>
 </div>
 
 

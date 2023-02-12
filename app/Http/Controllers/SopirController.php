@@ -94,9 +94,12 @@ class SopirController extends Controller
         ], $messages);
 
         $input = $request->all();
-
+        // upload foto
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0775, true);
+            }
             $profileImage = date('YmdHis') . "." . "webp";
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(150, 150);

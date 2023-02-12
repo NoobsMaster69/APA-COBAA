@@ -105,10 +105,6 @@
                         <div class="intro-y inbox box mt-5">
                             <div class="p-5 flex flex-col-reverse sm:flex-row text-slate-500 border-b border-slate-200/60">
                                 <div class="flex items-center mt-3 sm:mt-0 border-t sm:border-0 border-slate-200/60 pt-5 sm:pt-0 mt-5 sm:mt-0 -mx-5 sm:mx-0 px-5 sm:px-0">
-                                    <input class="form-check-input" type="checkbox" id="checkAll" onchange="checkAll(this)">
-                                    <a href="javascript:;" class="w-5 h-5 flex-none ml-4 flex items-center justify-center text-slate-400">
-                                        <i class="w-4 h-4">Semua</i>
-                                    </a>
                                     <!-- <div class="dropdown ml-1" data-tw-placement="bottom-start">
                                         <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
                                             <i data-feather="chevron-down" class="w-5 h-5"></i>

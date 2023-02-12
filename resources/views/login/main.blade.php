@@ -16,8 +16,8 @@
                 </span>
             </a>
             <div class="my-auto">
-                <img alt="Logo" class="-intro-x w-1/2 -mt-16 rounded-md shadow-lg xl:shadow"  src="assets/imgs/theme/logo.png">
-                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di Web Pengelolaan Bread Smile</div>
+                <img alt="Logo" class="-intro-x w-1/2 -mt-16 rounded-md shadow-lg xl:shadow" src="assets/imgs/theme/logo.png">
+                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di Web Pengelolaan <br> Bread Smile</div>
                 <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Silahkan login menggunakan akunmu</div>
             </div>
         </div>

@@ -39,9 +39,9 @@
                             <option value="0" hidden disabled selected>-- Silahkan Pilih --</option>
                             @foreach ($produkJadi as $produk)
                             @if (old('kd_produk') == $produk->kd_produk)
-                            <option value="{{ $produk->kd_produk }}" selected>[{{ $produk->kd_produk }}] {{ $produk->nm_produk }}</option>
+                            <option value="{{ $produk->kd_produk }}" selected>{{ $produk->nm_produk }}</option>
                             @else
-                            <option value="{{$produk->kd_produk }}">[{{ $produk->kd_produk }}] {{ $produk->nm_produk }}</option>
+                            <option value="{{$produk->kd_produk }}">{{ $produk->nm_produk }}</option>
                             @endif
                             @endforeach
                         </select>

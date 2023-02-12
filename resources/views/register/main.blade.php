@@ -2,11 +2,6 @@
 
 @section('head')
 <title>Registrasi - Bread Smile</title>
-<style type="text/tailwindcss">
-    * {
-        border: 1px solid red;
-    }
-</style>
 @endsection
 
 @section('content')
@@ -15,13 +10,13 @@
         <!-- BEGIN: Register Info -->
         <div class="hidden xl:flex flex-col min-h-screen">
             <a href="" class="-intro-x flex items-center pt-5">
-                <img alt="Icewall Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logoh.png') }}">
+                <img alt="Logo Perusahaan" class="w-6" src="{{ asset('dist/images/logoh.png') }}">
                 <span class="text-white text-lg ml-3">
                     Bread Smile
                 </span>
             </a>
             <div class="my-auto">
-                <img alt="Icewall Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="{{ asset('dist/images/logo.png') }}">
+                <img alt="Logo" class="-intro-x w-1/2 -mt-16 rounded-md shadow-lg xl:shadow" src="{{ asset('dist/images/logo.png') }}">
                 <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat datang<br>di halaman registrasi Bread Smile.</div>
                 <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Silahkan mendaftar agar bisa login</div>
             </div>

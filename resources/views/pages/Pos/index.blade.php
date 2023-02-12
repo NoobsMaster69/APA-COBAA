@@ -18,13 +18,13 @@
                     <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-feather="search"></i>
                 </div>
             </form>
-            <select class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto">
+            <!-- <select class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto">
                 <option>Sort By</option>
                 <option>A to Z</option>
                 <option>Z to A</option>
                 <option>Lowest Price</option>
                 <option>Highest Price</option>
-            </select>
+            </select> -->
         </div>
 
         {{-- display produk --}}
@@ -323,28 +323,20 @@
 </div>
 @endforeach
 
-
-{{-- <script>
-    function add(){
-    var subTotal,total; //membuat variabel
-    document.getElementById("tambah").onclick = function() {tambahValue()};
-
-    function tambahValue() {
-        a=Number(document.getElementById("jumlah").value); //menangkap input angka pertama
-        total = a + 1; //melakukan penjumlahan
-        document.getElementById("jumlah").value= total;
-    }
-
-}
-</script>
-
+<!-- menjadikan button tambah dan kurang -->
 <script>
-    function total() {
-    var harga =  parseInt(document.getElementById('harga_barang').value);
-    var jumlah_beli =  parseInt(document.getElementById('quantity').value);
-    var jumlah_harga = harga * jumlah_beli;
-        document.getElementById('subtotal').value = jumlah_harga;
-  }
-</script> --}}
+    $(document).ready(function() {
+        $('#tambah').click(function() {
+            var jumlah = $('#jumlah').val();
+            jumlah++;
+            $('#jumlah').val(jumlah);
+        });
+        $('#kurang').click(function() {
+            var jumlah = $('#jumlah').val();
+            jumlah--;
+            $('#jumlah').val(jumlah);
+        });
+    });
+</script>
 
 @endsection

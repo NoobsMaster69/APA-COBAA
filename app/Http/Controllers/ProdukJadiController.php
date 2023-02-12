@@ -77,13 +77,17 @@ class ProdukJadiController extends Controller
 
         $input['berat'] = $input['berat'] / 1000;
 
+        // upload foto
         if ($image = $request->file('foto')) {
             $destinationPath = 'images/';
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0775, true);
+            }
             $profileImage = date('YmdHis') . "." . "webp";
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(150, 150);
             $image_resize->save(public_path($destinationPath . $profileImage));
-            $input['foto'] = "$profileImage";
+            $foto = "$profileImage";
         }
 
         // masukkan berat ke dalam $input

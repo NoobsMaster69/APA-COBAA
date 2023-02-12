@@ -49,7 +49,7 @@ class BahanMasukController extends Controller
         $dataBahan = DataBahan::select('databahan.*')->get();
 
         return view(
-            'pages.bahanMasuk.create',
+            'pages.BahanMasuk.create',
             ['dataBahan' => $dataBahan],
             [
                 'tittle' => 'Tambah Data',
@@ -130,7 +130,7 @@ class BahanMasukController extends Controller
             ->first();
 
         return view(
-            'pages.bahanMasuk.edit',
+            'pages.BahanMasuk.edit',
             compact('bahanMasuk', 'dataBahan'),
             // ['dataBahan' => $dataBahan],
             [

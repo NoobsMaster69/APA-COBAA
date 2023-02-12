@@ -58,7 +58,7 @@ class BahanKeluarController extends Controller
             ->get();
 
         return view(
-            'pages.bahanKeluar.create',
+            'pages.BahanKeluar.create',
             ['dataBahan' => $dataBahan],
             [
                 'tittle' => 'Pemakaian Bahan',
@@ -150,7 +150,7 @@ class BahanKeluarController extends Controller
         $bahanKeluar->jumlah = $bahanKeluar->jumlah * 1000;
 
         return view(
-            'pages.bahanKeluar.edit',
+            'pages.BahanKeluar.edit',
             compact('bahanKeluar', 'dataBahan'),
             [
                 'tittle' => 'Edit Data Pemakaian Bahan',

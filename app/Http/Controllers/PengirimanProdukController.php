@@ -31,7 +31,7 @@ class PengirimanProdukController extends Controller
 
 
         return view(
-            'pages.pengirimanProduk.create',
+            'pages.PengirimanProduk.create',
             [
                 'pengirimanProduk' => $pengirimanProduk,
                 'tittle' => 'Data Pengiriman Produk',
@@ -83,7 +83,7 @@ class PengirimanProdukController extends Controller
         // }
 
         return view(
-            'pages.pengirimanProduk.index',
+            'pages.PengirimanProduk.index',
             [
                 'pengirimanProduk' => $pengirimanProduk,
                 'produkKeluar' => $produkKeluar,
@@ -163,7 +163,7 @@ class PengirimanProdukController extends Controller
         $lokasiPengiriman = lokasiPengiriman::all();
 
         return view(
-            'pages.pengirimanProduk.create',
+            'pages.PengirimanProduk.create',
             [
                 'produkKeluar' => $produkKeluar,
                 'pengirimanProduk' => $pengirimanProduk,
@@ -223,7 +223,7 @@ class PengirimanProdukController extends Controller
             $produkKeluar->save();
         }
         if (!empty($request->all())) {
-            // memasukkan id_produkKeluar ke dalam database dengan cara looping disetiap baris 
+            // memasukkan id_produkKeluar ke dalam database dengan cara looping disetiap baris
             foreach ($request->id_produkKeluar as $id_produkKeluar) {
                 $pengirimanProduk = new pengirimanProduk;
                 $pengirimanProduk->id_produkKeluar = $id_produkKeluar;
@@ -273,7 +273,7 @@ class PengirimanProdukController extends Controller
         if ($status == 1) {
             if ($role == 'sopir') {
                 return view(
-                    'pages.pengirimanProduk.upload',
+                    'pages.PengirimanProduk.upload',
                     [
                         'pengirimanProduk' => $pengirimanProduk,
                     ]

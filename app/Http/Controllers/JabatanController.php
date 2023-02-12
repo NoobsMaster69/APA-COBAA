@@ -20,7 +20,7 @@ class JabatanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.jabatan.index',
+            'pages.Jabatan.index',
             [
                 'jabatan' => $jabatan,
                 'tittle' => 'Data Jabatan',

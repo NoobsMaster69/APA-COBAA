@@ -22,7 +22,7 @@ class MobilController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.mobil.index',
+            'pages.Mobil.index',
             [
                 'mobil' => $mobil,
                 'tittle' => 'Data Mobil',
@@ -44,7 +44,7 @@ class MobilController extends Controller
         $kode_otomatis = "MBL" . sprintf("%03s", $kode);
 
         return view(
-            'pages.mobil.create',
+            'pages.Mobil.create',
             [
                 'kode_otomatis' => $kode_otomatis,
                 'tittle' => 'Tambah Data',
@@ -92,7 +92,7 @@ class MobilController extends Controller
         $this->authorize('update', $mobil);
 
         return view(
-            'pages.mobil.edit',
+            'pages.Mobil.edit',
             compact('mobil'),
             [
                 'tittle' => 'Edit Data Mobil',

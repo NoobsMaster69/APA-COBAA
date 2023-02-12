@@ -24,7 +24,7 @@ class LokasiPengirimanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.lokasiPengiriman.index',
+            'pages.LokasiPengiriman.index',
             [
                 'lokasiPengiriman' => $lokasiPengiriman,
                 'tittle' => 'Data lokasi Pengiriman',

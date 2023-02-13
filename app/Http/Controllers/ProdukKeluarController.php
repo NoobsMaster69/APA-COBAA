@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProdukKeluarExport;
-use App\Models\pengirimanProduk;
+use App\Models\PengirimanProduk;
 use App\Models\ProdukJadi;
 use App\Models\ProdukKeluar;
 use App\Models\ProdukMasuk;
@@ -28,21 +28,21 @@ class ProdukKeluarController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join table
-        $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'users.name')
-            ->where('produkKeluar.kd_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkKeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkKeluar.jumlah', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkKeluar.ket', 'LIKE', '%' . $search . '%')
+        $produkKeluar = ProdukKeluar::join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->join('users', 'produkkeluar.nip_karyawan', '=', 'users.nip')
+            ->select('produkkeluar.*', 'produkjadi.nm_produk', 'users.name')
+            ->where('produkkeluar.kd_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkkeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkkeluar.jumlah', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkkeluar.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(20)->withQueryString();
 
         // ambil nama karyawan dari session
         $nama = session('name');
         // mengirim tittle dan judul ke view
         return view(
-            'pages.produkKeluar.index',
+            'pages.ProdukKeluar.index',
             [
                 'produkKeluar' => $produkKeluar,
                 'nama' => $nama,
@@ -64,11 +64,11 @@ class ProdukKeluarController extends Controller
         $this->authorize('create', ProdukKeluar::class);
 
         // join dengan tabel satuan
-        $produkJadi = ProdukJadi::select('produkJadi.*')
+        $produkJadi = ProdukJadi::select('produkjadi.*')
             ->get();
 
         return view(
-            'pages.produkKeluar.create',
+            'pages.ProdukKeluar.create',
             ['produkJadi' => $produkJadi],
             [
                 'tittle' => 'Tambah Data',
@@ -184,12 +184,12 @@ class ProdukKeluarController extends Controller
         if ($status == 0) {
 
             // join dengan tabel satuan
-            $produkJadi = ProdukJadi::select('produkJadi.*')
+            $produkJadi = ProdukJadi::select('produkjadi.*')
                 ->where('kd_produk', $produkKeluar->kd_produk)
                 ->first();
 
             return view(
-                'pages.produkKeluar.edit',
+                'pages.ProdukKeluar.edit',
                 ['produkKeluar' => $produkKeluar, 'produkJadi' => $produkJadi],
                 [
                     'tittle' => 'Edit Data',
@@ -310,9 +310,9 @@ class ProdukKeluarController extends Controller
 
     public function print_pdf()
     {
-        $data = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'users.name')->get();
+        $data = ProdukKeluar::join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->join('users', 'produkkeluar.nip_karyawan', '=', 'users.nip')
+            ->select('produkkeluar.*', 'produkjadi.nm_produk', 'users.name')->get();
         // return view('pages.ProdukKeluar.laporan', ['data' => $data]);
 
         $pdf = PDF::loadView('pages.ProdukKeluar.laporan', ['data' => $data]);
@@ -327,9 +327,9 @@ class ProdukKeluarController extends Controller
 
     public function print()
     {
-        $data = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('users', 'produkKeluar.nip_karyawan', '=', 'users.nip')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'users.name')->get();
+        $data = ProdukKeluar::join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->join('users', 'produkkeluar.nip_karyawan', '=', 'users.nip')
+            ->select('produkkeluar.*', 'produkjadi.nm_produk', 'users.name')->get();
         return view('pages.ProdukKeluar.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataBahan;
-use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -28,7 +27,7 @@ class DataBahanController extends Controller
             ->oldest()->paginate($paginate)->withQueryString();
 
         // mengirim tittle dan judul ke view
-        return view('pages.dataBahan.index', [
+        return view('pages.DataBahan.index', [
             'dataBahan' => $dataBahan,
             'tittle' => 'Data Bahan',
             'judul' => 'Data Bahan',
@@ -48,7 +47,7 @@ class DataBahanController extends Controller
         $kode_otomatis = "BHN" . sprintf("%03s", $kode);
 
         return view(
-            'pages.databahan.create',
+            'pages.DataBahan.create',
             [
                 'kode_otomatis' => $kode_otomatis,
                 'tittle' => 'Tambah Data',

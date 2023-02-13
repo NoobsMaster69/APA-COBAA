@@ -20,16 +20,16 @@ class BahanMasukController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join tabel
-        $bahanMasuk = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')
-            ->where('bahanMasuk.kd_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanMasuk.nm_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanMasuk.tgl_masuk', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanMasuk.jumlah', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanMasuk.ket', 'LIKE', '%' . $search . '%')
+        $bahanMasuk = BahanMasuk::join('databahan', 'bahanmasuk.kd_bahan', '=', 'databahan.kd_bahan')->select('bahanmasuk.*', 'databahan.nm_bahan', 'databahan.harga_beli')
+            ->where('bahanmasuk.kd_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanmasuk.nm_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanmasuk.tgl_masuk', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanmasuk.jumlah', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahanmasuk.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
         // mengirim tittle dan judul ke view
         return view(
-            'pages.bahanMasuk.index',
+            'pages.BahanMasuk.index',
             [
                 'bahanMasuk' => $bahanMasuk,
                 'tittle' => 'Data Pembelian Bahan',
@@ -49,7 +49,7 @@ class BahanMasukController extends Controller
         $dataBahan = DataBahan::select('databahan.*')->get();
 
         return view(
-            'pages.bahanMasuk.create',
+            'pages.BahanMasuk.create',
             ['dataBahan' => $dataBahan],
             [
                 'tittle' => 'Tambah Data',
@@ -120,7 +120,7 @@ class BahanMasukController extends Controller
     }
 
 
-    public function edit(bahanMasuk $bahanMasuk)
+    public function edit(BahanMasuk $bahanMasuk)
     {
         $this->authorize('update', $bahanMasuk);
 
@@ -130,7 +130,7 @@ class BahanMasukController extends Controller
             ->first();
 
         return view(
-            'pages.bahanMasuk.edit',
+            'pages.BahanMasuk.edit',
             compact('bahanMasuk', 'dataBahan'),
             // ['dataBahan' => $dataBahan],
             [
@@ -143,7 +143,7 @@ class BahanMasukController extends Controller
     }
 
 
-    public function update(Request $request, bahanMasuk $bahanMasuk)
+    public function update(Request $request, BahanMasuk $bahanMasuk)
     {
         $this->authorize('update', $bahanMasuk);
 
@@ -252,7 +252,7 @@ class BahanMasukController extends Controller
     }
 
 
-    public function destroy(bahanMasuk $bahanMasuk)
+    public function destroy(BahanMasuk $bahanMasuk)
     {
         $this->authorize('delete', $bahanMasuk);
 
@@ -268,8 +268,8 @@ class BahanMasukController extends Controller
 
     public function print_pdf()
     {
-        $data = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+        $data = BahanMasuk::join('databahan', 'bahanmasuk.kd_bahan', '=', 'databahan.kd_bahan')
+            ->select('bahanmasuk.*', 'databahan.nm_bahan', 'databahan.harga_beli')->get();
         // return view('pages.BahanMasuk.laporan', ['data' => $data]);
 
         $pdf = PDF::loadView('pages.BahanMasuk.laporan', ['data' => $data]);
@@ -284,8 +284,8 @@ class BahanMasukController extends Controller
 
     public function print()
     {
-        $data = BahanMasuk::join('dataBahan', 'bahanMasuk.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->select('bahanMasuk.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+        $data = BahanMasuk::join('databahan', 'bahanmasuk.kd_bahan', '=', 'databahan.kd_bahan')
+            ->select('bahanmasuk.*', 'databahan.nm_bahan', 'databahan.harga_beli')->get();
         return view('pages.BahanMasuk.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

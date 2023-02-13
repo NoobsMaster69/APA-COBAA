@@ -15,17 +15,17 @@ class BahanKeluarController extends Controller
 
     public function index(Request $request)
     {
-        $this->authorize('viewAny', bahanKeluar::class);
+        $this->authorize('viewAny', BahanKeluar::class);
 
         $search = $request->search;
         // menyatukan search dengan join tabel
-        $bahanKeluar = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')
-            ->where('bahanKeluar.kd_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanKeluar.nm_bahan', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanKeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanKeluar.jumlah', 'LIKE', '%' . $search . '%')
-            ->orWhere('bahanKeluar.ket', 'LIKE', '%' . $search . '%')
+        $bahanKeluar = BahanKeluar::join('databahan', 'bahankeluar.kd_bahan', '=', 'databahan.kd_bahan')
+            ->select('bahankeluar.*', 'databahan.nm_bahan', 'databahan.harga_beli')
+            ->where('bahankeluar.kd_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahankeluar.nm_bahan', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahankeluar.tgl_keluar', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahankeluar.jumlah', 'LIKE', '%' . $search . '%')
+            ->orWhere('bahankeluar.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(20)->withQueryString();
 
         // agar jumlah di convert dari kilogram ke gram
@@ -37,7 +37,7 @@ class BahanKeluarController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.bahanKeluar.index',
+            'pages.BahanKeluar.index',
             ['bahanKeluar' => $bahanKeluar],
             [
                 'tittle' => 'Pemakaian Bahan',
@@ -51,14 +51,14 @@ class BahanKeluarController extends Controller
 
     public function create()
     {
-        $this->authorize('create', bahanKeluar::class);
+        $this->authorize('create', BahanKeluar::class);
 
         // join dengan tabel satuan
         $dataBahan = DataBahan::select('databahan.*')
             ->get();
 
         return view(
-            'pages.bahanKeluar.create',
+            'pages.BahanKeluar.create',
             ['dataBahan' => $dataBahan],
             [
                 'tittle' => 'Pemakaian Bahan',
@@ -127,17 +127,17 @@ class BahanKeluarController extends Controller
 
         // alihkan halaman ke halaman bahan keluar
         Alert::success('Data Pemakaian Bahan', 'Berhasil Ditambahkan!');
-        return redirect('/bahanKeluar');
+        return redirect('bahanKeluar');
     }
 
 
-    public function show(bahanKeluar $bahanKeluar)
+    public function show(BahanKeluar $bahanKeluar)
     {
         //
     }
 
 
-    public function edit(bahanKeluar $bahanKeluar)
+    public function edit(BahanKeluar $bahanKeluar)
     {
         $this->authorize('update', $bahanKeluar);
 
@@ -150,7 +150,7 @@ class BahanKeluarController extends Controller
         $bahanKeluar->jumlah = $bahanKeluar->jumlah * 1000;
 
         return view(
-            'pages.bahanKeluar.edit',
+            'pages.BahanKeluar.edit',
             compact('bahanKeluar', 'dataBahan'),
             [
                 'tittle' => 'Edit Data Pemakaian Bahan',
@@ -162,7 +162,7 @@ class BahanKeluarController extends Controller
     }
 
 
-    public function update(Request $request, bahanKeluar $bahanKeluar)
+    public function update(Request $request, BahanKeluar $bahanKeluar)
     {
         $this->authorize('update', $bahanKeluar);
 
@@ -218,7 +218,7 @@ class BahanKeluarController extends Controller
             $bahanKeluar->update($input);
 
             Alert::success('Data Pemakaian Bahan', 'Berhasil diubah!');
-            return redirect('/bahanKeluar');
+            return redirect('bahanKeluar');
         } else {
             // mengubah nama validasi
             $messages = [
@@ -266,7 +266,7 @@ class BahanKeluarController extends Controller
                 $bahanKeluar->update($input);
 
                 Alert::success('Data Pemakaian Bahan', 'Berhasil diubah!');
-                return redirect('/bahanKeluar');
+                return redirect('bahanKeluar');
             } else {
                 $input = $request->all();
                 // mengubah format tgl_masuk dari text ke date
@@ -276,13 +276,13 @@ class BahanKeluarController extends Controller
                 $bahanKeluar->update($input);
 
                 Alert::success('Data Pemakaian Bahan', 'Berhasil diubah!');
-                return redirect('/bahanKeluar');
+                return redirect('bahanKeluar');
             }
         }
     }
 
 
-    public function destroy(bahanKeluar $bahanKeluar)
+    public function destroy(BahanKeluar $bahanKeluar)
     {
         $this->authorize('delete', $bahanKeluar);
 
@@ -293,13 +293,13 @@ class BahanKeluarController extends Controller
 
         $bahanKeluar->delete();
         Alert::success('Data Pemakaian Bahan', 'Berhasil dihapus!');
-        return redirect('/bahanKeluar');
+        return redirect('bahanKeluar');
     }
 
     public function print_pdf()
     {
-        $data = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+        $data = BahanKeluar::join('databahan', 'bahankeluar.kd_bahan', '=', 'databahan.kd_bahan')
+            ->select('bahankeluar.*', 'databahan.nm_bahan', 'databahan.harga_beli')->get();
         // return view('pages.BahanKeluar.laporan', ['data' => $data]);
 
         $pdf = PDF::loadView('pages.BahanKeluar.laporan', ['data' => $data]);
@@ -314,8 +314,8 @@ class BahanKeluarController extends Controller
 
     public function print()
     {
-        $data = BahanKeluar::join('dataBahan', 'bahanKeluar.kd_bahan', '=', 'dataBahan.kd_bahan')
-            ->select('bahanKeluar.*', 'dataBahan.nm_bahan', 'dataBahan.harga_beli')->get();
+        $data = BahanKeluar::join('databahan', 'bahankeluar.kd_bahan', '=', 'databahan.kd_bahan')
+            ->select('bahankeluar.*', 'databahan.nm_bahan', 'databahan.harga_beli')->get();
 
         return view('pages.BahanKeluar.laporan', ['data' => $data, 'print' => 'print']);
     }

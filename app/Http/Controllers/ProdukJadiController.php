@@ -26,7 +26,7 @@ class ProdukJadiController extends Controller
             ->oldest()->paginate(8)->withQueryString();
 
         // mengirim tittle dan judul ke view
-        return view('pages.produkJadi.index', ['produkJadi' => $produkJadi], ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']);
+        return view('pages.ProdukJadi.index', ['produkJadi' => $produkJadi], ['tittle' => 'Data Produk', 'judul' => 'Data Produk', 'menu' => 'Produk', 'submenu' => 'Data Produk']);
     }
 
     public function create()
@@ -39,7 +39,7 @@ class ProdukJadiController extends Controller
         $kode_otomatis = "PRDK" . sprintf("%03s", $kode);
 
         return view(
-            'pages.produkJadi.create',
+            'pages.ProdukJadi.create',
             ['kode_otomatis' => $kode_otomatis, 'tittle' => 'Tambah Data', 'judul' => 'Tambah Data Produk', 'menu' => 'Data Produk', 'submenu' => 'Tambah Data']
         );
     }
@@ -228,7 +228,7 @@ class ProdukJadiController extends Controller
 
         // menyatukan search dengan join tabel
         $produkJadi = ProdukJadi::select('produkjadi.*')
-            ->where('produkJadi.harga_jual', '>', 0)
+            ->where('produkjadi.harga_jual', '>', 0)
             ->oldest()->paginate(20);
 
         // // ambil id_produkKeluar dari pengirimanProduk

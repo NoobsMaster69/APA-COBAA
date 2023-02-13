@@ -28,8 +28,8 @@ class PosController extends Controller
             ->orWhere('nm_produk', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(9)->withQueryString();
 
-        $temp = PosTemp::join('produkJadi', 'pos_temps.produk_id', '=', 'produkJadi.kd_produk')
-            ->select('pos_temps.*', 'produkJadi.nm_produk', 'produkJadi.stok', 'produkJadi.harga_jual')->get();
+        $temp = PosTemp::join('produkjadi', 'pos_temps.produk_id', '=', 'produkjadi.kd_produk')
+            ->select('pos_temps.*', 'produkjadi.nm_produk', 'produkjadi.stok', 'produkjadi.harga_jual')->get();
 
         $sum = DB::table('pos_temps')->sum('harga');
 
@@ -37,7 +37,7 @@ class PosController extends Controller
             ->select('kwitansi.*', 'pos_orders.*')->where('kwitansi.status', '=', 1)->first();
 
         return view(
-            'pages.pos.index',
+            'pages.Pos.index',
             compact('produk', 'temp', 'sum', 'kwitansi'),
             [
                 'tittle' => 'POS System',
@@ -173,7 +173,7 @@ class PosController extends Controller
 
             // cek pembayaran
             if ($request->bayar <= $request->total) {
-                Alert::warning('Pemabayaran gagal!', 'Harap bayar sesuai total pesanan');
+                Alert::warning('Pembayaran gagal!', 'Harap bayar sesuai total pesanan');
                 return back();
             } else {
                 $order->no_referensi = $no_ref;
@@ -231,7 +231,7 @@ class PosController extends Controller
         $kwitansi = Kwitansi::join('pos_orders', 'kwitansi.order_id', '=', 'pos_orders.id')
             ->select('kwitansi.*', 'pos_orders.*')->where('kwitansi.status', '=', 1)->first();
 
-        return view('pages.pos.cetak-kwitansi', compact('kwitansi'));
+        return view('pages.Pos.cetak-kwitansi', compact('kwitansi'));
     }
 
     public function transaksi()
@@ -252,7 +252,7 @@ class PosController extends Controller
         $data = DB::table('pos_orders')->paginate(10);
 
         return view(
-            'pages.pos.riwayat-transaksi',
+            'pages.Pos.riwayat-transaksi',
             compact('data'),
             [
                 'tittle' => 'Riwayat Transaksi',
@@ -275,7 +275,7 @@ class PosController extends Controller
 
             $data = DB::table('pos_orders')->whereRAW($query)->paginate(10);
             return view(
-                'pages.pos.riwayat-transaksi',
+                'pages.Pos.riwayat-transaksi',
                 compact('data'),
                 [
                     'tittle' => 'Riwayat Transaksi',
@@ -293,7 +293,7 @@ class PosController extends Controller
         $data = DB::table('pos_orders')->get();
         // return view('pages.pos.laporan', ['data' => $data]);
 
-        $pdf = PDF::loadView('pages.pos.laporan', ['data' => $data]);
+        $pdf = PDF::loadView('pages.Pos.laporan', ['data' => $data]);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->download('laporan-transaksipenjualan.pdf');
     }
@@ -301,6 +301,6 @@ class PosController extends Controller
     public function print_transaksi()
     {
         $data = DB::table('pos_orders')->get();
-        return view('pages.pos.laporan', ['data' => $data, 'print' => 'print']);
+        return view('pages.Pos.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

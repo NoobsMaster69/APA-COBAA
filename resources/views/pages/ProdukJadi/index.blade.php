@@ -113,7 +113,7 @@
 
 
 @foreach ($produkJadi as $produk)
-@include('pages.produkJadi.detail')
+@include('pages.ProdukJadi.detail')
 @endforeach
 
 @endsection

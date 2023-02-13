@@ -24,7 +24,7 @@ class LokasiPengirimanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.lokasiPengiriman.index',
+            'pages.LokasiPengiriman.index',
             [
                 'lokasiPengiriman' => $lokasiPengiriman,
                 'tittle' => 'Data lokasi Pengiriman',
@@ -56,7 +56,7 @@ class LokasiPengirimanController extends Controller
 
         // validasi data
         $request->validate([
-            'tempat' => 'required|unique:lokasiPengiriman,tempat',
+            'tempat' => 'required|unique:lokasipengiriman,tempat',
             'alamat' => 'required|min:3'
         ], $messages);
 

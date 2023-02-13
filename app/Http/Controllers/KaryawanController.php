@@ -55,7 +55,7 @@ class KaryawanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.karyawan.index',
+            'pages.Karyawan.index',
             [
                 'karyawan' => $karyawan,
                 'tittle' => 'Data Karyawan',
@@ -72,7 +72,7 @@ class KaryawanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.karyawan.create',
+            'pages.Karyawan.create',
             [
                 'jabatan' => Jabatan::all(),
                 'tittle' => 'Tambah Data Karyawan',
@@ -218,7 +218,7 @@ class KaryawanController extends Controller
             ->select('karyawan.*', 'jabatan.nm_jabatan')
             ->where('id_karyawan', $karyawan->id_karyawan)->first();
 
-        return view('pages.karyawan.detail', compact('karyawan'));
+        return view('pages.Karyawan.detail', compact('karyawan'));
     }
 
 
@@ -275,7 +275,7 @@ class KaryawanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.karyawan.edit',
+            'pages.Karyawan.edit',
             [
                 'dataKaryawan' => [
                     'namaDepan' => $namaDepan,

@@ -112,7 +112,7 @@
 
 
 @foreach ($karyawan as $kr)
-    @include('pages.karyawan.detail')
+    @include('pages.Karyawan.detail')
 @endforeach
 
 @endsection

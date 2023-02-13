@@ -125,11 +125,11 @@
 
 
 {{-- modal tambah data --}}
-@include('pages.jabatan.create')
+@include('pages.Jabatan.create')
 
 {{-- modal edit data --}}
 @foreach ($jabatan as $jb)
-@include('pages.jabatan.edit')
+@include('pages.Jabatan.edit')
 @endforeach
 
 @endsection

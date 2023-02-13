@@ -27,7 +27,7 @@ class SopirController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.sopir.index',
+            'pages.Sopir.index',
             [
                 'sopir' => $sopir,
                 'tittle' => 'Data Sopir',
@@ -48,7 +48,7 @@ class SopirController extends Controller
         $kode_otomatis = "SPR" . sprintf("%03s", $kode);
 
         return view(
-            'pages.sopir.create',
+            'pages.Sopir.create',
             [
                 'kode_otomatis' => $kode_otomatis,
                 'tittle' => 'Tambah Data',
@@ -135,7 +135,7 @@ class SopirController extends Controller
         $this->authorize('update', $sopir);
 
         return view(
-            'pages.sopir.edit',
+            'pages.Sopir.edit',
             compact('sopir'),
             [
                 'tittle' => 'Edit Data',

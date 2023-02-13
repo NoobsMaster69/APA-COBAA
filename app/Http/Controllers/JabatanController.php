@@ -20,7 +20,7 @@ class JabatanController extends Controller
 
         // mengirim tittle dan judul ke view
         return view(
-            'pages.jabatan.index',
+            'pages.Jabatan.index',
             [
                 'jabatan' => $jabatan,
                 'tittle' => 'Data Jabatan',
@@ -78,7 +78,7 @@ class JabatanController extends Controller
         ];
 
         $request->validate([
-            'nm_jabatan' => 'required|unique:Jabatan,nm_jabatan',
+            'nm_jabatan' => 'required|unique:jabatan,nm_jabatan',
         ], $messages);
 
         $jabatan->update($request->all());

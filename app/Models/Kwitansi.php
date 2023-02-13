@@ -9,7 +9,7 @@ class Kwitansi extends Model
 {
     use HasFactory;
 
-    protected $table = 'Kwitansi';
+    protected $table = 'kwitansi';
 
     protected $guarded = [];
 }

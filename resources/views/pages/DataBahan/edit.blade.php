@@ -67,7 +67,7 @@
                     <label for="ket" class="form-label">
                         Keterangan
                     </label>
-                    <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror" required>{{ old('ket', $dataBahan->ket) }}</textarea>
+                    <textarea name="ket" id="ket" class="form-control w-full shadow-md @error('ket') border-danger @enderror">{{ old('ket', $dataBahan->ket) }}</textarea>
                     @error('ket')
                     <div class="text-danger mt-1">
                         {{ $message }}

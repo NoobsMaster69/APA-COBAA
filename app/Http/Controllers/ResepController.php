@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resep;
-use App\Models\BuatResep;
+use App\Models\buatResep;
 use App\Models\DataBahan;
 use App\Models\BahanKeluar;
 use App\Models\ProdukJadi;
-use App\Models\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -28,16 +27,16 @@ class ResepController extends Controller
 
         $buatResep = Resep::join('buatresep', 'resep.kd_resep', '=', 'buatresep.kd_resep')
             ->join('produkjadi', 'resep.kd_produk', '=', 'produkjadi.kd_produk')
-            ->select(DB::raw('DISTINCT resep.kd_resep, produkjadi.nm_produk, resep.tot_jumlahPakai, resep.tot_hargaPakai, resep.tot_cost, resep.roti_terbuat, produkJadi.foto'))
-            ->where('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->select(DB::raw('DISTINCT resep.kd_resep, produkjadi.nm_produk, resep.tot_jumlahPakai, resep.tot_hargaPakai, resep.tot_cost, resep.roti_terbuat, produkjadi.foto'))
+            ->where('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
             ->orderBy('resep.created_at', 'desc')
             ->paginate(100)
             ->withQueryString();
 
-        $dataBahan = BuatResep::join('databahan', 'buatresep.kd_bahan', '=', 'databahan.kd_bahan')
+        $dataBahan = buatResep::join('databahan', 'buatresep.kd_bahan', '=', 'databahan.kd_bahan')
             ->join('resep', 'buatresep.kd_resep', '=', 'resep.kd_resep')
-            ->select('buatresep.id_buatResep', 'databahan.nm_bahan', 'resep.kd_resep', 'buatResep.kd_bahan', 'buatResep.jumlah')
-            ->groupBy('resep.kd_resep', 'buatresep.id_buatResep', 'databahan.kd_bahan', 'databahan.nm_bahan', 'buatResep.kd_bahan', 'buatResep.jumlah')
+            ->select('buatresep.id_buatResep', 'databahan.nm_bahan', 'resep.kd_resep', 'buatresep.kd_bahan', 'buatresep.jumlah')
+            ->groupBy('resep.kd_resep', 'buatresep.id_buatResep', 'databahan.kd_bahan', 'databahan.nm_bahan', 'buatresep.kd_bahan', 'buatresep.jumlah')
             ->get();
 
 
@@ -50,7 +49,7 @@ class ResepController extends Controller
 
 
         return view(
-            'pages.resep.index',
+            'pages.Resep.index',
             [
                 'buatResep' => $buatResep,
                 'dataBahan' => $dataBahan,
@@ -86,7 +85,7 @@ class ResepController extends Controller
         $resep = Resep::all();
 
         return view(
-            'pages.resep.create',
+            'pages.Resep.create',
             [
                 'dataBahan' => $dataBahan,
                 'produkJadi' => $produkJadi,
@@ -242,7 +241,7 @@ class ResepController extends Controller
 
             // mengambil berat dari tabel produkJadi berdasarkan kd_produk yang dipilih
             // dd($request->kd_produk);
-            $berat = ProdukJadi::select('produkJadi.*')
+            $berat = ProdukJadi::select('produkjadi.*')
                 ->where('kd_produk', $request->kd_produk)
                 ->get();
 
@@ -268,16 +267,6 @@ class ResepController extends Controller
                 $buatResep->jumlah = $value;
                 $buatResep->harga_pakai = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
                 $buatResep->save();
-
-                // input juga ke tabel bahanKeluar
-                // $bahanKeluar = new BahanKeluar;
-                // $bahanKeluar->kd_bahan = $key;
-                // $bahanKeluar->nm_bahan = $hargaBahan->where('kd_bahan', $key)->first()->nm_bahan;
-                // $bahanKeluar->tgl_keluar = date('Y-m-d');;
-                // $bahanKeluar->jumlah = $value;
-                // $bahanKeluar->total = $value * $hargaBahan->where('kd_bahan', $key)->first()->harga_beli;
-                // $bahanKeluar->ket = 'Resep';
-                // $bahanKeluar->save();
             }
 
 
@@ -334,25 +323,6 @@ class ResepController extends Controller
      */
     public function edit(Resep $resep)
     {
-        $this->authorize('update', $resep);
-
-        $produkJadi = ProdukJadi::where('kd_produk', $resep->kd_produk)->first();
-        $bahan = DataBahan::all();
-        $bahanKeluar = BahanKeluar::all();
-        $buatResep = BuatResep::where('kd_resep', $resep->kd_resep)->get();
-        $resep = Resep::where('kd_resep', $resep->kd_resep)->first();
-
-        return view(
-            [
-                'pages.resep.edit',
-                'tittle' => 'Edit Resep',
-                'judul' => 'Edit Resep',
-                'menu' => 'Produk',
-                'submenu' => 'Data Resep'
-
-            ],
-            compact('produkJadi', 'bahan', 'bahanKeluar', 'buatResep', 'resep')
-        );
     }
 
     /**
@@ -387,8 +357,8 @@ class ResepController extends Controller
         // hapus data resep di tabel resep
         Resep::where('kd_resep', $resep->kd_resep)->delete();
         // hapus data resep di tabel buatResep
-        BuatResep::where('kd_resep', $resep->kd_resep)->delete();
+        buatResep::where('kd_resep', $resep->kd_resep)->delete();
         Alert::success('Data Resep', 'Berhasil dihapus!');
-        return redirect('/resep');
+        return redirect('Resep');
     }
 }

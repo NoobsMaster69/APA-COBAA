@@ -127,11 +127,11 @@
 
 
 {{-- modal tambah data --}}
-@include('pages.lokasiPengiriman.create')
+@include('pages.LokasiPengiriman.create')
 
 {{-- modal edit data --}}
 @foreach ($lokasiPengiriman as $lokasi)
-@include('pages.lokasiPengiriman.edit')
+@include('pages.LokasiPengiriman.edit')
 @endforeach
 
 @endsection

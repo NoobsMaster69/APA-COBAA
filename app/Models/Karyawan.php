@@ -11,7 +11,7 @@ class Karyawan extends Model
 {
     use HasFactory;
 
-    protected $table = 'Karyawan';
+    protected $table = 'karyawan';
 
     protected $primaryKey = 'id_karyawan';
 

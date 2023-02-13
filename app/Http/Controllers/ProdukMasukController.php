@@ -30,20 +30,20 @@ class ProdukMasukController extends Controller
         $search = $request->search;
 
         // menyatukan search dengan join table
-        $produkMasuk = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.modal', 'users.name')
-            ->where('produkMasuk.kd_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkJadi.nm_produk', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkMasuk.tgl_produksi', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkJadi.modal', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkMasuk.jumlah', 'LIKE', '%' . $search . '%')
-            ->orWhere('produkMasuk.ket', 'LIKE', '%' . $search . '%')
+        $produkMasuk = ProdukMasuk::join('produkjadi', 'produkmasuk.kd_produk', '=', 'produkjadi.kd_produk')->join('users', 'produkmasuk.nip_karyawan', '=', 'users.nip')->select('produkmasuk.*', 'produkjadi.nm_produk', 'produkjadi.modal', 'users.name')
+            ->where('produkmasuk.kd_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.nm_produk', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkmasuk.tgl_produksi', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkjadi.modal', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkmasuk.jumlah', 'LIKE', '%' . $search . '%')
+            ->orWhere('produkmasuk.ket', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
 
         // ambil nama karyawan dari session
         $nama = session('name');
         // mengirim tittle dan judul ke view
         return view(
-            'pages.produkMasuk.index',
+            'pages.ProdukMasuk.index',
             [
                 'produkMasuk' => $produkMasuk,
                 'nama' => $nama,
@@ -65,13 +65,13 @@ class ProdukMasukController extends Controller
         $this->authorize('create', ProdukMasuk::class);
 
         // join dengan tabel satuan
-        $produkJadi = ProdukJadi::select('produkJadi.*')
-            ->join('resep', 'produkJadi.kd_produk', '=', 'resep.kd_produk')
-            ->select('produkJadi.*', 'resep.roti_terbuat')
+        $produkJadi = ProdukJadi::select('produkjadi.*')
+            ->join('resep', 'produkjadi.kd_produk', '=', 'resep.kd_produk')
+            ->select('produkjadi.*', 'resep.roti_terbuat')
             ->get();
 
         return view(
-            'pages.produkMasuk.create',
+            'pages.ProdukMasuk.create',
             ['produkJadi' => $produkJadi],
             [
                 'tittle' => 'Tambah Data',
@@ -131,8 +131,8 @@ class ProdukMasukController extends Controller
         $tgl_expired = date('Y-m-d', strtotime($request->tgl_expired));
 
         // ambil semua kd_bahan di tabel buatresep berdasarkan request kd_produk lalu kurangi setiap stok bahan di tabel dataBahan berdasarkan jumlah pemakaian di tabel buatresep
-        $bahan = BuatResep::where('kd_resep', $resep)->get();
-        $jumlah_bahan = BuatResep::where('kd_resep', $resep)->get();
+        $bahan = buatResep::where('kd_resep', $resep)->get();
+        $jumlah_bahan = buatResep::where('kd_resep', $resep)->get();
         // kurangi stok bahan berdasarkan jumlah tiap bahan yang ada di tabel buatresep dengan mneyamakan kd_resep ditabel resep dengan kd_resep di tabel buatresep
         foreach ($bahan as $key => $value) {
             $stok = DataBahan::where('kd_bahan', $value->kd_bahan)->first();
@@ -173,7 +173,7 @@ class ProdukMasukController extends Controller
 
 
         Alert::success('Data Pembuatan Produk', 'Berhasil Ditambahkan!');
-        return redirect('/produkMasuk');
+        return redirect('produkMasuk');
     }
 
     /**
@@ -198,12 +198,12 @@ class ProdukMasukController extends Controller
         $this->authorize('update', $produkMasuk);
 
         // join dengan tabel satuan
-        $produkJadi = ProdukJadi::select('produkJadi.*')
+        $produkJadi = ProdukJadi::select('produkjadi.*')
             ->where('kd_produk', $produkMasuk->kd_produk)
             ->first();
 
         return view(
-            'pages.produkMasuk.edit',
+            'pages.ProdukMasuk.edit',
             ['produkMasuk' => $produkMasuk, 'produkJadi' => $produkJadi],
             [
                 'tittle' => 'Edit Data Pembuatan Produk',
@@ -295,8 +295,8 @@ class ProdukMasukController extends Controller
         // ambil semua kd_bahan di tabel buatresep berdasarkan request kd_produk lalu tambahkan setiap stok bahan di tabel dataBahan berdasarkan jumlah pemakaian di tabel buatresep
         $resep = Resep::where('kd_produk', $produkMasuk->kd_produk)->get();
         $resep = $resep->first()->kd_resep;
-        $bahan = BuatResep::where('kd_resep', $resep)->get();
-        $jumlah_bahan = BuatResep::where('kd_resep', $resep)->get();
+        $bahan = buatResep::where('kd_resep', $resep)->get();
+        $jumlah_bahan = buatResep::where('kd_resep', $resep)->get();
         // tambhkan stok bahan berdasarkan jumlah tiap bahan yang ada di tabel buatresep dengan mneyamakan kd_resep ditabel resep dengan kd_resep di tabel buatresep
         foreach ($bahan as $key => $value) {
             $stok = DataBahan::where('kd_bahan', $value->kd_bahan)->first();
@@ -320,7 +320,7 @@ class ProdukMasukController extends Controller
 
     public function print_pdf()
     {
-        $data = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.modal', 'users.name')->get();
+        $data = ProdukMasuk::join('produkjadi', 'produkmasuk.kd_produk', '=', 'produkjadi.kd_produk')->join('users', 'produkmasuk.nip_karyawan', '=', 'users.nip')->select('produkmasuk.*', 'produkjadi.nm_produk', 'produkjadi.modal', 'users.name')->get();
         // return view('pages.ProdukMasuk.laporan', ['data' => $data]);
 
         $pdf = PDF::loadView('pages.ProdukMasuk.laporan', ['data' => $data]);
@@ -335,7 +335,7 @@ class ProdukMasukController extends Controller
 
     public function print()
     {
-        $data = produkMasuk::join('produkJadi', 'produkMasuk.kd_produk', '=', 'produkJadi.kd_produk')->join('users', 'produkMasuk.nip_karyawan', '=', 'users.nip')->select('produkMasuk.*', 'produkJadi.nm_produk', 'produkJadi.modal', 'users.name')->get();
+        $data = ProdukMasuk::join('produkjadi', 'produkmasuk.kd_produk', '=', 'produkjadi.kd_produk')->join('users', 'produkmasuk.nip_karyawan', '=', 'users.nip')->select('produkmasuk.*', 'produkjadi.nm_produk', 'produkjadi.modal', 'users.name')->get();
         return view('pages.ProdukMasuk.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

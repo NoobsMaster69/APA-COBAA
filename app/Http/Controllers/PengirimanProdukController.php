@@ -20,46 +20,25 @@ class PengirimanProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function searchByDate(Request $request)
-    {
-        // $this->authorize('create', pengirimanProduk::class);
-
-        $dari = $request->dari;
-        $sampai = $request->sampai;
-
-        $pengirimanProduk = pengirimanProduk::oldest()->paginate(8)->withQueryString();
-
-
-        return view(
-            'pages.PengirimanProduk.create',
-            [
-                'pengirimanProduk' => $pengirimanProduk,
-                'tittle' => 'Data Pengiriman Produk',
-                'judul' => 'Data Pengiriman Produk',
-                'menu' => 'Pengiriman',
-                'submenu' => 'Data Pengiriman',
-            ]
-        );
-    }
     public function index(Request $request)
     {
         $this->authorize('viewAny', pengirimanProduk::class);
 
         // join pengirimanProduk dan produkKeluar dengan produkJadi
-        $pengirimanProduk = pengirimanProduk::join('produkKeluar', 'pengirimanProduk.id_produkKeluar', '=', 'produkKeluar.id_produkKeluar')
-            ->join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
-            ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
-            ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
-            ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
-            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')
+        $pengirimanProduk = pengirimanProduk::join('produkkeluar', 'pengirimanproduk.id_produkKeluar', '=', 'produkkeluar.id_produkKeluar')
+            ->join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->join('sopir', 'pengirimanproduk.kd_sopir', '=', 'sopir.kd_sopir')
+            ->join('mobil', 'pengirimanproduk.kd_mobil', '=', 'mobil.kd_mobil')
+            ->join('users', 'pengirimanproduk.kd_sopir', '=', 'id_karyawan')
+            ->join('lokasipengiriman', 'pengirimanproduk.id_lokasi', '=', 'lokasipengiriman.id_lokasiPengiriman')
+            ->select('pengirimanproduk.*', 'produkjadi.nm_produk', 'produkkeluar.jumlah', 'produkkeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkjadi.foto', 'users.role', 'lokasipengiriman.tempat', 'lokasipengiriman.alamat')
             ->latest()
             ->paginate(50)
             ->withQueryString();
 
         // menampilkan semua produkKeluar join dengan produkJadi dan satuan
-        $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk',  'produkJadi.foto')
+        $produkKeluar = ProdukKeluar::join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->select('produkkeluar.*', 'produkjadi.nm_produk',  'produkjadi.foto')
             ->get();
 
         // cek apakah id produkKeluar sudah ada di pengirimanProduk
@@ -142,12 +121,12 @@ class PengirimanProdukController extends Controller
         $this->authorize('create', pengirimanProduk::class);
 
         // menampilkan semua produkKeluar join dengan produkJadi dan satuan
-        $produkKeluar = ProdukKeluar::join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->select('produkKeluar.*', 'produkJadi.nm_produk', 'produkJadi.foto')
+        $produkKeluar = ProdukKeluar::join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->select('produkkeluar.*', 'produkjadi.nm_produk', 'produkjadi.foto')
             ->get();
 
         // ambil id_produkKeluar dari pengirimanProduk
-        $pengirimanProduk = PengirimanProduk::select('id_produkKeluar')->get();
+        $pengirimanProduk = pengirimanProduk::select('id_produkKeluar')->get();
 
         // cek apakah id produkKeluar sudah ada di pengirimanProduk
         foreach ($produkKeluar as $key => $value) {
@@ -184,7 +163,7 @@ class PengirimanProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PengirimanProduk $pengirimanProduk)
+    public function store(Request $request, pengirimanProduk $pengirimanProduk)
     {
         $this->authorize('create', pengirimanProduk::class);
 
@@ -384,13 +363,13 @@ class PengirimanProdukController extends Controller
 
     public function print_pdf()
     {
-        $data = pengirimanProduk::join('produkKeluar', 'pengirimanProduk.id_produkKeluar', '=', 'produkKeluar.id_produkKeluar')
-            ->join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
-            ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
-            ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
-            ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
-            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')->where('pengirimanProduk.status', '=', 2)->get();
+        $data = pengirimanProduk::join('produkkeluar', 'pengirimanproduk.id_produkKeluar', '=', 'produkkeluar.id_produkKeluar')
+            ->join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->join('sopir', 'pengirimanproduk.kd_sopir', '=', 'sopir.kd_sopir')
+            ->join('mobil', 'pengirimanproduk.kd_mobil', '=', 'mobil.kd_mobil')
+            ->join('users', 'pengirimanproduk.kd_sopir', '=', 'id_karyawan')
+            ->join('lokasipengiriman', 'pengirimanproduk.id_lokasi', '=', 'lokasipengiriman.id_lokasiPengiriman')
+            ->select('pengirimanproduk.*', 'produkjadi.nm_produk', 'produkkeluar.jumlah', 'produkkeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkjadi.foto', 'users.role', 'lokasipengiriman.tempat', 'lokasipengiriman.alamat')->where('pengirimanproduk.status', '=', 2)->get();
         // return view('pages.PengirimanProduk.laporan', ['data' => $data]);
 
         $pdf = PDF::loadView('pages.PengirimanProduk.laporan', ['data' => $data]);
@@ -400,13 +379,13 @@ class PengirimanProdukController extends Controller
 
     public function print()
     {
-        $data = pengirimanProduk::join('produkKeluar', 'pengirimanProduk.id_produkKeluar', '=', 'produkKeluar.id_produkKeluar')
-            ->join('produkJadi', 'produkKeluar.kd_produk', '=', 'produkJadi.kd_produk')
-            ->join('sopir', 'pengirimanProduk.kd_sopir', '=', 'sopir.kd_sopir')
-            ->join('mobil', 'pengirimanProduk.kd_mobil', '=', 'mobil.kd_mobil')
-            ->join('users', 'pengirimanProduk.kd_sopir', '=', 'id_karyawan')
-            ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
-            ->select('pengirimanProduk.*', 'produkJadi.nm_produk', 'produkKeluar.jumlah', 'produkKeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkJadi.foto', 'users.role', 'lokasiPengiriman.tempat', 'lokasiPengiriman.alamat')->where('pengirimanProduk.status', '=', 2)->get();
+        $data = pengirimanProduk::join('produkkeluar', 'pengirimanproduk.id_produkKeluar', '=', 'produkkeluar.id_produkKeluar')
+            ->join('produkjadi', 'produkkeluar.kd_produk', '=', 'produkjadi.kd_produk')
+            ->join('sopir', 'pengirimanproduk.kd_sopir', '=', 'sopir.kd_sopir')
+            ->join('mobil', 'pengirimanproduk.kd_mobil', '=', 'mobil.kd_mobil')
+            ->join('users', 'pengirimanproduk.kd_sopir', '=', 'id_karyawan')
+            ->join('lokasipengiriman', 'pengirimanproduk.id_lokasi', '=', 'lokasipengiriman.id_lokasiPengiriman')
+            ->select('pengirimanproduk.*', 'produkjadi.nm_produk', 'produkkeluar.jumlah', 'produkkeluar.kd_produk', 'sopir.nm_sopir', 'mobil.plat_nomor', 'produkjadi.foto', 'users.role', 'lokasipengiriman.tempat', 'lokasipengiriman.alamat')->where('pengirimanproduk.status', '=', 2)->get();
         return view('pages.PengirimanProduk.laporan', ['data' => $data, 'print' => 'print']);
     }
 }

@@ -28,8 +28,8 @@ class PosController extends Controller
             ->orWhere('nm_produk', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(9)->withQueryString();
 
-        $temp = PosTemp::join('produkJadi', 'pos_temps.produk_id', '=', 'produkJadi.kd_produk')
-            ->select('pos_temps.*', 'produkJadi.nm_produk', 'produkJadi.stok', 'produkJadi.harga_jual')->get();
+        $temp = PosTemp::join('produkjadi', 'pos_temps.produk_id', '=', 'produkjadi.kd_produk')
+            ->select('pos_temps.*', 'produkjadi.nm_produk', 'produkjadi.stok', 'produkjadi.harga_jual')->get();
 
         $sum = DB::table('pos_temps')->sum('harga');
 
@@ -173,7 +173,7 @@ class PosController extends Controller
 
             // cek pembayaran
             if ($request->bayar <= $request->total) {
-                Alert::warning('Pemabayaran gagal!', 'Harap bayar sesuai total pesanan');
+                Alert::warning('Pembayaran gagal!', 'Harap bayar sesuai total pesanan');
                 return back();
             } else {
                 $order->no_referensi = $no_ref;

@@ -191,8 +191,8 @@ class DashboardController extends Controller
 
         // melakukan sum total group by kd_produk pada tabel produkKeluar
         $produkKeluar = ProdukKeluar::select(DB::raw("sum(jumlah) as jumlah"), DB::raw("kd_produk"))
-            ->join('produkJadi', 'produkJadi.kd_produk', '=', 'produkKeluar.kd_produk')
-            ->select('produkJadi.nm_produk', 'produkKeluar.kd_produk', DB::raw("sum(jumlah) as jumlah"))
+            ->join('produkjadi', 'produkjadi.kd_produk', '=', 'produkkeluar.kd_produk')
+            ->select('produkjadi.nm_produk', 'produkkeluar.kd_produk', DB::raw("sum(jumlah) as jumlah"))
             ->whereYear('tgl_keluar', date('Y'))
             ->groupBy('kd_produk', 'nm_produk')
             ->orderBy('jumlah', 'desc')
@@ -208,8 +208,8 @@ class DashboardController extends Controller
 
         // ambil 3 teratas dari id_lokasi di tabel pengirimanProduk yang paling banyak jumlah rotinya di tabel produkKeluar dihubungkan dengan id_produkKeluar
         $lokasiTerbanyak = pengirimanProduk::select(DB::raw('sum(jumlah) as jumlah'), DB::raw('id_lokasi'), DB::raw('tempat'))
-            ->join('lokasiPengiriman', 'pengirimanProduk.id_lokasi', '=', 'lokasiPengiriman.id_lokasiPengiriman')
-            ->join('produkKeluar', 'produkKeluar.id_produkKeluar', '=', 'pengirimanProduk.id_produkKeluar')
+            ->join('lokasipengiriman', 'pengirimanproduk.id_lokasi', '=', 'lokasipengiriman.id_lokasiPengiriman')
+            ->join('produkkeluar', 'produkkeluar.id_produkKeluar', '=', 'pengirimanproduk.id_produkKeluar')
             ->groupBy('id_lokasi', 'tempat')
             ->orderBy('jumlah', 'desc')
             ->take(3)
@@ -220,9 +220,9 @@ class DashboardController extends Controller
 
 
         // ambil sopir teratas berdasarkan berapa kali mengirimkan produk di tabel pengirimanProduk
-        $sopirTerbanyak = Sopir::join('pengirimanProduk', 'sopir.kd_sopir', '=', 'pengirimanProduk.kd_sopir')
-            ->join('produkKeluar', 'produkKeluar.id_produkKeluar', '=', 'pengirimanProduk.id_produkKeluar')
-            ->select('sopir.nm_sopir', 'sopir.kd_sopir', 'sopir.foto', DB::raw('count(pengirimanProduk.kd_sopir) as jumlah'), DB::raw('sum(produkKeluar.jumlah) as jumlah_produk'))
+        $sopirTerbanyak = Sopir::join('pengirimanproduk', 'sopir.kd_sopir', '=', 'pengirimanproduk.kd_sopir')
+            ->join('produkkeluar', 'produkkeluar.id_produkKeluar', '=', 'pengirimanproduk.id_produkKeluar')
+            ->select('sopir.nm_sopir', 'sopir.kd_sopir', 'sopir.foto', DB::raw('count(pengirimanproduk.kd_sopir) as jumlah'), DB::raw('sum(produkkeluar.jumlah) as jumlah_produk'))
             ->groupBy('sopir.nm_sopir', 'sopir.kd_sopir', 'sopir.foto')
             ->orderByRaw('jumlah_produk DESC, jumlah DESC')
             ->get();
@@ -277,17 +277,17 @@ class DashboardController extends Controller
         // count riwayatTransaksi dari tabel pos_order
         $countTransaksi = DB::table('pos_orders')->count();
         // count produkJadi yang harga_jual dan stoknya lebih dari 0
-        $countSiapJual = DB::table('produkJadi')->where('harga_jual', '>', 0)->where('stok', '>', 0)->count();
+        $countSiapJual = DB::table('produkjadi')->where('harga_jual', '>', 0)->where('stok', '>', 0)->count();
         // count produkJadi yang stoknya kurang dari sama dengan 0
-        $countStokHabis = DB::table('produkJadi')->where('stok', '<=', 0)->count();
+        $countStokHabis = DB::table('produkjadi')->where('stok', '<=', 0)->count();
 
         // UNTUK SOPIR
         // count pengirimanProduk dari tabel pengirimanProduk berdasarkan kd_sopir yang sedang login
-        $countPengirimanSopir = DB::table('pengirimanProduk')->where('kd_sopir', Auth::user()->id_karyawan)->count();
+        $countPengirimanSopir = DB::table('pengirimanproduk')->where('kd_sopir', Auth::user()->id_karyawan)->count();
         // count id_lokasi pengiriman dari tabel pengirimanProduk berdasarkan kd_sopir yang sedang login
-        $countLokasiSopir = DB::table('pengirimanProduk')->where('kd_sopir', Auth::user()->id_karyawan)->distinct()->count('id_lokasi');
+        $countLokasiSopir = DB::table('pengirimanproduk')->where('kd_sopir', Auth::user()->id_karyawan)->distinct()->count('id_lokasi');
         // sum jumlah produkKeluar dari tabel produkKeluar berdasarkan kd_sopir di pengirimanProduk yang sedang login
-        $sumPengiriman = DB::table('produkKeluar')->join('pengirimanProduk', 'produkKeluar.id_produkKeluar', '=', 'pengirimanProduk.id_produkKeluar')->where('pengirimanProduk.kd_sopir', Auth::user()->id_karyawan)->sum('produkKeluar.jumlah');
+        $sumPengiriman = DB::table('produkkeluar')->join('pengirimanproduk', 'produkkeluar.id_produkKeluar', '=', 'pengirimanproduk.id_produkKeluar')->where('pengirimanproduk.kd_sopir', Auth::user()->id_karyawan)->sum('produkkeluar.jumlah');
 
 
 

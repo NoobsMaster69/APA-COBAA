@@ -218,7 +218,7 @@ class KaryawanController extends Controller
             ->select('karyawan.*', 'jabatan.nm_jabatan')
             ->where('id_karyawan', $karyawan->id_karyawan)->first();
 
-        return view('pages.karyawan.detail', compact('karyawan'));
+        return view('pages.Karyawan.detail', compact('karyawan'));
     }
 
 

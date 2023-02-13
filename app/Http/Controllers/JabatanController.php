@@ -78,7 +78,7 @@ class JabatanController extends Controller
         ];
 
         $request->validate([
-            'nm_jabatan' => 'required|unique:Jabatan,nm_jabatan',
+            'nm_jabatan' => 'required|unique:jabatan,nm_jabatan',
         ], $messages);
 
         $jabatan->update($request->all());

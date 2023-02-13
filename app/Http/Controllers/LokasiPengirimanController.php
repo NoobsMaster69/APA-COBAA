@@ -56,7 +56,7 @@ class LokasiPengirimanController extends Controller
 
         // validasi data
         $request->validate([
-            'tempat' => 'required|unique:lokasiPengiriman,tempat',
+            'tempat' => 'required|unique:lokasipengiriman,tempat',
             'alamat' => 'required|min:3'
         ], $messages);
 
